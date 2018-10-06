@@ -1,6 +1,6 @@
 package wangfeixixi.cip;
 
-import wangfeixixi.com.thirdview.body.BodyBean;
+import wangfeixixi.com.lib.body.BodyBean;
 
 
 /**

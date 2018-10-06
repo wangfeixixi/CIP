@@ -6,10 +6,10 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import wangfeixixi.com.thirdview.background.BackgourndAllView;
-import wangfeixixi.com.thirdview.body.BodyBean;
-import wangfeixixi.com.utils.CrashHandler;
-import wangfeixixi.com.utils.ThreadUtils;
+import wangfeixixi.com.lib.background.BackgourndAllView;
+import wangfeixixi.com.lib.body.BodyBean;
+import wangfeixixi.com.lib.utils.CrashHandler;
+import wangfeixixi.com.lib.utils.ThreadUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CrashHandler.getInstance().init(this);
+       CrashHandler.getInstance().init(this);
         carView = findViewById(R.id.bg);
 
         findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
