@@ -59,7 +59,7 @@ public class BackgourndAllView extends RelativeLayout {
         int carWidth = carViewBean.carWidth;
         int carHeight = carViewBean.carLength;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(carWidth, carHeight);
-        params.setMargins(carX, carY, 0, 0);
+        params.setMargins(carViewBean.carX, carViewBean.carY, 0, 0);
         view.setLayoutParams(params);
         addView(view);
     }
@@ -68,8 +68,6 @@ public class BackgourndAllView extends RelativeLayout {
         for (int i = 0; i < beans.length; i++) {
             CarViewBean carViewBean = CarViewUtils.getCarView(mCtx, carX, carY, beans[i]);
             addBody(carViewBean);
-            
-
         }
     }
 
