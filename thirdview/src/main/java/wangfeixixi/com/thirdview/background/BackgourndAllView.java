@@ -2,6 +2,7 @@ package wangfeixixi.com.thirdview.background;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -9,6 +10,7 @@ import wangfeixixi.com.thirdview.body.BodyBean;
 import wangfeixixi.com.thirdview.car.CarView;
 import wangfeixixi.com.thirdview.car.CarViewBean;
 import wangfeixixi.com.thirdview.car.CarViewUtils;
+import wangfeixixi.com.utils.LogUtils;
 import wangfeixixi.com.utils.ScreenUtils;
 
 
@@ -62,12 +64,20 @@ public class BackgourndAllView extends RelativeLayout {
         params.setMargins(carViewBean.carX, carViewBean.carY, 0, 0);
         view.setLayoutParams(params);
         addView(view);
+
+        String log = "carWidth:" + carWidth + "  carHeight:" + carHeight + "  carViewBean.carX:" + carViewBean.carX + "  carViewBean.carY" + carViewBean.carY;
+        LogUtils.d(log);
     }
 
     public void updateBodys(BodyBean[] beans) {
+//        removeAllViews();
+//        addCar(getContext());
+        removeViews(1, getChildCount()-1);
+
         for (int i = 0; i < beans.length; i++) {
             CarViewBean carViewBean = CarViewUtils.getCarView(mCtx, carX, carY, beans[i]);
             addBody(carViewBean);
+
         }
     }
 

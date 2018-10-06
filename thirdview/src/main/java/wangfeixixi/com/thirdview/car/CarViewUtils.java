@@ -35,7 +35,6 @@ public class CarViewUtils {
 
         }
         carViewBean.carX = (int) (x + carX);
-        ;
 
         carViewBean.carWidth = bodyBean.width;
         carViewBean.carLength = bodyBean.length;
