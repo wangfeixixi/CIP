@@ -13,11 +13,11 @@
         android:background="#dddddd" />
 
     <Button
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="start" />
+        android:text="切换" />
 
     <Button
         android:id="@+id/btn_stop"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="stop" />
+        android:text="停止" />
 
     <Button
         android:id="@+id/btn_update"
@@ -33,6 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="update" />
+        android:text="更新" />
 
 </RelativeLayout>

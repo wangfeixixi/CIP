@@ -53,7 +53,7 @@ public class BackgourndAllView extends RelativeLayout {
         int x = ScreenUtils.getScreenWidth(context) - carScreenWidth;
         int y = ScreenUtils.getScreenHeight(context) - carScreenLength;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(carScreenWidth, carScreenLength);
-        carX =  x / 2;
+        carX = x / 2;
         carY = y * 2 / 3;
         params.setMargins(carX, carY, 0, 0);
         car.setLayoutParams(params);
@@ -73,9 +73,12 @@ public class BackgourndAllView extends RelativeLayout {
 //        LogUtils.d(log);
     }
 
+    /**
+     * 更新物体
+     *
+     * @param beans
+     */
     public void updateBodys(BodyBean[] beans) {
-//        removeAllViews();
-//        addCar(getContext());
         removeViews(1, getChildCount() - 1);
 
         for (int i = 0; i < beans.length; i++) {
@@ -85,13 +88,18 @@ public class BackgourndAllView extends RelativeLayout {
         }
     }
 
-    public void start() {
+    /**
+     * 停止更新
+     */
+    public void stop() {
+        removeViews(1, getChildCount() - 1);
 
     }
 
-    public void stop() {
-//        removeAllViews();
-        removeViews(1, getChildCount() - 1);
+    /**
+     * 切换角度
+     */
+    public void switchPoint() {
 
     }
 }

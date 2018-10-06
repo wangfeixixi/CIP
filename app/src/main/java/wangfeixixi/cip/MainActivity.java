@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         CrashHandler.getInstance().init(this);
         carView = findViewById(R.id.bg);
 
-        findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                carView.addBody();
+                carView.switchPoint();
             }
         });
         findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener() {

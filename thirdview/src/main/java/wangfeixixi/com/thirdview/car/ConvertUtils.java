@@ -5,6 +5,9 @@ import android.content.Context;
 
 import wangfeixixi.com.thirdview.body.BodyBean;
 
+/**
+ * 转换坐标类，将接收到的信息转换成屏幕坐标点
+ */
 public class ConvertUtils {
 
     /**
