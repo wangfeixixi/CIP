@@ -2,14 +2,13 @@ package wangfeixixi.com.thirdview.background;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import wangfeixixi.com.thirdview.body.BodyBean;
 import wangfeixixi.com.thirdview.car.CarView;
 import wangfeixixi.com.thirdview.car.CarViewBean;
-import wangfeixixi.com.thirdview.car.CarViewUtils;
+import wangfeixixi.com.thirdview.car.ConvertUtils;
 import wangfeixixi.com.utils.LogUtils;
 import wangfeixixi.com.utils.ScreenUtils;
 
@@ -35,20 +34,24 @@ public class BackgourndAllView extends RelativeLayout {
     }
 
     private void init(Context context) {
-        addCar(context);
+        addCar(context, 3, 4);
 
     }
 
-    private void addCar(Context context) {
+    /**
+     * @param context
+     * @param carWidth  车宽，单位米
+     * @param carLength 车长，单位米
+     */
+    public void addCar(Context context, int carWidth, int carLength) {
         View car = new CarView(context);
-        int carWidth = 80;
-        int carHeight = 160;
-        int width = ScreenUtils.getScreenWidth(context);
-        int height = ScreenUtils.getScreenHeight(context);
 
-        int x = width - carWidth;
-        int y = height - carHeight;
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(carWidth, carHeight);
+        int carScreenWidth = carWidth * ConvertUtils.scale;
+        int carScreenLength = carLength * ConvertUtils.scale;
+
+        int x = ScreenUtils.getScreenWidth(context) - carScreenWidth;
+        int y = ScreenUtils.getScreenHeight(context) - carScreenLength;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(carScreenWidth, carScreenLength);
         params.setMargins(x / 2, y * 2 / 3, 0, 0);
         car.setLayoutParams(params);
         addView(car);
@@ -72,10 +75,10 @@ public class BackgourndAllView extends RelativeLayout {
     public void updateBodys(BodyBean[] beans) {
 //        removeAllViews();
 //        addCar(getContext());
-        removeViews(1, getChildCount()-1);
+        removeViews(1, getChildCount() - 1);
 
         for (int i = 0; i < beans.length; i++) {
-            CarViewBean carViewBean = CarViewUtils.getCarView(mCtx, carX, carY, beans[i]);
+            CarViewBean carViewBean = ConvertUtils.getCarView(mCtx, carX, carY, beans[i]);
             addBody(carViewBean);
 
         }
@@ -87,7 +90,7 @@ public class BackgourndAllView extends RelativeLayout {
 
     public void stop() {
 //        removeAllViews();
-        removeViews(1, 1);
+        removeViews(1, getChildCount() - 1);
 
     }
 }

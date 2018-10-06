@@ -5,9 +5,12 @@ import android.content.Context;
 
 import wangfeixixi.com.thirdview.body.BodyBean;
 
-public class CarViewUtils {
+public class ConvertUtils {
 
-    public static int scale = 20;
+    /**
+     * 转化比例：1米scale个像素
+     */
+    public static int scale = 40;
 
     /**
      * 将获取的物体信息转换成屏幕坐标的区域
