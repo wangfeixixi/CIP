@@ -28,6 +28,6 @@ public class CarView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        setBackgroundColor(Color.parseColor("#888888"));
+        setBackgroundColor(Color.parseColor("#000000"));
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import wangfeixixi.com.thirdview.body.BodyBean;
+import wangfeixixi.com.thirdview.body.BodyView;
 import wangfeixixi.com.thirdview.car.CarView;
 import wangfeixixi.com.thirdview.car.CarViewBean;
 import wangfeixixi.com.thirdview.car.ConvertUtils;
@@ -52,15 +53,15 @@ public class BackgourndAllView extends RelativeLayout {
         int x = ScreenUtils.getScreenWidth(context) - carScreenWidth;
         int y = ScreenUtils.getScreenHeight(context) - carScreenLength;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(carScreenWidth, carScreenLength);
-        params.setMargins(x / 2, y * 2 / 3, 0, 0);
+        carX =  x / 2;
+        carY = y * 2 / 3;
+        params.setMargins(carX, carY, 0, 0);
         car.setLayoutParams(params);
         addView(car);
-        carX = (int) car.getX();
-        carY = (int) car.getY();
     }
 
     public void addBody(CarViewBean carViewBean) {
-        View view = new CarView(mCtx);
+        View view = new BodyView(mCtx);
         int carWidth = carViewBean.carWidth;
         int carHeight = carViewBean.carLength;
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(carWidth, carHeight);
@@ -68,8 +69,8 @@ public class BackgourndAllView extends RelativeLayout {
         view.setLayoutParams(params);
         addView(view);
 
-        String log = "carWidth:" + carWidth + "  carHeight:" + carHeight + "  carViewBean.carX:" + carViewBean.carX + "  carViewBean.carY" + carViewBean.carY;
-        LogUtils.d(log);
+//        String log = "carWidth:" + carWidth + "  carHeight:" + carHeight + "  carViewBean.carX:" + carViewBean.carX + "  carViewBean.carY" + carViewBean.carY + "  X" + carX + " Y" + carY;
+//        LogUtils.d(log);
     }
 
     public void updateBodys(BodyBean[] beans) {

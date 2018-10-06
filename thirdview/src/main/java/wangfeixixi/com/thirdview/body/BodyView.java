@@ -2,6 +2,7 @@ package wangfeixixi.com.thirdview.body;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -31,6 +32,7 @@ public class BodyView extends View {
         super.onDraw(canvas);
 
 
+        setBackgroundColor(Color.parseColor("#888888"));
     }
 
     @Override

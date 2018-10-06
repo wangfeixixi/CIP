@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     update();
                 }
-            }, 300);
+            }, 30);
         } else {
             ThreadUtils.stop();
         }
