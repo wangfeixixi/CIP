@@ -12,6 +12,7 @@ import wangfeixixi.com.lib.utils.CrashHandler;
 import wangfeixixi.com.lib.utils.ThreadUtils;
 
 public class MainActivity extends AppCompatActivity {
+    private TestView testView;
 
 //    private BackgourndAllView carView;
 
@@ -20,29 +21,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       CrashHandler.getInstance().init(this);
+//       CrashHandler.getInstance().init(this);
 //        carView = findViewById(R.id.bg);
 //
-//        findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                carView.switchPoint();
-//            }
-//        });
-//        findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                isUpdating = false;
-//                carView.stop();
-//            }
-//        });
-//        findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                isUpdating = true;
-//                update();
-//            }
-//        });
+        findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchPoint();
+            }
+        });
+        findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stop();
+                isUpdating = false;
+            }
+        });
+        findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isUpdating = true;
+                update();
+            }
+        });
+
+        testView = findViewById(R.id.testView);
+    }
+
+    private void stop() {
+        testView.stop();
+//        carView.stop();
+    }
+
+    private void switchPoint() {
+        testView.switchPoint();
+//        carView.switchPoint();
     }
 
     public boolean isUpdating = false;
@@ -56,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
             BodyBean[] beans = list.toArray(new BodyBean[list.size()]);
 //            carView.updateBodys(beans);
+            testView.updateBodys(beans);
 
             ThreadUtils.runOnUiThreadDelayed(new Runnable() {
                 @Override

@@ -8,37 +8,91 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import wangfeixixi.com.lib.body.BodyBean;
+import wangfeixixi.com.lib.car.CarViewBean;
+import wangfeixixi.com.lib.car.ConvertUtils;
+
 public class TestView extends View {
+
+    private Paint mPaintBody;
+    private Paint mPaintCar;
+    private Context mCtx;
+    private int mCarX;//车辆x坐标
+    private int mCarY;//车辆y坐标
+    private int mCarWidth = 3;//车宽
+    private int mCarLength = 5;//车长
+
     public TestView(Context context) {
-        super(context);
+        this(context, null, 0);
     }
 
     public TestView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TestView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initPant(context);
+    }
+
+    private void initPant(Context context) {
+        mCtx = context;
+        //阻挡物
+        mPaintBody = new Paint();
+        mPaintBody.setAntiAlias(true);
+        mPaintBody.setStyle(Paint.Style.STROKE);
+        mPaintBody.setStrokeWidth(5);
+        mPaintBody.setColor(Color.RED);
+
+        //自身车
+
+        mPaintCar = new Paint();
+        mPaintCar.setAntiAlias(true);
+        mPaintCar.setStyle(Paint.Style.STROKE);
+        mPaintCar.setStrokeWidth(5);
+        mPaintCar.setColor(Color.BLUE);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+
+        //自身车坐标
+        mCarX = width / 2;
+        mCarY = height / 3 * 2;
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
+        canvas.drawRect((mCarX - mCarWidth / 2 * ConvertUtils.scale), (mCarY - mCarLength / 2 * ConvertUtils.scale),
+                (mCarX + mCarWidth / 2 * ConvertUtils.scale), (mCarY + mCarLength * 2 * ConvertUtils.scale), mPaintBody);
+        canvas.save();
 
-        float[] pts = {50, 100, 100, 200, 200, 300, 300, 400};
-        paint.setColor(Color.RED);
-        canvas.drawLines(pts, paint);
+        if (mBeans != null) {
+            for (int i = 0; i < mBeans.length; i++) {
+                CarViewBean carViewBean = ConvertUtils.getCarView(mCtx, mCarX, mCarY, mBeans[i]);
+                canvas.drawRect(carViewBean.carX - carViewBean.carWidth, carViewBean.carY - carViewBean.carLength
+                        , carViewBean.carX, carViewBean.carY, mPaintCar);
+                canvas.save();
+            }
+        }
+    }
 
-        canvas.drawColor(Color.WHITE);
+    private BodyBean[] mBeans = null;
 
-        paint.setColor(Color.BLUE);
-        canvas.drawLines(pts, 1, 4, paint);//去掉第一个数50，取之后的4个数即100,100,200,200
+    public void updateBodys(BodyBean[] beans) {
+        mBeans = beans;
+        invalidate();
+    }
 
+    public void switchPoint() {
 
-        float[] rects = {};
-        canvas.drawRect(50, 50, 100, 100, paint);
+    }
+
+    public void stop() {
+
     }
 }
