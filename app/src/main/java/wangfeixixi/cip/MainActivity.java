@@ -13,7 +13,7 @@ import wangfeixixi.com.lib.utils.ThreadUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BackgourndAllView carView;
+//    private BackgourndAllView carView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,28 +21,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
        CrashHandler.getInstance().init(this);
-        carView = findViewById(R.id.bg);
-
-        findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                carView.switchPoint();
-            }
-        });
-        findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isUpdating = false;
-                carView.stop();
-            }
-        });
-        findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isUpdating = true;
-                update();
-            }
-        });
+//        carView = findViewById(R.id.bg);
+//
+//        findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                carView.switchPoint();
+//            }
+//        });
+//        findViewById(R.id.btn_stop).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                isUpdating = false;
+//                carView.stop();
+//            }
+//        });
+//        findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                isUpdating = true;
+//                update();
+//            }
+//        });
     }
 
     public boolean isUpdating = false;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 list.add(RandomBodyUtils.getRandowBody());
             }
             BodyBean[] beans = list.toArray(new BodyBean[list.size()]);
-            carView.updateBodys(beans);
+//            carView.updateBodys(beans);
 
             ThreadUtils.runOnUiThreadDelayed(new Runnable() {
                 @Override
