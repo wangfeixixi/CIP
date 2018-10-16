@@ -1,4 +1,4 @@
-package wangfeixixi.cip;
+package wangfeixixi.com.lib.first;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,7 +12,7 @@ import wangfeixixi.com.lib.body.BodyBean;
 import wangfeixixi.com.lib.car.CarViewBean;
 import wangfeixixi.com.lib.car.ConvertUtils;
 
-public class TestView extends View {
+public class FirstView extends View {
 
     private Paint mPaintBody;
     private Paint mPaintCar;
@@ -22,15 +22,15 @@ public class TestView extends View {
     private int mCarWidth = 3;//车宽
     private int mCarLength = 5;//车长
 
-    public TestView(Context context) {
+    public FirstView(Context context) {
         this(context, null, 0);
     }
 
-    public TestView(Context context, @Nullable AttributeSet attrs) {
+    public FirstView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TestView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public FirstView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initPant(context);
     }
@@ -40,16 +40,15 @@ public class TestView extends View {
         //阻挡物
         mPaintBody = new Paint();
         mPaintBody.setAntiAlias(true);
-        mPaintBody.setStyle(Paint.Style.STROKE);
-        mPaintBody.setStrokeWidth(5);
+        mPaintBody.setStyle(Paint.Style.FILL);
+//        mPaintBody.setStrokeWidth(5);
         mPaintBody.setColor(Color.RED);
 
         //自身车
-
         mPaintCar = new Paint();
         mPaintCar.setAntiAlias(true);
-        mPaintCar.setStyle(Paint.Style.STROKE);
-        mPaintCar.setStrokeWidth(5);
+        mPaintCar.setStyle(Paint.Style.FILL);
+//        mPaintCar.setStrokeWidth(5);
         mPaintCar.setColor(Color.BLUE);
     }
 
@@ -62,13 +61,12 @@ public class TestView extends View {
         //自身车坐标
         mCarX = width / 2;
         mCarY = height / 3 * 2;
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawRect((mCarX - mCarWidth / 2 * ConvertUtils.scale), (mCarY - mCarLength / 2 * ConvertUtils.scale),
-                (mCarX + mCarWidth / 2 * ConvertUtils.scale), (mCarY + mCarLength * 2 * ConvertUtils.scale), mPaintBody);
+        canvas.drawRect(mCarX - mCarWidth / 2 * ConvertUtils.scale, (mCarY - mCarLength / 2 * ConvertUtils.scale),
+                (mCarX + mCarWidth / 2 * ConvertUtils.scale), (mCarY + mCarLength / 2 * ConvertUtils.scale), mPaintBody);
         canvas.save();
 
         if (mBeans != null) {

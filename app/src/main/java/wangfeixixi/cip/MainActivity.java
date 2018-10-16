@@ -6,13 +6,12 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import wangfeixixi.com.lib.background.BackgourndAllView;
 import wangfeixixi.com.lib.body.BodyBean;
-import wangfeixixi.com.lib.utils.CrashHandler;
+import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
 
 public class MainActivity extends AppCompatActivity {
-    private TestView testView;
+    private FirstView testView;
 
 //    private BackgourndAllView carView;
 
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     update();
                 }
-            }, 30);
+            }, 10);
         } else {
             ThreadUtils.stop();
         }

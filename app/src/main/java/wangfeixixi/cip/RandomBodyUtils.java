@@ -12,8 +12,10 @@ public class RandomBodyUtils {
         BodyBean bodyBean = new BodyBean();
         bodyBean.angle = (int) (Math.random() * 360);
         bodyBean.distance = (int) (Math.random() * 10);
-        bodyBean.width = (int) (Math.random() * 3);
-        bodyBean.length = (int) (Math.random() * 10);
+//        bodyBean.width = (int) (Math.random() * 3);
+        bodyBean.width = 3;
+        bodyBean.length = 5;
+//        bodyBean.length = (int) (Math.random() * 9 + 1);
         if (bodyBean.width == 0) {
             bodyBean.width = 2;
         }

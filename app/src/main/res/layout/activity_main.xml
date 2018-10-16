@@ -11,7 +11,7 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" />-->
 
-    <wangfeixixi.cip.TestView
+    <wangfeixixi.com.lib.first.FirstView
         android:id="@+id/testView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
