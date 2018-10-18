@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import wangfeixixi.com.lib.body.BodyBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
+import wangfeixixi.com.lib.widget.http.BaseBean;
+import wangfeixixi.com.lib.widget.http.ShareObserver;
+import wangfeixixi.com.lib.widget.http.ShareObserverNew;
+import wangfeixixi.com.lib.widget.http.api.RetrofitManager;
+import wangfeixixi.com.lib.widget.http.api.ShareTransform;
+import wangfeixixi.com.lib.widget.http.bean.ContactBean;
 
 public class MainActivity extends AppCompatActivity {
     private FirstView testView;
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void update() {
         if (isUpdating) {
+            updateDatas();
             int rand = (int) (Math.random() * 10);
             ArrayList<BodyBean> list = new ArrayList<>();
             for (int i = 0; i < rand; i++) {
@@ -79,6 +86,21 @@ public class MainActivity extends AppCompatActivity {
         } else {
             ThreadUtils.stop();
         }
+    }
+
+    private void updateDatas() {
+        RetrofitManager.getInstance().getPostJson().queryOrderDetail("asfd").compose(ShareTransform.<BaseBean<ContactBean>>switchSchedulers())
+                .subscribe(new ShareObserver<ContactBean>() {
+                    @Override
+                    public void onOk(ContactBean result) {
+
+                    }
+
+                    @Override
+                    public void onNo(int code, String msg) {
+
+                    }
+                });
     }
 
 }
