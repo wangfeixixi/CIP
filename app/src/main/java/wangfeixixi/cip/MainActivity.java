@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.intellij.lang.annotations.Subst;
+
 import java.util.ArrayList;
 
 import wangfeixixi.com.lib.body.BodyBean;
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void update() {
         if (isUpdating) {
+            updateDatas();
             int rand = (int) (Math.random() * 10);
             ArrayList<BodyBean> list = new ArrayList<>();
             for (int i = 0; i < rand; i++) {
@@ -79,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             ThreadUtils.stop();
         }
+    }
+
+    private void updateDatas() {
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receviceData(){
+
     }
 
 }
