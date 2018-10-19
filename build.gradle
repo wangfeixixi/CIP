@@ -14,8 +14,8 @@ buildscript {
     ext.greenDaoVersion = "3.2.2"
     ext.fastJsonVersion = "1.1.67.android"
     ext.glideVersion = "4.5.0"
-//def androidEventBusVersion = "3.1.1"
     ext.leakCanaryVersion = "1.5.4"
+    ext.eventbus2Version = "3.1.1"
 
     ext.rxandroid2Version = "2.0.1"
     ext.rxjava2Version = "2.1.3"

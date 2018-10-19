@@ -49,6 +49,8 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding-design:${rxBinding2Version}"
     implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${rxBinding2Version}"
 
+//    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation "org.greenrobot:eventbus:${eventbus2Version}"
 
     implementation "com.alibaba:fastjson:${fastJsonVersion}"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

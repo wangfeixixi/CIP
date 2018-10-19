@@ -20,6 +20,6 @@ object OpenUrl {
         val jsonObject = JSONObject()
         jsonObject.put("carId", carId)
         val requestBody = RequestBody.create(MediaType.parse(ApiConstant.MediaType), jsonObject.toString())
-        return RetrofitManager.getInstance().postJson.queryOrderDetail(requestBody).compose(ShareTransform.switchSchedulers())
+        return RetrofitManager.getInstance().postJson.pullData(requestBody).compose(ShareTransform.switchSchedulers())
     }
 }

@@ -4,17 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.intellij.lang.annotations.Subst;
+
 import java.util.ArrayList;
 
 import wangfeixixi.com.lib.body.BodyBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
-import wangfeixixi.com.lib.widget.http.BaseBean;
-import wangfeixixi.com.lib.widget.http.ShareObserver;
-import wangfeixixi.com.lib.widget.http.ShareObserverNew;
-import wangfeixixi.com.lib.widget.http.api.RetrofitManager;
-import wangfeixixi.com.lib.widget.http.api.ShareTransform;
-import wangfeixixi.com.lib.widget.http.bean.ContactBean;
 
 public class MainActivity extends AppCompatActivity {
     private FirstView testView;
@@ -89,18 +87,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateDatas() {
-        RetrofitManager.getInstance().getPostJson().queryOrderDetail("asfd").compose(ShareTransform.<BaseBean<ContactBean>>switchSchedulers())
-                .subscribe(new ShareObserver<ContactBean>() {
-                    @Override
-                    public void onOk(ContactBean result) {
 
-                    }
+    }
 
-                    @Override
-                    public void onNo(int code, String msg) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receviceData(){
 
-                    }
-                });
     }
 
 }

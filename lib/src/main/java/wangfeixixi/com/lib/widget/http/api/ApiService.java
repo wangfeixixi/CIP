@@ -18,8 +18,8 @@ public interface ApiService {
 
     //1、用户订单详情查询（待完善）
     @FormUrlEncoded
-    @POST(prefixPath + "/api/order/csc/v1/queryOrderDetail.do")
-    Observable<BaseBean<ContactBean>> queryOrderDetail();
+    @POST(prefixPath + "/api/order/csc/v1/pullData.do")
+    Observable<BaseBean<ContactBean>> pullData();
 
-    Observable<BaseBean<ContactBean>> queryOrderDetail(RequestBody requestBody);
+    Observable<BaseBean<ContactBean>> pullData(RequestBody requestBody);
 }

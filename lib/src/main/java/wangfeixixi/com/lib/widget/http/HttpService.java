@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import org.greenrobot.eventbus.EventBus;
+
 import wangfeixixi.com.lib.widget.http.api.RetrofitManager;
 import wangfeixixi.com.lib.widget.http.bean.ContactBean;
 
@@ -22,10 +24,10 @@ public class HttpService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        RetrofitManager.getInstance().getApiService().queryOrderDetail().subscribe(new ShareObserverNew<ContactBean>() {
+        RetrofitManager.getInstance().getApiService().pullData().subscribe(new ShareObserverNew<ContactBean>() {
             @Override
             public void onOk(ContactBean result) {
-
+                EventBus.getDefault().post("");
             }
 
             @Override
