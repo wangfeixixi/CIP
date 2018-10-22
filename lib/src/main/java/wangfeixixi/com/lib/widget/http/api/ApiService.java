@@ -21,5 +21,5 @@ public interface ApiService {
     @POST(prefixPath + "/api/order/csc/v1/pullData.do")
     Observable<BaseBean<ContactBean>> pullData();
 
-    Observable<BaseBean<ContactBean>> pullData(RequestBody requestBody);
+//    Observable<BaseBean<ContactBean>> pullData(RequestBody requestBody);
 }

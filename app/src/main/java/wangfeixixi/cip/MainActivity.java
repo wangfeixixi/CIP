@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import wangfeixixi.com.lib.body.BodyBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
+import wangfeixixi.com.lib.widget.http.OpenUrl;
+import wangfeixixi.com.lib.widget.http.ShareObserverNew;
+import wangfeixixi.com.lib.widget.http.bean.ContactBean;
 
 public class MainActivity extends AppCompatActivity {
     private FirstView testView;
@@ -57,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void switchPoint() {
-        testView.switchPoint();
+//        testView.switchPoint();
 //        carView.switchPoint();
+
+
     }
 
     public boolean isUpdating = false;

@@ -16,10 +16,10 @@ object OpenUrl {
 //        val requestBody = RequestBody.create(MediaType.parse(ApiConstant.MediaType), jsonObject.toString())
 //        return RetrofitManager.getInstance().postJson.deleteCarportCar(requestBody).compose(ShareTransform.switchSchedulers())
 //    }
-    fun add(carId: String?): Observable<BaseBean<ContactBean>>? {
-        val jsonObject = JSONObject()
-        jsonObject.put("carId", carId)
-        val requestBody = RequestBody.create(MediaType.parse(ApiConstant.MediaType), jsonObject.toString())
-        return RetrofitManager.getInstance().postJson.pullData(requestBody).compose(ShareTransform.switchSchedulers())
+    fun getData(): Observable<BaseBean<ContactBean>>? {
+//        val jsonObject = JSONObject()
+//        jsonObject.put("carId", carId)
+//        val requestBody = RequestBody.create(MediaType.parse(ApiConstant.MediaType), jsonObject.toString())
+        return RetrofitManager.getInstance().postJson.pullData().compose(ShareTransform.switchSchedulers())
     }
 }
