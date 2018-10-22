@@ -25,41 +25,41 @@ public class HttpService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        RetrofitManager.getInstance().getApiService().pullData().subscribe(new ShareObserverNew<ContactBean>() {
-            @Override
-            public void onOk(ContactBean result) {
-                EventBus.getDefault().post("");
-            }
-
-            @Override
-            public void onNo(int code, String msg) {
-
-            }
-        });
-        RetrofitManager.getInstance().getApiService().pullData().compose(ShareTransform.<BaseBean<ContactBean>>switchSchedulers())
-                .subscribe(new ShareObserverNew<ContactBean>() {
-            @Override
-            public void onOk(ContactBean result) {
-
-            }
-
-            @Override
-            public void onNo(int code, String msg) {
-
-            }
-        });
-        RetrofitManager.getInstance().getApiService().pullData().compose(ShareTransform.<BaseBean<ContactBean>>switchSchedulers())
-                .subscribe(new ShareObserverNew<ContactBean>() {
-            @Override
-            public void onOk(ContactBean result) {
-
-            }
-
-            @Override
-            public void onNo(int code, String msg) {
-
-            }
-        });
+//        RetrofitManager.getInstance().getApiService().pullData().subscribe(new ShareObserverNew<ContactBean>() {
+//            @Override
+//            public void onOk(ContactBean result) {
+//                EventBus.getDefault().post("");
+//            }
+//
+//            @Override
+//            public void onNo(int code, String msg) {
+//
+//            }
+//        });
+//        RetrofitManager.getInstance().getApiService().pullData().compose(ShareTransform.<BaseBean<ContactBean>>switchSchedulers())
+//                .subscribe(new ShareObserverNew<ContactBean>() {
+//            @Override
+//            public void onOk(ContactBean result) {
+//
+//            }
+//
+//            @Override
+//            public void onNo(int code, String msg) {
+//
+//            }
+//        });
+//        RetrofitManager.getInstance().getApiService().pullData().compose(ShareTransform.<BaseBean<ContactBean>>switchSchedulers())
+//                .subscribe(new ShareObserverNew<ContactBean>() {
+//            @Override
+//            public void onOk(ContactBean result) {
+//
+//            }
+//
+//            @Override
+//            public void onNo(int code, String msg) {
+//
+//            }
+//        });
 
         return super.onStartCommand(intent, flags, startId);
     }
