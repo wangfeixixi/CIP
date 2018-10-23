@@ -1,8 +1,6 @@
 package wangfeixixi.com.lib.widget.http.api;
 
 
-import org.jetbrains.annotations.Nullable;
-
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
@@ -16,10 +14,10 @@ public interface ApiService {
 
     public static final String userArgent = ApiConstant.BASE_URL + prefixPath + "/html/userArgent.html";
 
-    //1、用户订单详情查询（待完善）
-    @FormUrlEncoded
-    @POST(prefixPath + "/api/order/csc/v1/pullData.do")
-    Observable<BaseBean<ContactBean>> pullData();
+    @POST(prefixPath + "/add/")
+    Observable<BaseBean<ContactBean>> add(@Field("double") Double a, @Field("double") Double b);
 
-    Observable<BaseBean<ContactBean>> pullData(RequestBody requestBody);
+    @POST(prefixPath + "/add/")
+    @FormUrlEncoded
+    Observable<BaseBean<ContactBean>> add2(RequestBody requestBody);
 }

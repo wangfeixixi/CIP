@@ -20,33 +20,28 @@ public class ShareTransform {
         };
     }
 
-//    /**
-//     * 轮询
-//     *
-//     * @param delayTime 延迟时间
-//     * @param count     轮询次数
-//     * @param <T>
-//     * @return
-//     */
-//    public static <T> ObservableTransformer<T, T> switchRetreatSchedulers(final long delayTime, final long count) {
+    /**
+     * 轮询
+     *
+     * @return
+     */
+//    public static <T> ObservableTransformer<T, T> switchRetreatSchedulers() {
 //        final Disposable[] disposable = new Disposable[1];//成员变量记录
 //        return new ObservableTransformer<T, T>() {
 //            @Override
 //            public ObservableSource<T> apply(Observable<T> upstream) {
-//                upstream.interval(delayTime, count, TimeUnit.MILLISECONDS)
+//                upstream.interval(50, TimeUnit.MILLISECONDS)
 //                        .observeOn(Schedulers.io())//处理的线程
 //                        .subscribeOn(AndroidSchedulers.mainThread())//观察的线程
-//                        .subscribe(new Observer<Long>() {
+//                        .subscribe(new Observer<ContactBean>() {
 //                            @Override
 //                            public void onSubscribe(Disposable d) {
-//                                disposable[0] = d;
+//
 //                            }
 //
 //                            @Override
-//                            public void onNext(Long aLong) {
-//                                //dddd zhuxiancheng
-//                                //aLong 0 ----12345
-//                                // //
+//                            public void onNext(ContactBean contactBean) {
+//
 //                            }
 //
 //                            @Override
