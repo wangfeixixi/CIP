@@ -1,13 +1,17 @@
 package wangfeixixi.com.lib.first;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import wangfeixixi.com.lib.R;
 import wangfeixixi.com.lib.body.BodyBean;
 import wangfeixixi.com.lib.car.CarViewBean;
 import wangfeixixi.com.lib.car.ConvertUtils;
@@ -65,18 +69,31 @@ public class FirstView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawRect(mCarX - mCarWidth / 2 * ConvertUtils.scale, (mCarY - mCarLength / 2 * ConvertUtils.scale),
-                (mCarX + mCarWidth / 2 * ConvertUtils.scale), (mCarY + mCarLength / 2 * ConvertUtils.scale), mPaintBody);
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
+
+
+        //自身车
+        Rect rectSrc = new Rect(0, 0, bmp.getWidth(), bmp.getHeight());
+        Rect rect = new Rect(mCarX - mCarWidth / 2 * ConvertUtils.scale, (mCarY - mCarLength / 2 * ConvertUtils.scale),
+                (mCarX + mCarWidth / 2 * ConvertUtils.scale), (mCarY + mCarLength / 2 * ConvertUtils.scale));
+
+        canvas.drawBitmap(bmp, rectSrc, rect, mPaintBody);
+
+//        canvas.drawRect();
         canvas.save();
 
         if (mBeans != null) {
             for (int i = 0; i < mBeans.length; i++) {
                 CarViewBean carViewBean = ConvertUtils.getCarView(mCtx, mCarX, mCarY, mBeans[i]);
-                canvas.drawRect(carViewBean.carX - carViewBean.carWidth, carViewBean.carY - carViewBean.carLength
-                        , carViewBean.carX, carViewBean.carY, mPaintCar);
+
+                rect = new Rect(carViewBean.carX - carViewBean.carWidth, carViewBean.carY - carViewBean.carLength
+                        , carViewBean.carX, carViewBean.carY);
+
+                canvas.drawBitmap(bmp, rectSrc, rect, mPaintBody);
                 canvas.save();
             }
         }
+
     }
 
     private BodyBean[] mBeans = null;

@@ -78,32 +78,32 @@ public class MainActivity extends BaseActivity {
 //        });
 
 
-        String url = "http://10.106.60.207:9999/add/";
-//        MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
-        OkHttpClient okHttpClient = new OkHttpClient();
-
-        RequestBody requestBody = new FormBody.Builder()
-                .add("double", "1.1")
-                .add("double", "1.1")
-                .add("double", "1.1")
-                .build();
-        final Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("aaa", "onFailure: ");
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("aaa", "onResponse: " + response.body().string());
-            }
-        });
+//        String url = "http://10.106.60.207:9999/add/";
+////        MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("double", "1.1")
+//                .add("double", "1.1")
+//                .add("double", "1.1")
+//                .build();
+//        final Request request = new Request.Builder()
+//                .url(url)
+//                .post(requestBody)
+//                .build();
+//        Call call = okHttpClient.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Log.d("aaa", "onFailure: ");
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                Log.d("aaa", "onResponse: " + response.body().string());
+//            }
+//        });
 
     }
 
