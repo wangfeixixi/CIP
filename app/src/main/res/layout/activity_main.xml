@@ -5,23 +5,57 @@
     android:layout_height="match_parent"
     tools:context="wangfeixixi.cip.MainActivity">
 
-
-    <!--<wangfeixixi.com.lib.background.BackgourndAllView-->
-        <!--android:id="@+id/bg"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-
     <wangfeixixi.com.lib.first.FirstView
         android:id="@+id/testView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前道路限速 40km/h"
+            android:textColor="#dddddd" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前车速 40km/h"
+            android:textColor="#dddddd" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预警信息"
+            android:textColor="#dddddd" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请注意安全距离"
+            android:textColor="#dddddd" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="切换" />
+        android:layout_alignParentBottom="true" />
 
     <Button
         android:id="@+id/btn_stop"
@@ -37,6 +71,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="更新" />
+        android:text="行驶" />
 
 </RelativeLayout>

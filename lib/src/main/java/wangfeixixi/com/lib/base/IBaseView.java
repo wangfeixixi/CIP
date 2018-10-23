@@ -1,9 +1,9 @@
 package wangfeixixi.com.lib.base;
 
-import wangfeixixi.com.lib.body.BodyBean;
+import wangfeixixi.com.lib.body.CarBean;
 
 public interface IBaseView {
-    public void updateBodys(BodyBean[] beans);
+    public void updateBodys(CarBean[] beans);
 
     public void switchPoint();
 

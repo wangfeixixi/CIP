@@ -1,28 +1,14 @@
 package wangfeixixi.cip;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import wangfeixixi.com.lib.base.BaseActivity;
-import wangfeixixi.com.lib.body.BodyBean;
+import wangfeixixi.com.lib.body.CarBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
-import wangfeixixi.com.lib.widget.http.OpenUrl;
-import wangfeixixi.com.lib.widget.http.ShareObserverNew;
-import wangfeixixi.com.lib.widget.http.bean.ContactBean;
 
 public class MainActivity extends BaseActivity {
     private FirstView testView;
@@ -111,12 +97,12 @@ public class MainActivity extends BaseActivity {
 
     public void update() {
         if (isUpdating) {
-            int rand = (int) (Math.random() * 10);
-            ArrayList<BodyBean> list = new ArrayList<>();
+            int rand = (int) (Math.random() * 3);
+            ArrayList<CarBean> list = new ArrayList<>();
             for (int i = 0; i < rand; i++) {
                 list.add(RandomBodyUtils.getRandowBody());
             }
-            BodyBean[] beans = list.toArray(new BodyBean[list.size()]);
+            CarBean[] beans = list.toArray(new CarBean[list.size()]);
 //            carView.updateBodys(beans);
             testView.updateBodys(beans);
 
