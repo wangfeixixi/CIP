@@ -14,19 +14,21 @@ public class HttpService extends Service {
         return null;
     }
 
+    private boolean isStart = true;
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        System.out.println("------------------------------------------------------------");
         new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
-                    while (true) {
-                        Thread.sleep(10);
-//                        HttpUtils.postSoapTest();
-
+                    while (isStart) {
+                        Thread.sleep(1000);
+                        System.out.println("------------------------------------------------------------");
+                        HttpUtils.testNew();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -43,6 +45,7 @@ public class HttpService extends Service {
 
     @Override
     public void onDestroy() {
+        isStart = false;
         super.onDestroy();
     }
 }

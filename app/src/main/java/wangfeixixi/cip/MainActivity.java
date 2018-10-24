@@ -1,23 +1,33 @@
 package wangfeixixi.cip;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import wangfeixixi.com.lib.base.BaseActivity;
 import wangfeixixi.com.lib.body.CarBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
 import wangfeixixi.com.soaplib.HttpUtils;
+import wangfeixixi.com.soaplib.OnSoapCallBack;
+import wangfeixixi.com.soaplib.beans.BaseSoapBean;
+import wangfeixixi.com.soaplib.beans.FirstXmlResBean;
 
 public class MainActivity extends BaseActivity {
     private FirstView testView;
+    private TextView tv_speed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_speed = findViewById(R.id.tv_speed);
+
 
         findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,14 +56,57 @@ public class MainActivity extends BaseActivity {
     private void stop() {
         testView.stop();
 //        carView.stop();
+
     }
 
     private void switchPoint() {
 //        testView.switchPoint();
 //        carView.switchPoint();
-//        HttpUtils.test(this);
-        HttpUtils.testNew(this);
+        startService(new Intent(this, HttpService.class));
+
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        i++;
+                        HashMap<String, Integer> params = new HashMap<>();
+                        params.put("i", 1);
+                        final long startTime = System.currentTimeMillis();
+                        HttpUtils.postSoapTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
+                            @Override
+                            public void onOk(BaseSoapBean response) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onNo(Exception e) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
+                                    }
+                                });
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
+
+    public static int i = 0;
+
+    public static String tag = "aaaaaaaaaaaaaaaaaaaaaaaaa";
 
     public boolean isUpdating = false;
 

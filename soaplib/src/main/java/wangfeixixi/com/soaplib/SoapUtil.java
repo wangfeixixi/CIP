@@ -66,11 +66,12 @@ public class SoapUtil {
 
     //***************************尝试******************88
 
-    public static String wsdl = "http://10.106.60.207:9999/api?wsdl";
-    public static String url = "http://10.106.60.207:9999/getID";
+//    public static String wsdl = "http://10.106.60.207:9999/api?wsdl";
+//    public static String url = "http://10.106.60.207:9999/getID";
 
     public static String URL_My = "http://10.106.60.207:9999/";
-    public static String mNameSpace_My = "http://schemas.xmlsoap.org/soap/encoding/";
+//    public static String URL_My = "http://192.168.43.166:9999/";
+//    public static String mNameSpace_My = "http://schemas.xmlsoap.org/soap/encoding/";
     public static int mSOAPVersion_My = SoapEnvelope.VER11;
 
     /**

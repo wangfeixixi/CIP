@@ -93,14 +93,25 @@ public class HttpUtils {
         });
     }
 
+    public static int i = 0;
+
+    public static String tag = "aaaaaaaaaaaaaaaaaaaaaaaaa";
+
     //**************************尝试******************************8
-    public static void testNew(Context context) {
+    public static void testNew() {
+        i++;
         HashMap<String, Integer> params = new HashMap<>();
         params.put("i", 1);
+
+        final long startTime = System.currentTimeMillis();
+
+        Log.d(tag, i + "开始次数----------");
         postSoapTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
             @Override
             public void onOk(BaseSoapBean response) {
-                Log.d("kkkk",response.toString());
+                long endTime = System.currentTimeMillis();
+                Log.d(tag, response.toString());
+                Log.d(tag, i + "结束次数----------" + (endTime - startTime));
 
 //                FirstXmlResBean xmlBean = (FirstXmlResBean) response;
 //                LogUtils.i(ThreadUtils.isMainThread() + "::" + xmlBean.getDATAPACKET().getROWDATA().getROW().get(0).getDetpname());
@@ -108,7 +119,10 @@ public class HttpUtils {
 
             @Override
             public void onNo(Exception e) {
-                LogUtils.i(e.getMessage());
+                long endTime = System.currentTimeMillis();
+                Log.d(tag, i + "结束次数" + (endTime - startTime) + e.getMessage());
+
+//                LogUtils.i(e.getMessage());
             }
         });
     }
