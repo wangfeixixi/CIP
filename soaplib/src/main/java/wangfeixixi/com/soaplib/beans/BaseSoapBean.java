@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib;
+package wangfeixixi.com.soaplib.beans;
 
 /**
  * 作者：guoyzh
@@ -6,6 +6,6 @@ package wangfeixixi.com.soaplib;
  * 功能：所有用于解析的soapBean继承这个bean
  */
 
-public class BaseSoapResBean {
+public class BaseSoapBean {
 
 }

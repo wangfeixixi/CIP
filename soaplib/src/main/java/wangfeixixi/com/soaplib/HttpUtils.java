@@ -2,6 +2,7 @@ package wangfeixixi.com.soaplib;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
@@ -12,6 +13,8 @@ import org.ksoap2.SoapEnvelope;
 import java.util.HashMap;
 import java.util.Map;
 
+import wangfeixixi.com.soaplib.beans.BaseSoapBean;
+import wangfeixixi.com.soaplib.beans.FirstXmlResBean;
 import wangfeixixi.com.soaplib.network.Callback;
 import wangfeixixi.com.soaplib.provide.HgEncrypKey;
 import wangfeixixi.com.soaplib.tool.SoapEnvelopeUtil;
@@ -31,7 +34,7 @@ public class HttpUtils {
      * @param params
      * @param callBack
      */
-    public static void postSoap(final Context context, String methodName, Map<String, String> params, final Class<? extends BaseSoapResBean> clazz, final OnSoapResponse callBack) {
+    public static void postSoap(final Context context, String methodName, Map<String, String> params, final Class<? extends BaseSoapBean> clazz, final OnSoapCallBack callBack) {
         //添加请求参数
         Map<String, Object> reqBody = new HashMap<>();
         reqBody.putAll(params);
@@ -47,9 +50,9 @@ public class HttpUtils {
                     @Override
                     public void run() {
                         String jsonStr = XmlParser.xml2json(response);
-                        BaseSoapResBean resBean = GsonUtils.fromJson(jsonStr, clazz);
+                        BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, clazz);
                         if (!ObjectUtils.isEmpty(resBean)) {
-                            callBack.onSuccess(resBean);
+                            callBack.onOk(resBean);
                         }
                     }
                 });
@@ -60,7 +63,7 @@ public class HttpUtils {
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onFail(failMsg);
+                        callBack.onNo(failMsg);
                     }
                 });
             }
@@ -76,16 +79,16 @@ public class HttpUtils {
         HashMap<String, String> params = new HashMap<>();
         params.put("aCmdText", aCmdText);
         params.put("aCheckCode", aCheckCode);
-        postSoap(context, "getRecordSet", params, FirstXmlResBean.class, new OnSoapResponse() {
+        postSoap(context, "getRecordSet", params, FirstXmlResBean.class, new OnSoapCallBack() {
             @Override
-            public void onSuccess(BaseSoapResBean response) {
+            public void onOk(BaseSoapBean response) {
                 FirstXmlResBean xmlBean = (FirstXmlResBean) response;
                 LogUtils.i(ThreadUtils.isMainThread() + "::" + xmlBean.getDATAPACKET().getROWDATA().getROW().get(0).getDetpname());
             }
 
             @Override
-            public void onFail(Exception failMsg) {
-                LogUtils.i(failMsg.getMessage());
+            public void onNo(Exception e) {
+                LogUtils.i(e.getMessage());
             }
         });
     }
@@ -94,55 +97,61 @@ public class HttpUtils {
     public static void testNew(Context context) {
         HashMap<String, Integer> params = new HashMap<>();
         params.put("i", 1);
-        postSoapTest(context, "getID", params, FirstXmlResBean.class, new OnSoapResponse() {
+        postSoapTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
             @Override
-            public void onSuccess(BaseSoapResBean response) {
-                FirstXmlResBean xmlBean = (FirstXmlResBean) response;
-                LogUtils.i(ThreadUtils.isMainThread() + "::" + xmlBean.getDATAPACKET().getROWDATA().getROW().get(0).getDetpname());
+            public void onOk(BaseSoapBean response) {
+                Log.d("kkkk",response.toString());
+
+//                FirstXmlResBean xmlBean = (FirstXmlResBean) response;
+//                LogUtils.i(ThreadUtils.isMainThread() + "::" + xmlBean.getDATAPACKET().getROWDATA().getROW().get(0).getDetpname());
             }
 
             @Override
-            public void onFail(Exception e) {
+            public void onNo(Exception e) {
                 LogUtils.i(e.getMessage());
             }
         });
     }
 
 
-    public static void postSoapTest(final Context context, String methodName, Map<String, Integer> params, final Class<? extends BaseSoapResBean> clazz, final OnSoapResponse callBack) {
+    public static void postSoapTest(String methodName, Map<String, Integer> params, final Class<? extends BaseSoapBean> clazz, final OnSoapCallBack callBack) {
         //添加请求参数
         Map<String, Object> reqBody = new HashMap<>();
         reqBody.putAll(params);
         //获取网络请求工具类实例
         SoapUtil.getInstance().getID(methodName, new Callback() {
             // 将请求成功的数据返回到主线程进行数据更新
-            Handler mainHandler = new Handler(context.getMainLooper());
+//            Handler mainHandler = new Handler(context.getMainLooper());
 
             @Override
             public void onResponse(SoapEnvelope soapEnvelope) {
                 final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
-
-
 //                mainHandler.post(new Runnable() {
 //                    @Override
 //                    public void run() {
 //                        String jsonStr = XmlParser.xml2json(response);
-//                        BaseSoapResBean resBean = GsonUtils.fromJson(jsonStr, clazz);
+//                        BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, clazz);
 //                        if (!ObjectUtils.isEmpty(resBean)) {
-//                            callBack.onSuccess(resBean);
+//                            callBack.onOk(resBean);
 //                        }
 //                    }
 //                });
+                String jsonStr = XmlParser.xml2json(response);
+                BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, clazz);
+                if (!ObjectUtils.isEmpty(resBean)) {
+                    callBack.onOk(resBean);
+                }
             }
 
             @Override
             public void onFailure(final Exception failMsg) {
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onFail(failMsg);
-                    }
-                });
+//                mainHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        callBack.onNo(failMsg);
+//                    }
+//                });
+                callBack.onNo(failMsg);
             }
         }, reqBody);
     }
