@@ -1,1 +1,1 @@
-include ':app', ':lib'//, ':Doctor', ':baselibrary'
+include ':app', ':lib', ':soaplib'

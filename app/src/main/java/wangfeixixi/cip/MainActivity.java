@@ -9,6 +9,7 @@ import wangfeixixi.com.lib.base.BaseActivity;
 import wangfeixixi.com.lib.body.CarBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
+import wangfeixixi.com.soaplib.soaputil.HttpUtils;
 
 public class MainActivity extends BaseActivity {
     private FirstView testView;
@@ -50,47 +51,7 @@ public class MainActivity extends BaseActivity {
     private void switchPoint() {
 //        testView.switchPoint();
 //        carView.switchPoint();
-
-//        OpenUrl.INSTANCE.getData().subscribe(new ShareObserverNew<ContactBean>() {
-//            @Override
-//            public void onOk(ContactBean result) {
-//                Toast.makeText(mCtx, "asdf", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNo(int code, String msg) {
-//                Toast.makeText(mCtx, "aaaaaa", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
-//        String url = "http://10.106.60.207:9999/add/";
-////        MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//
-//        RequestBody requestBody = new FormBody.Builder()
-//                .add("double", "1.1")
-//                .add("double", "1.1")
-//                .add("double", "1.1")
-//                .build();
-//        final Request request = new Request.Builder()
-//                .url(url)
-//                .post(requestBody)
-//                .build();
-//        Call call = okHttpClient.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.d("aaa", "onFailure: ");
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                Log.d("aaa", "onResponse: " + response.body().string());
-//            }
-//        });
-
+        HttpUtils.test(this);
     }
 
     public boolean isUpdating = false;

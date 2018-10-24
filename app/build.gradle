@@ -30,6 +30,7 @@ dependencies {
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile project(path: ':lib')
+    compile project(path: ':soaplib')
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.0'
     implementation "com.android.support:appcompat-v7:${supportAppcompat}"
@@ -38,23 +39,23 @@ dependencies {
     implementation "org.greenrobot:eventbus:${eventbus2Version}"
 
     //retrofit
-    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
-    implementation "com.alibaba:fastjson:${fastJsonVersion}"
+//    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+//    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+//    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+//    implementation "com.alibaba:fastjson:${fastJsonVersion}"
     //rx
-    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid2Version}"
-    implementation "io.reactivex.rxjava2:rxjava:${rxjava2Version}"
-    implementation "com.trello.rxlifecycle2:rxlifecycle:${rxlifecycle2Version}"
-    implementation "com.trello.rxlifecycle2:rxlifecycle-components:${rxlifecycle2Version}"
-    implementation "com.github.VictorAlbertos.RxCache:runtime:${rxcache2Version}"
-    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermissions2Version}"
-    implementation "me.jessyan:rxerrorhandler:${rxerrorhandler2Version}"
-    implementation "com.jakewharton.rxbinding2:rxbinding:${rxBinding2Version}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBinding2Version}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBinding2Version}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-design:${rxBinding2Version}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${rxBinding2Version}"
+//    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid2Version}"
+//    implementation "io.reactivex.rxjava2:rxjava:${rxjava2Version}"
+//    implementation "com.trello.rxlifecycle2:rxlifecycle:${rxlifecycle2Version}"
+//    implementation "com.trello.rxlifecycle2:rxlifecycle-components:${rxlifecycle2Version}"
+//    implementation "com.github.VictorAlbertos.RxCache:runtime:${rxcache2Version}"
+//    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermissions2Version}"
+//    implementation "me.jessyan:rxerrorhandler:${rxerrorhandler2Version}"
+//    implementation "com.jakewharton.rxbinding2:rxbinding:${rxBinding2Version}"
+//    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBinding2Version}"
+//    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBinding2Version}"
+//    implementation "com.jakewharton.rxbinding2:rxbinding-design:${rxBinding2Version}"
+//    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${rxBinding2Version}"
 
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
