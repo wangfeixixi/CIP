@@ -51,7 +51,8 @@ public class MainActivity extends BaseActivity {
     private void switchPoint() {
 //        testView.switchPoint();
 //        carView.switchPoint();
-        HttpUtils.test(this);
+//        HttpUtils.test(this);
+        HttpUtils.testNew(this);
     }
 
     public boolean isUpdating = false;
