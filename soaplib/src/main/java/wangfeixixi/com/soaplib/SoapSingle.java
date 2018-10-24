@@ -1,7 +1,7 @@
-package wangfeixixi.com.soaplib.soaputil;
+package wangfeixixi.com.soaplib;
 
 
-import wangfeixixi.com.soaplib.soaputil.network.SoapClient;
+import wangfeixixi.com.soaplib.network.SoapClient;
 
 public class SoapSingle {
 static SoapClient instance = null;

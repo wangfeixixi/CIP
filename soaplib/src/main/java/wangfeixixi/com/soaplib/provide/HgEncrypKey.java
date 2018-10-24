@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil.provide;
+package wangfeixixi.com.soaplib.provide;
 
 import java.util.Random;
 

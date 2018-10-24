@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil.network;
+package wangfeixixi.com.soaplib.network;
 
 import org.ksoap2.SoapEnvelope;
 

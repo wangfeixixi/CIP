@@ -9,7 +9,7 @@ import wangfeixixi.com.lib.base.BaseActivity;
 import wangfeixixi.com.lib.body.CarBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
-import wangfeixixi.com.soaplib.soaputil.HttpUtils;
+import wangfeixixi.com.soaplib.HttpUtils;
 
 public class MainActivity extends BaseActivity {
     private FirstView testView;

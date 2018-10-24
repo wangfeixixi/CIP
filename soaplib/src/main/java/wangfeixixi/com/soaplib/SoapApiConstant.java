@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil;
+package wangfeixixi.com.soaplib;
 
 /**
  * Created by xuany on 2018/10/24.

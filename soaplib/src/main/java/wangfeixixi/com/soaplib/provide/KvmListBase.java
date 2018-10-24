@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil.provide;
+package wangfeixixi.com.soaplib.provide;
 
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;

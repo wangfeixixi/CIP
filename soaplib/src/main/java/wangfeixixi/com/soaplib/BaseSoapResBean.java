@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil;
+package wangfeixixi.com.soaplib;
 
 /**
  * 作者：guoyzh

@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil.tool;
+package wangfeixixi.com.soaplib.tool;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;

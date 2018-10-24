@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil.network;
+package wangfeixixi.com.soaplib.network;
 
 
 import android.util.Log;
@@ -11,7 +11,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.Iterator;
 import java.util.Map;
 
-import wangfeixixi.com.soaplib.soaputil.SoapApiConstant;
+import wangfeixixi.com.soaplib.SoapApiConstant;
 
 public class SoapHttpEngine implements HttpEngine {
     private static final String TAG = "SoapHttpEngine";

@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil;
+package wangfeixixi.com.soaplib;
 
 import android.content.Context;
 import android.os.Handler;
@@ -12,9 +12,9 @@ import org.ksoap2.SoapEnvelope;
 import java.util.HashMap;
 import java.util.Map;
 
-import wangfeixixi.com.soaplib.soaputil.network.Callback;
-import wangfeixixi.com.soaplib.soaputil.provide.HgEncrypKey;
-import wangfeixixi.com.soaplib.soaputil.tool.SoapEnvelopeUtil;
+import wangfeixixi.com.soaplib.network.Callback;
+import wangfeixixi.com.soaplib.provide.HgEncrypKey;
+import wangfeixixi.com.soaplib.tool.SoapEnvelopeUtil;
 
 /**
  * 作者：guoyzh

@@ -1,13 +1,13 @@
-package wangfeixixi.com.soaplib.soaputil;
+package wangfeixixi.com.soaplib;
 
 
 import org.ksoap2.SoapEnvelope;
 
 import java.util.Map;
 
-import wangfeixixi.com.soaplib.soaputil.network.Callback;
-import wangfeixixi.com.soaplib.soaputil.network.SoapClient;
-import wangfeixixi.com.soaplib.soaputil.network.SoapRequest;
+import wangfeixixi.com.soaplib.network.Callback;
+import wangfeixixi.com.soaplib.network.SoapClient;
+import wangfeixixi.com.soaplib.network.SoapRequest;
 
 /**
  * Created by xu on 2018/5/15.

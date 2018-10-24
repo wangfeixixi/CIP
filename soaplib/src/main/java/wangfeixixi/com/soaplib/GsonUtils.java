@@ -1,4 +1,4 @@
-package wangfeixixi.com.soaplib.soaputil;
+package wangfeixixi.com.soaplib;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
