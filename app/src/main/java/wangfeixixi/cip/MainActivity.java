@@ -12,6 +12,7 @@ import java.util.HashMap;
 import wangfeixixi.com.lib.base.BaseActivity;
 import wangfeixixi.com.lib.body.CarBean;
 import wangfeixixi.com.lib.first.FirstView;
+import wangfeixixi.com.lib.utils.LogUtils;
 import wangfeixixi.com.lib.utils.ThreadUtils;
 import wangfeixixi.com.soaplib.HttpUtils;
 import wangfeixixi.com.soaplib.OnSoapCallBack;
@@ -62,47 +63,70 @@ public class MainActivity extends BaseActivity {
     private void switchPoint() {
 //        testView.switchPoint();
 //        carView.switchPoint();
-        startService(new Intent(this, HttpService.class));
+//        startService(new Intent(this, HttpService.class));
 
 
         new Thread() {
             @Override
             public void run() {
-                try {
-                    while (true) {
-                        Thread.sleep(1000);
-                        i++;
-                        HashMap<String, Integer> params = new HashMap<>();
-                        params.put("i", 1);
-                        final long startTime = System.currentTimeMillis();
-                        HttpUtils.postSoapTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
-                            @Override
-                            public void onOk(BaseSoapBean response) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onNo(Exception e) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
-                                    }
-                                });
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    while (true) {
+//                        Thread.sleep(1000);
+                exceute();
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
         }.start();
     }
+
+    public void exceute() {
+        i++;
+        HashMap<String, Integer> params = new HashMap<>();
+        params.put("i", 1);
+        final long startTime = System.currentTimeMillis();
+
+        HttpUtils.postSoapExcuteTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
+            @Override
+            public void onOk(BaseSoapBean response) {
+                String s = String.valueOf((System.currentTimeMillis() - startTime));
+                LogUtils.d("测试次数" + i + "测试时间" + s);
+                exceute();
+//                                tv_speed.setText();
+            }
+
+            @Override
+            public void onNo(Exception e) {
+
+            }
+        });
+    }
+
+    public void enquen() {
+        //                        HttpUtils.postSoapTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
+//                            @Override
+//                            public void onOk(BaseSoapBean response) {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
+//                                    }
+//                                });
+//                            }
+//
+//                            @Override
+//                            public void onNo(Exception e) {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
+//                                    }
+//                                });
+//                            }
+//                        });
+    }
+
 
     public static int i = 0;
 

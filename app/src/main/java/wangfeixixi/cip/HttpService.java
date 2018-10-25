@@ -26,7 +26,7 @@ public class HttpService extends Service {
                 super.run();
                 try {
                     while (isStart) {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         System.out.println("------------------------------------------------------------");
                         HttpUtils.testNew();
                     }

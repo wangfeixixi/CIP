@@ -170,4 +170,21 @@ public class HttpUtils {
         }, reqBody);
     }
 
+    public static void postSoapExcuteTest(String methodName, Map<String, Integer> params, final Class<? extends BaseSoapBean> clazz, final OnSoapCallBack callBack) {
+        //添加请求参数
+        Map<String, Object> reqBody = new HashMap<>();
+        reqBody.putAll(params);
+        //获取网络请求工具类实例
+
+        SoapEnvelope soapEnvelope = SoapUtil.getInstance().getIdExecute(methodName, reqBody);
+        final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
+//        String jsonStr = XmlParser.xml2json(response);
+//        BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, clazz);
+//        if (!ObjectUtils.isEmpty(resBean)) {
+//            callBack.onOk(resBean);
+//        }
+        BaseSoapBean baseSoapBean = new BaseSoapBean();
+        callBack.onOk(baseSoapBean);
+    }
+
 }
