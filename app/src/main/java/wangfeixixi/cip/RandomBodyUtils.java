@@ -1,6 +1,6 @@
 package wangfeixixi.cip;
 
-import wangfeixixi.com.lib.body.BodyBean;
+import wangfeixixi.com.lib.body.CarBean;
 
 
 /**
@@ -8,8 +8,8 @@ import wangfeixixi.com.lib.body.BodyBean;
  */
 public class RandomBodyUtils {
 
-    public static BodyBean getRandowBody() {
-        BodyBean bodyBean = new BodyBean();
+    public static CarBean getRandowBody() {
+        CarBean bodyBean = new CarBean();
         bodyBean.angle = (int) (Math.random() * 360);
         bodyBean.distance = (int) (Math.random() * 10);
 //        bodyBean.width = (int) (Math.random() * 3);

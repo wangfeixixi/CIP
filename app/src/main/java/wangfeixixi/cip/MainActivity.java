@@ -1,36 +1,34 @@
 package wangfeixixi.cip;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import wangfeixixi.com.lib.base.BaseActivity;
-import wangfeixixi.com.lib.body.BodyBean;
+import wangfeixixi.com.lib.body.CarBean;
 import wangfeixixi.com.lib.first.FirstView;
+import wangfeixixi.com.lib.utils.LogUtils;
 import wangfeixixi.com.lib.utils.ThreadUtils;
-import wangfeixixi.com.lib.widget.http.OpenUrl;
-import wangfeixixi.com.lib.widget.http.ShareObserverNew;
-import wangfeixixi.com.lib.widget.http.bean.ContactBean;
+import wangfeixixi.com.soaplib.HttpUtils;
+import wangfeixixi.com.soaplib.OnSoapCallBack;
+import wangfeixixi.com.soaplib.beans.BaseSoapBean;
+import wangfeixixi.com.soaplib.beans.FirstXmlResBean;
 
 public class MainActivity extends BaseActivity {
     private FirstView testView;
+    private TextView tv_speed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_speed = findViewById(R.id.tv_speed);
+
 
         findViewById(R.id.btn_switch).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,64 +57,91 @@ public class MainActivity extends BaseActivity {
     private void stop() {
         testView.stop();
 //        carView.stop();
+
     }
 
     private void switchPoint() {
 //        testView.switchPoint();
 //        carView.switchPoint();
-
-//        OpenUrl.INSTANCE.getData().subscribe(new ShareObserverNew<ContactBean>() {
-//            @Override
-//            public void onOk(ContactBean result) {
-//                Toast.makeText(mCtx, "asdf", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNo(int code, String msg) {
-//                Toast.makeText(mCtx, "aaaaaa", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+//        startService(new Intent(this, HttpService.class));
 
 
-        String url = "http://10.106.60.207:9999/add/";
-//        MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
-        OkHttpClient okHttpClient = new OkHttpClient();
-
-        RequestBody requestBody = new FormBody.Builder()
-                .add("double", "1.1")
-                .add("double", "1.1")
-                .add("double", "1.1")
-                .build();
-        final Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback() {
+        new Thread() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("aaa", "onFailure: ");
+            public void run() {
+//                try {
+//                    while (true) {
+//                        Thread.sleep(1000);
+                exceute();
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+            }
+        }.start();
+    }
 
+    public void exceute() {
+        i++;
+        HashMap<String, Integer> params = new HashMap<>();
+        params.put("i", 1);
+        final long startTime = System.currentTimeMillis();
+
+        HttpUtils.postSoapExcuteTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
+            @Override
+            public void onOk(BaseSoapBean response) {
+                String s = String.valueOf((System.currentTimeMillis() - startTime));
+                LogUtils.d("测试次数" + i + "测试时间" + s);
+                exceute();
+//                                tv_speed.setText();
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.d("aaa", "onResponse: " + response.body().string());
+            public void onNo(Exception e) {
+
             }
         });
-
     }
+
+    public void enquen() {
+        //                        HttpUtils.postSoapTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
+//                            @Override
+//                            public void onOk(BaseSoapBean response) {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
+//                                    }
+//                                });
+//                            }
+//
+//                            @Override
+//                            public void onNo(Exception e) {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
+//                                    }
+//                                });
+//                            }
+//                        });
+    }
+
+
+    public static int i = 0;
+
+    public static String tag = "aaaaaaaaaaaaaaaaaaaaaaaaa";
 
     public boolean isUpdating = false;
 
     public void update() {
         if (isUpdating) {
-            int rand = (int) (Math.random() * 10);
-            ArrayList<BodyBean> list = new ArrayList<>();
+            int rand = (int) (Math.random() * 3);
+            ArrayList<CarBean> list = new ArrayList<>();
             for (int i = 0; i < rand; i++) {
                 list.add(RandomBodyUtils.getRandowBody());
             }
-            BodyBean[] beans = list.toArray(new BodyBean[list.size()]);
+            CarBean[] beans = list.toArray(new CarBean[list.size()]);
 //            carView.updateBodys(beans);
             testView.updateBodys(beans);
 
