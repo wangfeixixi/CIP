@@ -9,12 +9,12 @@ import java.util.List;
  */
 
 public class FirstXmlResBean extends BaseSoapBean {
+    public String name;
+    public double x;
+    public double y;
+    public int speed;
 
-    /**
-     * ROWDATA : {"ROW":[{"detpname":"办公室","deptid":"D00001","deptcode":"0001"},{"detpname":"东莞市澳星博士眼镜有限公司","deptid":"D00002","deptcode":"0000"},{"detpname":"营运部","deptid":"D00006","deptcode":1004},{"detpname":"东莞运营部万顺店","deptid":"D00008","deptcode":50002},{"detpname":"东莞德政中路长安天虹店","deptid":"D00009","deptcode":52212},{"detpname":"东莞东城区电视台店","deptid":"D00010","deptcode":52213},{"detpname":"东莞东城大道世博广场店","deptid":"D00011","deptcode":52214},{"detpname":"东莞南城区中环财富广场店","deptid":"D00012","deptcode":52215},{"detpname":"东莞东纵路东湖花园店","deptid":"D00013","deptcode":52216},{"detpname":"东莞元美路华凯大厦店","deptid":"D00016","deptcode":52219}]}
-     * Version : 2
-     * METADATA : {"FIELDS":{"FIELD":[{"WIDTH":6,"attrname":"deptid","fieldtype":"string"},{"WIDTH":6,"attrname":"deptcode","fieldtype":"string"},{"WIDTH":50,"attrname":"detpname","fieldtype":"string"}]},"PARAMS":""}
-     */
+
 
     private DATAPACKETBean DATAPACKET;
 

@@ -1,8 +1,6 @@
 package wangfeixixi.cip;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import wangfeixixi.com.lib.base.BaseActivity;
-import wangfeixixi.com.lib.body.CarBean;
+import wangfeixixi.com.lib.body.CarShelfBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.LogUtils;
 import wangfeixixi.com.lib.utils.ThreadUtils;
@@ -87,7 +85,7 @@ public class MainActivity extends BaseActivity {
         params.put("i", 1);
         final long startTime = System.currentTimeMillis();
 
-        HttpUtils.postSoapExcuteTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
+        HttpUtils.postSoapTest("getVehicleInfo", params, FirstXmlResBean.class, new OnSoapCallBack() {
             @Override
             public void onOk(BaseSoapBean response) {
                 String s = String.valueOf((System.currentTimeMillis() - startTime));
@@ -137,11 +135,11 @@ public class MainActivity extends BaseActivity {
     public void update() {
         if (isUpdating) {
             int rand = (int) (Math.random() * 3);
-            ArrayList<CarBean> list = new ArrayList<>();
+            ArrayList<CarShelfBean> list = new ArrayList<>();
             for (int i = 0; i < rand; i++) {
                 list.add(RandomBodyUtils.getRandowBody());
             }
-            CarBean[] beans = list.toArray(new CarBean[list.size()]);
+            CarShelfBean[] beans = list.toArray(new CarShelfBean[list.size()]);
 //            carView.updateBodys(beans);
             testView.updateBodys(beans);
 

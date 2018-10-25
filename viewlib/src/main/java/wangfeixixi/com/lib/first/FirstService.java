@@ -3,7 +3,7 @@ package wangfeixixi.com.lib.first;
 import android.content.Context;
 import android.view.View;
 
-import wangfeixixi.com.lib.body.CarBean;
+import wangfeixixi.com.lib.body.CarShelfBean;
 import wangfeixixi.com.lib.open.IGService;
 
 public abstract class FirstService implements IGService {
@@ -21,7 +21,7 @@ public abstract class FirstService implements IGService {
     }
 
     @Override
-    public void updateBodys(CarBean[] beans) {
+    public void updateBodys(CarShelfBean[] beans) {
 
     }
 }

@@ -3,7 +3,7 @@ package wangfeixixi.com.lib.open;
 import android.content.Context;
 import android.view.View;
 
-import wangfeixixi.com.lib.body.CarBean;
+import wangfeixixi.com.lib.body.CarShelfBean;
 
 public interface IGService {
     /**
@@ -15,5 +15,5 @@ public interface IGService {
 
 //    View switchView();
 
-    void updateBodys(CarBean[] beans);
+    void updateBodys(CarShelfBean[] beans);
 }

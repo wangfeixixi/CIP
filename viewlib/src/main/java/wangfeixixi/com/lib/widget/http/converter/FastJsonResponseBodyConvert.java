@@ -17,7 +17,7 @@
 //    }
 //
 //    @Override
-//    public T convert(ResponseBody value) throws IOException {
+//    public T shelf2Screen(ResponseBody value) throws IOException {
 //        return JSON.parseObject(value.string(), type);
 //    }
 //}

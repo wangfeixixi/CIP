@@ -1,6 +1,10 @@
 package wangfeixixi.com.lib.car;
 
-public class CarViewBean {
+
+/**
+ * 屏幕左上角坐标系
+ */
+public class CarScreenBean {
     public int carX;
     public int carY;
     public int carWidth;

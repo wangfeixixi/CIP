@@ -1,6 +1,6 @@
 package wangfeixixi.cip;
 
-import wangfeixixi.com.lib.body.CarBean;
+import wangfeixixi.com.lib.body.CarShelfBean;
 
 
 /**
@@ -8,20 +8,12 @@ import wangfeixixi.com.lib.body.CarBean;
  */
 public class RandomBodyUtils {
 
-    public static CarBean getRandowBody() {
-        CarBean bodyBean = new CarBean();
-        bodyBean.angle = (int) (Math.random() * 360);
-        bodyBean.distance = (int) (Math.random() * 10);
-//        bodyBean.width = (int) (Math.random() * 3);
+    public static CarShelfBean getRandowBody() {
+        CarShelfBean bodyBean = new CarShelfBean();
+        bodyBean.x = (int) (Math.random() * 10);
+        bodyBean.y = (int) (Math.random() * 10);
         bodyBean.width = 3;
         bodyBean.length = 5;
-//        bodyBean.length = (int) (Math.random() * 9 + 1);
-        if (bodyBean.width == 0) {
-            bodyBean.width = 2;
-        }
-        if (bodyBean.length == 0) {
-            bodyBean.width = 5;
-        }
         return bodyBean;
     }
 }

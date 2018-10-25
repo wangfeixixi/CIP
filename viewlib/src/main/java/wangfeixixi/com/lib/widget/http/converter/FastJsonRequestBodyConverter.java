@@ -21,7 +21,7 @@
 //    }
 //
 //    @Override
-//    public RequestBody convert(T value) throws IOException {
+//    public RequestBody shelf2Screen(T value) throws IOException {
 //        return RequestBody.create(MEDIA_TYPE, JSON.toJSONBytes(value, serializeConfig));
 //    }
 //}
