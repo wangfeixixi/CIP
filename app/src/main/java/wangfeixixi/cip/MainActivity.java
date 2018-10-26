@@ -56,9 +56,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private void switchPoint() {
-//        ServiceUtils.startService(HttpService.class);
+        ServiceUtils.startService(HttpService.class);
 
-        HttpUtils.testEnqueue();
+//        HttpUtils.testEnqueue();
 //        HttpUtils.testExecute();
     }
 

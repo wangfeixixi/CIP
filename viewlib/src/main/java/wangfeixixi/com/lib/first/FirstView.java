@@ -13,15 +13,13 @@ import android.view.View;
 
 import wangfeixixi.com.lib.R;
 import wangfeixixi.com.lib.body.CarShelfBean;
-import wangfeixixi.com.lib.car.ConvertUtils;
+import wangfeixixi.com.lib.car.CarUtils;
 
 public class FirstView extends View {
 
     private Paint mPaintCar;
     private int mCarX;//车辆x坐标
     private int mCarY;//车辆y坐标
-    private int mCarWidth = 3;//车宽
-    private int mCarLength = 5;//车长
     private Bitmap carBitmap;
     private Rect carRectSrc;
     private Rect rect;
@@ -63,21 +61,23 @@ public class FirstView extends View {
         //自身车坐标,todo是以自身中心为坐标的
         mCarX = width / 2;
         mCarY = height / 3 * 2;
-        rect = new Rect(mCarX - mCarWidth / 2 * ConvertUtils.scale, (mCarY - mCarLength / 2 * ConvertUtils.scale),
-                (mCarX + mCarWidth / 2 * ConvertUtils.scale), (mCarY + mCarLength / 2 * ConvertUtils.scale));
+
+        int carWidth = CarUtils.carWidth * CarUtils.scale;
+        int carLength = CarUtils.carLength * CarUtils.scale;
+
+        rect = new Rect(mCarX - carWidth / 2, mCarY - carLength / 2, mCarX + carWidth / 2, mCarY + carLength / 2);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.GREEN);
-
         canvas.drawBitmap(carBitmap, carRectSrc, rect, mPaintCar);
         canvas.save();
 
         //周围车
         if (mBeans != null) {
             for (int i = 0; i < mBeans.length; i++) {
-                canvas.drawBitmap(carBitmap, carRectSrc, ConvertUtils.shelf2Screen(mCarX, mCarY, mBeans[i]), mPaintCar);
+                canvas.drawBitmap(carBitmap, carRectSrc, CarUtils.shelf2Screen(mCarX, mCarY, mBeans[i]), mPaintCar);
                 canvas.save();
             }
         }

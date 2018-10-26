@@ -1,6 +1,7 @@
 package wangfeixixi.cip;
 
 import wangfeixixi.com.lib.body.CarShelfBean;
+import wangfeixixi.com.lib.car.CarUtils;
 
 
 /**
@@ -12,8 +13,8 @@ public class RandomBodyUtils {
         CarShelfBean bodyBean = new CarShelfBean();
         bodyBean.x = (int) (Math.random() * 10);
         bodyBean.y = (int) (Math.random() * 10);
-        bodyBean.width = 3;
-        bodyBean.length = 5;
+        bodyBean.width = CarUtils.carWidth;
+        bodyBean.length = CarUtils.carLength;
         return bodyBean;
     }
 }

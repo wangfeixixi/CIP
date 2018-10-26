@@ -1,7 +1,6 @@
 package wangfeixixi.com.lib.car;
 
 
-import android.content.Context;
 import android.graphics.Rect;
 
 import wangfeixixi.com.lib.body.CarShelfBean;
@@ -11,12 +10,17 @@ import wangfeixixi.com.lib.body.CarShelfBean;
  * <p>
  * 人和车的坐标都应该是左上角
  */
-public class ConvertUtils {
+public class CarUtils {
 
     /**
      * 转化比例：1米scale个像素
      */
     public static int scale = 40;
+
+    //默认车宽
+    public static int carWidth = 3;
+    //默认车长
+    public static int carLength = 5;
 
     /**
      * 将自身坐标系转换为屏幕坐标系
