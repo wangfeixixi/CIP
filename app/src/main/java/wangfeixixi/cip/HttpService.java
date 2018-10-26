@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import wangfeixixi.com.soaplib.HttpUtils;
 
@@ -24,20 +25,24 @@ public class HttpService extends Service {
             @Override
             public void run() {
                 super.run();
-                HttpUtils.testNew();
-
-
-//                try {
-//                    while (isStart) {
-//                        Thread.sleep(100);
-//                        System.out.println("------------------------------------------------------------");
-//                        HttpUtils.testNew();
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                while (isStart) {
+                    getdata();
+                }
             }
         }.start();
+    }
+
+    public int num = 0;
+
+    private void getdata() {
+        long startTime = System.currentTimeMillis();
+//        HttpUtils.testEnqueue();
+        HttpUtils.testExecute();//同步
+
+        long endTime = System.currentTimeMillis() - startTime;
+
+        Log.d("aaaaaaaa       ", String.valueOf(endTime));
+
     }
 
     @Override

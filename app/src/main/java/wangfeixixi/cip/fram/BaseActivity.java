@@ -1,4 +1,4 @@
-package wangfeixixi.com.lib.base;
+package wangfeixixi.cip.fram;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import wangfeixixi.com.soaplib.beans.CarTest;
+
 public class BaseActivity extends AppCompatActivity {
 
     public Activity mCtx;
@@ -16,18 +18,24 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         mCtx = this;
     }
 
     @Override
     protected void onDestroy() {
-//        EventBus.getDefault().unregister(this);
         super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void receviceData() {
-//
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void XXX(CarTest carBean) {
+        receiveDatas(carBean);
+    }
+
+    public void receiveDatas(CarTest carBean) {
+
+    }
 }

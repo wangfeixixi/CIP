@@ -5,18 +5,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.utils.ServiceUtils;
-import wangfeixixi.com.lib.base.BaseActivity;
 import wangfeixixi.com.lib.body.CarShelfBean;
 import wangfeixixi.com.lib.first.FirstView;
-import wangfeixixi.com.lib.utils.LogUtils;
 import wangfeixixi.com.lib.utils.ThreadUtils;
 import wangfeixixi.com.soaplib.HttpUtils;
-import wangfeixixi.com.soaplib.OnSoapCallBack;
-import wangfeixixi.com.soaplib.beans.BaseSoapBean;
-import wangfeixixi.com.soaplib.beans.FirstXmlResBean;
+import wangfeixixi.com.soaplib.beans.CarTest;
 
 public class MainActivity extends BaseActivity {
     private FirstView testView;
@@ -60,59 +56,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void switchPoint() {
-        ServiceUtils.startService(HttpService.class);
+//        ServiceUtils.startService(HttpService.class);
+
+        HttpUtils.testEnqueue();
+//        HttpUtils.testExecute();
     }
-
-    public void exceute() {
-        i++;
-        HashMap<String, Integer> params = new HashMap<>();
-        params.put("i", 1);
-        final long startTime = System.currentTimeMillis();
-
-        HttpUtils.postSoapTest("getVehicleInfo", params, FirstXmlResBean.class, new OnSoapCallBack() {
-            @Override
-            public void onOk(BaseSoapBean response) {
-                String s = String.valueOf((System.currentTimeMillis() - startTime));
-                LogUtils.d("测试次数" + i + "测试时间" + s);
-                exceute();
-//                                tv_speed.setText();
-            }
-
-            @Override
-            public void onNo(Exception e) {
-
-            }
-        });
-    }
-
-    public void enquen() {
-        //                        HttpUtils.postSoapTest("getID", params, FirstXmlResBean.class, new OnSoapCallBack() {
-//                            @Override
-//                            public void onOk(BaseSoapBean response) {
-//                                runOnUiThread(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
-//                                    }
-//                                });
-//                            }
-//
-//                            @Override
-//                            public void onNo(Exception e) {
-//                                runOnUiThread(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        tv_speed.setText(String.valueOf((System.currentTimeMillis() - startTime)));
-//                                    }
-//                                });
-//                            }
-//                        });
-    }
-
-
-    public static int i = 0;
-
-    public static String tag = "aaaaaaaaaaaaaaaaaaaaaaaaa";
 
     public boolean isUpdating = false;
 
@@ -136,5 +84,10 @@ public class MainActivity extends BaseActivity {
         } else {
             ThreadUtils.stop();
         }
+    }
+
+    @Override
+    public void receiveDatas(CarTest carBean) {
+        tv_speed.setText("收到数据");
     }
 }
