@@ -1,8 +1,6 @@
 package wangfeixixi.com.soaplib;
 
-/**
- * Created by xuany on 2018/10/24.
- */
+import org.ksoap2.SoapEnvelope;
 
 public class SoapApiConstant {
     public static String tns = "http://localhost/api.wsdl";
@@ -18,6 +16,9 @@ public class SoapApiConstant {
     public static String WSDL = "http://schemas.xmlsoap.org/wsdl/";
     public static String xmlns = "http://schemas.xmlsoap.org/wsdl/";
     public static String name = "api";
-    public static String targetNamespace = "http://localhost/api.wsdl";
-
+    public static String URL = "http://10.106.60.207:9999/";
+    //    public static String URL = "http://192.168.43.166:9999/";
+    //    public static String wsdl = "http://10.106.60.207:9999/api?wsdl";
+//    public static String url = "http://10.106.60.207:9999/getID";
+    public static int SOAPVersion = SoapEnvelope.VER11;
 }

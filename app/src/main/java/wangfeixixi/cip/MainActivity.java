@@ -7,6 +7,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.com.lib.base.BaseActivity;
 import wangfeixixi.com.lib.body.CarShelfBean;
 import wangfeixixi.com.lib.first.FirstView;
@@ -55,28 +56,11 @@ public class MainActivity extends BaseActivity {
     private void stop() {
         testView.stop();
 //        carView.stop();
-
+        ServiceUtils.stopService(HttpService.class);
     }
 
     private void switchPoint() {
-//        testView.switchPoint();
-//        carView.switchPoint();
-//        startService(new Intent(this, HttpService.class));
-
-
-        new Thread() {
-            @Override
-            public void run() {
-//                try {
-//                    while (true) {
-//                        Thread.sleep(1000);
-                exceute();
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-            }
-        }.start();
+        ServiceUtils.startService(HttpService.class);
     }
 
     public void exceute() {
