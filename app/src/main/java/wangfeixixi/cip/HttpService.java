@@ -24,17 +24,20 @@ public class HttpService extends Service {
             @Override
             public void run() {
                 super.run();
-                try {
-                    while (isStart) {
-                        Thread.sleep(100);
-                        System.out.println("------------------------------------------------------------");
-                        HttpUtils.testNew();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                HttpUtils.testNew();
+
+
+//                try {
+//                    while (isStart) {
+//                        Thread.sleep(100);
+//                        System.out.println("------------------------------------------------------------");
+//                        HttpUtils.testNew();
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
-        };
+        }.start();
     }
 
     @Override
