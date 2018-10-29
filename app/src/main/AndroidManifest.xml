@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -52,6 +51,10 @@
     <!-- 自定义权限 -->
     <uses-permission android:name="getui.permission.GetuiService.${applicationId}" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+
     <application
         android:name=".fram.BaseApp"
         android:allowBackup="true"
@@ -60,22 +63,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/theme_all">
-
         <activity android:name=".MainActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
-
         <activity android:name=".MapActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                 <category android:name="android.intent.category.LAUNCHER" />
 
-                <!--<category android:name="android.intent.category.FS_HOME" />-->
+
+                <!-- <category android:name="android.intent.category.FS_HOME" /> -->
                 <category android:name="android.intent.category.DEFAULT" />
-                <!--<category android:name="android.intent.category.MONKEY" />-->
-                <!--<category android:name="android.intent.category.HOME" />-->
+                <!-- <category android:name="android.intent.category.MONKEY" /> -->
+                <!-- <category android:name="android.intent.category.HOME" /> -->
             </intent-filter>
         </activity>
 
@@ -86,6 +91,7 @@
             android:value="73a9ad72e56bf4364b232e70b8203e55" />
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService" />
+
     </application>
 
 </manifest>

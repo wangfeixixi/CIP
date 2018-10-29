@@ -18,7 +18,7 @@ public class MapActivity extends BaseActivity {
         mapContainer = findViewById(R.id.fl_map_container);
         mLbs = new GaodeMapService(this);
 
-        mapContainer.addView(mLbs.getMap());
+//        mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
     }
 
