@@ -1,6 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+
+        signRelese {
+            keyAlias 'cip'
+            keyPassword 'asd123'
+            storeFile file('C:/Users/xuany/Androidws/workspace/other/AiyaEffectsAndroid/CIP/app/keystore/release.jks')
+            storePassword 'asd123'
+        }
+        signDebug {
+            keyAlias 'cipdebug'
+//            keyPassword 'asd123'
+            storeFile file('C:/Users/xuany/Androidws/workspace/other/AiyaEffectsAndroid/CIP/app/keystore/debug.keystore')
+//            storePassword 'asd123'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "wangfeixixi.cip"
@@ -18,45 +33,74 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signRelese
+        }
+        debug {
+            signingConfig signingConfigs.signDebug
         }
     }
 }
 
 dependencies {
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation 'com.android.support:appcompat-v7:27.1.1'
-//    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    //    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    //    testImplementation 'junit:junit:4.12'
+
+    //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
+    //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile project(path: ':viewlib')
     compile project(path: ':soaplib')
+    implementation 'com.github.wangfeixixi:ShareWidget:2.7.3'
+
+    //圆形进度条
+    implementation 'com.github.wangfeixixi:LBS:v0.1.2'
+
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.0'
     implementation "com.android.support:appcompat-v7:${supportAppcompat}"
     implementation "com.android.support.constraint:constraint-layout:${supportConstraintLayout}"
-
     implementation "org.greenrobot:eventbus:${eventbus2Version}"
 
     //retrofit
-//    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-//    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
-//    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
-//    implementation "com.alibaba:fastjson:${fastJsonVersion}"
+
+    //    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+
+    //    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+
+    //    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+
+    //    implementation "com.alibaba:fastjson:${fastJsonVersion}"
+
     //rx
-//    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid2Version}"
-//    implementation "io.reactivex.rxjava2:rxjava:${rxjava2Version}"
-//    implementation "com.trello.rxlifecycle2:rxlifecycle:${rxlifecycle2Version}"
-//    implementation "com.trello.rxlifecycle2:rxlifecycle-components:${rxlifecycle2Version}"
-//    implementation "com.github.VictorAlbertos.RxCache:runtime:${rxcache2Version}"
-//    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermissions2Version}"
-//    implementation "me.jessyan:rxerrorhandler:${rxerrorhandler2Version}"
-//    implementation "com.jakewharton.rxbinding2:rxbinding:${rxBinding2Version}"
-//    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBinding2Version}"
-//    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBinding2Version}"
-//    implementation "com.jakewharton.rxbinding2:rxbinding-design:${rxBinding2Version}"
-//    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${rxBinding2Version}"
 
+    //    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid2Version}"
 
+    //    implementation "io.reactivex.rxjava2:rxjava:${rxjava2Version}"
+
+    //    implementation "com.trello.rxlifecycle2:rxlifecycle:${rxlifecycle2Version}"
+
+    //    implementation "com.trello.rxlifecycle2:rxlifecycle-components:${rxlifecycle2Version}"
+
+    //    implementation "com.github.VictorAlbertos.RxCache:runtime:${rxcache2Version}"
+
+    //    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermissions2Version}"
+
+    //    implementation "me.jessyan:rxerrorhandler:${rxerrorhandler2Version}"
+
+    //    implementation "com.jakewharton.rxbinding2:rxbinding:${rxBinding2Version}"
+
+    //    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBinding2Version}"
+
+    //    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBinding2Version}"
+
+    //    implementation "com.jakewharton.rxbinding2:rxbinding-design:${rxBinding2Version}"
+
+    //    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${rxBinding2Version}"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

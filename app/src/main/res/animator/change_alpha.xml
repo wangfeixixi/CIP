@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="true"
+        android:state_pressed="true"
+        android:textColor="@color/editext_cursor">
+        <set android:ordering="together">
+            <objectAnimator
+                android:duration="50"
+                android:interpolator="@android:anim/linear_interpolator"
+                android:propertyName="alpha"
+                android:valueTo="0.5"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="50"
+                android:interpolator="@android:anim/linear_interpolator"
+                android:propertyName="alpha"
+                android:valueTo="0.5"
+                android:valueType="floatType" />
+        </set>
+    </item>
+    <item android:textColor="@color/editext_hint_color">
+        <set android:ordering="together">
+            <objectAnimator
+                android:duration="1000"
+                android:interpolator="@android:anim/linear_interpolator"
+                android:propertyName="alpha"
+                android:valueTo="1"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="1000"
+                android:interpolator="@android:anim/linear_interpolator"
+                android:propertyName="alpha"
+                android:valueTo="1"
+                android:valueType="floatType" />
+        </set>
+    </item>
+</selector>

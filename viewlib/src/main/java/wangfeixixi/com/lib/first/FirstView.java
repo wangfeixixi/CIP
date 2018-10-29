@@ -70,7 +70,7 @@ public class FirstView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.GREEN);
+        canvas.drawColor(Color.GRAY);
         canvas.drawBitmap(carBitmap, carRectSrc, rect, mPaintCar);
         canvas.save();
 

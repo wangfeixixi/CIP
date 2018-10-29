@@ -24,7 +24,7 @@ public class HttpUtils {
         Map<String, Object> reqBody = new HashMap<>();
         reqBody.put("count", 3);
         //获取网络请求工具类实例
-        SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("getVehicleData", reqBody);
+        SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("getVehicleDataList", reqBody);
         final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
         String jsonStr = XmlParser.xml2json(response);
         BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
