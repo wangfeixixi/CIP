@@ -10,6 +10,7 @@ import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.com.lib.body.CarShelfBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
+import wangfeixixi.com.soaplib.HttpUtils;
 import wangfeixixi.com.soaplib.beans.CarTest;
 
 public class MainActivity extends BaseActivity {
@@ -51,7 +52,30 @@ public class MainActivity extends BaseActivity {
     }
 
     private void switchPoint() {
-        ServiceUtils.startService(HttpService.class);
+        HttpUtils.testEnqueue();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                super.run();
+//
+//
+//                while (true) {
+//                    HttpUtils.testEnqueue();
+//
+////                    try {
+////                        Thread.sleep(1000);
+////                        HttpUtils.testEnqueue();
+////                    } catch (InterruptedException e) {
+////                        e.printStackTrace();
+////                    }
+//
+//                }
+//            }
+//        }.start();
+
+
+//        HttpUtils.testEnqueue();
+//        ServiceUtils.startService(HttpService.class);
     }
 
     public boolean isUpdating = false;

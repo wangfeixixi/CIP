@@ -21,27 +21,53 @@ public class HttpUtils {
     public static String tag = "aaaaaaaaaaaaaaaaaaaaaaaaa";
 
     public static void testExecute() {
+        long startTime = System.currentTimeMillis();
         Map<String, Object> reqBody = new HashMap<>();
-        reqBody.put("count", 3);
+        reqBody.put("count", 5);
         //获取网络请求工具类实例
         SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("getVehicleDataList", reqBody);
         final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
+        long endTime = System.currentTimeMillis();
+        Log.d("ddddddddd", response);
+        Log.d("cccccccccccccc", String.valueOf(endTime - startTime));
         String jsonStr = XmlParser.xml2json(response);
         BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
+
         EventBus.getDefault().post(new CarTest());
     }
+
+//    public static void testExecutePre() {
+//        long startTime = System.currentTimeMillis();
+//        Map<String, Object> reqBody = new HashMap<>();
+//        reqBody.put("count", 5);
+//        //获取网络请求工具类实例
+//        SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("setUpSystem", reqBody);
+//        final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
+//        long endTime = System.currentTimeMillis();
+//        Log.d("ddddddddd", response);
+//        Log.d("cccccccccccccc", String.valueOf(endTime - startTime));
+//        String jsonStr = XmlParser.xml2json(response);
+//        BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
+//
+//        EventBus.getDefault().post(new CarTest());
+//        testEnqueue();
+//    }
 
     //**************************尝试******************************8
     public static void testEnqueue() {
         Map<String, Object> reqBody = new HashMap<>();
-        reqBody.put("count", 3);
+//        reqBody.put("count", 20);
+        final long startTime = System.currentTimeMillis();
+
         //获取网络请求工具类实例
-        SoapUtil.getInstance().enqueue("getVehicleData", new Callback() {
+        SoapUtil.getInstance().enqueue("setUpSystem", new Callback() {
             @Override
             public void onResponse(SoapEnvelope soapEnvelope) {
                 final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
                 String jsonStr = XmlParser.xml2json(response);
-
+                Log.d("ddddddddd", response);
+                long endTime = System.currentTimeMillis();
+                Log.d("cccccccccccccc", String.valueOf(endTime - startTime));
 //                BaseSoapBean baseSoapBean = GsonUtils.fromJson(jsonStr, CarTest.class);
 //                BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
 //                if (!ObjectUtils.isEmpty(resBean)) {
@@ -49,6 +75,18 @@ public class HttpUtils {
 //                }
 
                 EventBus.getDefault().post(new CarTest());
+
+
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+
+                        while (true) {
+                            testExecute();
+                        }
+                    }
+                }.start();
             }
 
             @Override

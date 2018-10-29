@@ -2,6 +2,7 @@ package wangfeixixi.cip;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import wangfeixixi.cip.fram.BaseActivity;
@@ -15,10 +16,11 @@ public class MapActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
         mapContainer = findViewById(R.id.fl_map_container);
         mLbs = new GaodeMapService(this);
 
-//        mapContainer.addView(mLbs.getMap());
+        mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
     }
 
@@ -26,6 +28,8 @@ public class MapActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mLbs.onResume();
+
+        mLbs.startOnceLocation();
     }
 
     @Override

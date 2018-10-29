@@ -11,12 +11,12 @@ android {
             storeFile file('C:/Users/xuany/Androidws/workspace/other/AiyaEffectsAndroid/CIP/app/keystore/release.jks')
             storePassword 'asd123'
         }
-        signDebug {
-            keyAlias 'cipdebug'
-//            keyPassword 'asd123'
-            storeFile file('C:/Users/xuany/Androidws/workspace/other/AiyaEffectsAndroid/CIP/app/keystore/debug.keystore')
-//            storePassword 'asd123'
-        }
+//        signDebug {
+////            keyAlias 'cipdebug'
+////            keyPassword 'asd123'
+//            storeFile file('C:/Users/xuany/Androidws/workspace/other/AiyaEffectsAndroid/CIP/app/keystore/debug.keystore')
+////            storePassword 'asd123'
+//        }
     }
     compileSdkVersion 27
     defaultConfig {
@@ -30,7 +30,6 @@ android {
             // 设置支持的SO库架构
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
-        signingConfig signingConfigs.signRelese
     }
     buildTypes {
         release {
@@ -39,10 +38,8 @@ android {
             signingConfig signingConfigs.signRelese
         }
         debug {
-            signingConfig signingConfigs.signDebug
+            signingConfig signingConfigs.signRelese
         }
-    }
-    productFlavors {
     }
 }
 
@@ -108,4 +105,5 @@ dependencies {
 
     //    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${rxBinding2Version}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api'
 }
