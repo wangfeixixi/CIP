@@ -18,7 +18,6 @@ import wangfeixixi.com.soaplib.tool.SoapEnvelopeUtil;
 public class HttpUtils {
     public static int i = 0;
 
-    public static String tag = "aaaaaaaaaaaaaaaaaaaaaaaaa";
 
     public static void testExecute() {
         long startTime = System.currentTimeMillis();
@@ -28,12 +27,17 @@ public class HttpUtils {
         SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("getVehicleDataList", reqBody);
         final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
         long endTime = System.currentTimeMillis();
-        Log.d("ddddddddd", response);
-        Log.d("cccccccccccccc", String.valueOf(endTime - startTime));
+
+
         String jsonStr = XmlParser.xml2json(response);
         BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
 
-        EventBus.getDefault().post(new CarTest());
+
+        CarTest carTest = new CarTest();
+        carTest.num = i++;
+        carTest.ms = response;
+        carTest.time = endTime - startTime;
+        EventBus.getDefault().post(carTest);
     }
 
 //    public static void testExecutePre() {
@@ -55,9 +59,14 @@ public class HttpUtils {
 
     //**************************尝试******************************8
     public static void testEnqueue() {
+        i = 0;
         Map<String, Object> reqBody = new HashMap<>();
 //        reqBody.put("count", 20);
         final long startTime = System.currentTimeMillis();
+
+        CarTest carTest = new CarTest();
+        carTest.ms = "开始准备";
+        EventBus.getDefault().post(carTest);
 
         //获取网络请求工具类实例
         SoapUtil.getInstance().enqueue("setUpSystem", new Callback() {
@@ -74,15 +83,20 @@ public class HttpUtils {
 //                    callBack.onOk(resBean);
 //                }
 
-                EventBus.getDefault().post(new CarTest());
 
+                CarTest carTest = new CarTest();
+                carTest.num = i++;
+                carTest.ms = response;
+                carTest.time = endTime - startTime;
+                EventBus.getDefault().post(carTest);
 
                 new Thread() {
                     @Override
                     public void run() {
                         super.run();
 
-                        while (true) {
+                        int a = 0;
+                        while (a++ < 10) {
                             testExecute();
                         }
                     }

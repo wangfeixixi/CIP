@@ -1,4 +1,4 @@
-package wangfeixixi.cip;
+package wangfeixixi.cip.push;
 
 import android.app.Service;
 import android.content.Intent;

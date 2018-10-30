@@ -1,1 +1,1 @@
-include ':app', ':viewlib', ':soaplib', ':test'
+include ':app', ':viewlib', ':soaplib'

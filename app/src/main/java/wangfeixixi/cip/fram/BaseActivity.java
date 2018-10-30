@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import wangfeixixi.com.soaplib.beans.CarTest;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public Activity mCtx;
 
@@ -20,7 +20,15 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         mCtx = this;
+
+        initView(savedInstanceState);
+        initData();
     }
+
+
+    protected abstract void initView(Bundle savedInstanceState);
+
+    protected abstract void initData();
 
     @Override
     protected void onDestroy() {
@@ -35,7 +43,5 @@ public class BaseActivity extends AppCompatActivity {
         receiveDatas(carBean);
     }
 
-    public void receiveDatas(CarTest carBean) {
-
-    }
+    protected abstract void receiveDatas(CarTest carBean);
 }

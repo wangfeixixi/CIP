@@ -5,6 +5,10 @@ import android.content.ClipData;
 import java.util.List;
 
 public class CarTest extends BaseSoapBean {
+    public String ms;
+    public int num;
+    public long time;
+
     private List<ClipData.Item> infoArray;
 
     public class HHHH {
