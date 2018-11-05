@@ -1,5 +1,6 @@
 package wangfeixixi.cip;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -7,6 +8,7 @@ import android.widget.FrameLayout;
 import com.blankj.utilcode.util.ToastUtils;
 
 import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.com.soaplib.beans.CarTest;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
@@ -49,7 +51,11 @@ public class MapActivity extends BaseActivity {
         mLbs.setLocationChangeListener(new OnLocationListener() {
             @Override
             public void onLocationChange(LocationInfo locationInfo) {
-                ToastUtils.showShort(locationInfo.name + locationInfo.address);
+//                ToastUtils.showShort(locationInfo.name + locationInfo.address);
+                locationInfo.key = "自身坐标车";
+                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
+                mLbs.moveCamera(locationInfo, 20);
+
             }
         });
 
