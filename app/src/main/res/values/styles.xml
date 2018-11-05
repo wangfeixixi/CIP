@@ -16,4 +16,16 @@
         <item name="android:windowBackground">@color/colorAccent</item>
         <item name="android:screenOrientation">portrait</item>
     </style>
+
+    <style name="btn_long">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/text_bg</item>
+        <item name="android:textColor">#ff000000</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:stateListAnimator">@animator/change_size</item>
+    </style>
 </resources>

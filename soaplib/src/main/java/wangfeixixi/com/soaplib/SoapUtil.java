@@ -24,7 +24,7 @@ public class SoapUtil {
     /**
      * 异步调用
      */
-    public void getID(String methodName, Callback callback, Map<String, Object> parms) {
+    public void enqueue(String methodName, Callback callback, Map<String, Object> parms) {
         SoapRequest request = new SoapRequest.Builder().endPoint(SoapApiConstant.URL)
                 .methodName(methodName)
                 .soapAction("" + methodName)
@@ -39,7 +39,7 @@ public class SoapUtil {
     /**
      * 同步调用
      */
-    public SoapEnvelope getIdExecute(String methodName, Map<String, Object> parms) {
+    public SoapEnvelope execute(String methodName, Map<String, Object> parms) {
         SoapRequest request = new SoapRequest.Builder().endPoint(SoapApiConstant.URL)
                 .methodName(methodName)
                 .soapAction("" + methodName)
