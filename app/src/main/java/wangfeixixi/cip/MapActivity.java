@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.blankj.utilcode.util.ToastUtils;
-
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.com.soaplib.beans.CarTest;

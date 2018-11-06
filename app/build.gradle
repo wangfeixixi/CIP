@@ -69,6 +69,8 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:${supportConstraintLayout}"
     implementation "org.greenrobot:eventbus:${eventbus2Version}"
 
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
     //retrofit
 
     //    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
