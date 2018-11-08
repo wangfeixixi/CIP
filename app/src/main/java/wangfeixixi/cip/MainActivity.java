@@ -59,9 +59,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 testView.stop();
                 ServiceUtils.stopService(HttpService.class);
                 isUpdating = false;
-
-
-
                 initPermission();
                 break;
             case R.id.btn_test:

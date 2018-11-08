@@ -49,7 +49,6 @@ public class MapActivity extends BaseActivity {
         mLbs.setLocationChangeListener(new OnLocationListener() {
             @Override
             public void onLocationChange(LocationInfo locationInfo) {
-//                ToastUtils.showShort(locationInfo.name + locationInfo.address);
                 locationInfo.key = "自身坐标车";
                 mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
                 mLbs.moveCamera(locationInfo, 20);

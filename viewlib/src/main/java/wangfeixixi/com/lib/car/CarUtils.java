@@ -18,9 +18,9 @@ public class CarUtils {
     public static int scale = 40;
 
     //默认车宽
-    public static int carWidth = 3;
+    public static int carWidth = 2;
     //默认车长
-    public static int carLength = 5;
+    public static int carLength = 4;
 
     /**
      * 将自身坐标系转换为屏幕坐标系
