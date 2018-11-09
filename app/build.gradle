@@ -60,8 +60,8 @@ dependencies {
     compile project(path: ':soaplib')
     implementation 'com.github.wangfeixixi:ShareWidget:2.7.3'
 
-    //圆形进度条
-    implementation 'com.github.wangfeixixi:LBS:v0.1.2'
+    //地图定位+巡航
+    implementation 'com.github.wangfeixixi:LBS:0.1.4'
 
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.0'
