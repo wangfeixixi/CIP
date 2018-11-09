@@ -24,8 +24,6 @@ import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class MapActivity extends BaseActivity {
-
-
     public String TAG = "MapActivity";
     private GaodeMapService mLbs;
     private FrameLayout mapContainer;
