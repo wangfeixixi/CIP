@@ -28,6 +28,7 @@ public class MapActivity extends BaseActivity {
     private GaodeMapService mLbs;
     private FrameLayout mapContainer;
     private View btn_update_location;
+    private View btn_clear;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MapActivity extends BaseActivity {
         mLbs.onCreate(savedInstanceState);
 
         btn_update_location = findViewById(R.id.btn_update);
-
+        btn_clear = findViewById(R.id.btn_clear);
     }
 
     @Override
@@ -48,6 +49,12 @@ public class MapActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mLbs.startOnceLocation();
+            }
+        });
+        btn_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLbs.clearAllMarker();
             }
         });
     }

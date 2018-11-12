@@ -16,7 +16,7 @@ import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.cip.push.HttpService;
 import wangfeixixi.cip.utils.RandomBodyUtils;
 import wangfeixixi.cip.utils.ServiceUtils;
-import wangfeixixi.cip.utils.VoiceUtil;
+import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.com.lib.body.CarShelfBean;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.lib.utils.ThreadUtils;
@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private View btn_stop;
     private View btn_update;
     private View btn_map;
+    private View btn_voice;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -39,13 +40,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_update = findViewById(R.id.btn_update);
         testView = findViewById(R.id.testView);
         btn_map = findViewById(R.id.btn_map);
+        btn_voice = findViewById(R.id.btn_voice);
 
         btn_switch.setOnClickListener(this);
         btn_stop.setOnClickListener(this);
         btn_update.setOnClickListener(this);
         btn_map.setOnClickListener(this);
+        btn_voice.setOnClickListener(this);
 
-        VoiceUtil.initKey(UIUtils.getContext());
+//        VoiceUtil.initKey(UIUtils.getContext());
+        VoiceUtil.initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
     }
 
     @Override
@@ -66,6 +70,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_map:
                 startActivity(new Intent(this, MapActivity.class));
+                break;
+            case R.id.btn_voice:
+                VoiceUtil.speek("我是社会主义接班人，哈哈哈哈哈哈哈");
+//                startActivity(new Intent(mCtx, SynthActivity.class));
                 break;
         }
     }
@@ -102,6 +110,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void receiveDatas(CarTest carBean) {
     }
+
     /**
      * android 6.0 以上需要动态申请权限
      */
@@ -131,6 +140,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         // 此处为android 6.0以上动态授权的回调，用户自行实现。
