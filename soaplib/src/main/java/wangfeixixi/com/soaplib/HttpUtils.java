@@ -27,7 +27,7 @@ public class HttpUtils {
         SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("getVehicleDataList", reqBody);
         final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
         String jsonStr = XmlParser.xml2json(response);
-        BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
+        CarTest resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
 
 
         long endTime = System.currentTimeMillis();

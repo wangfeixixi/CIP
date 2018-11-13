@@ -10,6 +10,7 @@ import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.cip.push.HttpService;
 import wangfeixixi.cip.utils.ServiceUtils;
+import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.soaplib.beans.CarTest;
 import wangfeixixi.lbs.LocationInfo;
@@ -27,6 +28,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private View btn_jump;
     private View btn_start;
     private View btn_end;
+    private View rl_container_car;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_jump = findViewById(R.id.btn_jump);
         btn_start = findViewById(R.id.btn_start);
         btn_end = findViewById(R.id.btn_end);
+        rl_container_car = findViewById(R.id.rl_container_car);
 
         btn_update.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
@@ -53,6 +56,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_jump.setOnClickListener(this);
         btn_start.setOnClickListener(this);
         btn_end.setOnClickListener(this);
+        rl_container_car.setOnClickListener(this);
     }
 
     @Override
@@ -69,14 +73,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                 mLbs.clearAllMarker();
                 break;
             case R.id.btn_second_view:
-                carview.setVisibility(View.VISIBLE);
-//                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-//                layoutParams.topMargin = ConvertUtils.dp2px(300);
-//                mapContainer.setLayoutParams(new FrameLayout.LayoutParams(layoutParams));
+                rl_container_car.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_gone_view:
-                carview.setVisibility(View.GONE);
-//                mapContainer.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+                rl_container_car.setVisibility(View.GONE);
                 break;
             case R.id.btn_jump:
                 startActivity(new Intent(mCtx, MainActivity.class));
@@ -140,12 +140,24 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     protected void receiveDatas(CarTest carBean) {
         mLbs.clearAllMarker();
         LocationInfo locationInfo = null;
-        for (int i = 0; i < carBean.cars.size(); i++) {
+        int size = carBean.cars.size();
+        for (int i = 0; i < size; i++) {
             locationInfo = new LocationInfo(carBean.cars.get(i).latitude, carBean.cars.get(i).longitude);
             if (i == 0) {
                 mLbs.moveCamera(locationInfo, 20);
             }
             mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
+            switch (carBean.cars.get(i).warning) {
+                case 0:
+                    VoiceUtil.speek("附近车辆，请注意避让");
+                    break;
+                case 1:
+                    VoiceUtil.speek("危险距离，警告");
+                    break;
+                case 2:
+                    VoiceUtil.speek("紧急避让，紧急避让");
+                    break;
+            }
         }
     }
 
