@@ -11,9 +11,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/btn_update"
+    <wangfeixixi.com.lib.first.FirstView
+        android:id="@+id/carview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="gone" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="更新位置" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="42dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_jump"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳" />
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/btn_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新" />
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清楚" />
+
+        <Button
+            android:id="@+id/btn_second_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示上帝" />
+
+        <Button
+            android:id="@+id/btn_gone_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="隐藏上帝" />
+    </LinearLayout>
 </RelativeLayout>

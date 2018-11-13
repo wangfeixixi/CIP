@@ -1,7 +1,5 @@
 package wangfeixixi.com.soaplib;
 
-import android.util.Log;
-
 import com.blankj.utilcode.util.ObjectUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -19,25 +17,56 @@ public class HttpUtils {
     public static int i = 0;
 
 
-    public static void testExecute() {
+    public static void executeGetVehicleDataList() {
         long startTime = System.currentTimeMillis();
+
+
         Map<String, Object> reqBody = new HashMap<>();
         reqBody.put("count", 5);
         //获取网络请求工具类实例
         SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("getVehicleDataList", reqBody);
         final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
-        long endTime = System.currentTimeMillis();
-
-
         String jsonStr = XmlParser.xml2json(response);
         BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
 
 
+        long endTime = System.currentTimeMillis();
         CarTest carTest = new CarTest();
         carTest.num = i++;
         carTest.ms = response;
         carTest.time = endTime - startTime;
         EventBus.getDefault().post(carTest);
+    }
+
+    public static void executeSetUpSystem() {
+        long startTime = System.currentTimeMillis();
+
+        Map<String, Object> reqBody = new HashMap<>();
+        SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("setUpSystem", reqBody);
+        final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
+        String jsonStr = XmlParser.xml2json(response);
+
+
+        long endTime = System.currentTimeMillis();
+        CarTest carTest = new CarTest();
+        carTest.num = i = 0;
+        carTest.ms = response;
+        carTest.time = endTime - startTime;
+        EventBus.getDefault().post(carTest);
+
+        new Thread() {
+            @Override
+            public void run() {
+                while (isStart)
+                    executeGetVehicleDataList();
+            }
+        }.start();
+    }
+
+    public static boolean isStart = true;
+
+    public static void setIsStart(boolean isStartRun) {
+        isStart = isStartRun;
     }
 
 //    public static void testExecutePre() {
@@ -59,48 +88,12 @@ public class HttpUtils {
 
     //**************************尝试******************************8
     public static void testEnqueue() {
-        i = 0;
         Map<String, Object> reqBody = new HashMap<>();
-//        reqBody.put("count", 20);
-        final long startTime = System.currentTimeMillis();
-
-        CarTest carTest = new CarTest();
-        carTest.ms = "开始准备";
-        EventBus.getDefault().post(carTest);
-
-        //获取网络请求工具类实例
         SoapUtil.getInstance().enqueue("setUpSystem", new Callback() {
             @Override
             public void onResponse(SoapEnvelope soapEnvelope) {
                 final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
                 String jsonStr = XmlParser.xml2json(response);
-                Log.d("ddddddddd", response);
-                long endTime = System.currentTimeMillis();
-                Log.d("cccccccccccccc", String.valueOf(endTime - startTime));
-//                BaseSoapBean baseSoapBean = GsonUtils.fromJson(jsonStr, CarTest.class);
-//                BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
-//                if (!ObjectUtils.isEmpty(resBean)) {
-//                    callBack.onOk(resBean);
-//                }
-
-
-                CarTest carTest = new CarTest();
-                carTest.num = i++;
-                carTest.ms = response;
-                carTest.time = endTime - startTime;
-                EventBus.getDefault().post(carTest);
-
-                new Thread() {
-                    @Override
-                    public void run() {
-                        super.run();
-
-                        int a = 0;
-                        while (a++ < 10) {
-                            testExecute();
-                        }
-                    }
-                }.start();
             }
 
             @Override
