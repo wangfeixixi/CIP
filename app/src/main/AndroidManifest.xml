@@ -58,6 +58,10 @@
         android:supportsRtl="true"
         android:theme="@style/theme_all">
         <activity android:name=".MainActivity">
+
+        </activity>
+
+        <activity android:name=".MapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,9 +69,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MapActivity" />
         <activity android:name=".TestDataActivity" />
+
         <service android:name=".push.HttpService" />
 
         <meta-data

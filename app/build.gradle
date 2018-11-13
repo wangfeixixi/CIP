@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.github.wangfeixixi:ShareWidget:2.7.3'
 
     //地图定位+巡航
-    implementation 'com.github.wangfeixixi:LBS:v0.1.5'
+    implementation 'com.github.wangfeixixi:LBS:v0.1.6'
 
     implementation 'com.android.support:design:28.0.0'
     implementation "com.android.support:appcompat-v7:${supportAppcompat}"

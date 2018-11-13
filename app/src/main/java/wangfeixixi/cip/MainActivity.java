@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.cip.push.HttpService;
 import wangfeixixi.cip.utils.RandomBodyUtils;
 import wangfeixixi.cip.utils.ServiceUtils;
@@ -48,8 +47,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_map.setOnClickListener(this);
         btn_voice.setOnClickListener(this);
 
-//        VoiceUtil.initKey(UIUtils.getContext());
-        VoiceUtil.initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
     }
 
     @Override
@@ -72,7 +69,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(this, MapActivity.class));
                 break;
             case R.id.btn_voice:
-                VoiceUtil.speek("我是社会主义接班人，哈哈哈哈哈哈哈");
+                VoiceUtil.speek("我是社会主义接班人");
 //                startActivity(new Intent(mCtx, SynthActivity.class));
                 break;
         }
