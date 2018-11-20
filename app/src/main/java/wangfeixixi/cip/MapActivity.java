@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.fram.UIUtils;
@@ -29,6 +30,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private View btn_start;
     private View btn_end;
     private View rl_container_car;
+    private TextView tv_warning;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_start = findViewById(R.id.btn_start);
         btn_end = findViewById(R.id.btn_end);
         rl_container_car = findViewById(R.id.rl_container_car);
+        tv_warning = findViewById(R.id.tv_warning);
 
         btn_update.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
@@ -61,6 +64,24 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initData() {
+        tv_warning.setText("预警信息提示");
+        mLbs.setLocationRes(R.mipmap.car_map);
+
+
+//        mLbs.setLocationChangeListener(new OnLocationListener() {
+//            @Override
+//            public void onLocationChange(LocationInfo locationInfo) {
+//                locationInfo.key = "自身坐标车";
+//                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
+//                mLbs.moveCamera(locationInfo, 20);
+//
+//            }
+//        });
+//
+//        mLbs.startOnceLocation();
+
+//        mLbs.startAimlessMode(this, new MapNaviListener());
+        mLbs.setLocationRes(R.mipmap.car_map);
     }
 
     @Override
@@ -94,21 +115,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         mLbs.onResume();
-
-//        mLbs.setLocationChangeListener(new OnLocationListener() {
-//            @Override
-//            public void onLocationChange(LocationInfo locationInfo) {
-//                locationInfo.key = "自身坐标车";
-//                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
-//                mLbs.moveCamera(locationInfo, 20);
-//
-//            }
-//        });
-//
-//        mLbs.startOnceLocation();
-
-//        mLbs.startAimlessMode(this, new MapNaviListener());
-        mLbs.setLocationRes(R.mipmap.car_map);
     }
 
     public void moveSelfCar(LocationInfo locationInfo) {
