@@ -4,6 +4,7 @@ package wangfeixixi.com.lib.body;
  * 车辆自身为原点坐标系
  */
 public class CarShelfBean {
+    public float rotate;//航向角
     public int width;//宽
     public int length;//长
     public int x;

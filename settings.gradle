@@ -1,1 +1,1 @@
-include ':app', ':viewlib', ':soaplib', ':MVVMHabit', ':mvvmhabit', ':MVVMHabitSample'
+include ':app', ':viewlib', ':soaplib', ':MVVMHabitSample'//,'mvvmhabit'

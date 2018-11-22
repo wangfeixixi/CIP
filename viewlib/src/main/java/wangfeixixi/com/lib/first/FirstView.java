@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
@@ -20,8 +21,7 @@ public class FirstView extends View {
     private Paint mPaintCar;
     private int mCarX;//车辆x坐标
     private int mCarY;//车辆y坐标
-    private Bitmap carBitmap;
-    private Rect carRectSrc;
+
     private Rect rect;
 
     public FirstView(Context context) {
@@ -45,10 +45,6 @@ public class FirstView extends View {
 //        mPaintCar.setStrokeWidth(5);
         mPaintCar.setColor(Color.BLUE);
 
-        //车图标
-        carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
-        //自身车
-        carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
 
     }
 
@@ -65,11 +61,23 @@ public class FirstView extends View {
         int carWidth = CarUtils.carWidth * CarUtils.scale;
         int carLength = CarUtils.carLength * CarUtils.scale;
 
+        //重心坐标
         rect = new Rect(mCarX - carWidth / 2, mCarY - carLength / 2, mCarX + carWidth / 2, mCarY + carLength / 2);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        //车图标
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
+        Matrix matrix = new Matrix();
+        matrix.reset();
+        matrix.setRotate(10.2f);
+        Bitmap carBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+//        carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
+        //自身车
+        Rect carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
+
+
         canvas.drawColor(Color.GRAY);
         canvas.drawBitmap(carBitmap, carRectSrc, rect, mPaintCar);
         canvas.save();
@@ -77,6 +85,14 @@ public class FirstView extends View {
         //周围车
         if (mBeans != null) {
             for (int i = 0; i < mBeans.length; i++) {
+
+                matrix.reset();
+                matrix.setRotate(mBeans[i].rotate);
+                carBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+//        carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
+                //自身车
+                carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
+
                 canvas.drawBitmap(carBitmap, carRectSrc, CarUtils.shelf2Screen(mCarX, mCarY, mBeans[i]), mPaintCar);
                 canvas.save();
             }
