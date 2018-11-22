@@ -10,6 +10,7 @@ import android.widget.TextView;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.cip.push.HttpService;
+import wangfeixixi.cip.ui.MainActivity;
 import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.com.lib.first.FirstView;

@@ -11,26 +11,23 @@ android {
             storeFile file('C:/Users/xuany/Androidws/workspace/other/AiyaEffectsAndroid/CIP/app/keystore/release.jks')
             storePassword 'asd123'
         }
-//        signDebug {
-////            keyAlias 'cipdebug'
-////            keyPassword 'asd123'
-//            storeFile file('C:/Users/xuany/Androidws/workspace/other/AiyaEffectsAndroid/CIP/app/keystore/debug.keystore')
-////            storePassword 'asd123'
-//        }
     }
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId "wangfeixixi.cip"
-        minSdkVersion 23
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi'//, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
+
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -41,73 +38,33 @@ android {
             signingConfig signingConfigs.signRelese
         }
     }
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
-
-    //    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    //    implementation 'com.android.support:appcompat-v7:27.1.1'
-
-    //    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-
-    //    testImplementation 'junit:junit:4.12'
-
-    //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-
-    //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    compile project(path: ':viewlib')
-    compile project(path: ':soaplib')
-    implementation 'com.github.wangfeixixi:ShareWidget:2.7.3'
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':viewlib')
+    implementation project(path: ':soaplib')
+//    implementation rootProject.ext.dependencies.MVVMHabit
+//    implementation project(path: ':mvvmhabit')
+    implementation rootProject.ext.dependencies.widgets
+    implementation rootProject.ext.dependencies.eventBus
+    implementation rootProject.ext.dependencies.baiduVoice
+    //下拉刷新,上拉加载
+    implementation rootProject.ext.dependencies.refreshlayout
+    //底部tabBar
+    implementation rootProject.ext.dependencies.pager_bottom_tab_strip
     //地图定位+巡航
-    implementation 'com.github.wangfeixixi:LBS:v0.1.6'
+    implementation rootProject.ext.dependencies.lbs
+    //support
+    implementation rootProject.ext.support.design
+    implementation rootProject.ext.support.support_v4
+    testImplementation rootProject.ext.support.junit
+    //内存泄漏测试
+    implementation rootProject.ext.dependencies.leakcanary_android
+    implementation rootProject.ext.dependencies.leakcanary_support_fragment
 
-    implementation 'com.android.support:design:28.0.0'
-    implementation "com.android.support:appcompat-v7:${supportAppcompat}"
-    implementation "com.android.support.constraint:constraint-layout:${supportConstraintLayout}"
-    implementation "org.greenrobot:eventbus:${eventbus2Version}"
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.github.wangfeixixi:BaiduVoice:v0.0.2'
-//    compile fileTree(exclude: '*.bak', dir: 'libs')
-
-    //retrofit
-
-    //    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-
-    //    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
-
-    //    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
-
-    //    implementation "com.alibaba:fastjson:${fastJsonVersion}"
-
-    //rx
-
-    //    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid2Version}"
-
-    //    implementation "io.reactivex.rxjava2:rxjava:${rxjava2Version}"
-
-    //    implementation "com.trello.rxlifecycle2:rxlifecycle:${rxlifecycle2Version}"
-
-    //    implementation "com.trello.rxlifecycle2:rxlifecycle-components:${rxlifecycle2Version}"
-
-    //    implementation "com.github.VictorAlbertos.RxCache:runtime:${rxcache2Version}"
-
-    //    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermissions2Version}"
-
-    //    implementation "me.jessyan:rxerrorhandler:${rxerrorhandler2Version}"
-
-    //    implementation "com.jakewharton.rxbinding2:rxbinding:${rxBinding2Version}"
-
-    //    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBinding2Version}"
-
-    //    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBinding2Version}"
-
-    //    implementation "com.jakewharton.rxbinding2:rxbinding-design:${rxBinding2Version}"
-
-    //    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${rxBinding2Version}"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-//    testImplementation 'org.junit.jupiter:junit-jupiter-api'
 }

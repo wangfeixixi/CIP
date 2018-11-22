@@ -1,6 +1,6 @@
 package wangfeixixi.com.soaplib;
 
-import com.blankj.utilcode.util.ObjectUtils;
+//import com.blankj.utilcode.util.ObjectUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.ksoap2.SoapEnvelope;
@@ -130,9 +130,9 @@ public class HttpUtils {
 
                 BaseSoapBean baseSoapBean = GsonUtils.fromJson(jsonStr, clazz);
                 BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, clazz);
-                if (!ObjectUtils.isEmpty(resBean)) {
-                    callBack.onOk(resBean);
-                }
+//                if (!ObjectUtils.isEmpty(resBean)) {
+//                    callBack.onOk(resBean);
+//                }
 
                 EventBus.getDefault().post(new CarTest());
             }

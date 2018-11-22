@@ -1,4 +1,4 @@
-package wangfeixixi.cip;
+package wangfeixixi.cip.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import wangfeixixi.cip.MapActivity;
+import wangfeixixi.cip.R;
+import wangfeixixi.cip.TestDataActivity;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.push.HttpService;
 import wangfeixixi.cip.utils.RandomBodyUtils;
