@@ -1,18 +1,21 @@
 package wangfeixixi.cip;
 
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.cip.push.HttpService;
-import wangfeixixi.cip.ui.MainActivity;
+import wangfeixixi.cip.utils.RandomBodyUtils;
 import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
+import wangfeixixi.com.lib.body.CarShelfBean;
+import wangfeixixi.com.lib.car.CarUtils;
 import wangfeixixi.com.lib.first.FirstView;
 import wangfeixixi.com.soaplib.beans.CarTest;
 import wangfeixixi.lbs.LocationInfo;
@@ -27,7 +30,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private View btn_second_view;
     private FirstView carview;
     private View btn_gone_view;
-    private View btn_jump;
     private View btn_start;
     private View btn_end;
     private View rl_container_car;
@@ -47,7 +49,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_second_view = findViewById(R.id.btn_second_view);
         carview = findViewById(R.id.carview);
         btn_gone_view = findViewById(R.id.btn_gone_view);
-        btn_jump = findViewById(R.id.btn_jump);
         btn_start = findViewById(R.id.btn_start);
         btn_end = findViewById(R.id.btn_end);
         rl_container_car = findViewById(R.id.rl_container_car);
@@ -57,7 +58,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_clear.setOnClickListener(this);
         btn_second_view.setOnClickListener(this);
         btn_gone_view.setOnClickListener(this);
-        btn_jump.setOnClickListener(this);
         btn_start.setOnClickListener(this);
         btn_end.setOnClickListener(this);
         rl_container_car.setOnClickListener(this);
@@ -89,7 +89,26 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_update:
-                mLbs.startOnceLocation();
+
+                int rand = (int) (Math.random() * 10);
+                ArrayList<CarShelfBean> list = new ArrayList<>();
+
+//                list.add(new CarShelfBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarShelfBean(15, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarShelfBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarShelfBean(45, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarShelfBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+
+                for (int i = 0; i < 360; i++) {
+//                    list.add(RandomBodyUtils.getRandowBody());
+                    list.add(new CarShelfBean(i, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+                }
+                CarShelfBean[] beans = list.toArray(new CarShelfBean[list.size()]);
+
+
+                carview.updateBodys(beans);
+
+//                mLbs.startOnceLocation();
                 break;
             case R.id.btn_clear:
                 mLbs.clearAllMarker();
@@ -99,9 +118,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_gone_view:
                 rl_container_car.setVisibility(View.GONE);
-                break;
-            case R.id.btn_jump:
-                startActivity(new Intent(mCtx, MainActivity.class));
                 break;
             case R.id.btn_start:
                 ServiceUtils.startService(HttpService.class);

@@ -9,6 +9,7 @@ import wangfeixixi.com.lib.car.CarUtils;
 public class RandomBodyUtils {
     public static CarShelfBean getRandowBody() {
         CarShelfBean bodyBean = new CarShelfBean();
+        bodyBean.rotate = (float) (Math.random() * 360);
         bodyBean.x = (int) (Math.random() * 10);
         bodyBean.y = (int) (Math.random() * 10);
         bodyBean.width = CarUtils.carWidth;
