@@ -45,7 +45,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':viewlib')
+    implementation project(path: ':carview')
     implementation project(path: ':soaplib')
 //    implementation rootProject.ext.dependencies.MVVMHabit
 //    implementation project(path: ':mvvmhabit')

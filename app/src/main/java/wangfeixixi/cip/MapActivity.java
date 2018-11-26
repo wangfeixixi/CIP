@@ -11,12 +11,11 @@ import java.util.ArrayList;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.cip.push.HttpService;
-import wangfeixixi.cip.utils.RandomBodyUtils;
 import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
-import wangfeixixi.com.lib.body.CarShelfBean;
-import wangfeixixi.com.lib.car.CarUtils;
-import wangfeixixi.com.lib.first.FirstView;
+import wangfeixixi.com.car.CarBean;
+import wangfeixixi.com.car.utils.CarUtils;
+import wangfeixixi.com.car.CarView;
 import wangfeixixi.com.soaplib.beans.CarTest;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
@@ -28,7 +27,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private View btn_update;
     private View btn_clear;
     private View btn_second_view;
-    private FirstView carview;
+    private CarView carview;
     private View btn_gone_view;
     private View btn_start;
     private View btn_end;
@@ -91,19 +90,24 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_update:
 
                 int rand = (int) (Math.random() * 10);
-                ArrayList<CarShelfBean> list = new ArrayList<>();
+                ArrayList<CarBean> list = new ArrayList<>();
 
-//                list.add(new CarShelfBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-//                list.add(new CarShelfBean(15, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-//                list.add(new CarShelfBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-//                list.add(new CarShelfBean(45, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-//                list.add(new CarShelfBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+                list.add(new CarBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+                list.add(new CarBean(45, -3, -3, CarUtils.carWidth, CarUtils.carLength));
+                list.add(new CarBean(-45, -3, 3, CarUtils.carWidth, CarUtils.carLength));
+                list.add(new CarBean(135, 3, -3, CarUtils.carWidth, CarUtils.carLength));
+                list.add(new CarBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+                list.add(new CarBean(0, 8, 8, CarUtils.carWidth, CarUtils.carLength));
+                list.add(new CarBean(0, -9, 9, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(45, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
 
-                for (int i = 0; i < 360; i++) {
+//                for (int i = 0; i < 360; i++) {
 //                    list.add(RandomBodyUtils.getRandowBody());
-                    list.add(new CarShelfBean(i, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-                }
-                CarShelfBean[] beans = list.toArray(new CarShelfBean[list.size()]);
+//                    list.add(new CarBean(i, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                }
+                CarBean[] beans = list.toArray(new CarBean[list.size()]);
 
 
                 carview.updateBodys(beans);

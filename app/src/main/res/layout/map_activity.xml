@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="240dp">
 
-        <wangfeixixi.com.lib.first.FirstView
+        <wangfeixixi.com.car.CarView
             android:id="@+id/carview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

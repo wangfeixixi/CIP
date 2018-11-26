@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="wangfeixixi.cip.ui.MainActivity">
 
-    <wangfeixixi.com.lib.first.FirstView
+    <wangfeixixi.com.car.CarView
         android:id="@+id/testView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

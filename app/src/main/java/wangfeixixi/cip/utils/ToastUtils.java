@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import wangfeixixi.cip.fram.UIUtils;
-import wangfeixixi.com.lib.utils.ThreadUtils;
 
 
 public class ToastUtils {
