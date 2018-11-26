@@ -19,6 +19,8 @@ public class CarTest extends BaseSoapBean {
         public double y;
         public int speed;
 
+        public int warning;
+
         public String key;
         public String address;
         public double latitude;

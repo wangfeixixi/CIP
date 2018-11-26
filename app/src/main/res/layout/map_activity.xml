@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="wangfeixixi.cip.MainActivity">
+    tools:context="wangfeixixi.cip.ui.MainActivity">
 
 
     <FrameLayout
@@ -11,11 +12,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <wangfeixixi.com.lib.first.FirstView
-        android:id="@+id/carview"
+    <RelativeLayout
+        android:id="@+id/rl_container_car"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:visibility="gone" />
+        android:layout_height="240dp">
+
+        <wangfeixixi.com.car.CarView
+            android:id="@+id/carview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <wangfeixixi.share.circle.DialProgress
+            android:id="@+id/dial_progress_bar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:padding="@dimen/small"
+            app:animTime="1000"
+            app:arcColors="@array/gradient_arc_color"
+            app:arcWidth="@dimen/small"
+            app:dialIntervalDegree="3"
+            app:dialWidth="1dp"
+            app:hint="当前时速"
+            app:hintSize="6sp"
+            app:maxValue="300"
+            app:startAngle="135"
+            app:sweepAngle="270"
+            app:unit="km/h"
+            app:unitSize="8sp"
+            app:value="100"
+            app:valueSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:text="asdfas"
+            android:textColor="@color/yellow"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,12 +61,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="42dp"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_jump"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="跳" />
 
         <Button
             android:id="@+id/btn_start"

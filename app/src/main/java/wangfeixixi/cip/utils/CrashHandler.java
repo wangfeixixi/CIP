@@ -1,4 +1,4 @@
-package wangfeixixi.com.lib.utils;
+package wangfeixixi.cip.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

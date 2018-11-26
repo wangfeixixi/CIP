@@ -1,4 +1,4 @@
-package wangfeixixi.cip;
+package wangfeixixi.cip.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -11,18 +11,21 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import wangfeixixi.cip.MapActivity;
+import wangfeixixi.cip.R;
+import wangfeixixi.cip.TestDataActivity;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.push.HttpService;
 import wangfeixixi.cip.utils.RandomBodyUtils;
 import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
-import wangfeixixi.com.lib.body.CarShelfBean;
-import wangfeixixi.com.lib.first.FirstView;
-import wangfeixixi.com.lib.utils.ThreadUtils;
+import wangfeixixi.com.car.CarBean;
+import wangfeixixi.com.car.CarView;
+import wangfeixixi.cip.utils.ThreadUtils;
 import wangfeixixi.com.soaplib.beans.CarTest;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private FirstView testView;
+    private CarView testView;
     private TextView tv_info;
     private View btn_switch;
     private View btn_stop;
@@ -85,11 +88,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void update() {
         if (isUpdating) {
             int rand = (int) (Math.random() * 3);
-            ArrayList<CarShelfBean> list = new ArrayList<>();
+            ArrayList<CarBean> list = new ArrayList<>();
             for (int i = 0; i < rand; i++) {
                 list.add(RandomBodyUtils.getRandowBody());
             }
-            CarShelfBean[] beans = list.toArray(new CarShelfBean[list.size()]);
+            CarBean[] beans = list.toArray(new CarBean[list.size()]);
 //            carView.updateBodys(beans);
             testView.updateBodys(beans);
 

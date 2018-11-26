@@ -1,4 +1,4 @@
-package wangfeixixi.com.lib.utils;
+package wangfeixixi.cip.utils;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
