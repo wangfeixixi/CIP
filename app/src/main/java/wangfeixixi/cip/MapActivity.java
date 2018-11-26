@@ -12,10 +12,9 @@ import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.fram.UIUtils;
 import wangfeixixi.cip.push.HttpService;
 import wangfeixixi.cip.utils.ServiceUtils;
-import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.com.car.CarBean;
-import wangfeixixi.com.car.utils.CarUtils;
 import wangfeixixi.com.car.CarView;
+import wangfeixixi.com.car.utils.CarUtils;
 import wangfeixixi.com.soaplib.beans.CarTest;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
@@ -88,10 +87,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_update:
-
-                int rand = (int) (Math.random() * 10);
                 ArrayList<CarBean> list = new ArrayList<>();
-
                 list.add(new CarBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
                 list.add(new CarBean(45, -3, -3, CarUtils.carWidth, CarUtils.carLength));
                 list.add(new CarBean(-45, -3, 3, CarUtils.carWidth, CarUtils.carLength));
@@ -103,12 +99,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 //                list.add(new CarBean(45, 0, 0, CarUtils.carWidth, CarUtils.carLength));
 //                list.add(new CarBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
 
-//                for (int i = 0; i < 360; i++) {
-//                    list.add(RandomBodyUtils.getRandowBody());
-//                    list.add(new CarBean(i, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-//                }
                 CarBean[] beans = list.toArray(new CarBean[list.size()]);
-
 
                 carview.updateBodys(beans);
 
@@ -165,27 +156,35 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void receiveDatas(CarTest carBean) {
-        mLbs.clearAllMarker();
-        LocationInfo locationInfo = null;
-        int size = carBean.cars.size();
-        for (int i = 0; i < size; i++) {
-            locationInfo = new LocationInfo(carBean.cars.get(i).latitude, carBean.cars.get(i).longitude);
-            if (i == 0) {
-                mLbs.moveCamera(locationInfo, 20);
-            }
-            mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
-            switch (carBean.cars.get(i).warning) {
-                case 0:
-                    VoiceUtil.speek("附近车辆，请注意避让");
-                    break;
-                case 1:
-                    VoiceUtil.speek("危险距离，警告");
-                    break;
-                case 2:
-                    VoiceUtil.speek("紧急避让，紧急避让");
-                    break;
-            }
+        ArrayList<CarBean> list = new ArrayList<>();
+        for (int i = 0; i < carBean.num; i++) {
+            CarTest.Car car = carBean.cars.get(i);
+            list.add(new CarBean(0, (int) car.x, (int) car.y, CarUtils.carWidth, CarUtils.carLength));
         }
+        carview.updateBodys(list.toArray(new CarBean[list.size()]));
+
+
+//        mLbs.clearAllMarker();
+//        LocationInfo locationInfo = null;
+//        int size = carBean.cars.size();
+//        for (int i = 0; i < size; i++) {
+//            locationInfo = new LocationInfo(carBean.cars.get(i).latitude, carBean.cars.get(i).longitude);
+//            if (i == 0) {
+//                mLbs.moveCamera(locationInfo, 20);
+//            }
+//            mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
+//            switch (carBean.cars.get(i).warning) {
+//                case 0:
+//                    VoiceUtil.speek("附近车辆，请注意避让");
+//                    break;
+//                case 1:
+//                    VoiceUtil.speek("危险距离，警告");
+//                    break;
+//                case 2:
+//                    VoiceUtil.speek("紧急避让，紧急避让");
+//                    break;
+//            }
+//        }
     }
 
 //    /**

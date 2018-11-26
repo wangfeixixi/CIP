@@ -16,6 +16,12 @@ public class CarUtils {
      * 转化比例：1米scale个像素
      */
     public static int scale = 20;
+
+    /**
+     * 车辆图片的缩放
+     */
+    public static float carBitmapScale = 0.1f;
+
     //默认车宽
     public static int carWidth = 2;
     //默认车长
