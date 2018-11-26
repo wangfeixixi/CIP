@@ -15,6 +15,7 @@ import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.com.car.CarBean;
 import wangfeixixi.com.car.CarView;
 import wangfeixixi.com.car.utils.CarUtils;
+import wangfeixixi.com.soaplib.HttpUtils;
 import wangfeixixi.com.soaplib.beans.CarTest;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
@@ -88,25 +89,24 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.btn_update:
                 ArrayList<CarBean> list = new ArrayList<>();
-                list.add(new CarBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-                list.add(new CarBean(45, -3, -3, CarUtils.carWidth, CarUtils.carLength));
-                list.add(new CarBean(-45, -3, 3, CarUtils.carWidth, CarUtils.carLength));
-                list.add(new CarBean(135, 3, -3, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(45, -3, -3, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(-45, -3, 3, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(135, 3, -3, CarUtils.carWidth, CarUtils.carLength));
                 list.add(new CarBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-                list.add(new CarBean(0, 8, 8, CarUtils.carWidth, CarUtils.carLength));
-                list.add(new CarBean(0, -9, 9, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(0, 8, 8, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(0, -9, 9, CarUtils.carWidth, CarUtils.carLength));
 //                list.add(new CarBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
 //                list.add(new CarBean(45, 0, 0, CarUtils.carWidth, CarUtils.carLength));
 //                list.add(new CarBean(90, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-
                 CarBean[] beans = list.toArray(new CarBean[list.size()]);
-
                 carview.updateBodys(beans);
 
-//                mLbs.startOnceLocation();
+                HttpUtils.testEnqueue();
                 break;
             case R.id.btn_clear:
                 mLbs.clearAllMarker();
+                carview.updateBodys(new CarBean[0]);
                 break;
             case R.id.btn_second_view:
                 rl_container_car.setVisibility(View.VISIBLE);
@@ -152,6 +152,44 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     protected void onDestroy() {
         super.onDestroy();
         mLbs.onDestroy();
+    }
+
+
+    @Override
+    protected void receiveLog(String msg) {
+        double tem = 0;
+        if (msg.startsWith("[VehicleData")) {
+            ArrayList<CarBean> list = new ArrayList<>();
+            list.add(new CarBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+
+            String[] vehicleData = msg.split("VehicleData");
+            if (vehicleData.length >= 2) {
+                for (int i = 1; i < vehicleData.length; i++) {
+                    String vehicleDatum = vehicleData[i];
+                    list.add(new CarBean(0,
+                            Integer.parseInt(vehicleDatum.split("latitude=")[1].split(";")[0]),
+                            Integer.parseInt(vehicleDatum.split("longitude=")[1].split(";")[0]),
+                            CarUtils.carWidth, CarUtils.carLength));
+                }
+            }
+
+            String[] latitude1 = msg.split("latitude=");
+            String[] longtitude1 = msg.split("longitude=");
+            String[] lat = latitude1[1].split(";");
+            String[] lon = longtitude1[1].split(";");
+
+            int s = Integer.parseInt(lat[0]);
+            int s1 = Integer.parseInt(lon[0]);
+
+            tem = Math.sqrt(Math.abs(s) * Math.abs(s) + Math.abs(s1) * Math.abs(s1));
+            msg = msg + "\n" + "距离长度为" + tem;
+
+
+            list.add(new CarBean(0, s, s1, CarUtils.carWidth, CarUtils.carLength));
+            carview.updateBodys(list.toArray(new CarBean[list.size()]));
+        }
+
+        tv_warning.setText(msg);
     }
 
     @Override

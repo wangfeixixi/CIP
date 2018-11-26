@@ -15,34 +15,34 @@
     <RelativeLayout
         android:id="@+id/rl_container_car"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="520dp">
 
         <wangfeixixi.com.car.CarView
             android:id="@+id/carview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <wangfeixixi.share.circle.DialProgress
-            android:id="@+id/dial_progress_bar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
-            android:padding="@dimen/small"
-            app:animTime="1000"
-            app:arcColors="@array/gradient_arc_color"
-            app:arcWidth="@dimen/small"
-            app:dialIntervalDegree="3"
-            app:dialWidth="1dp"
-            app:hint="当前时速"
-            app:hintSize="6sp"
-            app:maxValue="300"
-            app:startAngle="135"
-            app:sweepAngle="270"
-            app:unit="km/h"
-            app:unitSize="8sp"
-            app:value="100"
-            app:valueSize="@dimen/text_size_16" />
+        <!--<wangfeixixi.share.circle.DialProgress-->
+            <!--android:id="@+id/dial_progress_bar"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_margin="8dp"-->
+            <!--android:padding="@dimen/small"-->
+            <!--app:animTime="1000"-->
+            <!--app:arcColors="@array/gradient_arc_color"-->
+            <!--app:arcWidth="@dimen/small"-->
+            <!--app:dialIntervalDegree="3"-->
+            <!--app:dialWidth="1dp"-->
+            <!--app:hint="当前时速"-->
+            <!--app:hintSize="6sp"-->
+            <!--app:maxValue="300"-->
+            <!--app:startAngle="135"-->
+            <!--app:sweepAngle="270"-->
+            <!--app:unit="km/h"-->
+            <!--app:unitSize="8sp"-->
+            <!--app:value="100"-->
+            <!--app:valueSize="@dimen/text_size_16" />-->
 
         <TextView
             android:id="@+id/tv_warning"
@@ -85,7 +85,7 @@
             android:id="@+id/btn_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="更新" />
+            android:text="测试" />
 
         <Button
             android:id="@+id/btn_clear"
