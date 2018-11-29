@@ -12,9 +12,6 @@ import wangfeixixi.com.soaplib.network.Callback;
 import wangfeixixi.com.soaplib.tool.SoapEnvelopeUtil;
 
 public class HttpUtils {
-    public static int i = 0;
-
-
     public static void executeGetVehicleDataList() {
         Map<String, Object> reqBody = new HashMap<>();
         reqBody.put("count", 1);
@@ -23,48 +20,6 @@ public class HttpUtils {
         final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
         EventBus.getDefault().post(String.valueOf(response));
     }
-
-    public static void executeSetUpSystem() {
-        Map<String, Object> reqBody = new HashMap<>();
-        SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("setUpSystem", reqBody);
-        final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
-        if (response == null) {
-            EventBus.getDefault().post("初始化网络异常");
-            return;
-        } else {
-            EventBus.getDefault().post("初始化网络成功");
-        }
-        new Thread() {
-            @Override
-            public void run() {
-                while (isStart)
-                    executeGetVehicleDataList();
-            }
-        }.start();
-    }
-
-    public static boolean isStart = true;
-
-    public static void setIsStart(boolean isStartRun) {
-        isStart = isStartRun;
-    }
-
-//    public static void testExecutePre() {
-//        long startTime = System.currentTimeMillis();
-//        Map<String, Object> reqBody = new HashMap<>();
-//        reqBody.put("count", 5);
-//        //获取网络请求工具类实例
-//        SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("setUpSystem", reqBody);
-//        final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
-//        long endTime = System.currentTimeMillis();
-//        Log.d("ddddddddd", response);
-//        Log.d("cccccccccccccc", String.valueOf(endTime - startTime));
-//        String jsonStr = XmlParser.xml2json(response);
-//        BaseSoapBean resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
-//
-//        EventBus.getDefault().post(new CarTest());
-//        testEnqueue();
-//    }
 
     //**************************尝试******************************8
     public static void testEnqueue() {
@@ -75,13 +30,7 @@ public class HttpUtils {
                 final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
 //                String jsonStr = XmlParser.xml2json(response);
                 EventBus.getDefault().post("初始化成功" + response);
-                new Thread() {
-                    @Override
-                    public void run() {
-                        while (isStart)
-                            executeGetVehicleDataList();
-                    }
-                }.start();
+                getData();
             }
 
             @Override
@@ -91,21 +40,22 @@ public class HttpUtils {
         }, reqBody);
     }
 
-    //**************************尝试******************************8
-//    public static void testUrl() {
-//        Map<String, Object> reqBody = new HashMap<>();
-//        SoapUtil.getInstance().enqueue("setUpSystem", new Callback() {
-//            @Override
-//            public void onResponse(SoapEnvelope soapEnvelope) {
-//                final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
-//            }
-//
-//            @Override
-//            public void onFailure(Exception e) {
-//
-//            }
-//        }, reqBody);
-//    }
+    public static void getData() {
+        Map<String, Object> reqBody = new HashMap<>();
+        reqBody.put("count", 1);
+        SoapUtil.getInstance().enqueue("getVehicleDataList", new Callback() {
+            @Override
+            public void onResponse(SoapEnvelope soapEnvelope) {
+                final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
+                EventBus.getDefault().post(response);
+            }
+
+            @Override
+            public void onFailure(Exception var1) {
+                EventBus.getDefault().post("获取数据失败" + var1.getMessage());
+            }
+        }, reqBody);
+    }
 
 
 //    public static void enqueue(String methodName, Map<String, Integer> params, final Class<? extends BaseSoapBean> clazz, final OnSoapCallBack callBack) {

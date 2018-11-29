@@ -14,7 +14,6 @@ import wangfeixixi.cip.push.HttpService;
 import wangfeixixi.cip.ui.ServiceUtils;
 import wangfeixixi.cip.ui.ThreadUtils;
 import wangfeixixi.cip.ui.UIUtils;
-import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.com.car.CarBean;
 import wangfeixixi.com.car.CarView;
 import wangfeixixi.com.car.utils.BitmapUtils;
@@ -28,8 +27,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     public String TAG = "MapActivity";
     private GaodeMapService mLbs;
     private FrameLayout mapContainer;
-    private View btn_update;
-    private View btn_clear;
     private View btn_second_view;
     private CarView carview;
     private View btn_gone_view;
@@ -37,7 +34,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private View btn_end;
     private View rl_container_car;
     private TextView tv_warning;
-//    private View btn_test;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -48,8 +44,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
 
-        btn_update = findViewById(R.id.btn_update);
-        btn_clear = findViewById(R.id.btn_clear);
         btn_second_view = findViewById(R.id.btn_second_view);
         carview = findViewById(R.id.carview);
         btn_gone_view = findViewById(R.id.btn_gone_view);
@@ -57,23 +51,19 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_end = findViewById(R.id.btn_end);
         rl_container_car = findViewById(R.id.rl_container_car);
         tv_warning = findViewById(R.id.tv_warning);
-//        btn_test = findViewById(R.id.btn_test);
 
-        btn_update.setOnClickListener(this);
-        btn_clear.setOnClickListener(this);
         btn_second_view.setOnClickListener(this);
         btn_gone_view.setOnClickListener(this);
         btn_start.setOnClickListener(this);
         btn_end.setOnClickListener(this);
         rl_container_car.setOnClickListener(this);
-//        btn_test.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
         tv_warning.setText("预警信息提示");
         mLbs.setLocationRes(R.mipmap.car_map);
-        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
+//        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
 
 //        mLbs.setLocationChangeListener(new OnLocationListener() {
 //            @Override
@@ -103,7 +93,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         final CarBean[] beans = list.toArray(new CarBean[list.size()]);
         carview.updateBodys(beans);
         tv_warning.setText("距离 " + i + " 米");
-        speek(i);
         ThreadUtils.runOnUiThreadDelayed(new Runnable() {
             @Override
             public void run() {
@@ -112,30 +101,20 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         }, 1);
     }
 
-    public void speek(float i) {
-        if (((int) (i)) % 10 != 0) return;
-        if (i < 100) {
-            VoiceUtil.getInstance().speek("路口有车辆汇入");
-        } else if (i < 50) {
-            VoiceUtil.getInstance().speek("附近有车辆，请小心驾驶");
-        } else if (i < 10) {
-            VoiceUtil.getInstance().speek("请保持安全距离！");
-        }
-    }
+//    public void speek(float i) {
+//        if (((int) (i)) % 10 != 0) return;
+//        if (i < 100) {
+//            VoiceUtil.getInstance().speek("路口有车辆汇入");
+//        } else if (i < 50) {
+//            VoiceUtil.getInstance().speek("附近有车辆，请小心驾驶");
+//        } else if (i < 10) {
+//            VoiceUtil.getInstance().speek("请保持安全距离！");
+//        }
+//    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_update:
-//                test();
-//                i = 100f;
-                VoiceUtil.getInstance().speek("开始驾驶");
-                HttpUtils.testEnqueue();
-                break;
-            case R.id.btn_clear:
-                mLbs.clearAllMarker();
-                carview.updateBodys(new CarBean[0]);
-                break;
             case R.id.btn_second_view:
                 rl_container_car.setVisibility(View.VISIBLE);
                 break;
@@ -143,10 +122,25 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                 rl_container_car.setVisibility(View.GONE);
                 break;
             case R.id.btn_start:
-                ServiceUtils.startService(HttpService.class);
+                isStart = true;
+//                test();
+//                ServiceUtils.startService(HttpService.class);
+                mLbs.clearAllMarker();
+                carview.updateBodys(new CarBean[0]);
+//                VoiceUtil.getInstance().speek("开始驾驶");
+
+
+//                HttpUtils.setIsStart(true);
+//                HttpUtils.executeSetUpSystem();
+
+                HttpUtils.testEnqueue();
                 break;
             case R.id.btn_end:
-                ServiceUtils.stopService(HttpService.class);
+                isStart = false;
+//                ServiceUtils.stopService(HttpService.class);
+//                HttpUtils.setIsStart(false);
+
+
                 break;
 //            case R.id.btn_test:
 //
@@ -185,9 +179,12 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mLbs.onDestroy();
     }
 
+    private boolean isStart = false;
 
     @Override
     protected void receiveLog(String msg) {
+        if (!isStart) return;
+        HttpUtils.getData();
         Log.d("adfsdfasdfas", msg);
         double tem = 0;
         if (msg.startsWith("[VehicleData")) {
@@ -198,7 +195,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
             String[] vehicleData = msg.split("anyType");
             String vehicleDatum = null;
             if (vehicleData.length >= 2) {
-                for (int i = 1; i < vehicleData.length; i++) {
+                for (int i = 0; i < vehicleData.length; i++) {
                     vehicleDatum = vehicleData[i];
                     list.add(new CarBean(0,
                             Float.parseFloat(vehicleDatum.split("x=")[1].split(";")[0]),
@@ -213,7 +210,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 //                rl_container_car.setVisibility(View.GONE);
 //            } else {
 //                rl_container_car.setVisibility(View.VISIBLE);
-//                carview.updateBodys(list.toArray(new CarBean[list.size()]));
+            carview.updateBodys(list.toArray(new CarBean[list.size()]));
 //            }
 
             mLbs.clearAllMarker();

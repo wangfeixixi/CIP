@@ -51,7 +51,7 @@ dependencies {
 //    implementation project(path: ':mvvmhabit')
     implementation rootProject.ext.dependencies.widgets
     implementation rootProject.ext.dependencies.eventBus
-    implementation rootProject.ext.dependencies.baiduVoice
+//    implementation rootProject.ext.dependencies.baiduVoice
     //下拉刷新,上拉加载
     implementation rootProject.ext.dependencies.refreshlayout
     //底部tabBar
