@@ -17,8 +17,8 @@ public class HttpService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        HttpUtils.setIsStart(true);
-        HttpUtils.executeSetUpSystem();
+//        HttpUtils.setIsStart(true);
+        HttpUtils.testEnqueue();
     }
 
 
@@ -30,7 +30,7 @@ public class HttpService extends Service {
 
     @Override
     public void onDestroy() {
-        HttpUtils.setIsStart(false);
+//        HttpUtils.setIsStart(false);
         super.onDestroy();
     }
 }

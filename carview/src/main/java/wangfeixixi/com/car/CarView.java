@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -19,9 +20,7 @@ public class CarView extends View {
     private int mCarX;//车辆x坐标
     private int mCarY;//车辆y坐标
     private Bitmap bitmap;//原生车图
-//    private Matrix matrix;
-//    private Bitmap carBitmap;
-//    private Rect carRectSrc;
+    private Paint mPaintLine;//车道线
 
     public CarView(Context context) {
         this(context, null, 0);
@@ -41,6 +40,13 @@ public class CarView extends View {
         mPaintCar = new Paint();
         mPaintCar.setAntiAlias(true);
         mPaintCar.setStyle(Paint.Style.FILL);
+        //车道线
+        mPaintLine = new Paint(Paint.ANTI_ALIAS_FLAG);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
+        mPaintLine.setColor(Color.WHITE);
+        mPaintLine.setStrokeWidth(10);
+        mPaintLine.setPathEffect(new DashPathEffect(new float[]{50, 20}, 0));
+
     }
 
     @Override
@@ -54,7 +60,7 @@ public class CarView extends View {
         //重心坐标
 //        rect = new Rect(mCarX - carWidth / 2, mCarY - carLength / 2, mCarX + carWidth / 2, mCarY + carLength / 2);
         //车图标,放大车辆图标
-        bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car), 0.1f);
+        bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car), CarUtils.carBitmapScale);
 //        matrix = new Matrix();
     }
 
@@ -64,6 +70,15 @@ public class CarView extends View {
         if (mBeans != null)
             for (int i = 0; i < mBeans.length; i++)
                 drawCar(canvas, mBeans[i]);
+        drawLine(canvas);
+    }
+
+    private void drawLine(Canvas canvas) {
+        canvas.drawLines(new float[]{
+                mCarX - 100, 0,
+                mCarX - 100, mCarY / 2 * 3,
+                mCarX + 100, 0,
+                mCarX + 100, mCarY / 2 * 3}, mPaintLine);
     }
 
     private void drawCar(Canvas canvas, CarBean bean) {

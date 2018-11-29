@@ -1,4 +1,4 @@
-package wangfeixixi.cip.fram;
+package wangfeixixi.cip.ui;
 
 import android.app.Application;
 import android.content.res.Resources;
