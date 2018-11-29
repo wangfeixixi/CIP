@@ -20,9 +20,7 @@ public class CarView extends View {
     private int mCarX;//车辆x坐标
     private int mCarY;//车辆y坐标
     private Bitmap bitmap;//原生车图
-//    private Matrix matrix;
-//    private Bitmap carBitmap;
-//    private Rect carRectSrc;
+    private Paint mPaintLine;//车道线
 
     public CarView(Context context) {
         this(context, null, 0);
@@ -42,6 +40,13 @@ public class CarView extends View {
         mPaintCar = new Paint();
         mPaintCar.setAntiAlias(true);
         mPaintCar.setStyle(Paint.Style.FILL);
+        //车道线
+        mPaintLine = new Paint(Paint.ANTI_ALIAS_FLAG);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
+        mPaintLine.setColor(Color.WHITE);
+        mPaintLine.setStrokeWidth(10);
+        mPaintLine.setPathEffect(new DashPathEffect(new float[]{50, 20}, 0));
+
     }
 
     @Override
@@ -69,20 +74,11 @@ public class CarView extends View {
     }
 
     private void drawLine(Canvas canvas) {
-        Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        setLayerType(LAYER_TYPE_SOFTWARE, null);
-        mPaint.setColor(Color.WHITE);
-        mPaint.setStrokeWidth(10);
-        mPaint.setPathEffect(new DashPathEffect(new float[]{50, 20}, 0));
-//        canvas.drawLine(mCarX - 100, 0,
-//                mCarX - 100, mCarY, mPaint);
-//        canvas.drawLine(mCarX + 100, 0,
-//                mCarX + 100, mCarY, mPaint);
         canvas.drawLines(new float[]{
                 mCarX - 100, 0,
                 mCarX - 100, mCarY / 2 * 3,
                 mCarX + 100, 0,
-                mCarX + 100, mCarY / 2 * 3}, mPaint);
+                mCarX + 100, mCarY / 2 * 3}, mPaintLine);
     }
 
     private void drawCar(Canvas canvas, CarBean bean) {

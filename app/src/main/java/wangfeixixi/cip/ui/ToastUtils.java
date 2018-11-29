@@ -1,10 +1,7 @@
-package wangfeixixi.cip.utils;
+package wangfeixixi.cip.ui;
 
 import android.content.Context;
 import android.widget.Toast;
-
-import wangfeixixi.cip.fram.UIUtils;
-
 
 public class ToastUtils {
     private static Toast toast;

@@ -1,4 +1,4 @@
-package wangfeixixi.cip.utils;
+package wangfeixixi.cip.ui;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -12,6 +12,8 @@ import java.util.Locale;
  */
 
 public class LogUtils {
+
+
     public static String TAG = "wangfei";
     public static boolean DEBUG = true;//Log.isLoggable(TAG, Log.ERROR);
 

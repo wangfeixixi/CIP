@@ -2,15 +2,12 @@ package wangfeixixi.com.soaplib;
 
 //import com.blankj.utilcode.util.ObjectUtils;
 
-import android.util.Log;
-
 import org.greenrobot.eventbus.EventBus;
 import org.ksoap2.SoapEnvelope;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import wangfeixixi.com.soaplib.beans.CarTest;
 import wangfeixixi.com.soaplib.network.Callback;
 import wangfeixixi.com.soaplib.tool.SoapEnvelopeUtil;
 
@@ -19,31 +16,12 @@ public class HttpUtils {
 
 
     public static void executeGetVehicleDataList() {
-//        long startTime = System.currentTimeMillis();
-
         Map<String, Object> reqBody = new HashMap<>();
-        reqBody.put("count", 5);
+        reqBody.put("count", 1);
         //获取网络请求工具类实例
         SoapEnvelope soapEnvelope = SoapUtil.getInstance().execute("getVehicleDataList", reqBody);
         final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
-        if (response.equals("anyType{}")) {
-            return;
-        }
-        if (response == null) {
-            EventBus.getDefault().post("请求数据网络异常");
-            return;
-        }
-        Log.d("adfsdfasdfas", response);
-//        String jsonStr = XmlParser.xml2json(response);
-//        CarTest resBean = GsonUtils.fromJson(jsonStr, CarTest.class);
-
-//        long endTime = System.currentTimeMillis();
-//        CarTest carTest = new CarTest();
-//        carTest.num = i++;
-//        carTest.ms = response;
-//        carTest.time = endTime - startTime;
-//        EventBus.getDefault().post(carTest);
-        EventBus.getDefault().post(response);
+        EventBus.getDefault().post(String.valueOf(response));
     }
 
     public static void executeSetUpSystem() {
@@ -108,10 +86,26 @@ public class HttpUtils {
 
             @Override
             public void onFailure(Exception var1) {
-                EventBus.getDefault().post("初始化失败");
+                EventBus.getDefault().post("初始化失败" + var1.getMessage());
             }
         }, reqBody);
     }
+
+    //**************************尝试******************************8
+//    public static void testUrl() {
+//        Map<String, Object> reqBody = new HashMap<>();
+//        SoapUtil.getInstance().enqueue("setUpSystem", new Callback() {
+//            @Override
+//            public void onResponse(SoapEnvelope soapEnvelope) {
+//                final String response = SoapEnvelopeUtil.getTextFromResponse(soapEnvelope);
+//            }
+//
+//            @Override
+//            public void onFailure(Exception e) {
+//
+//            }
+//        }, reqBody);
+//    }
 
 
 //    public static void enqueue(String methodName, Map<String, Integer> params, final Class<? extends BaseSoapBean> clazz, final OnSoapCallBack callBack) {

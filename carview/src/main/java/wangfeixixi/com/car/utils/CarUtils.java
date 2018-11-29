@@ -15,7 +15,7 @@ public class CarUtils {
     /**
      * 转化比例：1米scale个像素
      */
-    public static int scale = 20;
+    public static float scale = 10;
 
     /**
      * 车辆图片的缩放
@@ -23,9 +23,9 @@ public class CarUtils {
     public static float carBitmapScale = 0.1f;
 
     //默认车宽
-    public static int carWidth = 2;
+    public static float carWidth = 2;
     //默认车长
-    public static int carLength = 4;
+    public static float carLength = 4;
 
     /**
      * 将自身坐标系转换为屏幕坐标系
@@ -35,24 +35,24 @@ public class CarUtils {
      * @param bodyBean 扫描的物体信息
      * @return 屏幕坐标系物体区域
      */
-    public static Rect shelf2Screen(int carX, int carY, CarBean bodyBean) {
+    public static Rect shelf2Screen(float carX, float carY, CarBean bodyBean) {
         //1.车辆自身中心坐标（x1,y1）
 
         //2.
 
 
-        int x = (carX + bodyBean.x * scale);
-        int y = (carY - bodyBean.y * scale);
-        int width = bodyBean.width * scale;
-        int length = bodyBean.length * scale;
-        return new Rect(x - width, y - length, x, y);
+        float x = (carX + bodyBean.x * scale);
+        float y = (carY - bodyBean.y * scale);
+        float width = bodyBean.width * scale;
+        float length = bodyBean.length * scale;
+        return new Rect((int) (x - width), (int) (y - length), (int) x, (int) y);
     }
 
-    public static int x2XView(int carX, CarBean bodyBean) {
+    public static float x2XView(float carX, CarBean bodyBean) {
         return carX + bodyBean.x * scale - bodyBean.width * scale;
     }
 
-    public static int y2YView(int carY, CarBean bodyBean) {
+    public static float y2YView(float carY, CarBean bodyBean) {
         return carY - bodyBean.y * scale - bodyBean.width * scale;
     }
 

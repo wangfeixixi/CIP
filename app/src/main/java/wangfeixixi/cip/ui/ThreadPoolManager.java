@@ -1,4 +1,4 @@
-package wangfeixixi.cip.utils;
+package wangfeixixi.cip.ui;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -6,17 +6,21 @@ import java.util.concurrent.TimeUnit;
 
 public class ThreadPoolManager {
 
-    private static ThreadPoolManager instance = new ThreadPoolManager();// 饿汉式
+    //    private static ThreadPoolManager instance = new ThreadPoolManager();// 饿汉式
     private ThreadPoolProxy poolProxy;
     private ThreadPoolProxy longThreadPoolProxy;
 
     private ThreadPoolManager() {
     }
 
+    private static class AAA {
+        private static ThreadPoolManager a = new ThreadPoolManager();
+    }
+
     // 懒汉式   饿汉式(线程安全的)
 
     public static ThreadPoolManager getInstance() {
-        return instance;
+        return AAA.a;
     }
 
 
@@ -38,6 +42,7 @@ public class ThreadPoolManager {
 
     /**
      * 读写文件
+     *
      * @return
      */
     public ThreadPoolProxy createLongThreadPool() {

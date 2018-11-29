@@ -1,12 +1,10 @@
-package wangfeixixi.cip.utils;
+package wangfeixixi.cip.ui;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 
 import java.util.List;
-
-import wangfeixixi.cip.fram.UIUtils;
 
 public class ServiceUtils {
     /**
