@@ -13,6 +13,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.com.base.test.LogUtils;
 
 public class UDPServerThread extends Thread {
 
@@ -29,11 +30,11 @@ public class UDPServerThread extends Thread {
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(inetSocketAddress);
-            Log.i("SocketInfo", "UDP服务器已经启动");
+            LogUtils.d("UDP服务器已经启动");
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        Log.i("SocketInfo", "UDP监听中");
+        LogUtils.d("UDP监听中");
         DatagramPacket dpRcv = new DatagramPacket(msgRcv, msgRcv.length);
         while (isRunning) {
             try {
@@ -47,6 +48,6 @@ public class UDPServerThread extends Thread {
             }
         }
         ds.close();
-        Log.i("SocketInfo", "UDP监听关闭");
+        LogUtils.d("UDP监听关闭");
     }
 }

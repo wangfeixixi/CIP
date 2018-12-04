@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import wangfeixixi.cip.R;
+import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 
 public class CarView extends View {
 

@@ -58,11 +58,6 @@ public class UDPUtils {
             public void run() {
                 //关闭UDP
                 udpServer.setUdpLife(false);
-
-//                while (udpServer.getLifeMsg()) ; //等待udp阻塞结束，这里就体现出超时的好处了
-
-//                Looper.getMainLooper();
-//                btnUdpStart.setEnabled(true);
             }
         });
         thread.start();

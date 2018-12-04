@@ -2,7 +2,6 @@ package wangfeixixi.cip;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -20,8 +19,9 @@ import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarView;
-import wangfeixixi.cip.widget.carview.BitmapUtils;
+import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.carview.CarUtils;
+import wangfeixixi.com.base.test.LogUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -183,6 +183,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCars(JsonRootBean bean) {
+        LogUtils.d(bean);
         ArrayList<CarBean> list = new ArrayList<>();
         list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
         mLbs.addOrUpdateMarker(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
@@ -196,11 +197,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         carview.updateBodys(list.toArray(new CarBean[list.size()]));
 
         mLbs.clearAllMarker();
-        double tem = Math.sqrt(Math.abs(list.get(0).x) * Math.abs(list.get(0).x) + Math.abs(list.get(0).y) * Math.abs(list.get(0).y));
-        tv_warning.setText("x  " + list.get(0).x + "  y  " + list.get(0).y
-                + "\n" + "latitude  " + list.get(0).latitude + "  longitude  " + list.get(0).longitude
+        double tem = Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y));
+        tv_warning.setText("x  " + list.get(1).x + "  y  " + list.get(1).y
+                + "\n" + "latitude  " + list.get(1).latitude + "  longitude  " + list.get(1).longitude
                 + "\n" + "距离长度为    " + tem);
-        Log.i("asdfasf","asdfasdfasfasf");
     }
 
     //    /**

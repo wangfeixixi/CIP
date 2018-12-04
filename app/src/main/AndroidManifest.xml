@@ -58,6 +58,10 @@
         android:supportsRtl="true"
         android:theme="@style/theme_all">
         <activity android:name=".MapActivity">
+
+        </activity>
+        <activity android:name=".ui.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
