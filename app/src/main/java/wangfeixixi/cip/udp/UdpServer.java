@@ -2,6 +2,8 @@ package wangfeixixi.cip.udp;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
@@ -11,7 +13,6 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.udp.beans.JsonRootBean;
-import wangfeixixi.com.soaplib.GsonUtils;
 
 /**
  * Created by 朱浩 on 2016/5/18.
@@ -82,7 +83,7 @@ public class UdpServer implements Runnable {
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
                 Log.i("SocketInfo", "收到信息：" + string);
 
-                JsonRootBean jsonRootBean = GsonUtils.fromJson(string, JsonRootBean.class);
+                JsonRootBean jsonRootBean = JSON.parseObject(string, JsonRootBean.class);
 
                 EventBus.getDefault().post(jsonRootBean);
 

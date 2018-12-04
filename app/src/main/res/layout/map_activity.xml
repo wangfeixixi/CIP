@@ -70,10 +70,10 @@
             android:layout_height="wrap_content"
             android:text="显示" />
 
-        <Button
-            android:id="@+id/btn_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="配置" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_setting"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="配置" />-->
     </LinearLayout>
 </RelativeLayout>

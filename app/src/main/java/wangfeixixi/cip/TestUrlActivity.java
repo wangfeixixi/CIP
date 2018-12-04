@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.utils.SpUtil;
-import wangfeixixi.com.soaplib.beans.CarTest;
 
 public class TestUrlActivity extends BaseActivity implements View.OnClickListener {
 
@@ -38,16 +37,6 @@ public class TestUrlActivity extends BaseActivity implements View.OnClickListene
         et_url.setHint(SpUtil.getString("url", null));
         et_method.setHint(SpUtil.getString("method", null));
         et_param_name.setHint(SpUtil.getString("param", null));
-    }
-
-    @Override
-    protected void receiveLog(String log) {
-
-    }
-
-    @Override
-    protected void receiveDatas(CarTest carBean) {
-
     }
 
     @Override

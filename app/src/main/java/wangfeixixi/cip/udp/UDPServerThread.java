@@ -2,6 +2,8 @@ package wangfeixixi.cip.udp;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
@@ -11,7 +13,6 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.udp.beans.JsonRootBean;
-import wangfeixixi.com.soaplib.GsonUtils;
 
 public class UDPServerThread extends Thread {
 
@@ -38,8 +39,9 @@ public class UDPServerThread extends Thread {
             try {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                JsonRootBean jsonRootBean = GsonUtils.fromJson(string, JsonRootBean.class);
+                JsonRootBean jsonRootBean = JSON.parseObject(string, JsonRootBean.class);
                 EventBus.getDefault().post(jsonRootBean);
+                Log.i("SocketInfo", string);
             } catch (IOException e) {
                 e.printStackTrace();
             }
