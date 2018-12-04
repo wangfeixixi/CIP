@@ -4,22 +4,24 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.push.HttpService;
-import wangfeixixi.cip.ui.ServiceUtils;
-import wangfeixixi.cip.ui.ThreadUtils;
-import wangfeixixi.cip.ui.UIUtils;
-import wangfeixixi.com.car.CarBean;
-import wangfeixixi.com.car.CarView;
-import wangfeixixi.com.car.utils.BitmapUtils;
-import wangfeixixi.com.car.utils.CarUtils;
-import wangfeixixi.com.soaplib.HttpUtils;
-import wangfeixixi.com.soaplib.beans.CarTest;
+import wangfeixixi.cip.widget.udp.UDPUtils;
+import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.com.base.ThreadUtils;
+import wangfeixixi.com.base.UIUtils;
+import wangfeixixi.cip.widget.carview.CarBean;
+import wangfeixixi.cip.widget.carview.CarView;
+import wangfeixixi.cip.widget.carview.BitmapUtils;
+import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -27,11 +29,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     public String TAG = "MapActivity";
     private GaodeMapService mLbs;
     private FrameLayout mapContainer;
-    private View btn_second_view;
+    private Button btn_show_view;
     private CarView carview;
-    private View btn_gone_view;
-    private View btn_start;
-    private View btn_end;
+    private Button btn_start;
+//    private Button btn_setting;
     private View rl_container_car;
     private TextView tv_warning;
 
@@ -44,19 +45,17 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
 
-        btn_second_view = findViewById(R.id.btn_second_view);
+        btn_show_view = findViewById(R.id.btn_show_view);
         carview = findViewById(R.id.carview);
-        btn_gone_view = findViewById(R.id.btn_gone_view);
-        btn_start = findViewById(R.id.btn_start);
-        btn_end = findViewById(R.id.btn_end);
+        btn_start = (Button) findViewById(R.id.btn_start);
+//        btn_setting = findViewById(R.id.btn_setting);
         rl_container_car = findViewById(R.id.rl_container_car);
         tv_warning = findViewById(R.id.tv_warning);
 
-        btn_second_view.setOnClickListener(this);
-        btn_gone_view.setOnClickListener(this);
+        btn_show_view.setOnClickListener(this);
         btn_start.setOnClickListener(this);
-        btn_end.setOnClickListener(this);
         rl_container_car.setOnClickListener(this);
+//        btn_setting.setOnClickListener(this);
     }
 
     @Override
@@ -115,35 +114,36 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_second_view:
-                rl_container_car.setVisibility(View.VISIBLE);
-                break;
-            case R.id.btn_gone_view:
-                rl_container_car.setVisibility(View.GONE);
+            case R.id.btn_show_view:
+                rl_container_car.setVisibility(rl_container_car.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                btn_show_view.setText(rl_container_car.getVisibility() == View.VISIBLE ? "显示" : "隐藏");
                 break;
             case R.id.btn_start:
-                isStart = true;
+                btn_start.setText(isStart ? "启动" : "结束");
+                if (!isStart) {//开始
 //                test();
 //                ServiceUtils.startService(HttpService.class);
-                mLbs.clearAllMarker();
-                carview.updateBodys(new CarBean[0]);
+                    mLbs.clearAllMarker();
+                    carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
 
 //                HttpUtils.setIsStart(true);
 //                HttpUtils.executeSetUpSystem();
 
-                HttpUtils.testEnqueue();
-                break;
-            case R.id.btn_end:
-                isStart = false;
-//                ServiceUtils.stopService(HttpService.class);
-//                HttpUtils.setIsStart(false);
+//                    HttpUtils.testEnqueue();
 
+//                    UDPUtils.startServer();
+                    UDPUtils.startUDPServer();
+                } else {
+                    UDPUtils.stopUDPServer();
+//                    UDPUtils.stopServer();
+                }
 
+                isStart = !isStart;
                 break;
-//            case R.id.btn_test:
-//
+//            case R.id.btn_setting:
+//                startActivity(new Intent(mCtx, TestUrlActivity.class));
 //                break;
         }
     }
@@ -181,101 +181,29 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     private boolean isStart = false;
 
-    @Override
-    protected void receiveLog(String msg) {
-        if (!isStart) return;
-        HttpUtils.getData();
-        Log.d("adfsdfasdfas", msg);
-        double tem = 0;
-        if (msg.startsWith("[VehicleData")) {
-            ArrayList<CarBean> list = new ArrayList<>();
-//            list.add(new CarBean(0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-
-
-            String[] vehicleData = msg.split("anyType");
-            String vehicleDatum = null;
-            if (vehicleData.length >= 2) {
-                for (int i = 0; i < vehicleData.length; i++) {
-                    vehicleDatum = vehicleData[i];
-                    list.add(new CarBean(0,
-                            Float.parseFloat(vehicleDatum.split("x=")[1].split(";")[0]),
-                            Float.parseFloat(vehicleDatum.split("y=")[1].split(";")[0]),
-                            Float.parseFloat(vehicleDatum.split("longitude=")[1].split(";")[0]),
-                            Float.parseFloat(vehicleDatum.split("latitude=")[1].split(";")[0]),
-                            CarUtils.carWidth, CarUtils.carLength));
-                }
-            }
-
-//            if (Float.parseFloat(msg.split("fcwAlarm=")[1].split(";")[0]) == 0) {
-//                rl_container_car.setVisibility(View.GONE);
-//            } else {
-//                rl_container_car.setVisibility(View.VISIBLE);
-            carview.updateBodys(list.toArray(new CarBean[list.size()]));
-//            }
-
-            mLbs.clearAllMarker();
-            for (int i = 0; i < list.size(); i++) {
-                mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), list.get(i).latitude, list.get(i).longitude),
-                        BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
-                if (i == 0) {
-                    mLbs.moveCamera(new LocationInfo(String.valueOf(i), list.get(i).latitude, list.get(i).longitude), 20);
-                }
-            }
-
-
-            String[] latitude1 = msg.split("latitude=");
-            String[] longtitude1 = msg.split("longitude=");
-            String[] lat = latitude1[1].split(";");
-            String[] lon = longtitude1[1].split(";");
-
-            int s = Integer.parseInt(lat[0]);
-            int s1 = Integer.parseInt(lon[0]);
-
-            tem = Math.sqrt(Math.abs(s) * Math.abs(s) + Math.abs(s1) * Math.abs(s1));
-            msg = msg + "\n" + "距离长度为" + tem;
-
-
-//            list.add(new CarBean(0, s, s1, CarUtils.carWidth, CarUtils.carLength));
-
-        }
-
-        tv_warning.setText(msg);
-    }
-
-    @Override
-    protected void receiveDatas(CarTest carBean) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveCars(JsonRootBean bean) {
         ArrayList<CarBean> list = new ArrayList<>();
-        for (int i = 0; i < carBean.num; i++) {
-            CarTest.Car car = carBean.cars.get(i);
-            list.add(new CarBean(0, (int) car.x, (int) car.y, 0, 0, CarUtils.carWidth, CarUtils.carLength));
+        list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
+        mLbs.addOrUpdateMarker(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+        mLbs.moveCamera(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), 20);
+
+        for (int i = 0; i < bean.rvDatas.size(); i++) {
+            list.add(new CarBean(0, bean.rvDatas.get(i).x, bean.rvDatas.get(i).y, bean.rvDatas.get(i).longitude, bean.rvDatas.get(i).latitude, CarUtils.carWidth, CarUtils.carLength));
+            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), bean.rvDatas.get(i).latitude, bean.rvDatas.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
         }
+
         carview.updateBodys(list.toArray(new CarBean[list.size()]));
 
-
-//        mLbs.clearAllMarker();
-//        LocationInfo locationInfo = null;
-//        int size = carBean.cars.size();
-//        for (int i = 0; i < size; i++) {
-//            locationInfo = new LocationInfo(carBean.cars.get(i).latitude, carBean.cars.get(i).longitude);
-//            if (i == 0) {
-//                mLbs.moveCamera(locationInfo, 20);
-//            }
-//            mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
-//            switch (carBean.cars.get(i).warning) {
-//                case 0:
-//                    VoiceUtil.speek("附近车辆，请注意避让");
-//                    break;
-//                case 1:
-//                    VoiceUtil.speek("危险距离，警告");
-//                    break;
-//                case 2:
-//                    VoiceUtil.speek("紧急避让，紧急避让");
-//                    break;
-//            }
-//        }
+        mLbs.clearAllMarker();
+        double tem = Math.sqrt(Math.abs(list.get(0).x) * Math.abs(list.get(0).x) + Math.abs(list.get(0).y) * Math.abs(list.get(0).y));
+        tv_warning.setText("x  " + list.get(0).x + "  y  " + list.get(0).y
+                + "\n" + "latitude  " + list.get(0).latitude + "  longitude  " + list.get(0).longitude
+                + "\n" + "距离长度为    " + tem);
+        Log.i("asdfasf","asdfasdfasfasf");
     }
 
-//    /**
+    //    /**
 //     * 获取巡航拥堵数据
 //     * <p>
 //     * 在巡航过程中，出现拥堵长度大于500米且拥堵时间大于5分钟时，

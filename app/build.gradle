@@ -45,9 +45,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':carview')
-    implementation project(path: ':soaplib')
-//    implementation rootProject.ext.dependencies.MVVMHabit
+//    implementation project(path: ':carview')
+    implementation project(path: ':base')
 //    implementation project(path: ':mvvmhabit')
     implementation rootProject.ext.dependencies.widgets
     implementation rootProject.ext.dependencies.eventBus
@@ -65,7 +64,7 @@ dependencies {
     //内存泄漏测试
     implementation rootProject.ext.dependencies.leakcanary_android
     implementation rootProject.ext.dependencies.leakcanary_support_fragment
-//    compile project(path: ':base')
+    implementation rootProject.ext.dependencies.fastJson
 
 
 }
