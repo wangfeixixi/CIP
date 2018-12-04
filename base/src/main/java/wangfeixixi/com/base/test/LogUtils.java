@@ -1,4 +1,4 @@
-package wangfeixixi.com.base;
+package wangfeixixi.com.base.test;
 
 import android.os.SystemClock;
 import android.util.Log;
@@ -7,62 +7,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import wangfeixixi.com.base.ConfigUtils;
+
 /**
  * Created by xuany on 2018/10/6.
  */
 
 public class LogUtils {
-
-
     public static String TAG = "wangfei";
-    public static boolean DEBUG = true;//Log.isLoggable(TAG, Log.ERROR);
-
-    /**
-     * Customize the log tag for your application<br />
-     * Enable the log property for your tag before starting your app: <br />
-     * {@code adb shell setprop log.tag.&lt;tag&gt;}
-     */
-    public static void setTag(String tag, boolean isDebug) {
-        d("Changing log tag to %s", tag);
-        TAG = tag;
-        // Reinitialize the DEBUG "constant"
-        DEBUG = Log.isLoggable(TAG, Log.VERBOSE);
-        DEBUG = isDebug;
-    }
 
     public static void v(String format, Object... args) {
-        if (DEBUG) {
+        if (ConfigUtils.isApkInDebug()) {
             Log.v(TAG, buildMessage(format, args));
         }
     }
 
     public static void d(String format, Object... args) {
-        if (DEBUG)
+        if (ConfigUtils.isApkInDebug())
             Log.d(TAG, buildMessage(format, args));
     }
 
     public static void d(Object... args) {
-        if (DEBUG)
+        if (ConfigUtils.isApkInDebug())
             Log.d(TAG, buildMessage("%s", args));
     }
 
     public static void e(String format, Object... args) {
-        if (DEBUG)
+        if (ConfigUtils.isApkInDebug())
             Log.e(TAG, buildMessage(format, args));
     }
 
     public static void e(Throwable tr, String format, Object... args) {
-        if (DEBUG)
+        if (ConfigUtils.isApkInDebug())
             Log.e(TAG, buildMessage(format, args), tr);
     }
 
     public static void wtf(String format, Object... args) {
-        if (DEBUG)
+        if (ConfigUtils.isApkInDebug())
             Log.wtf(TAG, buildMessage(format, args));
     }
 
     public static void wtf(Throwable tr, String format, Object... args) {
-        if (DEBUG)
+        if (ConfigUtils.isApkInDebug())
             Log.wtf(TAG, buildMessage(format, args), tr);
     }
 
@@ -91,7 +77,6 @@ public class LogUtils {
      * A simple event log with records containing a name, thread ID, and timestamp.
      */
     static class MarkerLog {
-        public static final boolean ENABLED = LogUtils.DEBUG;
         /**
          * Minimum duration from first marker to last in an marker log to warrant logging.
          */

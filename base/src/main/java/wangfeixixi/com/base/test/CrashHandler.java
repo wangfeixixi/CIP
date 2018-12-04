@@ -1,7 +1,6 @@
-package wangfeixixi.com.base;
+package wangfeixixi.com.base.test;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -24,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import wangfeixixi.com.base.UIUtils;
 
 @SuppressLint("SimpleDateFormat")
 public class CrashHandler implements UncaughtExceptionHandler {
@@ -50,7 +51,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
     private UncaughtExceptionHandler mDefaultHandler;
 
     private static CrashHandler instance = new CrashHandler();
-    private Context mContext;
 
     // 用来存储设备信息和异常信息
     private Map<String, String> infos = new HashMap<String, String>();
@@ -61,11 +61,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     /**
      * 初始化
-     *
-     * @param context
      */
-    public void init(Context context) {
-        mContext = context;
+    public void init() {
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
         // 设置该CrashHandler为程序的默认处理器
@@ -73,8 +70,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
 //        autoClear(5);
     }
 
-    public void init(Context context, String fileName) {
-        init(context);
+    public void init(String fileName) {
+        init();
         FileName = fileName;
     }
 
@@ -111,13 +108,13 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 @Override
                 public void run() {
                     Looper.prepare();
-                    Toast.makeText(mContext, "很抱歉,程序出现异常,即将重启.",
+                    Toast.makeText(UIUtils.getContext(), "很抱歉,程序出现异常,即将重启.",
                             Toast.LENGTH_LONG).show();
                     Looper.loop();
                 }
             }.start();
             // 收集设备参数信息
-            collectDeviceInfo(mContext);
+            collectDeviceInfo();
             // 保存日志文件
             saveCrashInfoFile(ex);
             SystemClock.sleep(1000);
@@ -130,14 +127,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     /**
      * 收集设备参数信息
-     *
-     * @param ctx
      */
-    public void collectDeviceInfo(Context ctx) {
+    public void collectDeviceInfo() {
         try {
-            PackageManager pm = ctx.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(),
-                    PackageManager.GET_ACTIVITIES);
+            PackageManager pm = UIUtils.getContext().getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(UIUtils.getContext().getPackageName(), PackageManager.GET_ACTIVITIES);
             if (pi != null) {
                 String versionName = pi.versionName + "";
                 String versionCode = pi.versionCode + "";

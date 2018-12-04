@@ -1,6 +1,6 @@
 package wangfeixixi.cip.widget.udp;
 
-import wangfeixixi.com.base.LogUtils;
+import wangfeixixi.com.base.test.LogUtils;
 
 public class UDPUtils {
 
