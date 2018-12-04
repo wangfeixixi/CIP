@@ -21,6 +21,6 @@ public class SoapApiConstant {
     public static String ns = "urn:api";
     public static String xmlns = "http://schemas.xmlsoap.org/wsdl/";
     public static String name = "api";
-    public static String URL = "http://192.168.161.175:9999/";
+    public static String URL = "http://192.168.43.83:9999/";
     public static int SOAPVersion = SoapEnvelope.VER11;
 }

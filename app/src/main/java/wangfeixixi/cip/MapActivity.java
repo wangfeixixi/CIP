@@ -1,17 +1,24 @@
 package wangfeixixi.cip;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.push.HttpService;
-import wangfeixixi.cip.ui.ServiceUtils;
+import wangfeixixi.cip.udp.UDPUtils;
+import wangfeixixi.cip.udp.beans.JsonRootBean;
+import wangfeixixi.cip.ui.LogUtils;
 import wangfeixixi.cip.ui.ThreadUtils;
 import wangfeixixi.cip.ui.UIUtils;
 import wangfeixixi.com.car.CarBean;
@@ -27,11 +34,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     public String TAG = "MapActivity";
     private GaodeMapService mLbs;
     private FrameLayout mapContainer;
-    private View btn_second_view;
+    private Button btn_show_view;
     private CarView carview;
-    private View btn_gone_view;
-    private View btn_start;
-    private View btn_end;
+    private Button btn_start;
+    private Button btn_setting;
     private View rl_container_car;
     private TextView tv_warning;
 
@@ -44,19 +50,17 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
 
-        btn_second_view = findViewById(R.id.btn_second_view);
+        btn_show_view = findViewById(R.id.btn_show_view);
         carview = findViewById(R.id.carview);
-        btn_gone_view = findViewById(R.id.btn_gone_view);
-        btn_start = findViewById(R.id.btn_start);
-        btn_end = findViewById(R.id.btn_end);
+        btn_start = (Button) findViewById(R.id.btn_start);
+        btn_setting = findViewById(R.id.btn_setting);
         rl_container_car = findViewById(R.id.rl_container_car);
         tv_warning = findViewById(R.id.tv_warning);
 
-        btn_second_view.setOnClickListener(this);
-        btn_gone_view.setOnClickListener(this);
+        btn_show_view.setOnClickListener(this);
         btn_start.setOnClickListener(this);
-        btn_end.setOnClickListener(this);
         rl_container_car.setOnClickListener(this);
+        btn_setting.setOnClickListener(this);
     }
 
     @Override
@@ -115,36 +119,37 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_second_view:
-                rl_container_car.setVisibility(View.VISIBLE);
-                break;
-            case R.id.btn_gone_view:
-                rl_container_car.setVisibility(View.GONE);
+            case R.id.btn_show_view:
+                rl_container_car.setVisibility(rl_container_car.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                btn_show_view.setText(rl_container_car.getVisibility() == View.VISIBLE ? "显示" : "隐藏");
                 break;
             case R.id.btn_start:
-                isStart = true;
+                btn_start.setText(isStart ? "启动" : "结束");
+                if (!isStart) {//开始
 //                test();
 //                ServiceUtils.startService(HttpService.class);
-                mLbs.clearAllMarker();
-                carview.updateBodys(new CarBean[0]);
+                    mLbs.clearAllMarker();
+                    carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
 
 //                HttpUtils.setIsStart(true);
 //                HttpUtils.executeSetUpSystem();
 
-                HttpUtils.testEnqueue();
-                break;
-            case R.id.btn_end:
-                isStart = false;
-//                ServiceUtils.stopService(HttpService.class);
-//                HttpUtils.setIsStart(false);
+//                    HttpUtils.testEnqueue();
 
+//                    UDPUtils.startServer();
+                    UDPUtils.startUDPServer();
+                } else {
+                    UDPUtils.stopUDPServer();
+//                    UDPUtils.stopServer();
+                }
 
+                isStart = !isStart;
                 break;
-//            case R.id.btn_test:
-//
-//                break;
+            case R.id.btn_setting:
+                startActivity(new Intent(mCtx, TestUrlActivity.class));
+                break;
         }
     }
 
@@ -183,7 +188,37 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void receiveLog(String msg) {
-        if (!isStart) return;
+//        msg = getSoapDatas(msg);
+//        if (msg == null) return;
+//
+//        tv_warning.setText(msg);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void receiveCars(JsonRootBean bean) {
+        ArrayList<CarBean> list = new ArrayList<>();
+        list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
+        mLbs.addOrUpdateMarker(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+        mLbs.moveCamera(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), 20);
+
+        for (int i = 0; i < bean.rvDatas.size(); i++) {
+            list.add(new CarBean(0, bean.rvDatas.get(i).x, bean.rvDatas.get(i).y, bean.rvDatas.get(i).longitude, bean.rvDatas.get(i).latitude, CarUtils.carWidth, CarUtils.carLength));
+            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), bean.rvDatas.get(i).latitude, bean.rvDatas.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+        }
+
+        carview.updateBodys(list.toArray(new CarBean[list.size()]));
+
+        mLbs.clearAllMarker();
+        double tem = Math.sqrt(Math.abs(list.get(0).x) * Math.abs(list.get(0).x) + Math.abs(list.get(0).y) * Math.abs(list.get(0).y));
+        tv_warning.setText("x  " + list.get(0).x + "  y  " + list.get(0).y
+                + "\n" + "latitude  " + list.get(0).latitude + "  longitude  " + list.get(0).longitude
+                + "\n" + "距离长度为    " + tem);
+        Log.i("asdfasf","asdfasdfasfasf");
+    }
+
+    @Nullable
+    private String getSoapDatas(String msg) {
+        if (!isStart) return null;
         HttpUtils.getData();
         Log.d("adfsdfasdfas", msg);
         double tem = 0;
@@ -222,24 +257,11 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
 
-
-            String[] latitude1 = msg.split("latitude=");
-            String[] longtitude1 = msg.split("longitude=");
-            String[] lat = latitude1[1].split(";");
-            String[] lon = longtitude1[1].split(";");
-
-            int s = Integer.parseInt(lat[0]);
-            int s1 = Integer.parseInt(lon[0]);
-
-            tem = Math.sqrt(Math.abs(s) * Math.abs(s) + Math.abs(s1) * Math.abs(s1));
+            tem = Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y));
             msg = msg + "\n" + "距离长度为" + tem;
 
-
-//            list.add(new CarBean(0, s, s1, CarUtils.carWidth, CarUtils.carLength));
-
         }
-
-        tv_warning.setText(msg);
+        return msg;
     }
 
     @Override
@@ -275,7 +297,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 //        }
     }
 
-//    /**
+    //    /**
 //     * 获取巡航拥堵数据
 //     * <p>
 //     * 在巡航过程中，出现拥堵长度大于500米且拥堵时间大于5分钟时，

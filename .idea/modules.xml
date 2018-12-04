@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/carview/carview.iml" filepath="$PROJECT_DIR$/carview/carview.iml" />
       <module fileurl="file://$PROJECT_DIR$/soaplib/soaplib.iml" filepath="$PROJECT_DIR$/soaplib/soaplib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/udpserver/udpserver.iml" filepath="$PROJECT_DIR$/udpserver/udpserver.iml" />
     </modules>
   </component>
 </project>

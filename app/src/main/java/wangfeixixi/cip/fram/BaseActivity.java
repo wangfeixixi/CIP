@@ -42,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void XXX(CarTest carBean) {
         receiveDatas(carBean);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void XXX(String log) {
         receiveLog(log);
