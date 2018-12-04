@@ -45,9 +45,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':carview')
+//    implementation project(path: ':carview')
+    implementation project(path: ':base')
 //    implementation project(path: ':mvvmhabit')
-    implementation rootProject.ext.dependencies.mvvmHabit
     implementation rootProject.ext.dependencies.widgets
     implementation rootProject.ext.dependencies.eventBus
 //    implementation rootProject.ext.dependencies.baiduVoice

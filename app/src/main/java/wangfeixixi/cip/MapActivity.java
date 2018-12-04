@@ -1,6 +1,5 @@
 package wangfeixixi.cip;
 
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,14 +14,14 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.udp.UDPUtils;
-import wangfeixixi.cip.udp.beans.JsonRootBean;
-import wangfeixixi.cip.ui.ThreadUtils;
-import wangfeixixi.cip.ui.UIUtils;
-import wangfeixixi.com.car.CarBean;
-import wangfeixixi.com.car.CarView;
-import wangfeixixi.com.car.utils.BitmapUtils;
-import wangfeixixi.com.car.utils.CarUtils;
+import wangfeixixi.cip.widget.udp.UDPUtils;
+import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.com.base.ThreadUtils;
+import wangfeixixi.com.base.UIUtils;
+import wangfeixixi.cip.widget.carview.CarBean;
+import wangfeixixi.cip.widget.carview.CarView;
+import wangfeixixi.cip.widget.carview.BitmapUtils;
+import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 

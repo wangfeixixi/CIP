@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.utils.SpUtil;
+import wangfeixixi.com.base.SpUtil;
 
 public class TestUrlActivity extends BaseActivity implements View.OnClickListener {
 
