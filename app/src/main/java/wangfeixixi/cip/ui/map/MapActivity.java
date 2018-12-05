@@ -13,15 +13,16 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 import wangfeixixi.cip.R;
-import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.beans.JsonRootBean;
-import wangfeixixi.com.base.ThreadUtils;
-import wangfeixixi.com.base.UIUtils;
+import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
+import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
-import wangfeixixi.cip.widget.carview.CarUtils;
+import wangfeixixi.cip.widget.udp.UDPResultListener;
+import wangfeixixi.cip.widget.udp.UDPUtils;
+import wangfeixixi.com.base.ThreadUtils;
+import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.test.LogUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
@@ -122,30 +123,30 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_start:
                 btn_start.setText(isStart ? "启动" : "结束");
                 if (!isStart) {//开始
-//                test();
-//                ServiceUtils.startService(HttpService.class);
                     mLbs.clearAllMarker();
                     carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
+                    UDPUtils.startServer(new UDPResultListener() {
+                        @Override
+                        public void onResultListener(final JsonRootBean jsonRootBean) {
 
-//                HttpUtils.setIsStart(true);
-//                HttpUtils.executeSetUpSystem();
-
-//                    HttpUtils.testEnqueue();
-
-//                    UDPUtils.startServer();
-                    UDPUtils.startUDPServer();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    receiveCars(jsonRootBean);
+                                }
+                            });
+                        }
+                    });
+//                    UDPUtils.startUDPServer();
                 } else {
-                    UDPUtils.stopUDPServer();
-//                    UDPUtils.stopServer();
+//                    UDPUtils.stopUDPServer();
+                    UDPUtils.stopServer();
                 }
 
                 isStart = !isStart;
                 break;
-//            case R.id.btn_setting:
-//                startActivity(new Intent(mCtx, TestUrlActivity.class));
-//                break;
         }
     }
 
@@ -182,6 +183,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     private boolean isStart = false;
 
+    public long lastTime = 0;
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCars(JsonRootBean bean) {
         LogUtils.d(bean);
@@ -201,20 +204,27 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
         mLbs.clearAllMarker();
 
+        long nowTime = System.currentTimeMillis();
+
         switch (list.size()) {
             case 0:
-                tv_warning.setText("没有车辆数据");
+                tv_warning.setText("车辆数据异常");
                 break;
             case 1:
-                tv_warning.setText("没有远车数据");
+                tv_warning.setText("附近没有车辆");
                 break;
             default:
                 double tem = Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y));
-                tv_warning.setText("x  " + list.get(1).x + "  y  " + list.get(1).y
-                        + "\n" + "latitude  " + list.get(1).latitude + "  longitude  " + list.get(1).longitude
-                        + "\n" + "距离长度为    " + tem);
+                tv_warning.setText(
+                        "x  " + list.get(1).x + "   x轴距离：  " + (list.get(0).x - list.get(1).x)
+                                + "\n" + "y  " + list.get(1).y + "   y轴距离：  " + (list.get(0).y - list.get(1).y)
+                                + "\n" + "latitude  " + list.get(1).latitude
+                                + "\n" + "longitude  " + list.get(1).longitude
+                                + "\n" + "时间  " + (nowTime - lastTime)
+                                + "\n" + "距离长度:  " + tem);
                 break;
         }
+        lastTime = nowTime;
     }
 
     //    /**

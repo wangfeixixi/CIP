@@ -4,8 +4,6 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -13,13 +11,12 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.com.base.test.LogUtils;
 
 /**
  * Created by 朱浩 on 2016/5/18.
  */
 public class UdpServer implements Runnable {
-    private String ip = ApiConstant.url;
-    private int port = ApiConstant.port;
     private DatagramPacket dpRcv = null, dpSend = null;
     private static DatagramSocket ds = null;
     private InetSocketAddress inetSocketAddress = null;
@@ -28,11 +25,7 @@ public class UdpServer implements Runnable {
     private boolean udpLifeOver = true; //生命结束标志，false为结束
 
 
-    public UdpServer(String mIp, int mPort) {
-        this.ip = mIp;
-        this.port = mPort;
-
-        Log.i("SocketInfo", "创建");
+    public UdpServer() {
     }
 
     private void SetSoTime(int ms) throws SocketException {
@@ -60,14 +53,19 @@ public class UdpServer implements Runnable {
         ds.send(dpSend);
     }
 
+    public UDPResultListener listener;
+
+    public void setResultListener(UDPResultListener listener) {
+        this.listener = listener;
+    }
+
 
     @Override
     public void run() {
-        inetSocketAddress = new InetSocketAddress(ip, port);
+        inetSocketAddress = new InetSocketAddress(ApiConstant.url, ApiConstant.port);
         try {
             ds = new DatagramSocket(inetSocketAddress);
-            Log.i("SocketInfo", "UDP服务器已经启动");
-
+            LogUtils.d("UDP服务器已经启动");
 //            SetSoTime(10000);
             //设置超时，不需要可以删除
         } catch (SocketException e) {
@@ -75,27 +73,26 @@ public class UdpServer implements Runnable {
         }
 
         dpRcv = new DatagramPacket(msgRcv, msgRcv.length);
+        LogUtils.d("UDP监听中");
+
         while (udpLife) {
             try {
-                Log.i("SocketInfo", "UDP监听中");
                 ds.receive(dpRcv);
-
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                Log.i("SocketInfo", "收到信息：" + string);
-
-                JsonRootBean jsonRootBean = JSON.parseObject(string, JsonRootBean.class);
-
-                EventBus.getDefault().post(jsonRootBean);
-
-
+//                LogUtils.d("收到信息：" + string);
+                if (listener != null) {
+                    listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
+                }
+//                EventBus.getDefault().post(JSON.parseObject(string, JsonRootBean.class));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
         ds.close();
-        Log.i("SocketInfo", "UDP监听关闭");
+        LogUtils.d("UDP监听关闭");
         //udp生命结束
         udpLifeOver = false;
+//        EventBus.getDefault().removeStickyEvent(JsonRootBean.class);
+//        EventBus.getDefault().cancelEventDelivery(JsonRootBean.class);
     }
 }

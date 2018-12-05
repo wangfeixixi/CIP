@@ -50,8 +50,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
     // 系统默认的UncaughtException处理类
     private UncaughtExceptionHandler mDefaultHandler;
 
-    private static CrashHandler instance = new CrashHandler();
-
     // 用来存储设备信息和异常信息
     private Map<String, String> infos = new HashMap<String, String>();
 

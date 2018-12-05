@@ -40,8 +40,7 @@ public class UDPServerThread extends Thread {
             try {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                JsonRootBean jsonRootBean = JSON.parseObject(string, JsonRootBean.class);
-                EventBus.getDefault().post(jsonRootBean);
+                EventBus.getDefault().post(JSON.parseObject(string, JsonRootBean.class));
                 Log.i("SocketInfo", string);
             } catch (IOException e) {
                 e.printStackTrace();
