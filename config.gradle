@@ -1,0 +1,84 @@
+ext {
+    //android开发版本配置
+    android = [
+            compileSdkVersion: 28,
+//            buildToolsVersion: "27.0.2",
+            applicationId    : "wangfeixixi.cip",
+            minSdkVersion    : 23,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0",
+    ]
+    //version配置
+    versions = [
+            "support-version": "27.1.0",
+            "junit-version"  : "4.12",
+            "kotlinVersion"  : "1.3.0",
+    ]
+    //support配置
+    support = [
+            "constraintLayout"        : "1.1.3",
+            'support_v4'               : "com.android.support:support-v4:${versions["support-version"]}",
+            'appcompat_v7'            : "com.android.support:appcompat-v7:${versions["support-version"]}",
+            'recyclerview_v7'         : "com.android.support:recyclerview-v7:${versions["support-version"]}",
+            'support-v13'             : "com.android.support:support-v13:${versions["support-version"]}",
+            'support-fragment'        : "com.android.support:support-fragment:${versions["support-version"]}",
+            'design'                  : "com.android.support:design:${versions["support-version"]}",
+            'animated-vector-drawable': "com.android.support:animated-vector-drawable:${versions["support-version"]}",
+            'junit'                   : "junit:junit:${versions["junit-version"]}",
+            'testRunner'                   : "com.android.support.test:runner:1.0.2",
+            'espressoCore'                   : "com.android.support.test.espresso:espresso-core:3.0.2",
+    ]
+    //依赖第三方配置
+    dependencies = [
+            "mvvmHabit"                            : "com.github.goldze:MVVMHabit:3.0.6",
+            "kotlinLib"                            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlinVersion"]}",
+            "kotlin"                               : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions["kotlinVersion"]}",
+            "eventBus"                             : "org.greenrobot:eventbus:3.1.1",
+            //rxjava
+            "rxjava"                               : "io.reactivex.rxjava2:rxjava:2.1.12",
+            "rxandroid"                            : "io.reactivex.rxjava2:rxandroid:2.0.2",
+            //rx系列与View生命周期同步
+            "rxlifecycle"                          : "com.trello.rxlifecycle2:rxlifecycle:2.2.1",
+            "rxlifecycle_components"               : "com.trello.rxlifecycle2:rxlifecycle-components:2.2.1",
+            //rxbinding
+            "rxbinding"                            : "com.jakewharton.rxbinding2:rxbinding:2.1.1",
+            //rx 6.0权限请求
+            "rxpermissions"                        : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",
+            //network
+            "okhttp"                               : "com.squareup.okhttp3:okhttp:3.10.0",
+            "retrofit"                             : "com.squareup.retrofit2:retrofit:2.4.0",
+            "converter-gson"                       : "com.squareup.retrofit2:converter-gson:2.4.0",
+            "adapter_rxjava"                       : "com.squareup.retrofit2:adapter-rxjava2:2.4.0",
+            //glide图片加载
+            "glide"                                : "com.github.bumptech.glide:glide:4.6.1",
+            "glide-compiler"                       : "com.github.bumptech.glide:compiler:4.6.1",
+            //json解析
+            "gson"                                 : "com.google.code.gson:gson:2.8.2",
+            "fastJson"                                 : "com.alibaba:fastjson:1.1.70.android",
+            //material-dialogs
+            "material-dialogs-core"                : "com.afollestad.material-dialogs:core:0.9.4.5",
+            "material-dialogs-commons"             : "com.afollestad.material-dialogs:commons:0.9.4.5",
+            //recyclerview的databinding套装
+            "bindingcollectionadapter"             : "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0",
+            "bindingcollectionadapter-recyclerview": "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0",
+            //Google AAC
+            "lifecycle-extensions"                 : "android.arch.lifecycle:extensions:1.1.0",
+            "lifecycle-compiler"                   : "android.arch.lifecycle:compiler:1.1.0",
+            //内存泄漏测试
+            leakcanary_android                      : 'com.squareup.leakcanary:leakcanary-android:1.6.2',
+            leakcanary_support_fragment              : 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.2',
+            //下拉刷新,上拉加载
+            refreshlayout                          : 'com.lcodecorex:tkrefreshlayout:1.0.7',
+            //底部tabBar
+            pager_bottom_tab_strip                    : 'me.majiajie:pager-bottom-tab-strip:2.2.5',
+            //百度语音
+            "baiduVoice"                           : 'com.github.wangfeixixi:BaiduVoice:v0.0.3',
+            //定位
+            "lbs"                                  : 'com.github.wangfeixixi:LBS:v0.1.7',
+            //各种自定义控件
+            "widgets"                              : 'com.github.wangfeixixi:ShareWidget:v2.7.8',
+    ]
+}
+
+

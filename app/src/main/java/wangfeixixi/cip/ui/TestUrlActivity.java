@@ -1,4 +1,4 @@
-package wangfeixixi.cip;
+package wangfeixixi.cip.ui;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import wangfeixixi.cip.R;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.com.base.SpUtil;
 
