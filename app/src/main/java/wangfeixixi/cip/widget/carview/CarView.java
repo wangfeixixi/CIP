@@ -113,8 +113,4 @@ public class CarView extends View {
     public void switchPoint() {
 
     }
-
-    public void stop() {
-
-    }
 }

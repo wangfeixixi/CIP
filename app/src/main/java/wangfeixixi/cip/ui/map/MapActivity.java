@@ -23,7 +23,6 @@ import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.base.UIUtils;
-import wangfeixixi.com.base.test.LogUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -188,11 +187,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private boolean isStart = false;
 
     public long lastTime = 0;
-    public int num = 0;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCars(JsonRootBean bean) {
-        LogUtils.d("num" + num++);
         ArrayList<CarBean> list = new ArrayList<>();
         if (bean.hvDatas != null) {
             list.add(bean.hvDatas);
@@ -214,7 +211,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         long nowTime = System.currentTimeMillis();
 
         StringBuffer sb = new StringBuffer();
-        sb.append("序列号：" + num++);
         sb.append("\n车辆数量：" + list.size());
         sb.append("\n" + "时间：" + (nowTime - lastTime));
         sb.append("\n距离长度：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
