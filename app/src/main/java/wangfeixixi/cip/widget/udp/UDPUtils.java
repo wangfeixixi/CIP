@@ -1,9 +1,12 @@
 package wangfeixixi.cip.widget.udp;
 
+import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+import wangfeixixi.cip.widget.udp.server.UDPServerThread;
+import wangfeixixi.cip.widget.udp.server.UdpServerRunable;
 import wangfeixixi.com.base.test.LogUtils;
 
 public class UDPUtils {
-    private static UdpServer udpServer;
+    private static UdpServerRunable udpServer;
 
     public static UDPServerThread udpserverthread;
 
@@ -26,7 +29,7 @@ public class UDPUtils {
     }
 
     public static void startServer(UDPResultListener listener) {
-        udpServer = new UdpServer();
+        udpServer = new UdpServerRunable();
         udpServer.setResultListener(listener);
         Thread thread = new Thread(udpServer);
         thread.start();

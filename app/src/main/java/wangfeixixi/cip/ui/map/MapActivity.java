@@ -19,8 +19,8 @@ import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
-import wangfeixixi.cip.widget.udp.UDPResultListener;
 import wangfeixixi.cip.widget.udp.UDPUtils;
+import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.test.LogUtils;
@@ -134,7 +134,11 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    receiveCars(jsonRootBean);
+                                    try {
+                                        receiveCars(jsonRootBean);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
                         }
@@ -184,21 +188,24 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private boolean isStart = false;
 
     public long lastTime = 0;
+    public int num = 0;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCars(JsonRootBean bean) {
-        LogUtils.d(bean);
+        LogUtils.d("num" + num++);
         ArrayList<CarBean> list = new ArrayList<>();
         if (bean.hvDatas != null) {
-            list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
+            list.add(bean.hvDatas);
+//            list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
             mLbs.addOrUpdateMarker(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
             mLbs.moveCamera(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), 20);
         }
         if (bean.rvDatas != null)
-            for (int i = 0; i < bean.rvDatas.size(); i++) {
-                list.add(new CarBean(0, bean.rvDatas.get(i).x, bean.rvDatas.get(i).y, bean.rvDatas.get(i).longitude, bean.rvDatas.get(i).latitude, CarUtils.carWidth, CarUtils.carLength));
-                mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), bean.rvDatas.get(i).latitude, bean.rvDatas.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
-            }
+            list.addAll(bean.rvDatas);
+        for (int i = 0; i < bean.rvDatas.size(); i++) {
+//                list.add(new CarBean(0, bean.rvDatas.get(i).x, bean.rvDatas.get(i).y, bean.rvDatas.get(i).longitude, bean.rvDatas.get(i).latitude, CarUtils.carWidth, CarUtils.carLength));
+            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), bean.rvDatas.get(i).latitude, bean.rvDatas.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+        }
 
         carview.updateBodys(list.toArray(new CarBean[list.size()]));
 
@@ -206,28 +213,13 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
         long nowTime = System.currentTimeMillis();
 
-        switch (list.size()) {
-            case 0:
-                tv_warning.setText("车辆数据异常");
-                break;
-            case 1:
-                tv_warning.setText("附近没有车辆");
-                break;
-            default:
-                double tem = Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y));
-                tv_warning.setText(
-                        "x  " + list.get(1).x + "   x轴距离：  " + (list.get(0).x - list.get(1).x)
-                                + "\n" + "y  " + list.get(1).y + "   y轴距离：  " + (list.get(0).y - list.get(1).y)
-                                + "\n" + "latitude  " + list.get(1).latitude
-                                + "\n" + "longitude  " + list.get(1).longitude
-                                + "\n" + "时间  " + (nowTime - lastTime)
-                                + "\n" + "近车3航向角  " + (bean.hvDatas.heading)
-                                + "\n" + "远车航向角  " + (bean.rvDatas.get(0).heading)
-                                + "\n" + "远车fcwAlarm  " + (bean.rvDatas.get(0).fcwAlarm)
-                                + "\n" + "近车fcwAlarm  " + (bean.hvDatas.fcwAlarm)
-                                + "\n" + "距离长度:  " + tem);
-                break;
-        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("序列号：" + num++);
+//        sb.append("\n车辆数量：" + list.size());
+        sb.append("\n" + "时间：" + (nowTime - lastTime));
+//        sb.append("\n距离长度：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
+        sb.append(bean.toString());
+        tv_warning.setText(sb.toString());
         lastTime = nowTime;
     }
 

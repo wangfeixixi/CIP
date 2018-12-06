@@ -11,9 +11,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 
@@ -25,7 +22,8 @@ public class CarView extends View {
     private Bitmap car_bitmap;//原生车图
     private Bitmap car_alert_bitmap;//原生车图
     private Paint mPaintLine;//车道线
-    public List<float[]> lines;//车道线
+    public float[][] lines;//车道线
+    private float[] line_local;
 
     public CarView(Context context) {
         this(context, null, 0);
@@ -51,16 +49,34 @@ public class CarView extends View {
         mPaintLine.setColor(Color.WHITE);
         mPaintLine.setStrokeWidth(10);
 
-        lines = new ArrayList<>();
-        lines.add(new float[]{0, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{10, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{20, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{30, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{40, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{50, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{60, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{70, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
-        lines.add(new float[]{80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40});
+        //初始化道路线
+        lines = new float[][]{
+                new float[]{80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{70, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{60, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{50, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{40, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{30, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{20, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{10, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+                new float[]{0, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40}};
+        //初始化道路线
+//        lines = new float[][]{
+//                new float[]{80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{70, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{60, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{50, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{40, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{30, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{20, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{10, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
+//                new float[]{0, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40}};
+
+        line_local = new float[]{
+                mCarX - 100, 0,
+                mCarX - 100, mCarY / 2 * 3,
+                mCarX + 100, 0,
+                mCarX + 100, mCarY / 2 * 3};
     }
 
     @Override
@@ -76,7 +92,6 @@ public class CarView extends View {
         //车图标,放大车辆图标
         car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.car), CarUtils.carBitmapScale);
         car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.car_alert), CarUtils.carBitmapScale);
-//        matrix = new Matrix();
     }
 
     @Override
@@ -88,44 +103,22 @@ public class CarView extends View {
         drawLine(canvas);
     }
 
-    public int linesPaintID = 0;
+    public int linesPaintID = 7;
 
     private void drawLine(Canvas canvas) {
-        mPaintLine.setPathEffect(new DashPathEffect(lines.get(linesPaintID++), 0));
-        if (linesPaintID == 7) {
-            linesPaintID = 0;
+        mPaintLine.setPathEffect(new DashPathEffect(lines[linesPaintID--], 0));
+        if (linesPaintID == -1) {
+            linesPaintID = 7;
         }
-
-        canvas.drawLines(new float[]{
-                mCarX - 100, 0,
-                mCarX - 100, mCarY / 2 * 3,
-                mCarX + 100, 0,
-                mCarX + 100, mCarY / 2 * 3}, mPaintLine);
+        canvas.drawLines(line_local, mPaintLine);
     }
 
 
+    private Bitmap rotateBitmap;
+
     private void drawCar(Canvas canvas, CarBean bean) {
-//        matrix.reset();
-//        matrix.setRotate(bean.rotate);
-//        carBitmap = Bitmap.createBitmap(car_bitmap, 0, 0, car_bitmap.getWidth() / 3, car_bitmap.getHeight() / 3, matrix, true);
-//        carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
-        //自身车
-//        carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
-//        carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
-
-//        canvas.drawBitmap(carBitmap, carRectSrc, rect, mPaintCar);
-//        canvas.drawBitmap(carBitmap, mCarX, mCarY, mPaintCar);
-
-        Bitmap rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, bean.rotate);
-//        int width = car_bitmap.getWidth();
-//        int height = car_bitmap.getHeight();
-//        canvas.drawBitmap(rotateBitmap, mCarX, mCarY, mPaintCar);
+        rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, bean.rotate);
         canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
-
-
-        //测试版垂直
-//        canvas.drawBitmap(carBitmap, carRectSrc, CarUtils.shelf2Screen(mCarX, mCarY, bean), mPaintCar);
-
         canvas.save();
     }
 
@@ -136,11 +129,7 @@ public class CarView extends View {
         invalidate();
     }
 
-    public void switchPoint() {
-
-    }
-
-    public void stop() {
+    public void setSpeed(int speed) {
 
     }
 }

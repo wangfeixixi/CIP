@@ -1,4 +1,4 @@
-package wangfeixixi.cip.widget.udp;
+package wangfeixixi.cip.widget.udp.server;
 
 import android.util.Log;
 
@@ -13,6 +13,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.widget.udp.UDPConfig;
 import wangfeixixi.com.base.test.LogUtils;
 
 public class UDPServerThread extends Thread {
@@ -26,7 +27,7 @@ public class UDPServerThread extends Thread {
 
     @Override
     public void run() {
-        InetSocketAddress inetSocketAddress = new InetSocketAddress(ApiConstant.url, ApiConstant.port);
+        InetSocketAddress inetSocketAddress = new InetSocketAddress(UDPConfig.url, UDPConfig.port);
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(inetSocketAddress);

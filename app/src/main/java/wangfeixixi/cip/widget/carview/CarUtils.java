@@ -18,7 +18,7 @@ public class CarUtils {
     /**
      * 车辆图片的缩放
      */
-    public static float carBitmapScale = 0.1f;
+    public static float carBitmapScale = 2f;
 
     //默认车宽
     public static float carWidth = 2;
