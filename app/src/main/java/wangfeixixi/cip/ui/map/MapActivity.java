@@ -63,7 +63,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         tv_warning.setText("预警信息提示");
-        mLbs.setLocationRes(R.mipmap.car_map);
+        mLbs.setLocationRes(R.mipmap.car);
 //        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
 
 //        mLbs.setLocationChangeListener(new OnLocationListener() {
@@ -79,7 +79,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 //        mLbs.startOnceLocation();
 
 //        mLbs.startAimlessMode(this, new MapNaviListener());
-        mLbs.setLocationRes(R.mipmap.car_map);
+        mLbs.setLocationRes(R.mipmap.car);
     }
 
     float i = 100f;
@@ -158,7 +158,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     public void moveSelfCar(LocationInfo locationInfo) {
         locationInfo.key = "自身坐标车";
-        mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
+        mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car));
         mLbs.moveCamera(locationInfo, 20);
         mLbs.clearAllMarker();
     }
@@ -221,6 +221,10 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                                 + "\n" + "latitude  " + list.get(1).latitude
                                 + "\n" + "longitude  " + list.get(1).longitude
                                 + "\n" + "时间  " + (nowTime - lastTime)
+                                + "\n" + "近车3航向角  " + (bean.hvDatas.heading)
+                                + "\n" + "远车航向角  " + (bean.rvDatas.get(0).heading)
+                                + "\n" + "远车fcwAlarm  " + (bean.rvDatas.get(0).fcwAlarm)
+                                + "\n" + "近车fcwAlarm  " + (bean.hvDatas.fcwAlarm)
                                 + "\n" + "距离长度:  " + tem);
                 break;
         }

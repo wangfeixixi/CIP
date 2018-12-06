@@ -2,7 +2,7 @@ package wangfeixixi.cip.beans;
 
 public class RvDatas {
     public int fcwAlarm;
-    public int heading;
+    public double heading;
     public float latitude;
     public float longitude;
     public long timestampMs;

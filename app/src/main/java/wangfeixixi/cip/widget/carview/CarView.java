@@ -22,7 +22,8 @@ public class CarView extends View {
     private Paint mPaintCar;
     private int mCarX;//车辆x坐标
     private int mCarY;//车辆y坐标
-    private Bitmap bitmap;//原生车图
+    private Bitmap car_bitmap;//原生车图
+    private Bitmap car_alert_bitmap;//原生车图
     private Paint mPaintLine;//车道线
     public List<float[]> lines;//车道线
 
@@ -73,7 +74,8 @@ public class CarView extends View {
         //重心坐标
 //        rect = new Rect(mCarX - carWidth / 2, mCarY - carLength / 2, mCarX + carWidth / 2, mCarY + carLength / 2);
         //车图标,放大车辆图标
-        bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car), CarUtils.carBitmapScale);
+        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.car), CarUtils.carBitmapScale);
+        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.car_alert), CarUtils.carBitmapScale);
 //        matrix = new Matrix();
     }
 
@@ -105,7 +107,7 @@ public class CarView extends View {
     private void drawCar(Canvas canvas, CarBean bean) {
 //        matrix.reset();
 //        matrix.setRotate(bean.rotate);
-//        carBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth() / 3, bitmap.getHeight() / 3, matrix, true);
+//        carBitmap = Bitmap.createBitmap(car_bitmap, 0, 0, car_bitmap.getWidth() / 3, car_bitmap.getHeight() / 3, matrix, true);
 //        carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
         //自身车
 //        carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
@@ -114,9 +116,9 @@ public class CarView extends View {
 //        canvas.drawBitmap(carBitmap, carRectSrc, rect, mPaintCar);
 //        canvas.drawBitmap(carBitmap, mCarX, mCarY, mPaintCar);
 
-        Bitmap rotateBitmap = BitmapUtils.rotateBitmap(bitmap, bean.rotate);
-//        int width = bitmap.getWidth();
-//        int height = bitmap.getHeight();
+        Bitmap rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, bean.rotate);
+//        int width = car_bitmap.getWidth();
+//        int height = car_bitmap.getHeight();
 //        canvas.drawBitmap(rotateBitmap, mCarX, mCarY, mPaintCar);
         canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
 

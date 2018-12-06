@@ -4,14 +4,20 @@ package wangfeixixi.cip.widget.carview;
  * 车辆自身为原点坐标系
  */
 public class CarBean {
+    public int fcwAlarm;
+    public double heading;
+    public float latitude;
+    public float longitude;
+    public long timestampMs;
+    public long timestampSecond;
+    public float x;
+    public float y;
+
+
     //向上，顺时针
     public float rotate = 30.0f;//航向角
     public float width;//宽
     public float length;//长
-    public float longitude;
-    public float latitude;
-    public float x;
-    public float y;
     //    public int distance;//距离
 //    public int angle;//角度
     public boolean isAlert;//是否警告信息
