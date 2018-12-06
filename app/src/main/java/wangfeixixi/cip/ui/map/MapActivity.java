@@ -215,9 +215,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
         StringBuffer sb = new StringBuffer();
         sb.append("序列号：" + num++);
-//        sb.append("\n车辆数量：" + list.size());
+        sb.append("\n车辆数量：" + list.size());
         sb.append("\n" + "时间：" + (nowTime - lastTime));
-//        sb.append("\n距离长度：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
+        sb.append("\n距离长度：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
         sb.append(bean.toString());
         tv_warning.setText(sb.toString());
         lastTime = nowTime;

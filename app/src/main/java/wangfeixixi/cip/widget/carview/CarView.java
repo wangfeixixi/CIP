@@ -22,8 +22,6 @@ public class CarView extends View {
     private Bitmap car_bitmap;//原生车图
     private Bitmap car_alert_bitmap;//原生车图
     private Paint mPaintLine;//车道线
-    public float[][] lines;//车道线
-    private float[] line_local;
 
     public CarView(Context context) {
         this(context, null, 0);
@@ -48,35 +46,6 @@ public class CarView extends View {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         mPaintLine.setColor(Color.WHITE);
         mPaintLine.setStrokeWidth(10);
-
-        //初始化道路线
-        lines = new float[][]{
-                new float[]{80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{70, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{60, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{50, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{40, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{30, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{20, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{10, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-                new float[]{0, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40}};
-        //初始化道路线
-//        lines = new float[][]{
-//                new float[]{80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{70, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{60, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{50, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{40, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{30, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{20, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{10, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40},
-//                new float[]{0, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40}};
-
-        line_local = new float[]{
-                mCarX - 100, 0,
-                mCarX - 100, mCarY / 2 * 3,
-                mCarX + 100, 0,
-                mCarX + 100, mCarY / 2 * 3};
     }
 
     @Override
@@ -85,7 +54,7 @@ public class CarView extends View {
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
         //自身车坐标,todo是以自身中心为坐标的
-        mCarX = width / 2;
+        mCarX = width / 2;//偏移优化
         mCarY = height / 3 * 2;
         //重心坐标
 //        rect = new Rect(mCarX - carWidth / 2, mCarY - carLength / 2, mCarX + carWidth / 2, mCarY + carLength / 2);
@@ -103,14 +72,26 @@ public class CarView extends View {
         drawLine(canvas);
     }
 
-    public int linesPaintID = 7;
+    public int linesPaintID = CarUtils.linesOne.length - 1;
 
     private void drawLine(Canvas canvas) {
-        mPaintLine.setPathEffect(new DashPathEffect(lines[linesPaintID--], 0));
+        mPaintLine.setPathEffect(new DashPathEffect(CarUtils.linesOne[linesPaintID--], 0));
         if (linesPaintID == -1) {
-            linesPaintID = 7;
+            linesPaintID = CarUtils.linesOne.length - 1;
         }
-        canvas.drawLines(line_local, mPaintLine);
+
+
+        canvas.drawLines(new float[]{
+                mCarX - 100, 0,
+                mCarX - 100, mCarY / 2 * 3,
+                mCarX + 140, 0,
+                mCarX + 140, mCarY / 2 * 3}, mPaintLine);
+
+//        canvas.drawLines(new float[]{
+//                mCarX - 100, 0,
+//                mCarX - 100, 500,
+//                mCarX + 100, 0,
+//                mCarX + 100, 500}, mPaintLine);
     }
 
 
@@ -129,7 +110,11 @@ public class CarView extends View {
         invalidate();
     }
 
-    public void setSpeed(int speed) {
+    public void switchPoint() {
+
+    }
+
+    public void stop() {
 
     }
 }
