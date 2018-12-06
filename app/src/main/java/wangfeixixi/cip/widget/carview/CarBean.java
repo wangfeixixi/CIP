@@ -4,17 +4,20 @@ package wangfeixixi.cip.widget.carview;
  * 车辆自身为原点坐标系
  */
 public class CarBean {
-    //向上，顺时针
-    public float rotate = 30.0f;//航向角
-    public float width;//宽
-    public float length;//长
-    public float longitude;
+    public int fcwAlarm;
+    public double heading;
     public float latitude;
+    public float longitude;
+    public int remoteId;
+    public long timestampMs;
+    public long timestampSecond;
     public float x;
     public float y;
-    //    public int distance;//距离
-//    public int angle;//角度
-    public boolean isAlert;//是否警告信息
+
+    //向上，顺时针
+    public float rotate = 0f;//航向角
+    public float width = CarUtils.carWidth;//宽
+    public float length = CarUtils.carLength;//长
 
     public CarBean(float rotate, float x, float y, float longitude, float latitude, float carWidth, float carLength) {
         this.rotate = rotate;
@@ -29,5 +32,23 @@ public class CarBean {
 
     public CarBean() {
 
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("\nremoteId：" + remoteId);
+        sb.append("\nfcwAlarm：" + fcwAlarm);
+        sb.append("\nheading:" + heading);
+        sb.append("\nlatitude:" + latitude);
+        sb.append("\nlongitude:" + longitude);
+        sb.append("\ntimestampMs:" + timestampMs);
+        sb.append("\ntimestampSecond:" + timestampSecond);
+        sb.append("\nx:" + x);
+        sb.append("\ny:" + y);
+        sb.append("\nrotate:" + rotate);
+        sb.append("\nwidth:" + width);
+        sb.append("\nlength:" + length);
+        return sb.toString();
     }
 }

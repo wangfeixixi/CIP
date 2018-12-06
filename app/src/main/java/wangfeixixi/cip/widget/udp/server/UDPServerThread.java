@@ -1,4 +1,4 @@
-package wangfeixixi.cip.widget.udp;
+package wangfeixixi.cip.widget.udp.server;
 
 import android.util.Log;
 
@@ -13,6 +13,8 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.widget.udp.UDPConfig;
+import wangfeixixi.com.base.test.LogUtils;
 
 public class UDPServerThread extends Thread {
 
@@ -25,28 +27,27 @@ public class UDPServerThread extends Thread {
 
     @Override
     public void run() {
-        InetSocketAddress inetSocketAddress = new InetSocketAddress(ApiConstant.url, ApiConstant.port);
+        InetSocketAddress inetSocketAddress = new InetSocketAddress(UDPConfig.url, UDPConfig.port);
         DatagramSocket ds = null;
         try {
             ds = new DatagramSocket(inetSocketAddress);
-            Log.i("SocketInfo", "UDP服务器已经启动");
+            LogUtils.d("UDP服务器已经启动");
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        Log.i("SocketInfo", "UDP监听中");
+        LogUtils.d("UDP监听中");
         DatagramPacket dpRcv = new DatagramPacket(msgRcv, msgRcv.length);
         while (isRunning) {
             try {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                JsonRootBean jsonRootBean = JSON.parseObject(string, JsonRootBean.class);
-                EventBus.getDefault().post(jsonRootBean);
+                EventBus.getDefault().post(JSON.parseObject(string, JsonRootBean.class));
                 Log.i("SocketInfo", string);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         ds.close();
-        Log.i("SocketInfo", "UDP监听关闭");
+        LogUtils.d("UDP监听关闭");
     }
 }

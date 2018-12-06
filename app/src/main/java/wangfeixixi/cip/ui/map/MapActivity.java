@@ -1,8 +1,7 @@
-package wangfeixixi.cip;
+package wangfeixixi.cip.ui.map;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -13,15 +12,18 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
-import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.widget.udp.UDPUtils;
+import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.widget.carview.CarBean;
+import wangfeixixi.cip.widget.carview.CarUtils;
+import wangfeixixi.cip.widget.carview.CarView;
+import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
+import wangfeixixi.cip.widget.udp.UDPUtils;
+import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.base.UIUtils;
-import wangfeixixi.cip.widget.carview.CarBean;
-import wangfeixixi.cip.widget.carview.CarView;
-import wangfeixixi.cip.widget.carview.BitmapUtils;
-import wangfeixixi.cip.widget.carview.CarUtils;
+import wangfeixixi.com.base.test.LogUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -32,7 +34,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_show_view;
     private CarView carview;
     private Button btn_start;
-//    private Button btn_setting;
+    //    private Button btn_setting;
     private View rl_container_car;
     private TextView tv_warning;
 
@@ -61,7 +63,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         tv_warning.setText("预警信息提示");
-        mLbs.setLocationRes(R.mipmap.car_map);
+        mLbs.setLocationRes(R.mipmap.car);
 //        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
 
 //        mLbs.setLocationChangeListener(new OnLocationListener() {
@@ -77,7 +79,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 //        mLbs.startOnceLocation();
 
 //        mLbs.startAimlessMode(this, new MapNaviListener());
-        mLbs.setLocationRes(R.mipmap.car_map);
+        mLbs.setLocationRes(R.mipmap.car);
     }
 
     float i = 100f;
@@ -121,30 +123,34 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_start:
                 btn_start.setText(isStart ? "启动" : "结束");
                 if (!isStart) {//开始
-//                test();
-//                ServiceUtils.startService(HttpService.class);
                     mLbs.clearAllMarker();
                     carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
+                    UDPUtils.startServer(new UDPResultListener() {
+                        @Override
+                        public void onResultListener(final JsonRootBean jsonRootBean) {
 
-//                HttpUtils.setIsStart(true);
-//                HttpUtils.executeSetUpSystem();
-
-//                    HttpUtils.testEnqueue();
-
-//                    UDPUtils.startServer();
-                    UDPUtils.startUDPServer();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        receiveCars(jsonRootBean);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                        }
+                    });
+//                    UDPUtils.startUDPServer();
                 } else {
-                    UDPUtils.stopUDPServer();
-//                    UDPUtils.stopServer();
+//                    UDPUtils.stopUDPServer();
+                    UDPUtils.stopServer();
                 }
 
                 isStart = !isStart;
                 break;
-//            case R.id.btn_setting:
-//                startActivity(new Intent(mCtx, TestUrlActivity.class));
-//                break;
         }
     }
 
@@ -156,7 +162,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     public void moveSelfCar(LocationInfo locationInfo) {
         locationInfo.key = "自身坐标车";
-        mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
+        mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car));
         mLbs.moveCamera(locationInfo, 20);
         mLbs.clearAllMarker();
     }
@@ -181,26 +187,40 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     private boolean isStart = false;
 
+    public long lastTime = 0;
+    public int num = 0;
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCars(JsonRootBean bean) {
+        LogUtils.d("num" + num++);
         ArrayList<CarBean> list = new ArrayList<>();
-        list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
-        mLbs.addOrUpdateMarker(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
-        mLbs.moveCamera(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), 20);
-
+        if (bean.hvDatas != null) {
+            list.add(bean.hvDatas);
+//            list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
+            mLbs.addOrUpdateMarker(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+            mLbs.moveCamera(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), 20);
+        }
+        if (bean.rvDatas != null)
+            list.addAll(bean.rvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++) {
-            list.add(new CarBean(0, bean.rvDatas.get(i).x, bean.rvDatas.get(i).y, bean.rvDatas.get(i).longitude, bean.rvDatas.get(i).latitude, CarUtils.carWidth, CarUtils.carLength));
+//                list.add(new CarBean(0, bean.rvDatas.get(i).x, bean.rvDatas.get(i).y, bean.rvDatas.get(i).longitude, bean.rvDatas.get(i).latitude, CarUtils.carWidth, CarUtils.carLength));
             mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), bean.rvDatas.get(i).latitude, bean.rvDatas.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
         }
 
         carview.updateBodys(list.toArray(new CarBean[list.size()]));
 
         mLbs.clearAllMarker();
-        double tem = Math.sqrt(Math.abs(list.get(0).x) * Math.abs(list.get(0).x) + Math.abs(list.get(0).y) * Math.abs(list.get(0).y));
-        tv_warning.setText("x  " + list.get(0).x + "  y  " + list.get(0).y
-                + "\n" + "latitude  " + list.get(0).latitude + "  longitude  " + list.get(0).longitude
-                + "\n" + "距离长度为    " + tem);
-        Log.i("asdfasf","asdfasdfasfasf");
+
+        long nowTime = System.currentTimeMillis();
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("序列号：" + num++);
+        sb.append("\n车辆数量：" + list.size());
+        sb.append("\n" + "时间：" + (nowTime - lastTime));
+        sb.append("\n距离长度：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
+        sb.append(bean.toString());
+        tv_warning.setText(sb.toString());
+        lastTime = nowTime;
     }
 
     //    /**

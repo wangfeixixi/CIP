@@ -9,12 +9,8 @@ import java.util.Locale;
 
 import wangfeixixi.com.base.ConfigUtils;
 
-/**
- * Created by xuany on 2018/10/6.
- */
-
 public class LogUtils {
-    public static String TAG = "wangfei";
+    public static String TAG = "wangfeiTest";
 
     public static void v(String format, Object... args) {
         if (ConfigUtils.isApkInDebug()) {

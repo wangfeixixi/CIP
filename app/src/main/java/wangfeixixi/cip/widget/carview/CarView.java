@@ -12,13 +12,15 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import wangfeixixi.cip.R;
+import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 
 public class CarView extends View {
 
     private Paint mPaintCar;
     private int mCarX;//车辆x坐标
     private int mCarY;//车辆y坐标
-    private Bitmap bitmap;//原生车图
+    private Bitmap car_bitmap;//原生车图
+    private Bitmap car_alert_bitmap;//原生车图
     private Paint mPaintLine;//车道线
 
     public CarView(Context context) {
@@ -44,8 +46,6 @@ public class CarView extends View {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         mPaintLine.setColor(Color.WHITE);
         mPaintLine.setStrokeWidth(10);
-        mPaintLine.setPathEffect(new DashPathEffect(new float[]{50, 20}, 0));
-
     }
 
     @Override
@@ -54,13 +54,13 @@ public class CarView extends View {
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
         //自身车坐标,todo是以自身中心为坐标的
-        mCarX = width / 2;
+        mCarX = width / 2;//偏移优化
         mCarY = height / 3 * 2;
         //重心坐标
 //        rect = new Rect(mCarX - carWidth / 2, mCarY - carLength / 2, mCarX + carWidth / 2, mCarY + carLength / 2);
         //车图标,放大车辆图标
-        bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.car), CarUtils.carBitmapScale);
-//        matrix = new Matrix();
+        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.car), CarUtils.carBitmapScale);
+        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.car_alert), CarUtils.carBitmapScale);
     }
 
     @Override
@@ -72,36 +72,34 @@ public class CarView extends View {
         drawLine(canvas);
     }
 
+    public int linesPaintID = CarUtils.linesOne.length - 1;
+
     private void drawLine(Canvas canvas) {
+        mPaintLine.setPathEffect(new DashPathEffect(CarUtils.linesOne[linesPaintID--], 0));
+        if (linesPaintID == -1) {
+            linesPaintID = CarUtils.linesOne.length - 1;
+        }
+
+
         canvas.drawLines(new float[]{
                 mCarX - 100, 0,
                 mCarX - 100, mCarY / 2 * 3,
-                mCarX + 100, 0,
-                mCarX + 100, mCarY / 2 * 3}, mPaintLine);
+                mCarX + 140, 0,
+                mCarX + 140, mCarY / 2 * 3}, mPaintLine);
+
+//        canvas.drawLines(new float[]{
+//                mCarX - 100, 0,
+//                mCarX - 100, 500,
+//                mCarX + 100, 0,
+//                mCarX + 100, 500}, mPaintLine);
     }
 
+
+    private Bitmap rotateBitmap;
+
     private void drawCar(Canvas canvas, CarBean bean) {
-//        matrix.reset();
-//        matrix.setRotate(bean.rotate);
-//        carBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth() / 3, bitmap.getHeight() / 3, matrix, true);
-//        carBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.car, null);
-        //自身车
-//        carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
-//        carRectSrc = new Rect(0, 0, carBitmap.getWidth(), carBitmap.getHeight());
-
-//        canvas.drawBitmap(carBitmap, carRectSrc, rect, mPaintCar);
-//        canvas.drawBitmap(carBitmap, mCarX, mCarY, mPaintCar);
-
-        Bitmap rotateBitmap = BitmapUtils.rotateBitmap(bitmap, bean.rotate);
-//        int width = bitmap.getWidth();
-//        int height = bitmap.getHeight();
-//        canvas.drawBitmap(rotateBitmap, mCarX, mCarY, mPaintCar);
+        rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, bean.rotate);
         canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
-
-
-        //测试版垂直
-//        canvas.drawBitmap(carBitmap, carRectSrc, CarUtils.shelf2Screen(mCarX, mCarY, bean), mPaintCar);
-
         canvas.save();
     }
 

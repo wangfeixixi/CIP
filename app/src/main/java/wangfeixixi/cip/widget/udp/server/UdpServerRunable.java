@@ -1,10 +1,8 @@
-package wangfeixixi.cip.widget.udp;
+package wangfeixixi.cip.widget.udp.server;
 
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,13 +11,11 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.widget.udp.UDPConfig;
+import wangfeixixi.cip.widget.udp.UDPUtils;
+import wangfeixixi.com.base.test.LogUtils;
 
-/**
- * Created by 朱浩 on 2016/5/18.
- */
-public class UdpServer implements Runnable {
-    private String ip = ApiConstant.url;
-    private int port = ApiConstant.port;
+public class UdpServerRunable implements Runnable {
     private DatagramPacket dpRcv = null, dpSend = null;
     private static DatagramSocket ds = null;
     private InetSocketAddress inetSocketAddress = null;
@@ -28,11 +24,7 @@ public class UdpServer implements Runnable {
     private boolean udpLifeOver = true; //生命结束标志，false为结束
 
 
-    public UdpServer(String mIp, int mPort) {
-        this.ip = mIp;
-        this.port = mPort;
-
-        Log.i("SocketInfo", "创建");
+    public UdpServerRunable() {
     }
 
     private void SetSoTime(int ms) throws SocketException {
@@ -60,14 +52,21 @@ public class UdpServer implements Runnable {
         ds.send(dpSend);
     }
 
+    public UDPResultListener listener;
+
+    public void setResultListener(UDPResultListener listener) {
+        this.listener = listener;
+    }
+
+
+    public long lastTime = 0;
 
     @Override
     public void run() {
-        inetSocketAddress = new InetSocketAddress(ip, port);
+        inetSocketAddress = new InetSocketAddress(UDPConfig.url, UDPConfig.port);
         try {
             ds = new DatagramSocket(inetSocketAddress);
-            Log.i("SocketInfo", "UDP服务器已经启动");
-
+            LogUtils.d("UDP服务器已经启动");
 //            SetSoTime(10000);
             //设置超时，不需要可以删除
         } catch (SocketException e) {
@@ -75,27 +74,26 @@ public class UdpServer implements Runnable {
         }
 
         dpRcv = new DatagramPacket(msgRcv, msgRcv.length);
+        LogUtils.d("UDP监听中");
         while (udpLife) {
             try {
-                Log.i("SocketInfo", "UDP监听中");
-                ds.receive(dpRcv);
-
-                String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                Log.i("SocketInfo", "收到信息：" + string);
-
-                JsonRootBean jsonRootBean = JSON.parseObject(string, JsonRootBean.class);
-
-                EventBus.getDefault().post(jsonRootBean);
-
-
+                long nowTime = System.currentTimeMillis();
+                if (nowTime - lastTime > UDPConfig.udpTime) {
+                    ds.receive(dpRcv);
+                    String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
+//                    LogUtils.d("收到信息：" + string);
+                    LogUtils.d("收到信息：" + (nowTime - lastTime));
+                    if (listener != null) {
+                        listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
+                    }
+                    lastTime = nowTime;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
         ds.close();
-        Log.i("SocketInfo", "UDP监听关闭");
-        //udp生命结束
+        LogUtils.d("UDP监听关闭");//udp生命结束
         udpLifeOver = false;
     }
 }

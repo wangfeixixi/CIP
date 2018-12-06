@@ -1,4 +1,4 @@
-package wangfeixixi.cip.widget.udp;
+package wangfeixixi.cip.widget.udp.client;
 
 import org.greenrobot.eventbus.EventBus;
 

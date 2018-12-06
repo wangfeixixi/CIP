@@ -1,4 +1,4 @@
-package wangfeixixi.cip.widget.carview;
+package wangfeixixi.cip.widget.carview.utils;
 
 import android.content.Context;
 import android.util.TypedValue;
