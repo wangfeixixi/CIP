@@ -79,19 +79,11 @@ public class CarView extends View {
         if (linesPaintID == -1) {
             linesPaintID = CarUtils.linesOne.length - 1;
         }
-
-
         canvas.drawLines(new float[]{
                 mCarX - 100, 0,
                 mCarX - 100, mCarY / 2 * 3,
                 mCarX + 140, 0,
                 mCarX + 140, mCarY / 2 * 3}, mPaintLine);
-
-//        canvas.drawLines(new float[]{
-//                mCarX - 100, 0,
-//                mCarX - 100, 500,
-//                mCarX + 100, 0,
-//                mCarX + 100, 500}, mPaintLine);
     }
 
 
