@@ -12,7 +12,6 @@ import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.widget.udp.UDPConfig;
-import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.com.base.test.LogUtils;
 
 public class UdpServerRunable implements Runnable {
@@ -82,7 +81,7 @@ public class UdpServerRunable implements Runnable {
                     ds.receive(dpRcv);
                     String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
 //                    LogUtils.d("收到信息：" + string);
-                    LogUtils.d("收到信息：" + (nowTime - lastTime));
+//                    LogUtils.d("收到信息：" + (nowTime - lastTime));
                     if (listener != null) {
                         listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
                     }

@@ -101,17 +101,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         }, 1);
     }
 
-//    public void speek(float i) {
-//        if (((int) (i)) % 10 != 0) return;
-//        if (i < 100) {
-//            VoiceUtil.getInstance().speek("路口有车辆汇入");
-//        } else if (i < 50) {
-//            VoiceUtil.getInstance().speek("附近有车辆，请小心驾驶");
-//        } else if (i < 10) {
-//            VoiceUtil.getInstance().speek("请保持安全距离！");
-//        }
-//    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -191,32 +180,33 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCars(JsonRootBean bean) {
         ArrayList<CarBean> list = new ArrayList<>();
-        if (bean.hvDatas != null) {
+        if (bean.hvDatas != null)
             list.add(bean.hvDatas);
-//            list.add(new CarBean(0, bean.hvDatas.x, bean.hvDatas.y, bean.hvDatas.longitude, bean.hvDatas.latitude, CarUtils.carWidth, CarUtils.carLength));
-            mLbs.addOrUpdateMarker(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
-            mLbs.moveCamera(new LocationInfo("自身", bean.hvDatas.latitude, bean.hvDatas.longitude), 20);
-        }
         if (bean.rvDatas != null)
             list.addAll(bean.rvDatas);
-        for (int i = 0; i < bean.rvDatas.size(); i++) {
-//                list.add(new CarBean(0, bean.rvDatas.get(i).x, bean.rvDatas.get(i).y, bean.rvDatas.get(i).longitude, bean.rvDatas.get(i).latitude, CarUtils.carWidth, CarUtils.carLength));
-            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), bean.rvDatas.get(i).latitude, bean.rvDatas.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
-        }
-
         carview.updateBodys(list.toArray(new CarBean[list.size()]));
 
-        mLbs.clearAllMarker();
-
         long nowTime = System.currentTimeMillis();
-
+        long timeTemp = nowTime - lastTime;
         StringBuffer sb = new StringBuffer();
         sb.append("\n车辆数量：" + list.size());
-        sb.append("\n" + "时间：" + (nowTime - lastTime));
+        sb.append("\n" + "时间：" + timeTemp);
         sb.append("\n距离：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
         sb.append(bean.toString());
         tv_warning.setText(sb.toString());
+        if ((timeTemp) > 2000) {
+            carview.switchSpeed((int) bean.hvDatas.speed);
+            updateLbs(list);
+        }
         lastTime = nowTime;
+    }
+
+    private void updateLbs(ArrayList<CarBean> list) {
+        mLbs.clearAllMarker();
+        for (int i = 0; i < list.size(); i++) {
+            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), list.get(i).latitude, list.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+        }
+        mLbs.moveCamera(new LocationInfo("自身", list.get(0).latitude, list.get(0).longitude), 20);
     }
 
     //    /**

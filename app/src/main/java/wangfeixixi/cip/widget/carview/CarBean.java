@@ -6,7 +6,7 @@ package wangfeixixi.cip.widget.carview;
 public class CarBean {
     public int fcwAlarm;
     public double heading;
-    public double speed;
+    public float speed;
     public float latitude;
     public float longitude;
     public int remoteId;
