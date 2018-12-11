@@ -184,7 +184,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void adjustSotwLabel(float azimuth) {
-        tv_warning.setText(sotwFormatter.format(azimuth));
+//        tv_warning.setText(sotwFormatter.format(azimuth));
     }
 
     private Compass.CompassListener getCompassListener() {

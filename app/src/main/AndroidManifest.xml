@@ -58,16 +58,16 @@
         android:supportsRtl="true"
         android:theme="@style/theme_all">
         <activity android:name=".ui.map.MapActivity">
+
+        </activity>
+        <activity android:name=".ui.main.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.main.MainActivity">
-
-
         </activity>
 
         <meta-data

@@ -6,9 +6,10 @@ import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarView;
 
 public class ViewAdapter {
-    @BindingAdapter({"carView"})
+    @BindingAdapter("carviewview")
     public static void carView(CarView carView, final CarBean[] beans) {
-        carView.updateBodys(beans);
+        if (carView != null)
+            carView.updateBodys(beans);
     }
 
 //    @BindingAdapter({"carView"})

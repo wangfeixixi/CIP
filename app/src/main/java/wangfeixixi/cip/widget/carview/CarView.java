@@ -96,7 +96,7 @@ public class CarView extends View {
 
     private void drawLine(Canvas canvas) {
         mPaintLine.setPathEffect(new DashPathEffect(liness[linesPaintID], 0));
-        if (++linesPaintID == liness.length + 1) {
+        if (linesPaintID++ == liness.length - 1) {
             linesPaintID = 0;
         }
         canvas.drawLines(new float[]{
@@ -106,8 +106,9 @@ public class CarView extends View {
                 mCarX + 140, mCarY / 2 * 3}, mPaintLine);
     }
 
-    public void switchSpeed(int speed) {
-        liness = CarUtils.speed2Arrays(speed);
+    public void switchSpeed(float speed) {
+        liness = CarUtils.speed2Arrays((int) speed);
+        linesPaintID = 0;
 //        linesPaintID = liness.length - 1;
     }
 }
