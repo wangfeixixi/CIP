@@ -3,6 +3,10 @@ package wangfeixixi.cip.widget.carview;
 
 import android.graphics.Rect;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 转换坐标类，将接收到的信息转换成屏幕坐标点
  * <p>
@@ -54,6 +58,53 @@ public class CarUtils {
         return carY - bodyBean.y * scale - bodyBean.width * scale;
     }
 
+    //    public static void main(String[] args) {
+//        speed2Arrays(10);
+//        for (int j = 0; j < 100; j++) {
+//
+//
+//            float[][] floats = speed2Arrays(j);
+//            String temp = "";
+//            for (int i = 0; i < floats.length; i++) {
+//                temp += "  " + String.valueOf(floats[i]);
+//                if (floats[i] != null) temp += "长度" + floats.length;
+//            }
+//            System.out.println(temp);
+//
+//        }
+//
+//
+//    }
+    private static float[] floatsSrc = {80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40};
+
+    public static float[][] speed2Arrays(int speed) {
+        List<float[]> strList = null;
+        if (speed == 0) {
+            return new float[][]{floatsSrc};
+        } else if (speed <= 20) {
+            strList = Arrays.asList(getLiensArrays(80, -40, 2));
+        } else if (speed <= 40) {
+            strList = Arrays.asList(getLiensArrays(80, -40, 4));
+        } else if (speed <= 60) {
+            strList = Arrays.asList(getLiensArrays(80, -40, 6));
+        } else if (speed <= 80) {
+            strList = Arrays.asList(getLiensArrays(80, -40, 8));
+        } else if (speed <= 100) {
+            strList = Arrays.asList(getLiensArrays(80, -40, 10));
+        } else if (speed <= 120) {
+            strList = Arrays.asList(getLiensArrays(80, -40, 12));
+        } else {
+            strList = Arrays.asList(getLiensArrays(80, -40, 20));
+        }
+        List<float[]> strListNew = new ArrayList<>();
+        for (int i = 0; i < strList.size(); i++) {
+            if (strList.get(i) != null) {
+                strListNew.add(strList.get(i));
+            }
+        }
+        return strListNew.toArray(new float[strListNew.size()][]);
+    }
+
     /**
      * @param start 开始的数字 如80
      * @param end   结束的数字 如-40
@@ -63,7 +114,7 @@ public class CarUtils {
     public static float[][] getLiensArrays(int start, int end, int cha) {
         int size = (start - end) / cha;
         float[][] floatsReturn = new float[size][];
-        float[] floatsSrc = {80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40};
+//        float[] floatsSrc = {80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40, 80, 40};
         float[] floatsTemp;
         while (true) {
             if (start != end && (start -= cha) > end) {

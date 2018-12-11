@@ -76,17 +76,17 @@ public class UdpServerRunable implements Runnable {
         LogUtils.d("UDP监听中");
         while (udpLife) {
             try {
-                long nowTime = System.currentTimeMillis();
-                if (nowTime - lastTime > UDPConfig.udpTime) {
-                    ds.receive(dpRcv);
-                    String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
+//                long nowTime = System.currentTimeMillis();
+//                if (nowTime - lastTime > UDPConfig.udpTime) {
+                ds.receive(dpRcv);
+                String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
 //                    LogUtils.d("收到信息：" + string);
 //                    LogUtils.d("收到信息：" + (nowTime - lastTime));
-                    if (listener != null) {
-                        listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
-                    }
-                    lastTime = nowTime;
+                if (listener != null) {
+                    listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
                 }
+//                    lastTime = nowTime;
+//                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -2,9 +2,13 @@ package wangfeixixi.cip.ui.map;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -19,6 +23,8 @@ import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
+import wangfeixixi.cip.widget.compass.Compass;
+import wangfeixixi.cip.widget.compass.SOTWFormatter;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.ThreadUtils;
@@ -33,9 +39,13 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_show_view;
     private CarView carview;
     private Button btn_start;
-    //    private Button btn_setting;
     private View rl_container_car;
     private TextView tv_warning;
+
+    private Compass compass;
+    private ImageView arrowView;
+    private float currentAzimuth;
+    private SOTWFormatter sotwFormatter;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -49,14 +59,12 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_show_view = findViewById(R.id.btn_show_view);
         carview = findViewById(R.id.carview);
         btn_start = (Button) findViewById(R.id.btn_start);
-//        btn_setting = findViewById(R.id.btn_setting);
         rl_container_car = findViewById(R.id.rl_container_car);
         tv_warning = findViewById(R.id.tv_warning);
 
         btn_show_view.setOnClickListener(this);
         btn_start.setOnClickListener(this);
         rl_container_car.setOnClickListener(this);
-//        btn_setting.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +87,11 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
 //        mLbs.startAimlessMode(this, new MapNaviListener());
         mLbs.setLocationRes(R.mipmap.car);
+
+        sotwFormatter = new SOTWFormatter(this);
+
+        arrowView = findViewById(R.id.main_image_hands);
+        setupCompass();
     }
 
     float i = 100f;
@@ -131,9 +144,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                             });
                         }
                     });
-//                    UDPUtils.startUDPServer();
                 } else {
-//                    UDPUtils.stopUDPServer();
                     UDPUtils.stopServer();
                 }
 
@@ -142,11 +153,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mLbs.onResume();
-    }
 
     public void moveSelfCar(LocationInfo locationInfo) {
         locationInfo.key = "自身坐标车";
@@ -155,23 +161,49 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mLbs.clearAllMarker();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mLbs.onPause();
+    private void setupCompass() {
+        compass = new Compass(this);
+        Compass.CompassListener cl = getCompassListener();
+        compass.setListener(cl);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mLbs.onSaveInstanceState(outState);
+    private void adjustArrow(float azimuth) {
+        Log.d(TAG, "will set rotation from " + currentAzimuth + " to "
+                + azimuth);
+
+        Animation an = new RotateAnimation(-currentAzimuth, -azimuth,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        currentAzimuth = azimuth;
+
+        an.setDuration(500);
+        an.setRepeatCount(0);
+        an.setFillAfter(true);
+
+        arrowView.startAnimation(an);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mLbs.onDestroy();
+    private void adjustSotwLabel(float azimuth) {
+        tv_warning.setText(sotwFormatter.format(azimuth));
     }
+
+    private Compass.CompassListener getCompassListener() {
+        return new Compass.CompassListener() {
+            @Override
+            public void onNewAzimuth(final float azimuth) {
+                // UI updates only in UI thread
+                // https://stackoverflow.com/q/11140285/444966
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adjustArrow(azimuth);
+                        adjustSotwLabel(azimuth);
+                    }
+                });
+            }
+        };
+    }
+
 
     private boolean isStart = false;
 
@@ -196,7 +228,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         tv_warning.setText(sb.toString());
         if ((timeTemp) > 2000) {
             carview.switchSpeed((int) bean.hvDatas.speed);
-            updateLbs(list);
+            updateLbs(list);//相当耗时
         }
         lastTime = nowTime;
     }
@@ -268,4 +300,44 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 //                    + (info.getCoorX() + info.getCoorY() + info.getDistance() + info.getLimitSpeed()));
 //        }
 //    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mLbs.onResume();
+        compass.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        compass.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        compass.stop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mLbs.onPause();
+        compass.stop();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mLbs.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLbs.onDestroy();
+    }
+
+
 }

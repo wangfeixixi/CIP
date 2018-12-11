@@ -47,7 +47,7 @@ public class CarView extends View {
         mPaintLine.setColor(Color.WHITE);
         mPaintLine.setStrokeWidth(10);
 
-        switchSpeed(10);
+        switchSpeed(100);
     }
 
     @Override
@@ -67,13 +67,12 @@ public class CarView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-//        canvas.drawColor(Color.GRAY);//背景
+        canvas.drawColor(Color.GRAY);//背景
         if (mBeans != null)
             for (int i = 0; i < mBeans.length; i++)
                 drawCar(canvas, mBeans[i]);
         drawLine(canvas);
     }
-
 
     private Bitmap rotateBitmap;
 
@@ -96,9 +95,9 @@ public class CarView extends View {
     private float[][] liness = null;
 
     private void drawLine(Canvas canvas) {
-        mPaintLine.setPathEffect(new DashPathEffect(liness[linesPaintID--], 0));
-        if (linesPaintID == -1) {
-            linesPaintID = liness.length - 1;
+        mPaintLine.setPathEffect(new DashPathEffect(liness[linesPaintID], 0));
+        if (++linesPaintID == liness.length + 1) {
+            linesPaintID = 0;
         }
         canvas.drawLines(new float[]{
                 mCarX - 100, 0,
@@ -108,7 +107,7 @@ public class CarView extends View {
     }
 
     public void switchSpeed(int speed) {
-        liness = CarUtils.getLiensArrays(80, 40, speed / 10);
-        linesPaintID = liness.length;
+        liness = CarUtils.speed2Arrays(speed);
+//        linesPaintID = liness.length - 1;
     }
 }
