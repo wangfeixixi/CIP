@@ -46,6 +46,8 @@ public class CarView extends View {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         mPaintLine.setColor(Color.WHITE);
         mPaintLine.setStrokeWidth(10);
+
+        switchSpeed(100);
     }
 
     @Override
@@ -72,29 +74,6 @@ public class CarView extends View {
         drawLine(canvas);
     }
 
-    public int linesPaintID = CarUtils.linesOne.length - 1;
-
-    private void drawLine(Canvas canvas) {
-        mPaintLine.setPathEffect(new DashPathEffect(CarUtils.linesOne[linesPaintID--], 0));
-        if (linesPaintID == -1) {
-            linesPaintID = CarUtils.linesOne.length - 1;
-        }
-
-
-        canvas.drawLines(new float[]{
-                mCarX - 100, 0,
-                mCarX - 100, mCarY / 2 * 3,
-                mCarX + 140, 0,
-                mCarX + 140, mCarY / 2 * 3}, mPaintLine);
-
-//        canvas.drawLines(new float[]{
-//                mCarX - 100, 0,
-//                mCarX - 100, 500,
-//                mCarX + 100, 0,
-//                mCarX + 100, 500}, mPaintLine);
-    }
-
-
     private Bitmap rotateBitmap;
 
     private void drawCar(Canvas canvas, CarBean bean) {
@@ -110,11 +89,25 @@ public class CarView extends View {
         invalidate();
     }
 
-    public void switchPoint() {
+    //****************************************车道线
+    private int linesPaintID = 0;
 
+    private float[][] liness = null;
+
+    private void drawLine(Canvas canvas) {
+        mPaintLine.setPathEffect(new DashPathEffect(liness[linesPaintID], 0));
+        if (++linesPaintID == liness.length + 1) {
+            linesPaintID = 0;
+        }
+        canvas.drawLines(new float[]{
+                mCarX - 100, 0,
+                mCarX - 100, mCarY / 2 * 3,
+                mCarX + 140, 0,
+                mCarX + 140, mCarY / 2 * 3}, mPaintLine);
     }
 
-    public void stop() {
-
+    public void switchSpeed(int speed) {
+        liness = CarUtils.speed2Arrays(speed);
+//        linesPaintID = liness.length - 1;
     }
 }

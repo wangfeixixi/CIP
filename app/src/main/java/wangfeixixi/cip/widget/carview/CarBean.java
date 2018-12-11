@@ -6,6 +6,7 @@ package wangfeixixi.cip.widget.carview;
 public class CarBean {
     public int fcwAlarm;
     public double heading;
+    public float speed;
     public float latitude;
     public float longitude;
     public int remoteId;
@@ -37,18 +38,19 @@ public class CarBean {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("\nremoteId：" + remoteId);
-        sb.append("\nfcwAlarm：" + fcwAlarm);
+        sb.append("\nremoteId:" + remoteId);
+        sb.append("\nfcwAlarm:" + fcwAlarm);
         sb.append("\nheading:" + heading);
+        sb.append("\nspeed:" + speed);
         sb.append("\nlatitude:" + latitude);
         sb.append("\nlongitude:" + longitude);
-        sb.append("\ntimestampMs:" + timestampMs);
-        sb.append("\ntimestampSecond:" + timestampSecond);
         sb.append("\nx:" + x);
         sb.append("\ny:" + y);
-        sb.append("\nrotate:" + rotate);
-        sb.append("\nwidth:" + width);
-        sb.append("\nlength:" + length);
+//        sb.append("\ntimestampMs:" + timestampMs);
+//        sb.append("\ntimestampSecond:" + timestampSecond);
+//        sb.append("\nrotate:" + rotate);
+//        sb.append("\nwidth:" + width);
+//        sb.append("\nlength:" + length);
         return sb.toString();
     }
 }
