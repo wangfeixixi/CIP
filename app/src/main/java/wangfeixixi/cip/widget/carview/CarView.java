@@ -67,7 +67,7 @@ public class CarView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.GRAY);//背景
+//        canvas.drawColor(Color.GRAY);//背景
         if (mBeans != null)
             for (int i = 0; i < mBeans.length; i++)
                 drawCar(canvas, mBeans[i]);

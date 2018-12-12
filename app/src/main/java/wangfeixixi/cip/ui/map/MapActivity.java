@@ -2,7 +2,6 @@ package wangfeixixi.cip.ui.map;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -42,6 +41,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
     private Compass compass;
     private ImageView arrowView;
+    private ImageView arrowViewHeading;
     private float currentAzimuth;
     private SOTWFormatter sotwFormatter;
 
@@ -59,6 +59,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         btn_start = (Button) findViewById(R.id.btn_start);
         rl_container_car = findViewById(R.id.rl_container_car);
         tv_warning = findViewById(R.id.tv_warning);
+        arrowViewHeading = findViewById(R.id.arrowViewHeading);
 
         btn_show_view.setOnClickListener(this);
         btn_start.setOnClickListener(this);
@@ -146,9 +147,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void adjustArrow(float azimuth) {
-        Log.d(TAG, "will set rotation from " + currentAzimuth + " to "
-                + azimuth);
-
         Animation an = new RotateAnimation(-currentAzimuth, -azimuth,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 0.5f);
@@ -169,8 +167,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         return new Compass.CompassListener() {
             @Override
             public void onNewAzimuth(final float azimuth) {
-                // UI updates only in UI thread
-                // https://stackoverflow.com/q/11140285/444966
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -186,6 +182,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     private boolean isStart = false;
 
     public long lastTime = 0;
+
+    public String mRemoteId;
+    public StringBuffer sb = new StringBuffer();
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void receiveCars(JsonRootBean bean) {
@@ -207,6 +206,9 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         if ((timeTemp) > 2000) {
             carview.switchSpeed((int) bean.hvDatas.speed);
             updateLbs(list);//相当耗时
+
+
+            arrowViewHeading.setRotation(bean.hvDatas.heading);
         }
         lastTime = nowTime;
     }
