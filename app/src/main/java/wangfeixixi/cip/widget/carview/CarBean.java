@@ -5,11 +5,11 @@ package wangfeixixi.cip.widget.carview;
  */
 public class CarBean {
     public int fcwAlarm;
-    public double heading;
+    public float heading;
     public float speed;
     public float latitude;
     public float longitude;
-    public int remoteId;
+    public String remoteId;
     public long timestampMs;
     public long timestampSecond;
     public float x;

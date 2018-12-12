@@ -12,7 +12,58 @@
     <RelativeLayout
         android:id="@+id/rl_container_car"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/main_image_dial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/compass_dial"
+                android:src="@drawable/dial" />
+
+            <ImageView
+                android:id="@+id/main_image_hands"
+                android:layout_width="10dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/compass_hands"
+                android:scaleType="fitXY"
+                android:src="@drawable/hands" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/compass_dial"
+                android:src="@drawable/dial" />
+
+            <ImageView
+                android:id="@+id/arrowViewHeading"
+                android:layout_width="10dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/compass_hands"
+                android:scaleType="fitXY"
+                android:src="@drawable/hands" />
+
+        </RelativeLayout>
 
         <wangfeixixi.cip.widget.carview.CarView
             android:id="@+id/carview"
@@ -49,32 +100,21 @@
             android:text="asdfas"
             android:textColor="@color/yellow"
             android:textSize="14sp" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_sp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:text="记录 " />-->
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentRight="true">
 
-        <ImageView
-            android:id="@+id/main_image_dial"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/compass_dial"
-            android:src="@drawable/dial" />
-
-        <ImageView
-            android:id="@+id/main_image_hands"
-            android:layout_width="10dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@string/compass_hands"
-            android:scaleType="fitXY"
-            android:src="@drawable/hands" />
-
-    </RelativeLayout>
+    <!--<wangfeixixi.cip.widget.dashboard.DashboardView4-->
+    <!--android:id="@+id/dashboard_view_4"-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp" />-->
 
     <LinearLayout
         android:layout_width="wrap_content"

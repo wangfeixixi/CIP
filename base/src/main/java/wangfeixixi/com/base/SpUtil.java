@@ -12,7 +12,7 @@ import wangfeixixi.com.base.UIUtils;
 public class SpUtil {
 
 
-    private static String mFileName = "config";
+    private static String mFileName = "SpUtil";
 
     public static void init(String filename) {
         mFileName = filename;

@@ -12,6 +12,7 @@ import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.widget.udp.UDPConfig;
+import wangfeixixi.com.base.SpUtil;
 import wangfeixixi.com.base.test.LogUtils;
 
 public class UdpServerRunable implements Runnable {
@@ -57,9 +58,6 @@ public class UdpServerRunable implements Runnable {
         this.listener = listener;
     }
 
-
-    public long lastTime = 0;
-
     @Override
     public void run() {
         inetSocketAddress = new InetSocketAddress(UDPConfig.url, UDPConfig.port);
@@ -76,17 +74,12 @@ public class UdpServerRunable implements Runnable {
         LogUtils.d("UDP监听中");
         while (udpLife) {
             try {
-//                long nowTime = System.currentTimeMillis();
-//                if (nowTime - lastTime > UDPConfig.udpTime) {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-//                    LogUtils.d("收到信息：" + string);
-//                    LogUtils.d("收到信息：" + (nowTime - lastTime));
+                SpUtil.putString(String.valueOf(System.currentTimeMillis()), string);
                 if (listener != null) {
                     listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
                 }
-//                    lastTime = nowTime;
-//                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
