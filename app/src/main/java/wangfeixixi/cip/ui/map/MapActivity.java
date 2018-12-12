@@ -20,14 +20,12 @@ import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
-import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.compass.Compass;
 import wangfeixixi.cip.widget.compass.SOTWFormatter;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
-import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
@@ -92,26 +90,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
 
         arrowView = findViewById(R.id.main_image_hands);
         setupCompass();
-    }
-
-    float i = 100f;
-
-    public void test() {
-        i -= 0.2;
-        if (i < -10f) return;
-        final ArrayList<CarBean> list = new ArrayList<>();
-        list.add(new CarBean(0, 0, 0, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-        list.add(new CarBean(0, 0, 50, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-        list.add(new CarBean(0, 0, i, 0, 0, CarUtils.carWidth, CarUtils.carLength));
-        final CarBean[] beans = list.toArray(new CarBean[list.size()]);
-        carview.updateBodys(beans);
-        tv_warning.setText("距离 " + i + " 米");
-        ThreadUtils.runOnUiThreadDelayed(new Runnable() {
-            @Override
-            public void run() {
-                test();
-            }
-        }, 1);
     }
 
     @Override
