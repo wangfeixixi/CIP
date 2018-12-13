@@ -68,17 +68,16 @@ public class CarView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 //        canvas.drawColor(Color.GRAY);//背景
+        drawLine(canvas);
         if (mBeans != null)
             for (int i = 0; i < mBeans.length; i++)
                 drawCar(canvas, mBeans[i]);
-        drawLine(canvas);
     }
 
     private Bitmap rotateBitmap;
 
     private void drawCar(Canvas canvas, CarBean bean) {
-        rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, bean.heading);
-
+        rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, 0f);
         canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
         canvas.save();
     }

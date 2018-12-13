@@ -15,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="远车航向角"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textColor="@color/color_blue"
+            android:textSize="16sp" />
 
         <RelativeLayout
             android:layout_width="100dp"
@@ -49,8 +49,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:text="本车航向角"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textColor="@color/color_blue"
+            android:textSize="16sp"/>
 
         <RelativeLayout
             android:layout_width="100dp"
