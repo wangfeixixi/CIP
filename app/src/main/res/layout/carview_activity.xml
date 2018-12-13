@@ -4,13 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <FrameLayout
-        android:id="@+id/fl_map_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
     <RelativeLayout
         android:id="@+id/rl_container_car"
         android:layout_width="match_parent"
@@ -22,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="远车航向角"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textColor="@color/color_blue"
+            android:textSize="16sp" />
 
         <RelativeLayout
             android:layout_width="100dp"
@@ -39,7 +32,7 @@
                 android:src="@drawable/dial" />
 
             <ImageView
-                android:id="@+id/iv_hand_other"
+                android:id="@+id/iv_hand_rv"
                 android:layout_width="10dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
@@ -56,8 +49,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:text="本车航向角"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textColor="@color/color_blue"
+            android:textSize="16sp" />
 
         <RelativeLayout
             android:layout_width="100dp"
@@ -74,7 +67,7 @@
                 android:src="@drawable/dial" />
 
             <ImageView
-                android:id="@+id/arrowViewHeading"
+                android:id="@+id/iv_hand_hv"
                 android:layout_width="10dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
@@ -85,39 +78,61 @@
 
         </RelativeLayout>
 
+
+        <wangfeixixi.share.circle.DialProgress
+            android:id="@+id/dial_progress_rv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:padding="@dimen/small"
+            app:animTime="1000"
+            app:arcColors="@array/gradient_arc_color"
+            app:arcWidth="@dimen/small"
+            app:dialIntervalDegree="3"
+            app:dialWidth="1dp"
+            app:hint="远车"
+            app:hintSize="10sp"
+            app:maxValue="300"
+            app:startAngle="135"
+            app:sweepAngle="270"
+            app:unit="km/h"
+            app:unitSize="12sp"
+            app:value="100"
+            app:valueSize="18sp" />
+
+        <wangfeixixi.share.circle.DialProgress
+            android:id="@+id/dial_progress_hv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+            android:padding="@dimen/small"
+            app:animTime="1000"
+            app:arcColors="@array/gradient_arc_color"
+            app:arcWidth="@dimen/small"
+            app:dialIntervalDegree="3"
+            app:dialWidth="1dp"
+            app:hint="本车"
+            app:hintSize="10sp"
+            app:maxValue="300"
+            app:startAngle="135"
+            app:sweepAngle="270"
+            app:unit="km/h"
+            app:unitSize="12sp"
+            app:value="100"
+            app:valueSize="18sp" />
+
         <wangfeixixi.cip.widget.carview.CarView
             android:id="@+id/carview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!--<wangfeixixi.share.circle.DialProgress-->
-        <!--android:id="@+id/dial_progress_bar"-->
-        <!--android:layout_width="80dp"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:padding="@dimen/small"-->
-        <!--app:animTime="1000"-->
-        <!--app:arcColors="@array/gradient_arc_color"-->
-        <!--app:arcWidth="@dimen/small"-->
-        <!--app:dialIntervalDegree="3"-->
-        <!--app:dialWidth="1dp"-->
-        <!--app:hint="当前时速"-->
-        <!--app:hintSize="6sp"-->
-        <!--app:maxValue="300"-->
-        <!--app:startAngle="135"-->
-        <!--app:sweepAngle="270"-->
-        <!--app:unit="km/h"-->
-        <!--app:unitSize="8sp"-->
-        <!--app:value="100"-->
-        <!--app:valueSize="@dimen/text_size_16" />-->
 
         <TextView
             android:id="@+id/tv_warning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="asdfas"
             android:textColor="@color/yellow"
             android:textSize="18sp" />
 
@@ -135,6 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         app:icon_size="32dp"
         app:icon_type="thumb" />
 </RelativeLayout>

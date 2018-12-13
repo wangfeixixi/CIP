@@ -3,12 +3,13 @@ package wangfeixixi.cip.ui.map;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -21,29 +22,27 @@ import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
-import wangfeixixi.cip.widget.compass.Compass;
-import wangfeixixi.cip.widget.compass.SOTWFormatter;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
-public class MapActivity extends BaseActivity implements View.OnClickListener {
+public class MapActivity extends BaseActivity {
     public String TAG = "MapActivity";
     private GaodeMapService mLbs;
     private FrameLayout mapContainer;
-    private Button btn_show_view;
     private CarView carview;
-    private Button btn_start;
-    private View rl_container_car;
+    private LikeButton btn_start;
+    //    private View rl_container_car;
     private TextView tv_warning;
 
-    private Compass compass;
-    private ImageView arrowView;
+    //    private Compass compass;
+    //    private ImageView arrowView;
+    private ImageView iv_hand_other;
     private ImageView arrowViewHeading;
-    private float currentAzimuth;
-    private SOTWFormatter sotwFormatter;
+//    private float currentAzimuth;
+//    private SOTWFormatter sotwFormatter;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -54,16 +53,13 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
 
-        btn_show_view = findViewById(R.id.btn_show_view);
         carview = findViewById(R.id.carview);
-        btn_start = (Button) findViewById(R.id.btn_start);
-        rl_container_car = findViewById(R.id.rl_container_car);
+        btn_start = findViewById(R.id.btn_start);
+//        rl_container_car = findViewById(R.id.rl_container_car);
         tv_warning = findViewById(R.id.tv_warning);
         arrowViewHeading = findViewById(R.id.arrowViewHeading);
+        iv_hand_other = findViewById(R.id.iv_hand_other);
 
-        btn_show_view.setOnClickListener(this);
-        btn_start.setOnClickListener(this);
-        rl_container_car.setOnClickListener(this);
     }
 
     @Override
@@ -72,36 +68,42 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mLbs.setLocationRes(R.mipmap.car);
 //        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
 
-//        mLbs.setLocationChangeListener(new OnLocationListener() {
-//            @Override
-//            public void onLocationChange(LocationInfo locationInfo) {
-//                locationInfo.key = "自身坐标车";
-//                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_map));
-//                mLbs.moveCamera(locationInfo, 20);
-//
-//            }
-//        });
-//
-//        mLbs.startOnceLocation();
-
-//        mLbs.startAimlessMode(this, new MapNaviListener());
         mLbs.setLocationRes(R.mipmap.car);
 
-        sotwFormatter = new SOTWFormatter(this);
+        btn_start.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                mLbs.clearAllMarker();
+                carview.updateBodys(new CarBean[0]);
+//                VoiceUtil.getInstance().speek("开始驾驶");
 
-        arrowView = findViewById(R.id.main_image_hands);
-        setupCompass();
-    }
+                UDPUtils.startServer(new UDPResultListener() {
+                    @Override
+                    public void onResultListener(final JsonRootBean jsonRootBean) {
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_show_view:
-                rl_container_car.setVisibility(rl_container_car.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                btn_show_view.setText(rl_container_car.getVisibility() == View.VISIBLE ? "显示" : "隐藏");
-                break;
-            case R.id.btn_start:
-                btn_start.setText(isStart ? "启动" : "结束");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    receiveCars(jsonRootBean);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                UDPUtils.stopServer();
+            }
+        });
+        tv_warning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                btn_start.setText(isStart ? "启动" : "结束");
                 if (!isStart) {//开始
                     mLbs.clearAllMarker();
                     carview.updateBodys(new CarBean[0]);
@@ -128,10 +130,17 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
                 }
 
                 isStart = !isStart;
-                break;
-        }
+            }
+        });
+//        btn_start.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                rl_container_car.setVisibility(rl_container_car.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+//                btn_start.setText(rl_container_car.getVisibility() == View.VISIBLE ? "长按隐藏" : (isStart ? "启动" : "结束"));
+//                return false;
+//            }
+//        });
     }
-
 
     public void moveSelfCar(LocationInfo locationInfo) {
         locationInfo.key = "自身坐标车";
@@ -139,45 +148,6 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         mLbs.moveCamera(locationInfo, 20);
         mLbs.clearAllMarker();
     }
-
-    private void setupCompass() {
-        compass = new Compass(this);
-        Compass.CompassListener cl = getCompassListener();
-        compass.setListener(cl);
-    }
-
-    private void adjustArrow(float azimuth) {
-        Animation an = new RotateAnimation(-currentAzimuth, -azimuth,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        currentAzimuth = azimuth;
-
-        an.setDuration(500);
-        an.setRepeatCount(0);
-        an.setFillAfter(true);
-
-        arrowView.startAnimation(an);
-    }
-
-    private void adjustSotwLabel(float azimuth) {
-//        tv_warning.setText(sotwFormatter.format(azimuth));
-    }
-
-    private Compass.CompassListener getCompassListener() {
-        return new Compass.CompassListener() {
-            @Override
-            public void onNewAzimuth(final float azimuth) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        adjustArrow(azimuth);
-                        adjustSotwLabel(azimuth);
-                    }
-                });
-            }
-        };
-    }
-
 
     private boolean isStart = false;
 
@@ -195,6 +165,8 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
             list.addAll(bean.rvDatas);
         carview.updateBodys(list.toArray(new CarBean[list.size()]));
 
+        if (bean.hvDatas == null || bean.rvDatas == null) return;
+
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
         StringBuffer sb = new StringBuffer();
@@ -206,8 +178,7 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         if ((timeTemp) > 2000) {
             carview.switchSpeed((int) bean.hvDatas.speed);
             updateLbs(list);//相当耗时
-
-
+            iv_hand_other.setRotation(bean.rvDatas.get(0).heading);
             arrowViewHeading.setRotation(bean.hvDatas.heading);
         }
         lastTime = nowTime;
@@ -285,26 +256,26 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         mLbs.onResume();
-        compass.start();
+//        compass.start();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        compass.start();
+//        compass.start();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        compass.stop();
+//        compass.stop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mLbs.onPause();
-        compass.stop();
+//        compass.stop();
     }
 
     @Override
@@ -318,6 +289,4 @@ public class MapActivity extends BaseActivity implements View.OnClickListener {
         super.onDestroy();
         mLbs.onDestroy();
     }
-
-
 }
