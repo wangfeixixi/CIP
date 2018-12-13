@@ -77,7 +77,8 @@ public class CarView extends View {
     private Bitmap rotateBitmap;
 
     private void drawCar(Canvas canvas, CarBean bean) {
-        rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, bean.rotate);
+        rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, bean.heading);
+
         canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
         canvas.save();
     }
