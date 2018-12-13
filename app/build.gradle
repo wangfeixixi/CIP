@@ -66,5 +66,5 @@ dependencies {
     implementation rootProject.ext.dependencies.leakcanary_support_fragment
     implementation rootProject.ext.dependencies.fastJson
 
-
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 }

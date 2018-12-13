@@ -12,8 +12,8 @@ import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.widget.udp.UDPConfig;
-import wangfeixixi.com.base.SpUtil;
 import wangfeixixi.com.base.test.LogUtils;
+import wangfeixixi.com.base.test.SpLogUtil;
 
 public class UdpServerRunable implements Runnable {
     private DatagramPacket dpRcv = null, dpSend = null;
@@ -25,6 +25,7 @@ public class UdpServerRunable implements Runnable {
 
 
     public UdpServerRunable() {
+        SpLogUtil.init();
     }
 
     private void SetSoTime(int ms) throws SocketException {
@@ -76,7 +77,7 @@ public class UdpServerRunable implements Runnable {
             try {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                SpUtil.putString(String.valueOf(System.currentTimeMillis()), string);
+                SpLogUtil.putString(String.valueOf(System.currentTimeMillis()), string);
                 if (listener != null) {
                     listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
                 }

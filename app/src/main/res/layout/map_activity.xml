@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,19 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+
     <RelativeLayout
         android:id="@+id/rl_container_car"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="远车航向角"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
         <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="24dp">
 
             <ImageView
-                android:id="@+id/main_image_dial"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -29,7 +39,7 @@
                 android:src="@drawable/dial" />
 
             <ImageView
-                android:id="@+id/main_image_hands"
+                android:id="@+id/iv_hand_other"
                 android:layout_width="10dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
@@ -40,11 +50,21 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="本车航向角"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
         <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -99,46 +119,22 @@
             android:layout_margin="16dp"
             android:text="asdfas"
             android:textColor="@color/yellow"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
         <!--<TextView-->
-            <!--android:id="@+id/tv_sp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:text="记录 " />-->
+        <!--android:id="@+id/tv_sp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="记录 " />-->
     </RelativeLayout>
 
-
-    <!--<wangfeixixi.cip.widget.dashboard.DashboardView4-->
-    <!--android:id="@+id/dashboard_view_4"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp" />-->
-
-    <LinearLayout
+    <com.like.LikeButton
+        android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="启动" />
-
-        <Button
-            android:id="@+id/btn_show_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="显示" />
-
-        <!--<Button-->
-        <!--android:id="@+id/btn_setting"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="配置" />-->
-    </LinearLayout>
+        app:icon_size="32dp"
+        app:icon_type="thumb" />
 </RelativeLayout>
