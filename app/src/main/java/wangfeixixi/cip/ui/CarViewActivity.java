@@ -1,6 +1,7 @@
 package wangfeixixi.cip.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,13 +20,16 @@ import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+import wangfeixixi.share.circle.DialProgress;
 
 public class CarViewActivity extends BaseActivity {
     private CarView carview;
     private LikeButton btn_start;
     private TextView tv_warning;
-    private ImageView iv_hand_other;
-    private ImageView arrowViewHeading;
+    private ImageView iv_hand_rv;
+    private ImageView iv_hand_hv;
+    private DialProgress dial_progress_hv;
+    private DialProgress dial_progress_rv;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -33,13 +37,21 @@ public class CarViewActivity extends BaseActivity {
         carview = findViewById(R.id.carview);
         btn_start = findViewById(R.id.btn_start);
         tv_warning = findViewById(R.id.tv_warning);
-        arrowViewHeading = findViewById(R.id.arrowViewHeading);
-        iv_hand_other = findViewById(R.id.iv_hand_other);
+        iv_hand_hv = findViewById(R.id.iv_hand_hv);
+        iv_hand_rv = findViewById(R.id.iv_hand_rv);
+        dial_progress_hv = findViewById(R.id.dial_progress_hv);
+        dial_progress_rv = findViewById(R.id.dial_progress_rv);
     }
 
     @Override
     protected void initData() {
-        tv_warning.setText("预警信息提示");
+        dial_progress_hv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_warning.setVisibility(tv_warning.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            }
+        });
+
         btn_start.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
@@ -93,8 +105,10 @@ public class CarViewActivity extends BaseActivity {
         tv_warning.setText(sb.toString());
         if ((timeTemp) > 2000) {
             carview.switchSpeed((int) bean.hvDatas.speed);
-            iv_hand_other.setRotation(bean.rvDatas.get(0).heading);
-            arrowViewHeading.setRotation(bean.hvDatas.heading);
+            iv_hand_rv.setRotation(bean.rvDatas.get(0).heading);
+            iv_hand_hv.setRotation(bean.hvDatas.heading);
+            dial_progress_hv.setValue(bean.hvDatas.speed);
+            dial_progress_rv.setValue(bean.rvDatas.get(0).speed);
         }
         lastTime = nowTime;
     }
