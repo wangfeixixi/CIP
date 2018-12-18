@@ -7,8 +7,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import wangfeixixi.cip.widget.udp.UDPConfig;
-
 public class Test {
 
     private static String msgSend = "{\n" +
@@ -31,12 +29,12 @@ public class Test {
             "\t\"rvDatas\" : \n" +
             "\t[\n" +
             "\t\t{\n" +
-            "\t\t\t\"fcwAlarm\" : 0,\n" +
+            "\t\t\t\"fcwAlarm\" : 1,\n" +
             "\t\t\t\"heading\" : 51.200000000000003,\n" +
             "\t\t\t\"latitude\" : 303402356,\n" +
             "\t\t\t\"longitude\" : 1212809770,\n" +
             "\t\t\t\"remoteId\" : 67239940,\n" +
-            "\t\t\t\"speed\" : 50,\n" +
+            "\t\t\t\"speed\" : 80,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
             "\t\t\t\"x\" : 10,\n" +
@@ -48,13 +46,13 @@ public class Test {
 
     public static void main(String[] args) {
         while (true) {
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             send();
-            System.out.println("发送数据" + System.currentTimeMillis());
+            System.out.println("send" + System.currentTimeMillis());
         }
     }
 
@@ -65,7 +63,7 @@ public class Test {
 //        byte[] msgRcv = new byte[1024]; //接收消息
         InetAddress hostAddress = null;
         try {
-            hostAddress = InetAddress.getByName(UDPConfig.url);
+            hostAddress = InetAddress.getByName("255.255.255.255");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
@@ -74,7 +72,7 @@ public class Test {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        packetSend = new DatagramPacket(msgSend.getBytes(), msgSend.getBytes().length, hostAddress, UDPConfig.port);
+        packetSend = new DatagramPacket(msgSend.getBytes(), msgSend.getBytes().length, hostAddress, 9999);
 
         try {
             socket.send(packetSend);

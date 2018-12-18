@@ -78,6 +78,22 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@color/yellow"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/yellow"
+            android:textSize="18sp" />
 
         <wangfeixixi.share.circle.DialProgress
             android:id="@+id/dial_progress_rv"
@@ -97,7 +113,7 @@
             app:sweepAngle="270"
             app:unit="km/h"
             app:unitSize="12sp"
-            app:value="100"
+            app:value="0"
             app:valueSize="18sp" />
 
         <wangfeixixi.share.circle.DialProgress
@@ -119,7 +135,7 @@
             app:sweepAngle="270"
             app:unit="km/h"
             app:unitSize="12sp"
-            app:value="100"
+            app:value="0"
             app:valueSize="18sp" />
 
         <wangfeixixi.cip.widget.carview.CarView
@@ -127,14 +143,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
-        <TextView
-            android:id="@+id/tv_warning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textColor="@color/yellow"
-            android:textSize="18sp" />
 
         <!--<TextView-->
         <!--android:id="@+id/tv_sp"-->
@@ -145,12 +153,12 @@
         <!--android:text="记录 " />-->
     </RelativeLayout>
 
-    <com.like.LikeButton
-        android:id="@+id/btn_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:icon_size="32dp"
-        app:icon_type="thumb" />
+    <!--<com.like.LikeButton-->
+    <!--android:id="@+id/btn_start"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--app:icon_size="32dp"-->
+    <!--app:icon_type="thumb" />-->
 </RelativeLayout>

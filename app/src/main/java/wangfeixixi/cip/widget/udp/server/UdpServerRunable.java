@@ -81,6 +81,7 @@ public class UdpServerRunable implements Runnable {
                 if (listener != null) {
                     listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
                 }
+                LogUtils.d(string);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -43,8 +43,14 @@ public class CarView extends View {
 //        canvas.drawColor(Color.GRAY);//背景
         DrawLine.getInstance().drawLine(canvas, mCarX, mCarY);
         if (mBeans != null)
-            for (int i = 0; i < mBeans.length; i++)
-                DrawCar.getInstance().drawCar(canvas, mBeans[i], mCarX, mCarY);
+            for (int i = 0; i < mBeans.length; i++) {
+                if (i == 0) {
+                    DrawCar.getInstance().drawHvCar(canvas, mBeans[i], mCarX, mCarY);
+                } else {
+                    DrawCar.getInstance().drawRvCar(canvas, mBeans[i], mCarX, mCarY);
+                }
+            }
+
     }
 
     private CarBean[] mBeans = null;
