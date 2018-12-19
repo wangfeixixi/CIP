@@ -3,7 +3,6 @@ package wangfeixixi.cip.ui.map;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,11 +19,12 @@ import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
-import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.UIUtils;
+import wangfeixixi.com.base.location.Gps;
+import wangfeixixi.com.base.location.PositionUtil;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -32,7 +32,7 @@ public class MapActivity extends BaseActivity {
     public String TAG = "MapActivity";
     private GaodeMapService mLbs;
     private FrameLayout mapContainer;
-    private CarView carview;
+    //    private CarView carview;
     private LikeButton btn_start;
     //    private View rl_container_car;
     private TextView tv_warning;
@@ -53,7 +53,7 @@ public class MapActivity extends BaseActivity {
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
 
-        carview = findViewById(R.id.carview);
+//        carview = findViewById(R.id.carview);
         btn_start = findViewById(R.id.btn_start);
 //        rl_container_car = findViewById(R.id.rl_container_car);
         tv_warning = findViewById(R.id.tv_warning);
@@ -74,7 +74,7 @@ public class MapActivity extends BaseActivity {
             @Override
             public void liked(LikeButton likeButton) {
                 mLbs.clearAllMarker();
-                carview.updateBodys(new CarBean[0]);
+//                carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
                 UDPUtils.startServer(new UDPResultListener() {
@@ -93,6 +93,10 @@ public class MapActivity extends BaseActivity {
                         });
                     }
                 });
+
+//                mLbs.moveCamera(new LocationInfo("自身", 30.330416, 121.317497), 20);
+//                mLbs.addOrUpdateMarker(new LocationInfo("自身", 30.330416, 121.317497), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+
             }
 
             @Override
@@ -106,7 +110,7 @@ public class MapActivity extends BaseActivity {
 //                btn_start.setText(isStart ? "启动" : "结束");
                 if (!isStart) {//开始
                     mLbs.clearAllMarker();
-                    carview.updateBodys(new CarBean[0]);
+//                    carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
                     UDPUtils.startServer(new UDPResultListener() {
@@ -163,33 +167,44 @@ public class MapActivity extends BaseActivity {
             list.add(bean.hvDatas);
         if (bean.rvDatas != null)
             list.addAll(bean.rvDatas);
-        carview.updateBodys(list.toArray(new CarBean[list.size()]));
+//        carview.updateBodys(list.toArray(new CarBean[list.size()]));
 
-        if (bean.hvDatas == null || bean.rvDatas == null) return;
+//        if (bean.hvDatas == null || bean.rvDatas == null) return;
 
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
         StringBuffer sb = new StringBuffer();
         sb.append("\n车辆数量：" + list.size());
         sb.append("\n" + "时间：" + timeTemp);
-        sb.append("\n距离：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
+//        sb.append("\n距离：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
         sb.append(bean.toString());
         tv_warning.setText(sb.toString());
-        if ((timeTemp) > 2000) {
-            carview.switchSpeed((int) bean.hvDatas.speed);
+        if ((timeTemp) > 5000) {
+//            carview.switchSpeed((int) bean.hvDatas.speed);
             updateLbs(list);//相当耗时
             iv_hand_other.setRotation(bean.rvDatas.get(0).heading);
             arrowViewHeading.setRotation(bean.hvDatas.heading);
+            lastTime = nowTime;
+
         }
-        lastTime = nowTime;
+
     }
 
     private void updateLbs(ArrayList<CarBean> list) {
         mLbs.clearAllMarker();
+        CarBean bean = null;
+        Gps gps = null;
+        LocationInfo local = null;
         for (int i = 0; i < list.size(); i++) {
-            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), list.get(i).latitude, list.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+            bean = list.get(i);
+            gps = PositionUtil.gps84_To_Gcj02(bean.latitude, bean.longitude);
+            local = new LocationInfo("自身", "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
+            if (i == 0) {
+                mLbs.moveCamera(local, 20);
+            }
+
+            mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
         }
-        mLbs.moveCamera(new LocationInfo("自身", list.get(0).latitude, list.get(0).longitude), 20);
     }
 
     //    /**

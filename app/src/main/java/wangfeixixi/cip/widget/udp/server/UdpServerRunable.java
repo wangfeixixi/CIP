@@ -77,10 +77,10 @@ public class UdpServerRunable implements Runnable {
             try {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                SpLogUtil.putString(String.valueOf(System.currentTimeMillis()), string);
                 if (listener != null) {
                     listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
                 }
+                LogUtils.d(string);
             } catch (IOException e) {
                 e.printStackTrace();
             }

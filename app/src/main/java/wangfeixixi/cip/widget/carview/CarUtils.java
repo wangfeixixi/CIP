@@ -17,7 +17,7 @@ public class CarUtils {
     /**
      * 转化比例：1米scale个像素
      */
-    public static float scale = 10;
+    public static float scale = 30;
 
     /**
      * 车辆图片的缩放
@@ -55,7 +55,7 @@ public class CarUtils {
     }
 
     public static float y2YView(float carY, CarBean bodyBean) {
-        return carY - bodyBean.y * scale - bodyBean.width * scale;
+        return carY - bodyBean.y * scale - bodyBean.length * scale;
     }
 
     //    public static void main(String[] args) {

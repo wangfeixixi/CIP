@@ -28,6 +28,18 @@ public class UDPUtils {
         udpserverthread = null;
     }
 
+
+    public static boolean isStart = false;
+
+    public static void udpServer(UDPResultListener listener) {
+        if (isStart) {
+            stopServer();
+        } else {
+            startServer(listener);
+        }
+        isStart = !isStart;
+    }
+
     public static void startServer(UDPResultListener listener) {
         udpServer = new UdpServerRunable();
         udpServer.setResultListener(listener);
@@ -36,6 +48,7 @@ public class UDPUtils {
     }
 
     public static void stopServer() {
+        LogUtils.d("停止");
         new Thread(new Runnable() {
             @Override
             public void run() {

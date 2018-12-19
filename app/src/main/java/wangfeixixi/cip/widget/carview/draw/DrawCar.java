@@ -39,7 +39,13 @@ public class DrawCar {
 
     private Bitmap rotateBitmap;
 
-    public void drawCar(Canvas canvas, CarBean bean, float mCarX, float mCarY) {
+    public void drawHvCar(Canvas canvas, CarBean bean, float mCarX, float mCarY) {
+        rotateBitmap = BitmapUtils.rotateBitmap(car_bitmap, 0f);
+        canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
+        canvas.save();
+    }
+
+    public void drawRvCar(Canvas canvas, CarBean bean, float mCarX, float mCarY) {
         rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, 0f);
         canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
         canvas.save();

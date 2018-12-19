@@ -15,9 +15,9 @@ public class JsonRootBean {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("\ncmd:" + cmd);
-        sb.append("\nmagic:" + magic);
-        sb.append("\nnov:" + nov);
+//        sb.append("\ncmd:" + cmd);
+//        sb.append("\nmagic:" + magic);
+//        sb.append("\nnov:" + nov);
         sb.append("\nsn:" + sn);
         sb.append("\n\n本车数据：");
         sb.append(hvDatas.toString());

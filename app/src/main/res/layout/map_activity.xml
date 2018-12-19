@@ -14,8 +14,7 @@
     <RelativeLayout
         android:id="@+id/rl_container_car"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray">
+        android:layout_height="match_parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,10 +84,10 @@
 
         </RelativeLayout>
 
-        <wangfeixixi.cip.widget.carview.CarView
-            android:id="@+id/carview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--<wangfeixixi.cip.widget.carview.CarView-->
+        <!--android:id="@+id/carview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
         <!--<wangfeixixi.share.circle.DialProgress-->
         <!--android:id="@+id/dial_progress_bar"-->
@@ -118,7 +117,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="asdfas"
-            android:textColor="@color/yellow"
             android:textSize="18sp" />
 
         <!--<TextView-->
