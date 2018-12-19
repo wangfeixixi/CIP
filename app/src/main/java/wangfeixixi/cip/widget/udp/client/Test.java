@@ -15,8 +15,8 @@ public class Test {
             "\t{\n" +
             "\t\t\"fcwAlarm\" : 0,\n" +
             "\t\t\"heading\" : 280.0,\n" +
-            "\t\t\"latitude\" : 120.258633 ,\n" +
-            "\t\t\"longitude\" : 30.369066,\n" +
+            "\t\t\"latitude\" : 30.330416 ,\n" +
+            "\t\t\"longitude\" : 121.317497,\n" +
             "\t\t\"remoteId\" : 0,\n" +
             "\t\t\"speed\" : 50,\n" +
             "\t\t\"timestampMs\" : 0,\n" +
@@ -31,8 +31,8 @@ public class Test {
             "\t\t{\n" +
             "\t\t\t\"fcwAlarm\" : 1,\n" +
             "\t\t\t\"heading\" : 51.200000000000003,\n" +
-            "\t\t\t\"latitude\" : 303402356,\n" +
-            "\t\t\t\"longitude\" : 1212809770,\n" +
+            "\t\t\t\"latitude\" : 30.329397,\n" +
+            "\t\t\t\"longitude\" : 121.315383,\n" +
             "\t\t\t\"remoteId\" : 67239940,\n" +
             "\t\t\t\"speed\" : 80,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
