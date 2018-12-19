@@ -15,8 +15,8 @@ public class Test {
             "\t{\n" +
             "\t\t\"fcwAlarm\" : 0,\n" +
             "\t\t\"heading\" : 280.0,\n" +
-            "\t\t\"latitude\" : 303403470,\n" +
-            "\t\t\"longitude\" : 1212800153,\n" +
+            "\t\t\"latitude\" : 120.258633 ,\n" +
+            "\t\t\"longitude\" : 30.369066,\n" +
             "\t\t\"remoteId\" : 0,\n" +
             "\t\t\"speed\" : 50,\n" +
             "\t\t\"timestampMs\" : 0,\n" +
@@ -45,6 +45,27 @@ public class Test {
             "}";
 
     public static void main(String[] args) {
+        while (true) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            send();
+            System.out.println("send" + System.currentTimeMillis());
+        }
+    }
+
+    public static void testUDPSend() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                test();
+            }
+        }).start();
+    }
+
+    public static void test() {
         while (true) {
             try {
                 Thread.sleep(100);

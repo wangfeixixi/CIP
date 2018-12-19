@@ -57,7 +57,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/theme_all">
-        <activity android:name=".ui.map.MapActivity">
+        <activity
+            android:name=".ui.map.MapActivity"
+            android:icon="@mipmap/icon"
+            android:label="地图">
 
         </activity>
         <activity android:name=".ui.main.MainActivity">
@@ -65,7 +68,10 @@
 
         </activity>
 
-        <activity android:name=".ui.CarViewActivity">
+        <activity
+            android:name=".ui.CarViewActivity"
+            android:icon="@mipmap/icon"
+            android:label="cip">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -73,6 +79,29 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
+        </activity>
+
+        <activity
+            android:name=".widget.udp.server.UDPServerTestActivity"
+            android:icon="@mipmap/icon"
+            android:label="UDPServer">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".widget.udp.client.UDPClientTestActivity"
+            android:icon="@mipmap/icon"
+            android:label="UDPClient">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            `1
         </activity>
 
         <meta-data

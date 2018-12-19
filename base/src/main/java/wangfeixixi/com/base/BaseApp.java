@@ -10,6 +10,7 @@ public class BaseApp extends BaseApplication {
 
         if (ConfigUtils.isApkInDebug()) {
             CrashHandler.getInstance().init();
+
         }
     }
 }
