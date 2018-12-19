@@ -69,10 +69,6 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.main.MainActivity">
-
-
-        </activity>
 
         <activity
             android:name=".ui.CarViewActivity"
