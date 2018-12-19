@@ -55,7 +55,7 @@ public class CarUtils {
     }
 
     public static float y2YView(float carY, CarBean bodyBean) {
-        return carY - bodyBean.y * scale - bodyBean.width * scale;
+        return carY - bodyBean.y * scale - bodyBean.length * scale;
     }
 
     //    public static void main(String[] args) {
