@@ -128,8 +128,8 @@ public class CarViewActivity extends BaseActivity {
             carview.switchSpeed((int) bean.hvDatas.speed);
             iv_hand_rv.setRotation(bean.rvDatas.get(0).heading);
             iv_hand_hv.setRotation(bean.hvDatas.heading);
-            dial_progress_hv.setValue(bean.hvDatas.speed);
-            dial_progress_rv.setValue(bean.rvDatas.get(0).speed);
+            dial_progress_hv.setValue(bean.hvDatas.speed * 3.6f);
+            dial_progress_rv.setValue(bean.rvDatas.get(0).speed * 3.6f);
             if (bean.rvDatas.get(0).fcwAlarm != 0)
                 VoiceUtil.getInstance().speek("预警" + jvli + "米");
             lastTime = nowTime;
