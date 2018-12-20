@@ -1,4 +1,4 @@
-package wangfeixixi.com.base.test;
+package wangfeixixi.com.base.crash;
 
 import android.annotation.SuppressLint;
 import android.content.pm.PackageInfo;

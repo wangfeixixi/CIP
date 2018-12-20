@@ -1,4 +1,4 @@
-package wangfeixixi.com.base.test;
+package wangfeixixi.com.base.crash;
 
 import android.content.Context;
 import android.content.SharedPreferences;

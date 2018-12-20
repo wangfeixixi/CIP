@@ -1,4 +1,4 @@
-package wangfeixixi.com.base.test;
+package wangfeixixi.com.base.crash;
 
 import android.os.SystemClock;
 import android.util.Log;

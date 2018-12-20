@@ -3,7 +3,7 @@ package wangfeixixi.cip.widget.udp;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.cip.widget.udp.server.UDPServerThread;
 import wangfeixixi.cip.widget.udp.server.UdpServerRunable;
-import wangfeixixi.com.base.test.LogUtils;
+import wangfeixixi.com.base.crash.LogUtils;
 
 public class UDPUtils {
     private static UdpServerRunable udpServer;

@@ -14,7 +14,7 @@ import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.widget.udp.UDPConfig;
-import wangfeixixi.com.base.test.LogUtils;
+import wangfeixixi.com.base.crash.LogUtils;
 
 public class UDPServerThread extends Thread {
 

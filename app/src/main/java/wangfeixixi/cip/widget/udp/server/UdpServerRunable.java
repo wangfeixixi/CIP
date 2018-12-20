@@ -12,8 +12,7 @@ import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.widget.udp.UDPConfig;
-import wangfeixixi.com.base.test.LogUtils;
-import wangfeixixi.com.base.test.SpLogUtil;
+import wangfeixixi.com.base.crash.LogUtils;
 
 public class UdpServerRunable implements Runnable {
     private DatagramPacket dpRcv = null, dpSend = null;
@@ -25,7 +24,7 @@ public class UdpServerRunable implements Runnable {
 
 
     public UdpServerRunable() {
-        SpLogUtil.init();
+
     }
 
     private void SetSoTime(int ms) throws SocketException {

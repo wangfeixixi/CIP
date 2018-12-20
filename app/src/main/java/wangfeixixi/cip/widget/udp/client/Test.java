@@ -14,11 +14,11 @@ public class Test {
             "\t\"hvDatas\" : \n" +
             "\t{\n" +
             "\t\t\"fcwAlarm\" : 0,\n" +
-            "\t\t\"heading\" : 280.0,\n" +
-            "\t\t\"latitude\" : 30.330416 ,\n" +
-            "\t\t\"longitude\" : 121.317497,\n" +
+            "\t\t\"heading\" : 121.236812,\n" +
+            "\t\t\"latitude\" : 30.338475 ,\n" +
+            "\t\t\"longitude\" : 121.236812,\n" +
             "\t\t\"remoteId\" : 0,\n" +
-            "\t\t\"speed\" : 50,\n" +
+            "\t\t\"speed\" : 5,\n" +
             "\t\t\"timestampMs\" : 0,\n" +
             "\t\t\"timestampSecond\" : 0,\n" +
             "\t\t\"x\" : 0.0,\n" +
@@ -34,7 +34,7 @@ public class Test {
             "\t\t\t\"latitude\" : 30.329397,\n" +
             "\t\t\t\"longitude\" : 121.315383,\n" +
             "\t\t\t\"remoteId\" : 67239940,\n" +
-            "\t\t\t\"speed\" : 80,\n" +
+            "\t\t\t\"speed\" : 8,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
             "\t\t\t\"x\" : 10,\n" +

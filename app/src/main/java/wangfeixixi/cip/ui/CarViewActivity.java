@@ -20,7 +20,7 @@ import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.data.DateUtils;
-import wangfeixixi.com.base.test.SpLogUtil;
+import wangfeixixi.com.base.crash.SpLogUtil;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.share.circle.DialProgress;
 
@@ -33,6 +33,7 @@ public class CarViewActivity extends BaseActivity {
     private DialProgress dial_progress_hv;
     private DialProgress dial_progress_rv;
     private TextView tv_tips;
+    private UDPResultListener listener;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class CarViewActivity extends BaseActivity {
     @Override
     protected void initData() {
         VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
-        final UDPResultListener listener = new UDPResultListener() {
+        listener = new UDPResultListener() {
             @Override
             public void onResultListener(final JsonRootBean jsonRootBean) {
 
@@ -73,13 +74,29 @@ public class CarViewActivity extends BaseActivity {
                 tv_warning.setVisibility(tv_warning.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
             }
         });
-        dial_progress_hv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                carview.updateBodys(new CarBean[0]);
-                UDPUtils.udpServer(listener);
-            }
-        });
+
+//        carview.updateBodys(new CarBean[0]);
+//        UDPUtils.udpServer(listener);
+//        dial_progress_hv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                carview.updateBodys(new CarBean[0]);
+//                UDPUtils.udpServer(listener);
+//            }
+//        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        carview.updateBodys(new CarBean[0]);
+        UDPUtils.startServer(listener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        UDPUtils.stopServer();
     }
 
     public long lastTime = 0;
@@ -115,7 +132,7 @@ public class CarViewActivity extends BaseActivity {
         double sqrt = Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y));
         double jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
         if (bean.rvDatas.get(0).fcwAlarm != 0) {
-            tv_tips.setText("预警\n\n" + "请注意附近车辆距离:" + jvli + "米");
+            tv_tips.setText("附近车辆:" + jvli + "米");
         } else {
             tv_tips.setText("");
         }
@@ -128,10 +145,10 @@ public class CarViewActivity extends BaseActivity {
         dial_progress_hv.setValue(bean.hvDatas.speed * 3.6f);
         dial_progress_rv.setValue(bean.rvDatas.get(0).speed * 3.6f);
 
-        if ((timeTemp) > 3000) {
+        if ((timeTemp) > 2000) {
             carview.switchSpeed((int) bean.hvDatas.speed);
             if (bean.rvDatas.get(0).fcwAlarm != 0)
-                VoiceUtil.getInstance().speek("预警" + jvli + "米");
+                VoiceUtil.getInstance().speek("注意安全距离");
             lastTime = nowTime;
         }
     }

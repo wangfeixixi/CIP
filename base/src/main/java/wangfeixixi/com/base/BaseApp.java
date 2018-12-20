@@ -1,7 +1,7 @@
 package wangfeixixi.com.base;
 
 import wangfeixixi.com.base.mvvm.base.BaseApplication;
-import wangfeixixi.com.base.test.CrashHandler;
+import wangfeixixi.com.base.crash.CrashHandler;
 
 public class BaseApp extends BaseApplication {
 

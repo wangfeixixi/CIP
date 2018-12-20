@@ -179,7 +179,7 @@ public class MapActivity extends BaseActivity {
 //        sb.append("\n距离：" + Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y)));
         sb.append(bean.toString());
         tv_warning.setText(sb.toString());
-        if ((timeTemp) > 5000) {
+        if ((timeTemp) > 200) {
 //            carview.switchSpeed((int) bean.hvDatas.speed);
             updateLbs(list);//相当耗时
             iv_hand_other.setRotation(bean.rvDatas.get(0).heading);
@@ -191,14 +191,14 @@ public class MapActivity extends BaseActivity {
     }
 
     private void updateLbs(ArrayList<CarBean> list) {
-        mLbs.clearAllMarker();
+//        mLbs.clearAllMarker();
         CarBean bean = null;
         Gps gps = null;
         LocationInfo local = null;
         for (int i = 0; i < list.size(); i++) {
             bean = list.get(i);
-            gps = PositionUtil.gps84_To_Gcj02(bean.latitude, bean.longitude);
-            local = new LocationInfo("自身", "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
+            gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
+            local = new LocationInfo(String.valueOf(i), "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
             if (i == 0) {
                 mLbs.moveCamera(local, 20);
             }
