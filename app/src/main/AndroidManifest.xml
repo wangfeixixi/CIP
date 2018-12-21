@@ -67,6 +67,18 @@
         android:supportsRtl="true"
         android:theme="@style/theme_all">
         <activity
+            android:name=".ui.TestUrlActivity"
+            android:icon="@mipmap/icon"
+            android:label="地图">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity
             android:name=".ui.map.MapActivity"
             android:icon="@mipmap/icon"
             android:label="地图">
@@ -138,14 +150,14 @@
         </provider>
         <provider
             android:name=".utils.BuglyFileProvider"
-            tools:replace="name,authorities,exported,grantUriPermissions"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="name,authorities,exported,grantUriPermissions">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                tools:replace="name,resource"
-                android:resource="@xml/provider_paths" />
+                android:resource="@xml/provider_paths"
+                tools:replace="name,resource" />
         </provider>
 
     </application>

@@ -20,7 +20,6 @@ import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.data.DateUtils;
-import wangfeixixi.com.base.crash.SpLogUtil;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.share.circle.DialProgress;
 
@@ -53,16 +52,21 @@ public class CarViewActivity extends BaseActivity {
         VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
         listener = new UDPResultListener() {
             @Override
-            public void onResultListener(final JsonRootBean jsonRootBean) {
+            public void onResultListener(final JsonRootBean bean) {
+                final ArrayList<CarBean> list = new ArrayList<>();
+                if (bean.hvDatas != null)
+                    list.add(bean.hvDatas);
+                if (bean.rvDatas != null)
+                    list.addAll(bean.rvDatas);
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            receiveCars(jsonRootBean);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        if (list.size() < 2) {
+                            tv_warning.setText(bean.toString());
+                            return;
                         }
+                        receiveCars(list);
                     }
                 });
             }
@@ -102,52 +106,33 @@ public class CarViewActivity extends BaseActivity {
     public long lastTime = 0;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiveCars(JsonRootBean bean) {
-        ArrayList<CarBean> list = new ArrayList<>();
-        if (bean.hvDatas != null)
-            list.add(bean.hvDatas);
-        if (bean.rvDatas != null)
-            list.addAll(bean.rvDatas);
-        carview.updateBodys(list.toArray(new CarBean[list.size()]));
-
-        SpLogUtil.putString(String.valueOf(bean.sn), bean.toString());
-
-
+    public void receiveCars(ArrayList<CarBean> beans) {
+        carview.updateBodys(beans.toArray(new CarBean[beans.size()]));
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
         StringBuffer sb = new StringBuffer();
         sb.append("\n" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
 
-        if (bean.hvDatas == null) {
-            sb.append(bean.toString());
-            tv_warning.setText(sb.toString());
-            return;
-        }
-
-        if (bean.rvDatas == null) {
-            sb.append(bean.toString());
-            tv_warning.setText(sb.toString());
-            return;
-        }
-        double sqrt = Math.sqrt(Math.abs(list.get(1).x) * Math.abs(list.get(1).x) + Math.abs(list.get(1).y) * Math.abs(list.get(1).y));
+        double sqrt = Math.sqrt(Math.abs(beans.get(1).x) * Math.abs(beans.get(1).x) + Math.abs(beans.get(1).y) * Math.abs(beans.get(1).y));
         double jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
-        if (bean.rvDatas.get(0).fcwAlarm != 0) {
+
+        if (beans.get(0).fcwAlarm != 0) {
             tv_tips.setText("附近车辆:" + jvli + "米");
         } else {
             tv_tips.setText("");
         }
         sb.append("\n距离：" + jvli);
-        sb.append(bean.toString());
+        sb.append("\n" + beans.get(0).toString());
+        sb.append("\n" + beans.get(1).toString());
         tv_warning.setText(sb.toString());
-
-        iv_hand_rv.setRotation(bean.rvDatas.get(0).heading);
-        iv_hand_hv.setRotation(bean.hvDatas.heading);
-        dial_progress_hv.setValue(bean.hvDatas.speed * 3.6f);
-        dial_progress_rv.setValue(bean.rvDatas.get(0).speed * 3.6f);
+        iv_hand_hv.setRotation(beans.get(0).heading);
+        iv_hand_rv.setRotation(beans.get(1).heading);
+        dial_progress_hv.setValue(beans.get(0).speed * 3.6f);
+        dial_progress_rv.setValue(beans.get(1).speed * 3.6f);
 
         if ((timeTemp) > 2000) {
-            carview.switchSpeed(bean.hvDatas.speed * 3.6f);
-            if (bean.rvDatas.get(0).fcwAlarm != 0)
+            carview.switchSpeed(beans.get(0).speed * 3.6f);
+            if (beans.get(0).fcwAlarm != 0)
                 VoiceUtil.getInstance().speek("注意安全距离");
             lastTime = nowTime;
         }

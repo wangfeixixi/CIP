@@ -1,56 +1,56 @@
 package wangfeixixi.cip.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import wangfeixixi.cip.R;
-import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.com.base.SpUtil;
+import wangfeixixi.cip.widget.carview.anim.BlinkAnim;
+import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
 
-public class TestUrlActivity extends BaseActivity implements View.OnClickListener {
+public class TestUrlActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText et_url;
-    private Button btn_test;
-    private TextView tv_result;
-    private EditText et_method;
-    private EditText et_param_name;
+    private View iv_car;
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.test_url_activity);
+
+        findViewById(R.id.btn_test).setOnClickListener(this);
+        findViewById(R.id.btn_plus).setOnClickListener(this);
+        findViewById(R.id.btn_minus).setOnClickListener(this);
+
+        iv_car = findViewById(R.id.iv_car);
+
+
     }
 
-    @Override
-    protected void initData() {
-        et_url = findViewById(R.id.et_url);
-        et_method = findViewById(R.id.et_method);
-        et_param_name = findViewById(R.id.et_param_name);
-        btn_test = findViewById(R.id.btn_test);
-        tv_result = findViewById(R.id.tv_result);
+    public boolean isStart = false;
 
-
-        btn_test.setOnClickListener(this);
-
-
-        et_url.setHint(SpUtil.getString("url", null));
-        et_method.setHint(SpUtil.getString("method", null));
-        et_param_name.setHint(SpUtil.getString("param", null));
-    }
+    private long time = 2000;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_test:
-                CharSequence et_url_s = et_url.getHint();
-                CharSequence et_method_s = et_method.getHint();
-                CharSequence et_param_name_s = et_param_name.getHint();
+                BlinkAnim.blink(iv_car);
+                break;
+            case R.id.btn_plus:
+//                time += 200;
+//                Animation animation = iv_car.getAnimation();
+//
+//                animation.getDuration();
+//
+//                iv_car.clearAnimation();
+//                iv_car.startAnimation(TranslateAnim.getAnimation(time));
 
-                SpUtil.putString("url", et_url.getText().toString());
-                SpUtil.putString("method", et_method.getText().toString());
-                SpUtil.putString("param", et_param_name.getText().toString());
+                TranslateAnim.switchSpeedAnim(iv_car, 300);
+
+                break;
+            case R.id.btn_minus:
+
                 break;
         }
     }
