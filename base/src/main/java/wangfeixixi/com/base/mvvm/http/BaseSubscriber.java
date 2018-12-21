@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import io.reactivex.observers.DisposableObserver;
-import wangfeixixi.com.base.mvvm.utils.KLog;
+import wangfeixixi.com.base.crash.LogUtils;
 import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 
 /**
@@ -23,7 +23,7 @@ public abstract class BaseSubscriber<T> extends DisposableObserver<T> {
 
     @Override
     public void onError(Throwable e) {
-        KLog.e(e.getMessage());
+        LogUtils.e(e.getMessage());
         // todo error somthing
 
         if (e instanceof ResponseThrowable) {
@@ -66,7 +66,7 @@ public abstract class BaseSubscriber<T> extends DisposableObserver<T> {
         } else if (baseResponse.getCode() == 330) {
             ToastUtils.showShort(baseResponse.getMessage());
         } else if (baseResponse.getCode() == 503) {
-            KLog.e(baseResponse.getMessage());
+            LogUtils.e(baseResponse.getMessage());
         } else {
             ToastUtils.showShort("操作失败！错误代码:" + baseResponse.getCode());
         }

@@ -146,7 +146,7 @@ public class CarViewActivity extends BaseActivity {
         dial_progress_rv.setValue(bean.rvDatas.get(0).speed * 3.6f);
 
         if ((timeTemp) > 2000) {
-            carview.switchSpeed((int) bean.hvDatas.speed);
+            carview.switchSpeed(bean.hvDatas.speed * 3.6f);
             if (bean.rvDatas.get(0).fcwAlarm != 0)
                 VoiceUtil.getInstance().speek("注意安全距离");
             lastTime = nowTime;

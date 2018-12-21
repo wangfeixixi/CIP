@@ -41,7 +41,7 @@ public class CarBean {
         sb.append("\nremoteId:" + remoteId);
         sb.append("\nfcwAlarm:" + fcwAlarm);
         sb.append("\nheading:" + heading);
-        sb.append("\nspeed:" + speed);
+        sb.append("\nspeed:" + speed * 3.6f);
         sb.append("\nlatitude:" + latitude);
         sb.append("\nlongitude:" + longitude);
         sb.append("\nx:" + x);

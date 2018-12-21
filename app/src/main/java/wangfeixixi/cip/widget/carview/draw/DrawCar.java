@@ -51,4 +51,13 @@ public class DrawCar {
         canvas.save();
     }
 
+
+    public void draw2NextCar(float xStart, float yStart, float xEnd, float yEnd) {
+        float chaX = xEnd - xStart;
+        float chaY = yEnd - yStart;
+
+
+
+    }
+
 }
