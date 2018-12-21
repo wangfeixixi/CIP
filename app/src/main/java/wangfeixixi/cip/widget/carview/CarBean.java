@@ -29,6 +29,11 @@ public class CarBean {
         return (int) (CarUtils.y0 - y * CarUtils.scale - height * CarUtils.scale / 2);
     }
 
+    //碰撞方向 return大于0前向碰撞，小于0后向碰撞
+    public int getAlarmDirection(int x, int y) {
+        return y;
+    }
+
 
     public CarBean() {
 
