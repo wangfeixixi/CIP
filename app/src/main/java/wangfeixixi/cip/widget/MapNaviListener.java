@@ -225,7 +225,7 @@
 ////        Log.d(TAG, "roadName=" + aimLessModeCongestionInfo.getRoadName());
 ////        Log.d(TAG, "CongestionStatus=" + aimLessModeCongestionInfo.getCongestionStatus());
 ////        Log.d(TAG, "eventLonLat=" + aimLessModeCongestionInfo.getEventLon() + "," + aimLessModeCongestionInfo.getEventLat());
-////        Log.d(TAG, "length=" + aimLessModeCongestionInfo.getLength());
+////        Log.d(TAG, "height=" + aimLessModeCongestionInfo.getLength());
 ////        Log.d(TAG, "time=" + aimLessModeCongestionInfo.getTime());
 ////        for (AMapCongestionLink link : aimLessModeCongestionInfo.getAmapCongestionLinks()) {
 ////            Log.d(TAG, "status=" + link.getCongestionStatus());

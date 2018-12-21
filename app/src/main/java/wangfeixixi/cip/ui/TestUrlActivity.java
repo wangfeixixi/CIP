@@ -4,54 +4,55 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import wangfeixixi.cip.R;
-import wangfeixixi.cip.widget.carview.anim.BlinkAnim;
-import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
+import wangfeixixi.cip.widget.carview.CarBean;
+import wangfeixixi.cip.widget.carview.CarUtils;
+import wangfeixixi.cip.widget.carview.child.ChildCar;
+import wangfeixixi.com.base.UIUtils;
 
 public class TestUrlActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private View iv_car;
+    private RelativeLayout rl_container;
+    private TextView tv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_url_activity);
 
+        tv = findViewById(R.id.tv);
+
         findViewById(R.id.btn_test).setOnClickListener(this);
-        findViewById(R.id.btn_plus).setOnClickListener(this);
-        findViewById(R.id.btn_minus).setOnClickListener(this);
-
-        iv_car = findViewById(R.id.iv_car);
-
-
+        rl_container = findViewById(R.id.rl_container);
     }
-
-    public boolean isStart = false;
-
-    private long time = 2000;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_test:
-                BlinkAnim.blink(iv_car);
-                break;
-            case R.id.btn_plus:
-//                time += 200;
-//                Animation animation = iv_car.getAnimation();
-//
-//                animation.getDuration();
-//
-//                iv_car.clearAnimation();
-//                iv_car.startAnimation(TranslateAnim.getAnimation(time));
-
-                TranslateAnim.switchSpeedAnim(iv_car, 300);
+                testadd(0, 0);
+                testadd(5, 5);
+                testadd(5, -5);
+                testadd(-5, 5);
+                testadd(-5, -5);
 
                 break;
-            case R.id.btn_minus:
 
-                break;
         }
+    }
+
+    private void testadd(int x, int y) {
+        CarBean bean = new CarBean();
+        bean.x = x;
+        bean.y = y;
+
+
+//        addBenCar(bean);
+        ChildCar.addBenCar(rl_container, bean);
     }
 }

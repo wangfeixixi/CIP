@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import wangfeixixi.com.base.ScreenUtils;
+
 /**
  * 转换坐标类，将接收到的信息转换成屏幕坐标点
  * <p>
@@ -25,9 +27,27 @@ public class CarUtils {
     public static float carBitmapScale = 2f;
 
     //默认车宽
-    public static float carWidth = 2;
+    public static float carWidth = 5;
     //默认车长
-    public static float carLength = 4;
+    public static float carLength = 8;
+
+
+    ////////////////////////////////////动态代码/////////////////////////////////////////////////////
+
+//    public static CarBean carBean2Screen(CarBean bean) {
+//        int y = ScreenUtils.getScreenHeight() / 3 * 2;
+//        int x = ScreenUtils.getScreenWidth() / 2;
+////        float width = bean.width;
+////        float height = bean.height;
+////        float x0 = x - width / 2;
+////        float y0 = y - height / 2;
+//        bean.leftMargin = (int) (x + bean.x * scale - bean.width * scale / 2);
+//        bean.topMargin = (int) (y - bean.y * scale - bean.height * scale / 2);
+//        return bean;
+//    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 将自身坐标系转换为屏幕坐标系
@@ -46,7 +66,7 @@ public class CarUtils {
         float x = (carX + bodyBean.x * scale);
         float y = (carY - bodyBean.y * scale);
         float width = bodyBean.width * scale;
-        float length = bodyBean.length * scale;
+        float length = bodyBean.height * scale;
         return new Rect((int) (x - width), (int) (y - length), (int) x, (int) y);
     }
 
@@ -55,7 +75,7 @@ public class CarUtils {
     }
 
     public static float y2YView(float carY, CarBean bodyBean) {
-        return carY - bodyBean.y * scale - bodyBean.length * scale;
+        return carY - bodyBean.y * scale - bodyBean.height * scale;
     }
 
     //    public static void main(String[] args) {
@@ -65,9 +85,9 @@ public class CarUtils {
 //
 //            float[][] floats = speed2Arrays(j);
 //            String temp = "";
-//            for (int i = 0; i < floats.length; i++) {
+//            for (int i = 0; i < floats.height; i++) {
 //                temp += "  " + String.valueOf(floats[i]);
-//                if (floats[i] != null) temp += "长度" + floats.length;
+//                if (floats[i] != null) temp += "长度" + floats.height;
 //            }
 //            System.out.println(temp);
 //

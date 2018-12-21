@@ -1,35 +1,36 @@
 package wangfeixixi.cip.widget.carview;
 
+import wangfeixixi.com.base.ScreenUtils;
+
 /**
  * 车辆自身为原点坐标系
  */
 public class CarBean {
-    public int fcwAlarm;
-    public float heading;
-    public float speed;
+    public int fcwAlarm = 0;
+    public float heading = 0;
+    public float speed = 0;
     public float latitude;
     public float longitude;
     public String remoteId;
     public long timestampMs;
     public long timestampSecond;
-    public float x;
-    public float y;
+    public float x = 0;
+    public float y = 0;
 
-    //向上，顺时针
-    public float rotate = 0f;//航向角
     public float width = CarUtils.carWidth;//宽
-    public float length = CarUtils.carLength;//长
+    public float height = CarUtils.carLength;//长
 
-    public CarBean(float rotate, float x, float y, float longitude, float latitude, float carWidth, float carLength) {
-        this.rotate = rotate;
-        this.x = x;
-        this.y = y;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.width = carWidth;
-        this.length = carLength;
 
+    public int getLeftMargin() {
+        int x = ScreenUtils.getScreenWidth() / 2;
+        return (int) (x + x * CarUtils.scale - width * CarUtils.scale / 2);
     }
+
+    public int getTopMargin() {
+        int y = ScreenUtils.getScreenHeight() / 3 * 2;
+        return (int) (y - y * CarUtils.scale - height * CarUtils.scale / 2);
+    }
+
 
     public CarBean() {
 
@@ -46,11 +47,17 @@ public class CarBean {
         sb.append("\nlongitude:" + longitude);
         sb.append("\nx:" + x);
         sb.append("\ny:" + y);
+        sb.append("\nleftMargin:" + getLeftMargin());
+        sb.append("\ntopMargin:" + getTopMargin());
+        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));
+        sb.append("\n原点x:" + (ScreenUtils.getScreenWidth() / 2));
+
+
 //        sb.append("\ntimestampMs:" + timestampMs);
 //        sb.append("\ntimestampSecond:" + timestampSecond);
 //        sb.append("\nrotate:" + rotate);
 //        sb.append("\nwidth:" + width);
-//        sb.append("\nlength:" + length);
+//        sb.append("\nheight:" + height);
         return sb.toString();
     }
 }
