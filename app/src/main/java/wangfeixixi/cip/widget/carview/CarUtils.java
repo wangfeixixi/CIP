@@ -31,6 +31,10 @@ public class CarUtils {
     //默认车长
     public static float carLength = 8;
 
+    //车辆界面中心点x
+    public static int x0 = ScreenUtils.getScreenWidth() / 2;
+    //车辆界面中心点y
+    public static int y0 = ScreenUtils.getScreenHeight() / 3 * 2;
 
     ////////////////////////////////////动态代码/////////////////////////////////////////////////////
 

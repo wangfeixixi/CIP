@@ -22,13 +22,11 @@ public class CarBean {
 
 
     public int getLeftMargin() {
-        int x = ScreenUtils.getScreenWidth() / 2;
-        return (int) (x + x * CarUtils.scale - width * CarUtils.scale / 2);
+        return (int) (CarUtils.x0 + x * CarUtils.scale - width * CarUtils.scale / 2);
     }
 
     public int getTopMargin() {
-        int y = ScreenUtils.getScreenHeight() / 3 * 2;
-        return (int) (y - y * CarUtils.scale - height * CarUtils.scale / 2);
+        return (int) (CarUtils.y0 - y * CarUtils.scale - height * CarUtils.scale / 2);
     }
 
 
