@@ -22,11 +22,11 @@ public class CarBean {
 
 
     public int getLeftMargin() {
-        return (int) (CarUtils.x0 + x * CarUtils.scale - width * CarUtils.scale / 2);
+        return (int) (CarUtils.getX0() + x * CarUtils.scale - width * CarUtils.scale / 2);
     }
 
     public int getTopMargin() {
-        return (int) (CarUtils.y0 - y * CarUtils.scale - height * CarUtils.scale / 2);
+        return (int) (CarUtils.getY0() - y * CarUtils.scale - height * CarUtils.scale / 2);
     }
 
     //碰撞方向 return大于0前向碰撞，小于0后向碰撞

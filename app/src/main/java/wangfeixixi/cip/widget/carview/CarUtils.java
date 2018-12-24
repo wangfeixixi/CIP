@@ -31,10 +31,30 @@ public class CarUtils {
     //默认车长
     public static float carLength = 8;
 
-    //车辆界面中心点x
-    public static int x0 = ScreenUtils.getScreenWidth() / 2;
-    //车辆界面中心点y
-    public static int y0 = ScreenUtils.getScreenHeight() / 3 * 2;
+    public static int getX0() {
+        return getCarViewWidth() / 2;
+    }
+
+    public static int getY0() {
+        return getCarViewHeight() / 3 * 2;
+    }
+
+    public static int getCarViewHeight() {
+        return ScreenUtils.getScreenHeight() / 3 * 2;
+    }
+
+    public static int getCarViewWidth() {
+        return ScreenUtils.getScreenWidth();
+    }
+
+
+    public static float getRoadWidth() {
+        return carWidth * scale;
+    }
+
+    public static float getHouseWidth() {
+        return carWidth * scale - 20;
+    }
 
     ////////////////////////////////////动态代码/////////////////////////////////////////////////////
 
