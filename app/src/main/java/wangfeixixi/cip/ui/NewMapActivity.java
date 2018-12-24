@@ -25,6 +25,7 @@ import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
+import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
@@ -76,6 +77,8 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
                 mLbs.moveCamera(locationInfo, 20);
             }
         });
+
+        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
     }
 
     TextView tv_warning;
@@ -97,8 +100,11 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         if (timeTemp > time) {
             updateLbs(bean);//相当耗时
 //            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
-            TranslateAnim.switchSpeedAnim(iv_left_floor,iv_right_floor, time);
+            if (bean.hvDatas != null && bean.hvDatas.speed != 0)
+                TranslateAnim.switchSpeedAnim(iv_left_floor, iv_right_floor, time);
             lastTime = nowTime;
+            if (bean.rvDatas != null && bean.rvDatas.get(0).fcwAlarm != 0)
+                VoiceUtil.getInstance().speek("保持距离");
         }
 
 //        if (timeTemp > time) {

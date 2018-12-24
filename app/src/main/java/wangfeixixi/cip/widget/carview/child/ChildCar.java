@@ -106,6 +106,7 @@ public class ChildCar {
 
     private void addAlarm(ViewGroup viewGroup, CarBean bean) {
         if (bean.fcwAlarm != 0) {
+            view_alarm.setVisibility(View.VISIBLE);
             if (!isAlarmViewInit) {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 int alarmWidth = (int) ((int) CarUtils.carWidth - 20);
@@ -129,7 +130,7 @@ public class ChildCar {
                 isAlarm = true;
             }
         } else {
-            viewGroup.removeView(view_alarm);
+            view_alarm.setVisibility(View.GONE);
             isAlarm = false;
         }
     }

@@ -18,7 +18,7 @@ public class Test {
             "\t\t\"latitude\" : 30.338475 ,\n" +
             "\t\t\"longitude\" : 121.236812,\n" +
             "\t\t\"remoteId\" : 0,\n" +
-            "\t\t\"speed\" : 200,\n" +
+            "\t\t\"speed\" : 5,\n" +
             "\t\t\"timestampMs\" : 0,\n" +
             "\t\t\"timestampSecond\" : 0,\n" +
             "\t\t\"x\" : 0.0,\n" +
@@ -53,7 +53,7 @@ public class Test {
             "\t\t\"latitude\" : 30.338475 ,\n" +
             "\t\t\"longitude\" : 121.236812,\n" +
             "\t\t\"remoteId\" : 0,\n" +
-            "\t\t\"speed\" : 2,\n" +
+            "\t\t\"speed\" : 5,\n" +
             "\t\t\"timestampMs\" : 0,\n" +
             "\t\t\"timestampSecond\" : 0,\n" +
             "\t\t\"x\" : 0.0,\n" +
