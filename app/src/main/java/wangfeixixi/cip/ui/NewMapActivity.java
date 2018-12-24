@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,8 @@ public class NewMapActivity extends AppCompatActivity implements View.OnClickLis
     private RelativeLayout rl_father;
 
     private UDPResultListener listener;
+    private ImageView iv_right_house;
+    private ImageView iv_left_house;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,10 +45,10 @@ public class NewMapActivity extends AppCompatActivity implements View.OnClickLis
         addLeftHouse();
         addRightHouse();
 
-
         //添加地图
         addMap(rl_father);
 
+        addLogView();
 
         //数据监听
         listener = new UDPResultListener() {
@@ -60,8 +63,8 @@ public class NewMapActivity extends AppCompatActivity implements View.OnClickLis
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        tv_warning.setText(bean.toString());
                         if (list.size() < 2) {
-//                            tv_warning.setText(bean.toString());
                             return;
                         }
                         receiveCars(list);
@@ -71,20 +74,37 @@ public class NewMapActivity extends AppCompatActivity implements View.OnClickLis
         };
     }
 
+    TextView tv_warning;
+
+    private void addLogView() {
+        tv_warning = new TextView(this);
+        tv_warning.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        rllp.width = (int) (CarUtils.getCarViewWidth());
+        rllp.height = (int) (CarUtils.getCarViewHeight());
+        rl_father.addView(tv_warning, rllp);
+
+        rl_father.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_warning.setVisibility(tv_warning.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            }
+        });
+    }
+
     private void addRightHouse() {
-        ImageView iv_right_house = new ImageView(this);
+        iv_right_house = new ImageView(this);
         iv_right_house.setBackgroundResource(R.mipmap.right_house);
         RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        rllp.leftMargin = (int) (CarUtils.getCarViewWidth() - CarUtils.getRoadWidth());
+        rllp.leftMargin = (int) (CarUtils.getCarViewWidth() - CarUtils.getRoadWidth()) + 40;
         rllp.topMargin = -CarUtils.getCarViewHeight();
         rllp.width = (int) (CarUtils.getHouseWidth());
         rllp.height = (int) (CarUtils.getCarViewHeight()) * 2;
         rl_carview.addView(iv_right_house, rllp);
-        TranslateAnim.switchSpeedAnim(iv_right_house, 100);
     }
 
     private void addLeftHouse() {
-        ImageView iv_left_house = new ImageView(this);
+        iv_left_house = new ImageView(this);
         iv_left_house.setBackgroundResource(R.mipmap.left_house);
         RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         rllp.topMargin = -CarUtils.getCarViewHeight();
@@ -134,6 +154,9 @@ public class NewMapActivity extends AppCompatActivity implements View.OnClickLis
     protected void onStart() {
         super.onStart();
         UDPUtils.startServer(listener);
+
+//        TranslateAnim.switchSpeedAnim(iv_left_house, 20);
+//        TranslateAnim.switchSpeedAnim(iv_right_house, 20);
     }
 
     @Override
@@ -151,12 +174,24 @@ public class NewMapActivity extends AppCompatActivity implements View.OnClickLis
     public long lastTime = 0;
 
     public void receiveCars(ArrayList<CarBean> beans) {
+        long nowTime = System.currentTimeMillis();
+        long timeTemp = nowTime - lastTime;
         for (int i = 0; i < beans.size(); i++) {
             if (i == 0) {
-                ChildCar.addBenCar(rl_carview, beans.get(i));
+                ChildCar.getInstance().addBenCar(rl_carview, beans.get(i));
             } else {
-                ChildCar.addOtherCar(rl_carview, beans.get(i));
+                ChildCar.getInstance().addOtherCar(rl_carview, beans.get(i));
             }
         }
+
+        if ((timeTemp) > 2000) {
+            if (beans.get(0).fcwAlarm != 0) {//报警
+
+            }
+            TranslateAnim.switchSpeedAnim(iv_left_house, (int) (beans.get(0).speed * 3.6f));
+            TranslateAnim.switchSpeedAnim(iv_right_house, (int) (beans.get(0).speed * 3.6f));
+            lastTime = nowTime;
+        }
+
     }
 }

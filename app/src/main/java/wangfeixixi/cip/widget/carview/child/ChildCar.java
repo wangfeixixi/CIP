@@ -10,28 +10,42 @@ import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.com.base.UIUtils;
 
 public class ChildCar {
-    public static void addBenCar(ViewGroup viewGroup, CarBean bean) {
-        ImageView iv = new ImageView(UIUtils.getContext());
-//        iv.setBackground(UIUtils.getDrawable(R.mipmap.car_self));
-        iv.setBackgroundResource(R.mipmap.car_self);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.leftMargin = bean.getLeftMargin();
-        layoutParams.topMargin = bean.getTopMargin();
-        layoutParams.width = (int) (bean.width * CarUtils.scale);
-        layoutParams.height = (int) (bean.height * CarUtils.scale);
-        viewGroup.addView(iv, layoutParams);
+    ImageView iv_ben;
+    private final ImageView iv_other;
+
+    private ChildCar() {
+        iv_ben = new ImageView(UIUtils.getContext());
+        iv_other = new ImageView(UIUtils.getContext());
     }
 
-    public static void addOtherCar(ViewGroup viewGroup, CarBean bean) {
-        ImageView iv = new ImageView(UIUtils.getContext());
-//        iv.setBackground(UIUtils.getDrawable(R.mipmap.car_other));
-        iv.setBackgroundResource(R.mipmap.car_other);
+    public static class Inner {
+        private static ChildCar instance = new ChildCar();
+    }
+
+    public static ChildCar getInstance() {
+        return Inner.instance;
+    }
+
+    public void addBenCar(ViewGroup viewGroup, CarBean bean) {
+        viewGroup.removeView(iv_ben);
+        iv_ben.setBackgroundResource(R.mipmap.car_self);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.leftMargin = bean.getLeftMargin();
         layoutParams.topMargin = bean.getTopMargin();
         layoutParams.width = (int) (bean.width * CarUtils.scale);
         layoutParams.height = (int) (bean.height * CarUtils.scale);
-        viewGroup.addView(iv, layoutParams);
+        viewGroup.addView(iv_ben, layoutParams);
+    }
+
+    public void addOtherCar(ViewGroup viewGroup, CarBean bean) {
+        viewGroup.removeView(iv_other);
+        iv_other.setBackgroundResource(R.mipmap.car_other);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.leftMargin = bean.getLeftMargin();
+        layoutParams.topMargin = bean.getTopMargin();
+        layoutParams.width = (int) (bean.width * CarUtils.scale);
+        layoutParams.height = (int) (bean.height * CarUtils.scale);
+        viewGroup.addView(iv_other, layoutParams);
     }
 
 }

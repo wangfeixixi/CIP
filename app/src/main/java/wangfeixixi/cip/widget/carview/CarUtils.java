@@ -27,9 +27,9 @@ public class CarUtils {
     public static float carBitmapScale = 2f;
 
     //默认车宽
-    public static float carWidth = 5;
+    public static float carWidth = 2.5f;
     //默认车长
-    public static float carLength = 8;
+    public static float carLength = 4f;
 
     public static int getX0() {
         return getCarViewWidth() / 2;
@@ -49,11 +49,11 @@ public class CarUtils {
 
 
     public static float getRoadWidth() {
-        return carWidth * scale;
+        return carWidth * scale * 2;
     }
 
     public static float getHouseWidth() {
-        return carWidth * scale - 20;
+        return carWidth * scale * 2 - 40;
     }
 
     ////////////////////////////////////动态代码/////////////////////////////////////////////////////

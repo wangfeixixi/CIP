@@ -2,23 +2,25 @@ package wangfeixixi.cip.widget.carview.anim;
 
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
 import wangfeixixi.com.base.ScreenUtils;
 
 public class TranslateAnim {
-    public static TranslateAnimation getAnimation(long time) {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, ScreenUtils.getScreenHeight());
+    public static TranslateAnimation getAnimation(float time) {
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, ScreenUtils.getScreenHeight() / 3 * 2);
         if (time < 100)
             translateAnimation.setDuration(100);
         else
-            translateAnimation.setDuration(time);
+            translateAnimation.setDuration((long) time);
         translateAnimation.setRepeatCount(Animation.INFINITE);
+        translateAnimation.setInterpolator(new LinearInterpolator());
         return translateAnimation;
     }
 
-    public static void switchSpeedAnim(View view, int speed) {
-        long duration = 0;
+    public static void switchSpeedAnim(View view, float speed) {
+        float duration = 0;
         if (speed > 110) {
             duration = 30;
         } else if (speed == 0) {
@@ -27,7 +29,7 @@ public class TranslateAnim {
         } else {
             duration = 140 - speed;
         }
-        duration *= 10;
+        duration *= 30;
         view.clearAnimation();
         view.startAnimation(getAnimation(duration));
     }
