@@ -31,6 +31,9 @@ public class CarUtils {
     //默认车长
     public static float carLength = 4f;
 
+    //警报宽
+    public static float alarmWidth = 1.5f;
+
     public static int getX0() {
         return getCarViewWidth() / 2;
     }
@@ -55,6 +58,9 @@ public class CarUtils {
     public static float getHouseWidth() {
         return carWidth * scale * 2 - 40;
     }
+
+
+
 
     ////////////////////////////////////动态代码/////////////////////////////////////////////////////
 

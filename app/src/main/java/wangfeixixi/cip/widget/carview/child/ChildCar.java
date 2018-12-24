@@ -1,5 +1,6 @@
 package wangfeixixi.cip.widget.carview.child;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -7,6 +8,7 @@ import android.widget.RelativeLayout;
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarUtils;
+import wangfeixixi.cip.widget.carview.anim.BlinkAnim;
 import wangfeixixi.com.base.UIUtils;
 
 public class ChildCar {
@@ -93,6 +95,19 @@ public class ChildCar {
             layoutParams1.height = (int) (bean.height * CarUtils.scale);
             iv_other.setLayoutParams(layoutParams1);
         }
+        addAlarm(viewGroup, bean);
+    }
+
+    private void addAlarm(ViewGroup viewGroup, CarBean bean) {
+        View view = new View(UIUtils.getContext());
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int alarmWidth = (int) ((int) CarUtils.carWidth - 20);
+        layoutParams.width = alarmWidth;
+        layoutParams.height = alarmWidth;
+        layoutParams.leftMargin = bean.getAlarmLeftMargin();
+        layoutParams.topMargin = bean.getAlarmTopMargin();
+        viewGroup.addView(view, layoutParams);
+        BlinkAnim.blink(view);
     }
 
 }

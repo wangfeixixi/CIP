@@ -13,7 +13,7 @@ public class Test {
             "\t\"cmd\" : 0,\n" +
             "\t\"hvDatas\" : \n" +
             "\t{\n" +
-            "\t\t\"fcwAlarm\" : 0,\n" +
+            "\t\t\"fcwAlarm\" : 1,\n" +
             "\t\t\"heading\" : 121.236812,\n" +
             "\t\t\"latitude\" : 30.338475 ,\n" +
             "\t\t\"longitude\" : 121.236812,\n" +
@@ -48,7 +48,7 @@ public class Test {
             "\t\"cmd\" : 0,\n" +
             "\t\"hvDatas\" : \n" +
             "\t{\n" +
-            "\t\t\"fcwAlarm\" : 0,\n" +
+            "\t\t\"fcwAlarm\" : 1,\n" +
             "\t\t\"heading\" : 121.236812,\n" +
             "\t\t\"latitude\" : 30.338475 ,\n" +
             "\t\t\"longitude\" : 121.236812,\n" +

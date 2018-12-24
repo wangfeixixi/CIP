@@ -29,11 +29,77 @@ public class CarBean {
         return (int) (CarUtils.getY0() - y * CarUtils.scale - height * CarUtils.scale / 2);
     }
 
-    //碰撞方向 return大于0前向碰撞，小于0后向碰撞
-    public int getAlarmDirection(int x, int y) {
-        return y;
+    //1：top
+    //
+
+    public int getAlarmLeftMargin() {
+        float juli = 1;
+        switch (getAlarmOritation()) {
+            case 1:
+                return (int) (getLeftMargin() + (CarUtils.carWidth - CarUtils.alarmWidth) / 2 * CarUtils.scale);
+            case 2:
+                return (int) (getLeftMargin() + (CarUtils.carWidth - CarUtils.alarmWidth) / 2 * CarUtils.scale);
+            case 3:
+                return (int) (getLeftMargin() - (CarUtils.alarmWidth + juli) * CarUtils.scale);
+            default:
+                return (int) (getLeftMargin() + ( CarUtils.carWidth + juli) * CarUtils.scale);
+        }
     }
 
+    public int getAlarmTopMargin() {
+        float juli = 1;
+        switch (getAlarmOritation()) {
+            case 1:
+                return (int) (getTopMargin() - (CarUtils.alarmWidth + juli) * CarUtils.scale);
+            case 2:
+                return (int) (getTopMargin() + (CarUtils.carLength  + juli) * CarUtils.scale);
+            case 3:
+                return (int) (getTopMargin() + (CarUtils.carLength - CarUtils.alarmWidth) / 2 * CarUtils.scale);
+            default:
+                return (int) (getTopMargin() + (CarUtils.carLength - CarUtils.alarmWidth) / 2 * CarUtils.scale);
+        }
+    }
+
+    //上下左右，1234
+    public int getAlarmOritation() {
+        if (x > 0) {
+            if (y >= 0) {
+                if (Math.abs(x) >= Math.abs(y)) {
+                    //右
+                    return 3;
+                } else {
+                    //上
+                    return 2;
+                }
+            } else {
+                if (Math.abs(x) >= Math.abs(y)) {
+                    //右
+                    return 3;
+                } else {
+                    //下
+                    return 1;
+                }
+            }
+        } else {
+            if (y >= 0) {
+                if (Math.abs(x) >= Math.abs(y)) {
+                    //左
+                    return 4;
+                } else {
+                    //上
+                    return 2;
+                }
+            } else {
+                if (Math.abs(x) >= Math.abs(y)) {
+                    //左
+                    return 4;
+                } else {
+                    //下
+                    return 1;
+                }
+            }
+        }
+    }
 
     public CarBean() {
 

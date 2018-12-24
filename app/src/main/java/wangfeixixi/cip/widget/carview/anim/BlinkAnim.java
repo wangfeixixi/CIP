@@ -7,8 +7,6 @@ import android.view.View;
 import wangfeixixi.cip.R;
 
 public class BlinkAnim {
-
-
     public static void blink(View view) {
         Drawable background = view.getBackground();
         if (background instanceof AnimationDrawable) {
