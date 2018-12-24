@@ -22,7 +22,6 @@ import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
-import wangfeixixi.cip.widget.udp.server.IUDPResultListner;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
@@ -30,7 +29,7 @@ import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
-public class NewMapActivity extends AppCompatActivity implements IUDPResultListner {
+public class NewMapActivity extends AppCompatActivity implements IUDPResultListener {
 
     private RelativeLayout rl_carview;
     private RelativeLayout rl_father;
@@ -136,24 +135,21 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListn
     }
 
     @Override
-    protected void onReceiveData(final ArrayList<CarBean> list, boolean isShow) {
+    public void onResultListener(final JsonRootBean bean) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                final ArrayList<CarBean> list = new ArrayList<>();
+                if (bean.hvDatas != null)
+                    list.add(bean.hvDatas);
+                if (bean.rvDatas != null)
+                    list.addAll(bean.rvDatas);
                 if (list.size() < 2) {
                     return;
                 }
-                receiveCars(list);
-            }
-        });
-    }
 
-    @Override
-    protected void onLogJson(final JsonRootBean bean) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
                 tv_warning.setText(bean.toString());
+                receiveCars(list);
             }
         });
     }

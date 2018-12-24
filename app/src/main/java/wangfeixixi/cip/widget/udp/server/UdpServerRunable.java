@@ -76,9 +76,7 @@ public class UdpServerRunable implements Runnable {
             try {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
-                if (listener != null) {
-                    listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
-                }
+                onReceiveDatas(string);
 //                LogUtils.d(string);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -87,5 +85,11 @@ public class UdpServerRunable implements Runnable {
         ds.close();
         LogUtils.d("UDP监听关闭");//udp生命结束
         udpLifeOver = false;
+    }
+
+    private void onReceiveDatas(String string) {
+        if (listener != null) {
+            listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
+        }
     }
 }
