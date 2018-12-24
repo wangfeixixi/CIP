@@ -9,7 +9,7 @@ import wangfeixixi.cip.widget.carview.CarUtils;
 
 public class TranslateAnim {
     public static TranslateAnimation getAnimation(float time) {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, CarUtils.getCarViewHeight() * 2);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, CarUtils.getCarViewHeight());
         if (time < 100)
             translateAnimation.setDuration(100);
         else
@@ -19,17 +19,11 @@ public class TranslateAnim {
         return translateAnimation;
     }
 
-    public static void switchSpeedAnim(View view, float speed) {
-        float duration = 0;
-        if (speed > 110) {
-            duration = 30;
-        } else if (speed == 0) {
+    public static void switchSpeedAnim(View view, float duration) {
+        if (duration == 3000) {
             view.clearAnimation();
             return;
-        } else {
-            duration = 140 - speed;
         }
-        duration *= 30;
         view.clearAnimation();
         view.startAnimation(getAnimation(duration));
     }

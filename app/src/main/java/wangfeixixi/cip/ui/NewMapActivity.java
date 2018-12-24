@@ -48,6 +48,9 @@ public class NewMapActivity extends AppCompatActivity implements UDPResultListen
 
         rl_father = findViewById(R.id.rl_father);
 
+        //添加分界线
+        ChildContainer.addLine(rl_father);
+
         //添加carview
         rl_carview = ChildContainer.addCarView(rl_father);
         //添加道路信息
@@ -63,13 +66,6 @@ public class NewMapActivity extends AppCompatActivity implements UDPResultListen
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
         mLbs.setLocationRes(R.mipmap.car);
-
-        rl_father.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     TextView tv_warning;
@@ -80,24 +76,39 @@ public class NewMapActivity extends AppCompatActivity implements UDPResultListen
         long timeTemp = nowTime - lastTime;
         for (int i = 0; i < beans.size(); i++) {
             if (i == 0) {
-                ChildCar.getInstance().addBenCar(rl_carview, beans.get(i));
+                ChildCar.getInstance().addUpdateBenCar(rl_carview, beans.get(i));
             } else {
-                ChildCar.getInstance().addOtherCar(rl_carview, beans.get(i));
+                ChildCar.getInstance().addUpdateOtherCar(rl_carview, beans.get(i));
             }
         }
 
-        if ((timeTemp) > 2000) {
+
+        int time = speed2Time(beans.get(0).speed * 3.6f);
+        if (timeTemp > time) {
             if (beans.get(0).fcwAlarm != 0) {//报警
 
             }
-            updateLbs(beans);//相当耗时
-//            TranslateAnim.switchSpeedAnim(iv_left_floor, (int) (beans.get(0).speed * 3.6f));
-//            TranslateAnim.switchSpeedAnim(iv_right_floor, (int) (beans.get(0).speed * 3.6f));
-            TranslateAnim.switchSpeedAnim(iv_left_floor, (int) (10));
-            TranslateAnim.switchSpeedAnim(iv_right_floor, (int) (10));
+//            updateLbs(beans);//相当耗时
+            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
+            TranslateAnim.switchSpeedAnim(iv_right_floor, time);
             lastTime = nowTime;
         }
+    }
 
+    private int speed2Time(float v) {
+        if (v == 0) {
+            return 3000;
+        } else if (v < 30) {
+            return 2000;
+        } else if (v < 60) {
+            return 1800;
+        } else if (v < 90) {
+            return 1600;
+        } else if (v < 120) {
+            return 1400;
+        } else {
+            return 1000;
+        }
     }
 
     private void updateLbs(ArrayList<CarBean> list) {
