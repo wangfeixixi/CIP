@@ -1,5 +1,6 @@
 package wangfeixixi.cip.widget.carview.child;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -13,7 +14,8 @@ public class ChildLog {
     public static TextView addLogView(RelativeLayout rl_father) {
         final TextView tv_warning = new TextView(UIUtils.getContext());
         tv_warning.setVisibility(View.GONE);
-        tv_warning.setText("数据日志");
+        tv_warning.setTextColor(Color.parseColor("#000000"));
+        tv_warning.setText("没有数据");
         RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         rllp.width = ScreenUtils.getScreenWidth();
         rllp.height = ScreenUtils.getScreenHeight();

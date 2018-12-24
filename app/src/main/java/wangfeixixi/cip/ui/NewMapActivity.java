@@ -4,12 +4,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
@@ -22,6 +21,7 @@ import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
+import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
@@ -44,9 +44,12 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_url_activity);
+        rl_father = new RelativeLayout(this);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.width = (int) (ScreenUtils.getScreenWidth());
+        layoutParams.height = (int) (ScreenUtils.getScreenHeight());
+        getWindow().addContentView(rl_father, layoutParams);
 
-        rl_father = findViewById(R.id.rl_father);
 
         //添加分界线
         ChildContainer.addLine(rl_father);
@@ -78,24 +81,21 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
     TextView tv_warning;
     public long lastTime = 0;
 
-    public void receiveCars(ArrayList<CarBean> beans) {
+    public void receiveCars(JsonRootBean bean) {
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
-        for (int i = 0; i < beans.size(); i++) {
-            if (i == 0) {
-                ChildCar.getInstance().addUpdateBenCar(rl_carview, beans.get(i));
-            } else {
-                ChildCar.getInstance().addUpdateOtherCar(rl_carview, beans.get(i));
-            }
+        int time = 2000;
+        if (bean.hvDatas != null) {
+            ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
+            time = speed2Time(bean.hvDatas.speed * 3.6f);
         }
 
+        if (bean.rvDatas != null && bean.rvDatas.size() > 0)
+            for (int i = 0; i < bean.rvDatas.size(); i++)
+                ChildCar.getInstance().addUpdateOtherCar(rl_carview, bean.rvDatas.get(i));
 
-        int time = speed2Time(beans.get(0).speed * 3.6f);
         if (timeTemp > time) {
-            if (beans.get(0).fcwAlarm != 0) {//报警
-
-            }
-            updateLbs(beans);//相当耗时
+            updateLbs(bean);//相当耗时
             TranslateAnim.switchSpeedAnim(iv_left_floor, time);
             TranslateAnim.switchSpeedAnim(iv_right_floor, time);
             lastTime = nowTime;
@@ -118,20 +118,19 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         }
     }
 
-    private void updateLbs(ArrayList<CarBean> list) {
+    private void updateLbs(JsonRootBean jsonRootBean) {
 //        mLbs.clearAllMarker();
         CarBean bean = null;
         Gps gps = null;
         LocationInfo local = null;
-        for (int i = 0; i < list.size(); i++) {
-            bean = list.get(i);
-            gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
-            local = new LocationInfo(String.valueOf(i), "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
-            if (i != 0) {
+        if (jsonRootBean.rvDatas != null && jsonRootBean.rvDatas.size() > 0)
+            for (int i = 0; i < jsonRootBean.rvDatas.size(); i++) {
+                bean = jsonRootBean.rvDatas.get(i);
+                gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
+                local = new LocationInfo(String.valueOf(i), "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
                 mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
 //                mLbs.moveCamera(local, 20);
             }
-        }
     }
 
     @Override
@@ -139,17 +138,8 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final ArrayList<CarBean> list = new ArrayList<>();
-                if (bean.hvDatas != null)
-                    list.add(bean.hvDatas);
-                if (bean.rvDatas != null)
-                    list.addAll(bean.rvDatas);
-                if (list.size() < 2) {
-                    return;
-                }
-
                 tv_warning.setText(bean.toString());
-                receiveCars(list);
+                receiveCars(bean);
             }
         });
     }

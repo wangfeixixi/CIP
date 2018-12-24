@@ -10,6 +10,16 @@ import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.com.base.UIUtils;
 
 public class ChildContainer {
+    public static RelativeLayout addFatherView(RelativeLayout rl_father) {
+        RelativeLayout rl_carview = new RelativeLayout(UIUtils.getContext());
+        rl_carview.setBackgroundColor(Color.parseColor("#f7f6f3"));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.width = (int) (CarUtils.getCarViewWidth());
+        layoutParams.height = (int) (CarUtils.getCarViewHeight());
+        rl_father.addView(rl_carview, layoutParams);
+        return rl_carview;
+    }
+
     public static RelativeLayout addCarView(RelativeLayout rl_father) {
         RelativeLayout rl_carview = new RelativeLayout(UIUtils.getContext());
         rl_carview.setBackgroundColor(Color.parseColor("#f7f6f3"));
