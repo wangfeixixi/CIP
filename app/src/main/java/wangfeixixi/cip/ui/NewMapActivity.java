@@ -4,7 +4,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,7 +21,8 @@ import wangfeixixi.cip.widget.carview.child.ChildLog;
 import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.udp.UDPUtils;
-import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
+import wangfeixixi.cip.widget.udp.server.IUDPResultListner;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
@@ -30,7 +30,7 @@ import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
-public class NewMapActivity extends AppCompatActivity implements UDPResultListener {
+public class NewMapActivity extends AppCompatActivity implements IUDPResultListner {
 
     private RelativeLayout rl_carview;
     private RelativeLayout rl_father;
@@ -96,7 +96,7 @@ public class NewMapActivity extends AppCompatActivity implements UDPResultListen
             if (beans.get(0).fcwAlarm != 0) {//报警
 
             }
-//            updateLbs(beans);//相当耗时
+            updateLbs(beans);//相当耗时
             TranslateAnim.switchSpeedAnim(iv_left_floor, time);
             TranslateAnim.switchSpeedAnim(iv_right_floor, time);
             lastTime = nowTime;
@@ -128,30 +128,32 @@ public class NewMapActivity extends AppCompatActivity implements UDPResultListen
             bean = list.get(i);
             gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
             local = new LocationInfo(String.valueOf(i), "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
-            if (i == 0) {
-                mLbs.moveCamera(local, 20);
+            if (i != 0) {
+                mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+//                mLbs.moveCamera(local, 20);
             }
-
-            mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
         }
     }
 
     @Override
-    public void onResultListener(final JsonRootBean bean) {
-        final ArrayList<CarBean> list = new ArrayList<>();
-        if (bean.hvDatas != null)
-            list.add(bean.hvDatas);
-        if (bean.rvDatas != null)
-            list.addAll(bean.rvDatas);
-
+    protected void onReceiveData(final ArrayList<CarBean> list, boolean isShow) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tv_warning.setText(bean.toString());
                 if (list.size() < 2) {
                     return;
                 }
                 receiveCars(list);
+            }
+        });
+    }
+
+    @Override
+    protected void onLogJson(final JsonRootBean bean) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tv_warning.setText(bean.toString());
             }
         });
     }

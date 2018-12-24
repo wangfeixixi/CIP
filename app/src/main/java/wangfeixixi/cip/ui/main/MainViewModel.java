@@ -14,7 +14,7 @@
 //import wangfeixixi.cip.beans.JsonRootBean;
 //import wangfeixixi.cip.widget.carview.CarBean;
 //import wangfeixixi.cip.widget.udp.UDPUtils;
-//import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+//import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
 //import wangfeixixi.com.base.mvvm.binding.command.BindingAction;
 //import wangfeixixi.com.base.mvvm.binding.command.BindingCommand;
 //
@@ -38,7 +38,7 @@
 //        @Override
 //        public void call() {
 //            if (!isStartUDP.get()) {
-//                UDPUtils.startServer(new UDPResultListener() {
+//                UDPUtils.startServer(new IUDPResultListener() {
 //                    @Override
 //                    public void onResultListener(final JsonRootBean jsonRootBean) {
 //                        receiveCars(jsonRootBean);

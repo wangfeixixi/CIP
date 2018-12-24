@@ -27,7 +27,7 @@ public class UDPServerTestActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        final UDPResultListener listener = new UDPResultListener() {
+        final IUDPResultListener listener = new IUDPResultListener() {
             @Override
             public void onResultListener(final JsonRootBean jsonRootBean) {
 

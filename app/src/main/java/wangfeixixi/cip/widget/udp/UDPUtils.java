@@ -1,6 +1,6 @@
 package wangfeixixi.cip.widget.udp;
 
-import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
 import wangfeixixi.cip.widget.udp.server.UDPServerThread;
 import wangfeixixi.cip.widget.udp.server.UdpServerRunable;
 import wangfeixixi.com.base.crash.LogUtils;
@@ -31,7 +31,7 @@ public class UDPUtils {
 
     public static boolean isStart = false;
 
-    public static void udpServer(UDPResultListener listener) {
+    public static void udpServer(IUDPResultListener listener) {
         if (isStart) {
             stopServer();
         } else {
@@ -40,7 +40,7 @@ public class UDPUtils {
         isStart = !isStart;
     }
 
-    public static void startServer(UDPResultListener listener) {
+    public static void startServer(IUDPResultListener listener) {
         udpServer = new UdpServerRunable();
         udpServer.setResultListener(listener);
         Thread thread = new Thread(udpServer);

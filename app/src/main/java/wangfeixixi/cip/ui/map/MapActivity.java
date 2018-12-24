@@ -21,7 +21,7 @@ import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.udp.UDPUtils;
-import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
@@ -77,7 +77,7 @@ public class MapActivity extends BaseActivity {
 //                carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
-                UDPUtils.startServer(new UDPResultListener() {
+                UDPUtils.startServer(new IUDPResultListener() {
                     @Override
                     public void onResultListener(final JsonRootBean jsonRootBean) {
 
@@ -113,7 +113,7 @@ public class MapActivity extends BaseActivity {
 //                    carview.updateBodys(new CarBean[0]);
 //                VoiceUtil.getInstance().speek("开始驾驶");
 
-                    UDPUtils.startServer(new UDPResultListener() {
+                    UDPUtils.startServer(new IUDPResultListener() {
                         @Override
                         public void onResultListener(final JsonRootBean jsonRootBean) {
 

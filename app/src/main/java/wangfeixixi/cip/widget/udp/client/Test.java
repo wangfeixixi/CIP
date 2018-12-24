@@ -9,7 +9,42 @@ import java.net.UnknownHostException;
 
 public class Test {
 
-    private static String msgSend = "{\n" +
+    private static String msgSend1 = "{\n" +
+            "\t\"cmd\" : 0,\n" +
+            "\t\"hvDatas\" : \n" +
+            "\t{\n" +
+            "\t\t\"fcwAlarm\" : 0,\n" +
+            "\t\t\"heading\" : 121.236812,\n" +
+            "\t\t\"latitude\" : 30.338475 ,\n" +
+            "\t\t\"longitude\" : 121.236812,\n" +
+            "\t\t\"remoteId\" : 0,\n" +
+            "\t\t\"speed\" : 5,\n" +
+            "\t\t\"timestampMs\" : 0,\n" +
+            "\t\t\"timestampSecond\" : 0,\n" +
+            "\t\t\"x\" : 0.0,\n" +
+            "\t\t\"y\" : 0.0\n" +
+            "\t},\n" +
+            "\t\"magic\" : 2857740885,\n" +
+            "\t\"nov\" : 1,\n" +
+            "\t\"rvDatas\" : \n" +
+            "\t[\n" +
+            "\t\t{\n" +
+            "\t\t\t\"fcwAlarm\" : 1,\n" +
+            "\t\t\t\"heading\" : 51.200000000000003,\n" +
+            "\t\t\t\"latitude\" : 30.329397,\n" +
+            "\t\t\t\"longitude\" : 121.315383,\n" +
+            "\t\t\t\"remoteId\" : 67239940,\n" +
+            "\t\t\t\"speed\" : 30,\n" +
+            "\t\t\t\"timestampMs\" : 850,\n" +
+            "\t\t\t\"timestampSecond\" : 1544169563,\n" +
+            "\t\t\t\"x\" : 5,\n" +
+            "\t\t\t\"y\" : 6,\n" +
+            "\t\t}\n" +
+            "\t],\n" +
+            "\t\"sn\" : 1\n" +
+            "}";
+
+    private static String msgSend2 = "{\n" +
             "\t\"cmd\" : 0,\n" +
             "\t\"hvDatas\" : \n" +
             "\t{\n" +
@@ -77,6 +112,8 @@ public class Test {
         }
     }
 
+    private static boolean isSend = false;
+
     public static void send() {
         DatagramSocket socket = null;
         DatagramPacket packetSend, packetRcv;
@@ -93,7 +130,14 @@ public class Test {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        packetSend = new DatagramPacket(msgSend.getBytes(), msgSend.getBytes().length, hostAddress, 9999);
+
+        if (isSend) {
+            packetSend = new DatagramPacket(msgSend1.getBytes(), msgSend1.getBytes().length, hostAddress, 9999);
+        } else {
+            packetSend = new DatagramPacket(msgSend2.getBytes(), msgSend2.getBytes().length, hostAddress, 9999);
+        }
+
+        isSend = !isSend;
 
         try {
             socket.send(packetSend);

@@ -17,7 +17,7 @@ import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarView;
 import wangfeixixi.cip.widget.udp.UDPUtils;
-import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.data.DateUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
@@ -32,7 +32,7 @@ public class CarViewActivity extends BaseActivity {
     private DialProgress dial_progress_hv;
     private DialProgress dial_progress_rv;
     private TextView tv_tips;
-    private UDPResultListener listener;
+    private IUDPResultListener listener;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class CarViewActivity extends BaseActivity {
     @Override
     protected void initData() {
         VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
-        listener = new UDPResultListener() {
+        listener = new IUDPResultListener() {
             @Override
             public void onResultListener(final JsonRootBean bean) {
                 final ArrayList<CarBean> list = new ArrayList<>();

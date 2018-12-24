@@ -52,9 +52,9 @@ public class UdpServerRunable implements Runnable {
         ds.send(dpSend);
     }
 
-    public UDPResultListener listener;
+    public IUDPResultListener listener;
 
-    public void setResultListener(UDPResultListener listener) {
+    public void setResultListener(IUDPResultListener listener) {
         this.listener = listener;
     }
 

@@ -1,12 +1,11 @@
-package wangfeixixi.cip.ui;
+package wangfeixixi.cip.widget.udp.server;
 
 import java.util.ArrayList;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.widget.carview.CarBean;
-import wangfeixixi.cip.widget.udp.server.UDPResultListener;
 
-public abstract class UDPDataReceive implements UDPResultListener {
+public abstract class IUDPResultListner implements IUDPResultListener {
 
     private boolean isShow = false;
 
