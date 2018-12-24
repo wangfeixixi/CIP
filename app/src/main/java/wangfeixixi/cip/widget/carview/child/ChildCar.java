@@ -46,7 +46,6 @@ public class ChildCar {
             layoutParams1.topMargin = bean.getTopMargin();
             layoutParams1.width = (int) (bean.width * CarUtils.scale);
             layoutParams1.height = (int) (bean.height * CarUtils.scale);
-//            viewGroup.addView(iv_ben, layoutParams1);
             iv_ben.setLayoutParams(layoutParams1);
         }
     }
@@ -85,14 +84,14 @@ public class ChildCar {
             layoutParams.width = (int) (bean.width * CarUtils.scale);
             layoutParams.height = (int) (bean.height * CarUtils.scale);
             viewGroup.addView(iv_other, layoutParams);
+            isContanOtherCar = true;
         } else {
             RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) iv_other.getLayoutParams();
             layoutParams1.leftMargin = bean.getLeftMargin();
             layoutParams1.topMargin = bean.getTopMargin();
             layoutParams1.width = (int) (bean.width * CarUtils.scale);
             layoutParams1.height = (int) (bean.height * CarUtils.scale);
-            viewGroup.addView(iv_other, layoutParams1);
-            isContanOtherCar = true;
+            iv_other.setLayoutParams(layoutParams1);
         }
     }
 

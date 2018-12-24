@@ -27,6 +27,7 @@ import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
 import wangfeixixi.lbs.LocationInfo;
+import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class NewMapActivity extends AppCompatActivity implements UDPResultListener {
@@ -65,7 +66,14 @@ public class NewMapActivity extends AppCompatActivity implements UDPResultListen
         mLbs = new GaodeMapService(this);
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
-        mLbs.setLocationRes(R.mipmap.car);
+//        mLbs.setLocationRes(R.mipmap.car);
+        mLbs.setLocationChangeListener(new OnLocationListener() {
+            @Override
+            public void onLocationChange(LocationInfo locationInfo) {
+//                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car));
+                mLbs.moveCamera(locationInfo, 20);
+            }
+        });
     }
 
     TextView tv_warning;

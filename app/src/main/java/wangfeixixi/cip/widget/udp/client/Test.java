@@ -34,11 +34,11 @@ public class Test {
             "\t\t\t\"latitude\" : 30.329397,\n" +
             "\t\t\t\"longitude\" : 121.315383,\n" +
             "\t\t\t\"remoteId\" : 67239940,\n" +
-            "\t\t\t\"speed\" : 8,\n" +
+            "\t\t\t\"speed\" : 30,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
-            "\t\t\t\"x\" : 10,\n" +
-            "\t\t\t\"y\" : 10,\n" +
+            "\t\t\t\"x\" : 5,\n" +
+            "\t\t\t\"y\" : 6,\n" +
             "\t\t}\n" +
             "\t],\n" +
             "\t\"sn\" : 1\n" +
