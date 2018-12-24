@@ -23,7 +23,7 @@ public class JsonRootBean {
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         sb.append("\n\n本车数据：");
         sb.append(hvDatas.toString());
-        sb.append("\n\n远车数据");
+        sb.append("\n\n远车数据:");
         if (rvDatas != null && rvDatas.size() > 0)
             for (int i = 0; i < rvDatas.size(); i++) {
                 sb.append(rvDatas.get(i).toString());

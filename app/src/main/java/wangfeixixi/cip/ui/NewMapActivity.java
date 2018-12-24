@@ -87,7 +87,7 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         int time = 2000;
         if (bean.hvDatas != null) {
             ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
-            time = speed2Time(bean.hvDatas.speed * 3.6f);
+//            time = speed2Time(bean.hvDatas.speed * 3.6f);
         }
 
         if (bean.rvDatas != null && bean.rvDatas.size() > 0)
@@ -96,10 +96,18 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
 
         if (timeTemp > time) {
             updateLbs(bean);//相当耗时
-            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
-            TranslateAnim.switchSpeedAnim(iv_right_floor, time);
+//            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
+            TranslateAnim.switchSpeedAnim(iv_left_floor,iv_right_floor, time);
             lastTime = nowTime;
         }
+
+//        if (timeTemp > time) {
+//            updateLbs(bean);//相当耗时
+//
+//            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
+//            TranslateAnim.switchSpeedAnim(iv_right_floor, time);
+//            lastTime = nowTime;
+//        }
     }
 
     private int speed2Time(float v) {

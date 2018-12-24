@@ -14,18 +14,46 @@ public class TranslateAnim {
             translateAnimation.setDuration(100);
         else
             translateAnimation.setDuration((long) time);
-        translateAnimation.setRepeatCount(Animation.INFINITE);
+//        translateAnimation.setRepeatCount(Animation.INFINITE);
         translateAnimation.setInterpolator(new LinearInterpolator());
         return translateAnimation;
     }
 
-    public static void switchSpeedAnim(View view, float duration) {
-        if (duration == 3000) {
-            view.clearAnimation();
-            return;
-        }
-        view.clearAnimation();
-        view.startAnimation(getAnimation(duration));
+    public static int repeate = 1;
+
+    public static boolean isStartAnim = false;
+
+    public static void switchSpeedAnim(final View left, final View right, final float duration) {
+        repeate = 1;
+        if (isStartAnim) return;
+
+        right.clearAnimation();
+        left.clearAnimation();
+        left.startAnimation(getAnimation(duration));
+        right.startAnimation(getAnimation(duration));
+
+        TranslateAnimation animation = getAnimation(duration);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                repeate--;
+                isStartAnim = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isStartAnim = false;
+                if (repeate != 0) {
+                    left.startAnimation(getAnimation(duration));
+                    right.startAnimation(getAnimation(duration));
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
 }

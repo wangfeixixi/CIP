@@ -52,7 +52,7 @@ public class CarUtils {
 
 
     public static float getRoadWidth() {
-        return carWidth * scale * 2;
+        return carWidth * scale;
     }
 
     public static float getHouseWidth() {

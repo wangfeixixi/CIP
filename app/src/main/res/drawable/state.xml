@@ -3,9 +3,10 @@
     android:oneshot="false">
 
     <item
-        android:drawable="@mipmap/car"
+        android:drawable="@mipmap/car2"
         android:duration="200" />
     <item
         android:drawable="@mipmap/car1"
         android:duration="200" />
+
 </animation-list>

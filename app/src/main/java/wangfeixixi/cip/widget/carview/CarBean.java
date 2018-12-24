@@ -108,7 +108,7 @@ public class CarBean {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("\nremoteId:" + remoteId);
+        sb.append("remoteId:" + remoteId);
         sb.append("\nfcwAlarm:" + fcwAlarm);
         sb.append("\nheading:" + heading);
         sb.append("\nspeed:" + speed * 3.6f);
@@ -116,10 +116,10 @@ public class CarBean {
         sb.append("\nlongitude:" + longitude);
         sb.append("\nx:" + x);
         sb.append("\ny:" + y);
-        sb.append("\nleftMargin:" + getLeftMargin());
-        sb.append("\ntopMargin:" + getTopMargin());
-        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));
-        sb.append("\n原点x:" + (ScreenUtils.getScreenWidth() / 2));
+//        sb.append("\nleftMargin:" + getLeftMargin());
+//        sb.append("\ntopMargin:" + getTopMargin());
+//        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));
+//        sb.append("\n原点x:" + (ScreenUtils.getScreenWidth() / 2));
 
 
 //        sb.append("\ntimestampMs:" + timestampMs);
