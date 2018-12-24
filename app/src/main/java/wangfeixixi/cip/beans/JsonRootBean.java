@@ -3,6 +3,7 @@ package wangfeixixi.cip.beans;
 import java.util.List;
 
 import wangfeixixi.cip.widget.carview.CarBean;
+import wangfeixixi.com.base.data.DateUtils;
 
 public class JsonRootBean {
     public int cmd;
@@ -19,6 +20,7 @@ public class JsonRootBean {
 //        sb.append("\nmagic:" + magic);
 //        sb.append("\nnov:" + nov);
         sb.append("\nsn:" + sn);
+        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         sb.append("\n\n本车数据：");
         sb.append(hvDatas.toString());
         sb.append("\n\n远车数据");

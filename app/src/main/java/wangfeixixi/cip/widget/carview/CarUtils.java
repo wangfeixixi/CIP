@@ -19,7 +19,7 @@ public class CarUtils {
     /**
      * 转化比例：1米scale个像素
      */
-    public static float scale = 30;
+    public static float scale = 60;
 
     /**
      * 车辆图片的缩放

@@ -5,11 +5,11 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
-import wangfeixixi.com.base.ScreenUtils;
+import wangfeixixi.cip.widget.carview.CarUtils;
 
 public class TranslateAnim {
     public static TranslateAnimation getAnimation(float time) {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, ScreenUtils.getScreenHeight() / 3 * 2);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, CarUtils.getCarViewHeight() * 2);
         if (time < 100)
             translateAnimation.setDuration(100);
         else

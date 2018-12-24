@@ -69,7 +69,9 @@
         <activity
             android:name=".ui.NewMapActivity"
             android:icon="@mipmap/icon"
-            android:label="地图">
+            android:label="地图"
+            android:screenOrientation="portrait"
+            android:theme="@style/theme_launch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
