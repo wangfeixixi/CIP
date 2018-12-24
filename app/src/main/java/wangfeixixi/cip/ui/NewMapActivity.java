@@ -1,5 +1,6 @@
 package wangfeixixi.cip.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
 import wangfeixixi.cip.widget.carview.child.ChildCar;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.UDPResultListener;
+import wangfeixixi.com.base.UIUtils;
 
 public class NewMapActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,6 +40,7 @@ public class NewMapActivity extends AppCompatActivity implements View.OnClickLis
 
         //添加carview
         rl_carview = new RelativeLayout(this);
+        rl_carview.setBackgroundColor(Color.parseColor("#f7f6f3"));
         addCarView(rl_carview);
         //添加道路信息
         addLeftFloor();
