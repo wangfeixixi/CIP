@@ -25,6 +25,7 @@ import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
+import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
@@ -192,5 +193,18 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mLbs.onSaveInstanceState(outState);
+    }
+
+    private long lastBackTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long nowBackTime = System.currentTimeMillis();
+        if (nowBackTime - lastBackTime < 300) {
+            super.onBackPressed();
+        } else {
+            ToastUtils.showShort("双击推出");
+            lastBackTime = nowBackTime;
+        }
     }
 }
