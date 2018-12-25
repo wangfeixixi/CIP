@@ -33,7 +33,7 @@ public class CarBean {
     //
 
     public int getAlarmLeftMargin() {
-        float juli = 1;
+        float juli = 0;
         switch (getAlarmOritation()) {
             case 1:
                 return (int) (getLeftMargin() + (CarUtils.carWidth - CarUtils.alarmWidth) / 2 * CarUtils.scale);
@@ -47,7 +47,7 @@ public class CarBean {
     }
 
     public int getAlarmTopMargin() {
-        float juli = 1;
+        float juli = 0;
         switch (getAlarmOritation()) {
             case 1:
                 return (int) (getTopMargin() - (CarUtils.alarmWidth + juli) * CarUtils.scale);

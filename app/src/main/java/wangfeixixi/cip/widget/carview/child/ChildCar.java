@@ -102,14 +102,15 @@ public class ChildCar {
     }
 
     private boolean isAlarmViewInit = false;
-    private boolean isAlarm = false;
+    private int alarmOrientation = 0;
+
 
     private void addAlarm(ViewGroup viewGroup, CarBean bean) {
         if (bean.fcwAlarm != 0) {
             view_alarm.setVisibility(View.VISIBLE);
             if (!isAlarmViewInit) {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                int alarmWidth = (int) ((int) CarUtils.carWidth - 20);
+                int alarmWidth = ((int) CarUtils.carWidth - 20);
                 layoutParams.width = alarmWidth;
                 layoutParams.height = alarmWidth;
                 layoutParams.leftMargin = bean.getAlarmLeftMargin();
@@ -118,20 +119,19 @@ public class ChildCar {
                 isAlarmViewInit = true;
             } else {
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view_alarm.getLayoutParams();
-                int alarmWidth = (int) ((int) CarUtils.carWidth - 20);
+                int alarmWidth = ((int) CarUtils.carWidth - 20);
                 layoutParams.width = alarmWidth;
                 layoutParams.height = alarmWidth;
                 layoutParams.leftMargin = bean.getAlarmLeftMargin();
                 layoutParams.topMargin = bean.getAlarmTopMargin();
                 view_alarm.setLayoutParams(layoutParams);
             }
-            if (!isAlarm) {
-                BlinkAnim.blink(view_alarm);
-                isAlarm = true;
+            if (bean.getAlarmOritation() != alarmOrientation) {
+                BlinkAnim.blink(view_alarm, bean.getAlarmOritation());
             }
         } else {
             view_alarm.setVisibility(View.GONE);
-            isAlarm = false;
+            alarmOrientation = 0;
         }
     }
 

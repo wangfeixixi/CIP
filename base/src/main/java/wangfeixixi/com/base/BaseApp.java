@@ -14,7 +14,6 @@ public class BaseApp extends BaseApplication {
             CrashHandler.getInstance().init();
 
         }
-
         Bugly.init(UIUtils.getContext(), "7f4076eec5", false);
     }
 }

@@ -101,7 +101,7 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
             updateLbs(bean);//相当耗时
 //            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
             if (bean.hvDatas != null && bean.hvDatas.speed != 0)
-                TranslateAnim.switchSpeedAnim(iv_left_floor, iv_right_floor, time);
+                TranslateAnim.switchSpeedAnim(iv_left_floor, iv_right_floor, 3000);
             lastTime = nowTime;
             if (bean.rvDatas != null && bean.rvDatas.get(0).fcwAlarm != 0)
                 VoiceUtil.getInstance().speek("保持距离");
@@ -116,21 +116,21 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
 //        }
     }
 
-    private int speed2Time(float v) {
-        if (v == 0) {
-            return 3000;
-        } else if (v < 30) {
-            return 2000;
-        } else if (v < 60) {
-            return 1800;
-        } else if (v < 90) {
-            return 1600;
-        } else if (v < 120) {
-            return 1400;
-        } else {
-            return 1000;
-        }
-    }
+//    private int speed2Time(float v) {
+//        if (v == 0) {
+//            return 3000;
+//        } else if (v < 30) {
+//            return 2000;
+//        } else if (v < 60) {
+//            return 1800;
+//        } else if (v < 90) {
+//            return 1600;
+//        } else if (v < 120) {
+//            return 1400;
+//        } else {
+//            return 1000;
+//        }
+//    }
 
     private void updateLbs(JsonRootBean jsonRootBean) {
 //        mLbs.clearAllMarker();
