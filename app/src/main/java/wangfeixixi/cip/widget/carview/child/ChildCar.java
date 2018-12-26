@@ -60,8 +60,8 @@ public class ChildCar {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.leftMargin = bean.getLeftMargin();
         layoutParams.topMargin = bean.getTopMargin();
-//        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
-//        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
+        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
         viewGroup.addView(iv_ben, layoutParams);
 //        ViewGroup.LayoutParams layoutParams1 = iv_ben.getLayoutParams();
     }
@@ -85,16 +85,16 @@ public class ChildCar {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.leftMargin = bean.getLeftMargin();
             layoutParams.topMargin = bean.getTopMargin();
-//            layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
-//            layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
+            layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+            layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
             viewGroup.addView(iv_other, layoutParams);
             isOtherCarInit = true;
         } else {
             RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) iv_other.getLayoutParams();
             layoutParams1.leftMargin = bean.getLeftMargin();
             layoutParams1.topMargin = bean.getTopMargin();
-//            layoutParams1.width = (int) (bean.width * CarUtils.getInstance().scale);
-//            layoutParams1.height = (int) (bean.height * CarUtils.getInstance().scale);
+            layoutParams1.width = (int) (bean.width * CarUtils.getInstance().scale);
+            layoutParams1.height = (int) (bean.height * CarUtils.getInstance().scale);
             iv_other.setLayoutParams(layoutParams1);
             BlinkAnim.blink(iv_other, bean.fcwAlarm != 0);
         }

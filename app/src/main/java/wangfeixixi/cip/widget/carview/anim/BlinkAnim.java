@@ -21,6 +21,7 @@ public class BlinkAnim {
                 recordingTransition.start();
             } else {
                 animationDrawable.stop();
+                view.setBackgroundResource(R.mipmap.car_other);
             }
         } else {
             if (!isBlink) return;

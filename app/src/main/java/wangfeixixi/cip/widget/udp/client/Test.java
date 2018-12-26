@@ -29,7 +29,7 @@ public class Test {
             "\t\"rvDatas\" : \n" +
             "\t[\n" +
             "\t\t{\n" +
-            "\t\t\t\"fcwAlarm\" : 1,\n" +
+            "\t\t\t\"fcwAlarm\" : 0,\n" +
             "\t\t\t\"heading\" : 51.200000000000003,\n" +
             "\t\t\t\"latitude\" : 30.329397,\n" +
             "\t\t\t\"longitude\" : 121.315383,\n" +
@@ -37,8 +37,8 @@ public class Test {
             "\t\t\t\"speed\" : 30,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
-            "\t\t\t\"x\" : 8,\n" +
-            "\t\t\t\"y\" : 8,\n" +
+            "\t\t\t\"x\" : -1,\n" +
+            "\t\t\t\"y\" : 2,\n" +
             "\t\t}\n" +
             "\t],\n" +
             "\t\"sn\" : 1\n" +
@@ -72,8 +72,8 @@ public class Test {
             "\t\t\t\"speed\" : 30,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
-            "\t\t\t\"x\" : 8,\n" +
-            "\t\t\t\"y\" : 8,\n" +
+            "\t\t\t\"x\" : 2,\n" +
+            "\t\t\t\"y\" : 3,\n" +
             "\t\t}\n" +
             "\t],\n" +
             "\t\"sn\" : 1\n" +
@@ -131,11 +131,14 @@ public class Test {
             e.printStackTrace();
         }
 
-        if (isSend) {
-            packetSend = new DatagramPacket(msgSend1.getBytes(), msgSend1.getBytes().length, hostAddress, 9999);
-        } else {
-            packetSend = new DatagramPacket(msgSend2.getBytes(), msgSend2.getBytes().length, hostAddress, 9999);
-        }
+
+        packetSend = new DatagramPacket(msgSend1.getBytes(), msgSend1.getBytes().length, hostAddress, 9999);
+
+//        if (isSend) {
+//            packetSend = new DatagramPacket(msgSend1.getBytes(), msgSend1.getBytes().length, hostAddress, 9999);
+//        } else {
+//            packetSend = new DatagramPacket(msgSend2.getBytes(), msgSend2.getBytes().length, hostAddress, 9999);
+//        }
 
         isSend = !isSend;
 

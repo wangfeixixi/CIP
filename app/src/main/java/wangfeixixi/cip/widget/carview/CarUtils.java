@@ -101,12 +101,28 @@ public class CarUtils {
     }
 
     public CarBean filterOver(CarBean carBean) {
-        double diagonal = Math.sqrt(Math.abs(carBean.x) * Math.abs(carBean.x) + Math.abs(carBean.y) * Math.abs(carBean.y));
-        if (diagonal < carDiagonal) {
-            carBean.x = carBean.x > 0 ? carWidth : -carWidth;
-            carBean.y = carBean.y > 0 ? carLength : -carLength;
-
-
+        int diagonal = (int) Math.sqrt(Math.abs(carBean.x) * Math.abs(carBean.x) + Math.abs(carBean.y) * Math.abs(carBean.y));
+//        if (diagonal < carDiagonal) {
+//            carBean.x = carBean.x > 0 ? carWidth : -carWidth;
+//            carBean.y = carBean.y > 0 ? carLength : -carLength;
+//
+//
+//        }
+        if (y0 / x0 >= carBean.y / carBean.x) {  //x方向
+            int diagonalMix = (int) Math.abs(carWidth * diagonal / carBean.x);
+            if (diagonal < diagonalMix) {//需要修正数据
+                carBean.x = carBean.x > 0 ? carWidth : -carWidth;
+                int yAbs = (int) Math.sqrt(Math.abs(diagonalMix) * Math.abs(diagonalMix) - Math.abs(carWidth) * Math.abs(carWidth));
+                carBean.y = carBean.y > 0 ? yAbs : -yAbs;
+            }
+        } else {
+            //y方向
+            int diagonalMix = (int) Math.abs(carLength * diagonal / carBean.y);
+            if (diagonal < diagonalMix) {//需要修正数据
+                carBean.y = carBean.y > 0 ? carLength : -carLength;
+                int xAbs = (int) Math.sqrt(Math.abs(diagonalMix) * Math.abs(diagonalMix) - Math.abs(carLength) * Math.abs(carLength));
+                carBean.x = (float) (carBean.x > 0 ? xAbs : -xAbs);
+            }
         }
         return carBean;
     }
@@ -128,14 +144,14 @@ public class CarUtils {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 将自身坐标系转换为屏幕坐标系
-     *
-     * @param carX     车辆的x像素值,坐标原点，车辆中心
-     * @param carY     车辆的y像素值，坐标原点，车辆中心
-     * @param bodyBean 扫描的物体信息
-     * @return 屏幕坐标系物体区域
-     */
+//    /**
+//     * 将自身坐标系转换为屏幕坐标系
+//     *
+//     * @param carX     车辆的x像素值,坐标原点，车辆中心
+//     * @param carY     车辆的y像素值，坐标原点，车辆中心
+//     * @param bodyBean 扫描的物体信息
+//     * @return 屏幕坐标系物体区域
+//     */
 //    public Rect shelf2Screen(float carX, float carY, CarBean bodyBean) {
 //        //1.车辆自身中心坐标（x1,y1）
 //
