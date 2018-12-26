@@ -81,15 +81,15 @@
 
         </activity>
         <!--<activity-->
-            <!--android:name=".ui.map.MapActivity"-->
-            <!--android:icon="@mipmap/icon"-->
-            <!--android:label="地图">-->
-            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
-            <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+        <!--android:name=".ui.map.MapActivity"-->
+        <!--android:icon="@mipmap/icon"-->
+        <!--android:label="地图">-->
+        <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
+        <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
 
-            <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-            <!--&lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt;-->
-            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
+        <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt;-->
+        <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
 
         <!--</activity>-->
 
@@ -107,25 +107,25 @@
         <!--</activity>-->
 
         <!--<activity-->
-            <!--android:name=".widget.udp.server.UDPServerTestActivity"-->
-            <!--android:icon="@mipmap/icon"-->
-            <!--android:label="UDPServer">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--android:name=".widget.udp.server.UDPServerTestActivity"-->
+        <!--android:icon="@mipmap/icon"-->
+        <!--android:label="UDPServer">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
 
         <!--</activity>-->
         <!--<activity-->
-            <!--android:name=".widget.udp.client.UDPClientTestActivity"-->
-            <!--android:icon="@mipmap/icon"-->
-            <!--android:label="UDPClient">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--android:name=".widget.udp.client.UDPClientTestActivity"-->
+        <!--android:icon="@mipmap/icon"-->
+        <!--android:label="UDPClient">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
 
         <meta-data

@@ -15,8 +15,8 @@ public class DrawCar {
     private DrawCar() {
 
         //车图标,放大车辆图标
-        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car), CarUtils.carBitmapScale);
-        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car1), CarUtils.carBitmapScale);
+        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car), CarUtils.getInstance().carBitmapScale);
+        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car1), CarUtils.getInstance().carBitmapScale);
 
         //自身车
         mPaintCar = new Paint();
@@ -41,13 +41,13 @@ public class DrawCar {
 
     public void drawHvCar(Canvas canvas, CarBean bean, float mCarX, float mCarY) {
         rotateBitmap = BitmapUtils.rotateBitmap(car_bitmap, 0f);
-        canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
+        canvas.drawBitmap(rotateBitmap, CarUtils.getInstance().x2XView(mCarX, bean), CarUtils.getInstance().y2YView(mCarY, bean), mPaintCar);
         canvas.save();
     }
 
     public void drawRvCar(Canvas canvas, CarBean bean, float mCarX, float mCarY) {
         rotateBitmap = BitmapUtils.rotateBitmap(bean.fcwAlarm == 0 ? car_bitmap : car_alert_bitmap, 0f);
-        canvas.drawBitmap(rotateBitmap, CarUtils.x2XView(mCarX, bean), CarUtils.y2YView(mCarY, bean), mPaintCar);
+        canvas.drawBitmap(rotateBitmap, CarUtils.getInstance().x2XView(mCarX, bean), CarUtils.getInstance().y2YView(mCarY, bean), mPaintCar);
         canvas.save();
     }
 

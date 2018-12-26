@@ -65,10 +65,10 @@
 //    @Override
 //    protected void initData() {
 //        tv_warning.setText("预警信息提示");
-//        mLbs.setLocationRes(R.mipmap.car);
+//        mLbs.setLocationRes(R.mipmap.carDiagonal);
 ////        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
 //
-//        mLbs.setLocationRes(R.mipmap.car);
+//        mLbs.setLocationRes(R.mipmap.carDiagonal);
 //
 //        btn_start.setOnLikeListener(new OnLikeListener() {
 //            @Override
@@ -95,7 +95,7 @@
 //                });
 //
 ////                mLbs.moveCamera(new LocationInfo("自身", 30.330416, 121.317497), 20);
-////                mLbs.addOrUpdateMarker(new LocationInfo("自身", 30.330416, 121.317497), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+////                mLbs.addOrUpdateMarker(new LocationInfo("自身", 30.330416, 121.317497), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.carDiagonal), 0.1f));
 //
 //            }
 //
@@ -148,7 +148,7 @@
 //
 //    public void moveSelfCar(LocationInfo locationInfo) {
 //        locationInfo.key = "自身坐标车";
-//        mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car));
+//        mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.carDiagonal));
 //        mLbs.moveCamera(locationInfo, 20);
 //        mLbs.clearAllMarker();
 //    }
@@ -198,12 +198,12 @@
 //        for (int i = 0; i < list.size(); i++) {
 //            bean = list.get(i);
 //            gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
-//            local = new LocationInfo(String.valueOf(i), "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
+//            local = new LocationInfo(String.valueOf(i), "carDiagonal", gps.getWgLat(), gps.getWgLon(), bean.heading);
 //            if (i == 0) {
 //                mLbs.moveCamera(local, 20);
 //            }
 //
-//            mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+//            mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.carDiagonal), 0.1f));
 //        }
 //    }
 //

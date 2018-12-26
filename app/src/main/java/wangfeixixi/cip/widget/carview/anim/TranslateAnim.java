@@ -9,7 +9,7 @@ import wangfeixixi.cip.widget.carview.CarUtils;
 
 public class TranslateAnim {
     public static TranslateAnimation getAnimation(float time) {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, CarUtils.getCarViewHeight());
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, CarUtils.getInstance().carViewHeight);
         if (time < 100)
             translateAnimation.setDuration(100);
         else

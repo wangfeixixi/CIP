@@ -14,8 +14,8 @@ public class ChildContainer {
         RelativeLayout rl_carview = new RelativeLayout(UIUtils.getContext());
         rl_carview.setBackgroundColor(Color.parseColor("#f7f6f3"));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.width = (int) (CarUtils.getCarViewWidth());
-        layoutParams.height = (int) (CarUtils.getCarViewHeight());
+        layoutParams.width = (int) (CarUtils.getInstance().carViewWidth);
+        layoutParams.height = (int) (CarUtils.getInstance().carViewHeight);
         rl_father.addView(rl_carview, layoutParams);
         return rl_carview;
     }
@@ -24,8 +24,8 @@ public class ChildContainer {
         RelativeLayout rl_carview = new RelativeLayout(UIUtils.getContext());
         rl_carview.setBackgroundColor(Color.parseColor("#f7f6f3"));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.width = (int) (CarUtils.getCarViewWidth());
-        layoutParams.height = (int) (CarUtils.getCarViewHeight());
+        layoutParams.width = (int) (CarUtils.getInstance().carViewWidth);
+        layoutParams.height = (int) (CarUtils.getInstance().carViewHeight);
         rl_father.addView(rl_carview, layoutParams);
         return rl_carview;
     }
@@ -38,9 +38,9 @@ public class ChildContainer {
         FrameLayout fl = new FrameLayout(UIUtils.getContext());
 //        imageView.setBackgroundResource(R.mipmap.map);
         RelativeLayout.LayoutParams ivLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ivLP.width = (int) (CarUtils.getCarViewWidth());
-        ivLP.topMargin = CarUtils.getCarViewHeight() + 8;
-        ivLP.height = (int) (CarUtils.getCarViewHeight() / 2);
+        ivLP.width = (int) (CarUtils.getInstance().carViewWidth);
+        ivLP.topMargin = CarUtils.getInstance().carViewHeight + 8;
+        ivLP.height = (int) (CarUtils.getInstance().carViewHeight / 2);
         rl_father.addView(fl, ivLP);
         return fl;
     }
@@ -51,9 +51,9 @@ public class ChildContainer {
         View line = new View(UIUtils.getContext());
         line.setBackgroundColor(Color.parseColor("#ffffff"));
         RelativeLayout.LayoutParams ivLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ivLP.width = CarUtils.getCarViewWidth();
+        ivLP.width = CarUtils.getInstance().carViewWidth;
         ivLP.height = lineHeight;
-        ivLP.topMargin = CarUtils.getCarViewHeight();
+        ivLP.topMargin = CarUtils.getInstance().carViewHeight;
         rl_father.addView(line, ivLP);
     }
 }

@@ -37,8 +37,8 @@ public class Test {
             "\t\t\t\"speed\" : 30,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
-            "\t\t\t\"x\" : 5,\n" +
-            "\t\t\t\"y\" : 6,\n" +
+            "\t\t\t\"x\" : 8,\n" +
+            "\t\t\t\"y\" : 8,\n" +
             "\t\t}\n" +
             "\t],\n" +
             "\t\"sn\" : 1\n" +
@@ -72,8 +72,8 @@ public class Test {
             "\t\t\t\"speed\" : 30,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
-            "\t\t\t\"x\" : -1,\n" +
-            "\t\t\t\"y\" : -2,\n" +
+            "\t\t\t\"x\" : 8,\n" +
+            "\t\t\t\"y\" : 8,\n" +
             "\t\t}\n" +
             "\t],\n" +
             "\t\"sn\" : 1\n" +

@@ -70,16 +70,19 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         mLbs = new GaodeMapService(this);
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
-//        mLbs.setLocationRes(R.mipmap.car);
+//        mLbs.setLocationRes(R.mipmap.carDiagonal);
         mLbs.setLocationChangeListener(new OnLocationListener() {
             @Override
             public void onLocationChange(LocationInfo locationInfo) {
-//                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car));
+//                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.carDiagonal));
                 mLbs.moveCamera(locationInfo, 20);
             }
         });
 
         VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
+
+
+        ChildCar.getInstance().addBenCar(rl_carview, new CarBean());
     }
 
     TextView tv_warning;
@@ -89,10 +92,10 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
         int time = 2000;
-        if (bean.hvDatas != null) {
-            ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
+//        if (bean.hvDatas != null) {
+//            ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
 //            time = speed2Time(bean.hvDatas.speed * 3.6f);
-        }
+//        }
 
         if (bean.rvDatas != null && bean.rvDatas.size() > 0)
             for (int i = 0; i < bean.rvDatas.size(); i++)
@@ -142,7 +145,7 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
             for (int i = 0; i < jsonRootBean.rvDatas.size(); i++) {
                 bean = jsonRootBean.rvDatas.get(i);
                 gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
-                local = new LocationInfo(String.valueOf(i), "car", gps.getWgLat(), gps.getWgLon(), bean.heading);
+                local = new LocationInfo(String.valueOf(i), "carDiagonal", gps.getWgLat(), gps.getWgLon(), bean.heading);
                 mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
 //                mLbs.moveCamera(local, 20);
             }

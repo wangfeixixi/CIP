@@ -69,7 +69,7 @@ public class DrawLine {
     }
 
     public void switchSpeed(float speed) {
-        liness = CarUtils.speed2Arrays((int) speed);
+        liness = CarUtils.getInstance().speed2Arrays((int) speed);
         linesPaintID = 0;
 //        linesPaintID = liness.height - 1;
     }

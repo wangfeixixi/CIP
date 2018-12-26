@@ -36,103 +36,101 @@ public class ChildCar {
 
     public boolean isBenCarInit = false;
 
-    public void addUpdateBenCar(ViewGroup viewGroup, CarBean bean) {
-        if (!isBenCarInit) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.leftMargin = bean.getLeftMargin();
-            layoutParams.topMargin = bean.getTopMargin();
-            layoutParams.width = (int) (bean.width * CarUtils.scale);
-            layoutParams.height = (int) (bean.height * CarUtils.scale);
-            viewGroup.addView(iv_ben, layoutParams);
-            isBenCarInit = true;
-        } else {
-            RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) iv_ben.getLayoutParams();
-            layoutParams1.leftMargin = bean.getLeftMargin();
-            layoutParams1.topMargin = bean.getTopMargin();
-            layoutParams1.width = (int) (bean.width * CarUtils.scale);
-            layoutParams1.height = (int) (bean.height * CarUtils.scale);
-            iv_ben.setLayoutParams(layoutParams1);
-        }
-    }
+//    public void addUpdateBenCar(ViewGroup viewGroup, CarBean bean) {
+//        if (!isBenCarInit) {
+//            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//            layoutParams.leftMargin = bean.getLeftMargin();
+//            layoutParams.topMargin = bean.getTopMargin();
+//            layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+//            layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
+//            viewGroup.addView(iv_ben, layoutParams);
+//            isBenCarInit = true;
+//        } else {
+//            RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) iv_ben.getLayoutParams();
+//            layoutParams1.leftMargin = bean.getLeftMargin();
+//            layoutParams1.topMargin = bean.getTopMargin();
+//            layoutParams1.width = (int) (bean.width * CarUtils.getInstance().scale);
+//            layoutParams1.height = (int) (bean.height * CarUtils.getInstance().scale);
+//            iv_ben.setLayoutParams(layoutParams1);
+//        }
+//    }
 
     public void addBenCar(ViewGroup viewGroup, CarBean bean) {
         viewGroup.removeView(iv_ben);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.leftMargin = bean.getLeftMargin();
         layoutParams.topMargin = bean.getTopMargin();
-        layoutParams.width = (int) (bean.width * CarUtils.scale);
-        layoutParams.height = (int) (bean.height * CarUtils.scale);
+//        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+//        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
         viewGroup.addView(iv_ben, layoutParams);
-        ViewGroup.LayoutParams layoutParams1 = iv_ben.getLayoutParams();
-
-
+//        ViewGroup.LayoutParams layoutParams1 = iv_ben.getLayoutParams();
     }
 
-    public void addOtherCar(ViewGroup viewGroup, CarBean bean) {
-        viewGroup.removeView(iv_other);
-        iv_other.setBackgroundResource(R.mipmap.car_other);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.leftMargin = bean.getLeftMargin();
-        layoutParams.topMargin = bean.getTopMargin();
-        layoutParams.width = (int) (bean.width * CarUtils.scale);
-        layoutParams.height = (int) (bean.height * CarUtils.scale);
-        viewGroup.addView(iv_other, layoutParams);
-    }
+//    public void addOtherCar(ViewGroup viewGroup, CarBean bean) {
+//        viewGroup.removeView(iv_other);
+//        iv_other.setBackgroundResource(R.mipmap.car_other);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        layoutParams.leftMargin = bean.getLeftMargin();
+//        layoutParams.topMargin = bean.getTopMargin();
+//        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+//        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
+//        viewGroup.addView(iv_other, layoutParams);
+//    }
 
     public boolean isOtherCarInit = false;
 
     public void addUpdateOtherCar(ViewGroup viewGroup, CarBean bean) {
+        bean = CarUtils.getInstance().filterOver(bean);
         if (!isOtherCarInit) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.leftMargin = bean.getLeftMargin();
             layoutParams.topMargin = bean.getTopMargin();
-            layoutParams.width = (int) (bean.width * CarUtils.scale);
-            layoutParams.height = (int) (bean.height * CarUtils.scale);
+//            layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+//            layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
             viewGroup.addView(iv_other, layoutParams);
             isOtherCarInit = true;
         } else {
             RelativeLayout.LayoutParams layoutParams1 = (RelativeLayout.LayoutParams) iv_other.getLayoutParams();
             layoutParams1.leftMargin = bean.getLeftMargin();
             layoutParams1.topMargin = bean.getTopMargin();
-            layoutParams1.width = (int) (bean.width * CarUtils.scale);
-            layoutParams1.height = (int) (bean.height * CarUtils.scale);
+//            layoutParams1.width = (int) (bean.width * CarUtils.getInstance().scale);
+//            layoutParams1.height = (int) (bean.height * CarUtils.getInstance().scale);
             iv_other.setLayoutParams(layoutParams1);
-        }
-        addAlarm(viewGroup, bean);
-    }
-
-    private boolean isAlarmViewInit = false;
-    private int alarmOrientation = 0;
-
-
-    private void addAlarm(ViewGroup viewGroup, CarBean bean) {
-        if (bean.fcwAlarm != 0) {
-            view_alarm.setVisibility(View.VISIBLE);
-            if (!isAlarmViewInit) {
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                int alarmWidth = ((int) CarUtils.carWidth - 20);
-                layoutParams.width = alarmWidth;
-                layoutParams.height = alarmWidth;
-                layoutParams.leftMargin = bean.getAlarmLeftMargin();
-                layoutParams.topMargin = bean.getAlarmTopMargin();
-                viewGroup.addView(view_alarm, layoutParams);
-                isAlarmViewInit = true;
-            } else {
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view_alarm.getLayoutParams();
-                int alarmWidth = ((int) CarUtils.carWidth - 20);
-                layoutParams.width = alarmWidth;
-                layoutParams.height = alarmWidth;
-                layoutParams.leftMargin = bean.getAlarmLeftMargin();
-                layoutParams.topMargin = bean.getAlarmTopMargin();
-                view_alarm.setLayoutParams(layoutParams);
-            }
-            if (bean.getAlarmOritation() != alarmOrientation) {
-                BlinkAnim.blink(view_alarm, bean.getAlarmOritation());
-            }
-        } else {
-            view_alarm.setVisibility(View.GONE);
-            alarmOrientation = 0;
+            BlinkAnim.blink(iv_other, bean.fcwAlarm != 0);
         }
     }
+
+//    private boolean isAlarmViewInit = false;
+
+//    private void addAlarm(ViewGroup viewGroup, CarBean bean) {
+//        if (bean.fcwAlarm != 0) {
+//            view_alarm.setVisibility(View.VISIBLE);
+//            if (!isAlarmViewInit) {
+//                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                int alarmWidth = ((int) CarUtils.getInstance().carWidth - 20);
+//                layoutParams.width = alarmWidth;
+//                layoutParams.height = alarmWidth;
+//                layoutParams.leftMargin = bean.getAlarmLeftMargin();
+//                layoutParams.topMargin = bean.getAlarmTopMargin();
+//                viewGroup.addView(view_alarm, layoutParams);
+//                isAlarmViewInit = true;
+//                BlinkAnim.blink(view_alarm, bean.getAlarmOritation());
+//            } else {
+//                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view_alarm.getLayoutParams();
+//                int alarmWidth = ((int) CarUtils.getInstance().carWidth - 20);
+//                layoutParams.width = alarmWidth;
+//                layoutParams.height = alarmWidth;
+//                layoutParams.leftMargin = bean.getAlarmLeftMargin();
+//                layoutParams.topMargin = bean.getAlarmTopMargin();
+//                view_alarm.setLayoutParams(layoutParams);
+//            }
+//            if (bean.getAlarmOritation() != alarmOrientation) {
+//                BlinkAnim.blink(view_alarm, bean.getAlarmOritation());
+//            }
+//        } else {
+//            view_alarm.setVisibility(View.GONE);
+//            alarmOrientation = 0;
+//        }
+//    }
 
 }

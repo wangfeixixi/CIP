@@ -3,13 +3,13 @@
     android:oneshot="false">
 
     <item
-        android:drawable="@mipmap/signal1"
-        android:duration="200" />
+        android:drawable="@mipmap/car_1"
+        android:duration="500" />
     <item
-        android:drawable="@mipmap/signal2"
-        android:duration="200" />
+        android:drawable="@mipmap/car_2"
+        android:duration="500" />
     <item
-        android:drawable="@mipmap/signal3"
-        android:duration="200" />
+        android:drawable="@mipmap/car_3"
+        android:duration="500" />
 
 </animation-list>

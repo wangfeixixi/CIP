@@ -1,5 +1,6 @@
 package wangfeixixi.cip.beans;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import wangfeixixi.cip.widget.carview.CarBean;
@@ -20,6 +21,12 @@ public class JsonRootBean {
 //        sb.append("\nmagic:" + magic);
 //        sb.append("\nnov:" + nov);
         sb.append("\nsn:" + sn);
+        double jvli = 0;
+        if (rvDatas != null && rvDatas.size() > 0) {
+            double sqrt = Math.sqrt(Math.abs(rvDatas.get(0).x) * Math.abs(rvDatas.get(0).x) + Math.abs(rvDatas.get(0).y) * Math.abs(rvDatas.get(0).y));
+            jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
+        }
+        sb.append("\n距离:" + jvli);
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         sb.append("\n\n本车数据：");
         sb.append(hvDatas.toString());

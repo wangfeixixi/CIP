@@ -58,7 +58,7 @@
 //        EventBus.getDefault().register(this);
 //        mLbs = new GaodeMapService(this);
 //        binding.flMapContainer.addView(mLbs.getMap());
-//        mLbs.setLocationRes(R.mipmap.car);
+//        mLbs.setLocationRes(R.mipmap.carDiagonal);
 //
 //        sotwFormatter = new SOTWFormatter(this);
 //        setupCompass();
@@ -156,7 +156,7 @@
 //    private void updateLbs(ArrayList<CarBean> list) {
 //        mLbs.clearAllMarker();
 //        for (int i = 0; i < list.size(); i++) {
-//            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), list.get(i).latitude, list.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+//            mLbs.addOrUpdateMarker(new LocationInfo(String.valueOf(i), list.get(i).latitude, list.get(i).longitude), BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.carDiagonal), 0.1f));
 //        }
 //        mLbs.moveCamera(new LocationInfo("自身", list.get(0).latitude, list.get(0).longitude), 20);
 //    }
