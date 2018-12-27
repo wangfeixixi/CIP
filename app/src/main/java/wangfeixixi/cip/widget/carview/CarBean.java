@@ -126,8 +126,8 @@ public class CarBean {
         sb.append("\ny:" + y);
 //        sb.append("\nleftMargin:" + getLeftMargin());
 //        sb.append("\ntopMargin:" + getTopMargin());
-        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));
-        sb.append("\n原点x:" + (ScreenUtils.getScreenWidth() / 2));
+//        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));
+//        sb.append("\n原点x:" + (ScreenUtils.getScreenWidth() / 2));
 //        CarBean bean = CarUtils.getInstance().filterOver(this);
 //        sb.append("\n修正:" + bean.x + "  " + bean.y);
 

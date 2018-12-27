@@ -29,8 +29,11 @@ public class JsonRootBean {
 //            sqrt -= mixDiagonal;
             jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
         }
-        sb.append("\n最短距离:" + mixDiagonal);
-        sb.append("\n距离:" + jvli);
+        if (jvli >= mixDiagonal) {
+            sb.append("\n修正距离:" + (jvli - mixDiagonal));
+        } else {
+            sb.append("\n距离:" + 0);
+        }
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         sb.append("\n\n本车数据：");
         sb.append(hvDatas.toString());

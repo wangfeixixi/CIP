@@ -30,8 +30,8 @@ public class CarUtils {
 //        carWidth = carSelfOpts.outWidth;
 //        carLength = carSelfOpts.outHeight;
 
-        carWidth = 2.5f * carBitmapScale;
-        carLength = 4f * carBitmapScale;
+        carWidth = 3f * carBitmapScale;
+        carLength = 3f * carBitmapScale;
 //        //远车
 //        BitmapFactory.Options carOtherOpts = new BitmapFactory.Options();
 //        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
@@ -45,7 +45,7 @@ public class CarUtils {
         carDiagonal = (float) Math.sqrt(Math.abs(carWidth) * Math.abs(carWidth) + Math.abs(carLength) * Math.abs(carLength));
 
         alarmWidth = 1.5f * carBitmapScale;
-        roadWidth = 18 * scale;
+        roadWidth = 2 * carBitmapScale * scale;
         carViewHeight = ScreenUtils.getScreenHeight() / 3 * 2;
         carViewWidth = ScreenUtils.getScreenWidth();
         x0 = carViewWidth / 2;
@@ -68,7 +68,7 @@ public class CarUtils {
     /**
      * 车辆图片的缩放
      */
-    public float carBitmapScale = 3f;
+    public float carBitmapScale = 8f;
 
     public float carWidth;//车宽
     public float carLength;//车长
@@ -101,24 +101,46 @@ public class CarUtils {
     }
 
     public CarBean filterOver(CarBean carBean) {
+        float carLengthTemp = carLength - 3;
+        float carWidthTemp = carWidth - 12;
         float diagonal = (float) Math.sqrt(carBean.x * carBean.x + carBean.y * carBean.y);
-        if (CarUtils.getInstance().carLength / CarUtils.getInstance().carWidth >= Math.abs(carBean.y / carBean.x)) {  //x方向
-            float diagonalMix = Math.abs(carWidth * diagonal / carBean.x);
+        if (carLengthTemp / carWidthTemp >= Math.abs(carBean.y / carBean.x)) {  //x方向
+            float diagonalMix = Math.abs(carWidthTemp * diagonal / carBean.x);
             if (diagonal < diagonalMix) {//需要修正数据
-                carBean.x = carBean.x > 0 ? carWidth : -carWidth;
-                float yAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carWidth * carWidth);
+                carBean.x = carBean.x > 0 ? carWidthTemp : -carWidthTemp;
+                float yAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carWidthTemp * carWidthTemp);
                 carBean.y = carBean.y > 0 ? yAbs : -yAbs;
             }
         } else {//y方向
-            float diagonalMix = Math.abs(carLength * diagonal / carBean.y);
+            float diagonalMix = Math.abs(carLengthTemp * diagonal / carBean.y);
             if (diagonal < diagonalMix) {//需要修正数据
-                carBean.y = carBean.y > 0 ? carLength : -carLength;
-                float xAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carLength * carLength);
+                carBean.y = carBean.y > 0 ? carLengthTemp : -carLengthTemp;
+                float xAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carLengthTemp * carLengthTemp);
                 carBean.x = (carBean.x > 0 ? xAbs : -xAbs);
             }
         }
         return carBean;
     }
+
+//    public CarBean filterOver(CarBean carBean) {
+//        float diagonal = (float) Math.sqrt(carBean.x * carBean.x + carBean.y * carBean.y);
+//        if (CarUtils.getInstance().carLength / CarUtils.getInstance().carWidth >= Math.abs(carBean.y / carBean.x)) {  //x方向
+//            float diagonalMix = Math.abs(carWidth * diagonal / carBean.x);
+//            if (diagonal < diagonalMix) {//需要修正数据
+//                carBean.x = carBean.x > 0 ? carWidth : -carWidth;
+//                float yAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carWidth * carWidth);
+//                carBean.y = carBean.y > 0 ? yAbs : -yAbs;
+//            }
+//        } else {//y方向
+//            float diagonalMix = Math.abs(carLength * diagonal / carBean.y);
+//            if (diagonal < diagonalMix) {//需要修正数据
+//                carBean.y = carBean.y > 0 ? carLength : -carLength;
+//                float xAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carLength * carLength);
+//                carBean.x = (carBean.x > 0 ? xAbs : -xAbs);
+//            }
+//        }
+//        return carBean;
+//    }
 
     /**
      * 两图相接两个中心最小距离：首先判断是两图片的长相接还是宽相接

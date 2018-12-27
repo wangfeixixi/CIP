@@ -82,7 +82,7 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
 
 
-        ChildCar.getInstance().addBenCar(rl_carview, new CarBean());
+//        ChildCar.getInstance().addBenCar(rl_carview, new CarBean());
 
     }
 
@@ -93,10 +93,10 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
         int time = 2000;
-//        if (bean.hvDatas != null) {
-//            ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
+        if (bean.hvDatas != null) {
+            ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
 //            time = speed2Time(bean.hvDatas.speed * 3.6f);
-//        }
+        }
 
         if (bean.rvDatas != null && bean.rvDatas.size() > 0)
             for (int i = 0; i < bean.rvDatas.size(); i++)

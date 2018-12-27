@@ -93,7 +93,7 @@ public class UdpServerRunable implements Runnable {
     private void onReceiveDatas(String string) {
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
-        if (timeTemp > 100) {
+        if (timeTemp > 1) {
             if (listener != null) {
                 listener.onResultListener(JSON.parseObject(string, JsonRootBean.class));
             }
