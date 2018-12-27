@@ -128,11 +128,11 @@
         <!--android:text="记录 " />-->
     </RelativeLayout>
 
-    <com.like.LikeButton
-        android:id="@+id/btn_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:icon_size="32dp"
-        app:icon_type="thumb" />
+    <!--<com.like.LikeButton-->
+        <!--android:id="@+id/btn_start"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--app:icon_size="32dp"-->
+        <!--app:icon_type="thumb" />-->
 </RelativeLayout>

@@ -74,11 +74,11 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
             @Override
             public void onLocationChange(LocationInfo locationInfo) {
 //                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.carDiagonal));
-                mLbs.moveCamera(locationInfo, 20);
+                mLbs.moveCamera(locationInfo, 14);
             }
         });
 
-        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
+//        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
     }
 
     TextView tv_warning;
@@ -108,8 +108,8 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
             }
 
             lastTime = nowTime;
-            if (bean.rvDatas != null && bean.rvDatas.size() > 0 && bean.rvDatas.get(0).fcwAlarm != 0)
-                VoiceUtil.getInstance().speek("保持距离");
+//            if (bean.rvDatas != null && bean.rvDatas.size() > 0 && bean.rvDatas.get(0).fcwAlarm != 0)
+//                VoiceUtil.getInstance().speek("保持距离");
         }
     }
 

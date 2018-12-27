@@ -45,6 +45,17 @@ public class ChildContainer {
         return fl;
     }
 
+    public static FrameLayout addAllMap(RelativeLayout rl_father) {
+        FrameLayout fl = new FrameLayout(UIUtils.getContext());
+//        imageView.setBackgroundResource(R.mipmap.map);
+        RelativeLayout.LayoutParams ivLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        ivLP.width = (int) (CarUtils.getInstance().carViewWidth);
+//        ivLP.topMargin = CarUtils.getInstance().carViewHeight + 8;
+//        ivLP.height = (int) (CarUtils.getInstance().carViewHeight / 2);
+        rl_father.addView(fl, ivLP);
+        return fl;
+    }
+
     private static int lineHeight = 8;
 
     public static void addLine(RelativeLayout rl_father) {
