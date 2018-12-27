@@ -14,6 +14,7 @@ public class CarBean {
     public String remoteId = "0";
     public long timestampMs;
     public long timestampSecond;
+    public double distance;
     public float x = 0;
     public float y = 0;
 
@@ -117,6 +118,7 @@ public class CarBean {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("remoteId:" + remoteId);
+        sb.append("\ndistance：" + distance);
         sb.append("\nfcwAlarm:" + fcwAlarm);
         sb.append("\nheading:" + heading);
         sb.append("\nspeed:" + speed * 3.6f);

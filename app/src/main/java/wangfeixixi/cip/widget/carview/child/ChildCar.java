@@ -104,7 +104,7 @@ public class ChildCar {
             iv_other.setLayoutParams(layoutParams1);
             BlinkAnim.blink(iv_other, bean.fcwAlarm != 0);
         }
-        iv_other.setRotation(bean.heading - benHeading);
+//        iv_other.setRotation(bean.heading - benHeading);
     }
 
 //    private boolean isAlarmViewInit = false;

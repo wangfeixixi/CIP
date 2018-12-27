@@ -52,7 +52,6 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         layoutParams.height = (int) (ScreenUtils.getScreenHeight());
         getWindow().addContentView(rl_father, layoutParams);
 
-
         //添加分界线
         ChildContainer.addLine(rl_father);
 
@@ -80,10 +79,6 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         });
 
         VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
-
-
-//        ChildCar.getInstance().addBenCar(rl_carview, new CarBean());
-
     }
 
     TextView tv_warning;
@@ -95,7 +90,6 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
         int time = 2000;
         if (bean.hvDatas != null) {
             ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
-//            time = speed2Time(bean.hvDatas.speed * 3.6f);
         }
 
         if (bean.rvDatas != null && bean.rvDatas.size() > 0)
@@ -114,34 +108,10 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
             }
 
             lastTime = nowTime;
-            if (bean.rvDatas != null && bean.rvDatas.get(0).fcwAlarm != 0)
+            if (bean.rvDatas != null && bean.rvDatas.size() > 0 && bean.rvDatas.get(0).fcwAlarm != 0)
                 VoiceUtil.getInstance().speek("保持距离");
         }
-
-//        if (timeTemp > time) {
-//            updateLbs(bean);//相当耗时
-//
-//            TranslateAnim.startTranslateAnim(iv_left_floor, time);
-//            TranslateAnim.startTranslateAnim(iv_right_floor, time);
-//            lastTime = nowTime;
-//        }
     }
-
-//    private int speed2Time(float v) {
-//        if (v == 0) {
-//            return 3000;
-//        } else if (v < 30) {
-//            return 2000;
-//        } else if (v < 60) {
-//            return 1800;
-//        } else if (v < 90) {
-//            return 1600;
-//        } else if (v < 120) {
-//            return 1400;
-//        } else {
-//            return 1000;
-//        }
-//    }
 
     private void updateLbs(JsonRootBean jsonRootBean) {
 //        mLbs.clearAllMarker();
