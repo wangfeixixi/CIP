@@ -83,6 +83,7 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
 
 
         ChildCar.getInstance().addBenCar(rl_carview, new CarBean());
+
     }
 
     TextView tv_warning;
@@ -103,9 +104,15 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
 
         if (timeTemp > time) {
             updateLbs(bean);//相当耗时
-//            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
-            if (bean.hvDatas != null && bean.hvDatas.speed != 0)
-                TranslateAnim.switchSpeedAnim(iv_left_floor, iv_right_floor, 3000);
+            if (bean.hvDatas != null) {
+                if (bean.hvDatas.speed != 0) {
+                    TranslateAnim.startTranslateAnim(iv_left_floor, iv_right_floor, 3000);
+                } else {
+                    iv_left_floor.clearAnimation();
+                    iv_right_floor.clearAnimation();
+                }
+            }
+
             lastTime = nowTime;
             if (bean.rvDatas != null && bean.rvDatas.get(0).fcwAlarm != 0)
                 VoiceUtil.getInstance().speek("保持距离");
@@ -114,8 +121,8 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
 //        if (timeTemp > time) {
 //            updateLbs(bean);//相当耗时
 //
-//            TranslateAnim.switchSpeedAnim(iv_left_floor, time);
-//            TranslateAnim.switchSpeedAnim(iv_right_floor, time);
+//            TranslateAnim.startTranslateAnim(iv_left_floor, time);
+//            TranslateAnim.startTranslateAnim(iv_right_floor, time);
 //            lastTime = nowTime;
 //        }
     }

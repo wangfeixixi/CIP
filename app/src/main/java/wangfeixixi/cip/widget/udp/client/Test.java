@@ -22,6 +22,7 @@ public class Test {
             "\t\t\"timestampMs\" : 0,\n" +
             "\t\t\"timestampSecond\" : 0,\n" +
             "\t\t\"x\" : 0.0,\n" +
+
             "\t\t\"y\" : 0.0\n" +
             "\t},\n" +
             "\t\"magic\" : 2857740885,\n" +
@@ -38,7 +39,7 @@ public class Test {
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
             "\t\t\t\"x\" : -1,\n" +
-            "\t\t\t\"y\" : 2,\n" +
+            "\t\t\t\"y\" : 3,\n" +
             "\t\t}\n" +
             "\t],\n" +
             "\t\"sn\" : 1\n" +

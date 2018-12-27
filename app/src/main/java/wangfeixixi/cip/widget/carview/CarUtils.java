@@ -45,7 +45,7 @@ public class CarUtils {
         carDiagonal = (float) Math.sqrt(Math.abs(carWidth) * Math.abs(carWidth) + Math.abs(carLength) * Math.abs(carLength));
 
         alarmWidth = 1.5f * carBitmapScale;
-        roadWidth = 8 * scale;
+        roadWidth = 18 * scale;
         carViewHeight = ScreenUtils.getScreenHeight() / 3 * 2;
         carViewWidth = ScreenUtils.getScreenWidth();
         x0 = carViewWidth / 2;
@@ -68,7 +68,7 @@ public class CarUtils {
     /**
      * 车辆图片的缩放
      */
-    public float carBitmapScale = 2f;
+    public float carBitmapScale = 3f;
 
     public float carWidth;//车宽
     public float carLength;//车长
@@ -101,30 +101,39 @@ public class CarUtils {
     }
 
     public CarBean filterOver(CarBean carBean) {
-        int diagonal = (int) Math.sqrt(Math.abs(carBean.x) * Math.abs(carBean.x) + Math.abs(carBean.y) * Math.abs(carBean.y));
-//        if (diagonal < carDiagonal) {
-//            carBean.x = carBean.x > 0 ? carWidth : -carWidth;
-//            carBean.y = carBean.y > 0 ? carLength : -carLength;
-//
-//
-//        }
-        if (y0 / x0 >= carBean.y / carBean.x) {  //x方向
-            int diagonalMix = (int) Math.abs(carWidth * diagonal / carBean.x);
+        float diagonal = (float) Math.sqrt(carBean.x * carBean.x + carBean.y * carBean.y);
+        if (CarUtils.getInstance().carLength / CarUtils.getInstance().carWidth >= Math.abs(carBean.y / carBean.x)) {  //x方向
+            float diagonalMix = Math.abs(carWidth * diagonal / carBean.x);
             if (diagonal < diagonalMix) {//需要修正数据
                 carBean.x = carBean.x > 0 ? carWidth : -carWidth;
-                int yAbs = (int) Math.sqrt(Math.abs(diagonalMix) * Math.abs(diagonalMix) - Math.abs(carWidth) * Math.abs(carWidth));
+                float yAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carWidth * carWidth);
                 carBean.y = carBean.y > 0 ? yAbs : -yAbs;
             }
-        } else {
-            //y方向
-            int diagonalMix = (int) Math.abs(carLength * diagonal / carBean.y);
+        } else {//y方向
+            float diagonalMix = Math.abs(carLength * diagonal / carBean.y);
             if (diagonal < diagonalMix) {//需要修正数据
                 carBean.y = carBean.y > 0 ? carLength : -carLength;
-                int xAbs = (int) Math.sqrt(Math.abs(diagonalMix) * Math.abs(diagonalMix) - Math.abs(carLength) * Math.abs(carLength));
-                carBean.x = (float) (carBean.x > 0 ? xAbs : -xAbs);
+                float xAbs = (float) Math.sqrt(diagonalMix * diagonalMix - carLength * carLength);
+                carBean.x = (carBean.x > 0 ? xAbs : -xAbs);
             }
         }
         return carBean;
+    }
+
+    /**
+     * 两图相接两个中心最小距离：首先判断是两图片的长相接还是宽相接
+     *
+     * @param x 中心点x
+     * @param y 中心点y
+     * @return 两个中心最小距离
+     */
+    public float getMixDiagonal(float x, float y) {
+        float diagonal = (float) Math.sqrt(x * x + y * y);
+        if (CarUtils.getInstance().carLength / CarUtils.getInstance().carWidth >= Math.abs(y / x)) {  //x方向
+            return Math.abs(carWidth * diagonal / x);
+        } else {//y方向
+            return Math.abs(carLength * diagonal / y);
+        }
     }
 
     ////////////////////////////////////动态代码/////////////////////////////////////////////////////

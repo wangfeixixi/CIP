@@ -23,16 +23,17 @@ public class TranslateAnim {
 
     public static boolean isStartAnim = false;
 
-    public static void switchSpeedAnim(final View left, final View right, final float duration) {
+    public static void startTranslateAnim(final View left, final View right, final float duration) {
         repeate = 1;
         if (isStartAnim) return;
 
         right.clearAnimation();
         left.clearAnimation();
-        left.startAnimation(getAnimation(duration));
-        right.startAnimation(getAnimation(duration));
 
         TranslateAnimation animation = getAnimation(duration);
+
+        left.startAnimation(animation);
+        right.startAnimation(animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -44,8 +45,8 @@ public class TranslateAnim {
             public void onAnimationEnd(Animation animation) {
                 isStartAnim = false;
                 if (repeate != 0) {
-                    left.startAnimation(getAnimation(duration));
-                    right.startAnimation(getAnimation(duration));
+                    left.startAnimation(animation);
+                    right.startAnimation(animation);
                 }
             }
 
