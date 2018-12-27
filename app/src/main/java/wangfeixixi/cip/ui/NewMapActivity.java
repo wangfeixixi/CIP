@@ -2,7 +2,6 @@ package wangfeixixi.cip.ui;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,8 +18,6 @@ import wangfeixixi.cip.widget.carview.child.ChildContainer;
 import wangfeixixi.cip.widget.carview.child.ChildLog;
 import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
-import wangfeixixi.cip.widget.udp.UDPUtils;
-import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
 import wangfeixixi.cip.widget.udp.sevice.UDPService;
 import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.ServiceUtils;
@@ -32,7 +29,7 @@ import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
-public class NewMapActivity extends BaseActivity implements IUDPResultListener {
+public class NewMapActivity extends BaseActivity {
 
     private RelativeLayout rl_carview;
     private RelativeLayout rl_father;
@@ -43,10 +40,8 @@ public class NewMapActivity extends BaseActivity implements IUDPResultListener {
     private FrameLayout mapContainer;
     private GaodeMapService mLbs;
 
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView(Bundle savedInstanceState) {
         rl_father = new RelativeLayout(this);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.width = (int) (ScreenUtils.getScreenWidth());
@@ -70,6 +65,10 @@ public class NewMapActivity extends BaseActivity implements IUDPResultListener {
         mLbs = new GaodeMapService(this);
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initData() {
 //        mLbs.setLocationRes(R.mipmap.carDiagonal);
         mLbs.setLocationChangeListener(new OnLocationListener() {
             @Override
@@ -82,20 +81,12 @@ public class NewMapActivity extends BaseActivity implements IUDPResultListener {
 //        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
     }
 
-    @Override
-    protected void initView(Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
     TextView tv_warning;
     public long lastTime = 0;
 
-    public void receiveCars(JsonRootBean bean) {
+    @Override
+    protected void onReceiveJsonBean(JsonRootBean bean) {
+        tv_warning.setText(bean.toString());
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
         int time = 2000;
@@ -140,34 +131,9 @@ public class NewMapActivity extends BaseActivity implements IUDPResultListener {
     }
 
     @Override
-    public void onResultListener(final JsonRootBean bean) {
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                tv_warning.setText(bean.toString());
-//                receiveCars(bean);
-//            }
-//        });
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         mLbs.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        UDPUtils.startServer(this);
-        ServiceUtils.startService(UDPService.class);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        UDPUtils.stopServer();
-        ServiceUtils.stopService(UDPService.class);
     }
 
     @Override
@@ -183,27 +149,8 @@ public class NewMapActivity extends BaseActivity implements IUDPResultListener {
     }
 
     @Override
-    protected void onReceiveJsonBean(JsonRootBean bean) {
-        tv_warning.setText(bean.toString());
-        receiveCars(bean);
-    }
-
-    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mLbs.onSaveInstanceState(outState);
-    }
-
-    private long lastBackTime = 0;
-
-    @Override
-    public void onBackPressed() {
-        long nowBackTime = System.currentTimeMillis();
-        if (nowBackTime - lastBackTime < 300) {
-            super.onBackPressed();
-        } else {
-            ToastUtils.showShort("双击推出");
-            lastBackTime = nowBackTime;
-        }
     }
 }

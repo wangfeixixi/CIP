@@ -10,6 +10,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.widget.udp.sevice.UDPService;
+import wangfeixixi.com.base.ServiceUtils;
+import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -44,4 +47,29 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract void onReceiveJsonBean(JsonRootBean bean);
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ServiceUtils.startService(UDPService.class);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ServiceUtils.stopService(UDPService.class);
+    }
+
+    private long lastBackTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long nowBackTime = System.currentTimeMillis();
+        if (nowBackTime - lastBackTime < 300) {
+            super.onBackPressed();
+        } else {
+            ToastUtils.showShort("双击推出");
+            lastBackTime = nowBackTime;
+        }
+    }
 }

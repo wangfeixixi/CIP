@@ -11,7 +11,7 @@
 //import wangfeixixi.cip.R;
 //import wangfeixixi.cip.beans.JsonRootBean;
 //import wangfeixixi.cip.fram.BaseActivity;
-//import wangfeixixi.cip.widget.udp.UDPUtils;
+//import wangfeixixi.cip.widget.udp.server.UDPUtils;
 //
 //public class UDPServerTestActivity extends BaseActivity {
 //

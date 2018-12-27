@@ -14,7 +14,6 @@ import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.widget.udp.UDPConfig;
-import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
 import wangfeixixi.com.base.ServiceUtils;
 import wangfeixixi.com.base.crash.LogUtils;
 
@@ -55,13 +54,6 @@ public class UdpInnerServerRunable implements Runnable {
         dpSend = new DatagramPacket(sendStr.getBytes(), sendStr.getBytes().length, dpRcv.getAddress(), dpRcv.getPort());
         ds.send(dpSend);
     }
-
-    public IUDPResultListener listener;
-
-    public void setResultListener(IUDPResultListener listener) {
-        this.listener = listener;
-    }
-
     @Override
     public void run() {
         inetSocketAddress = new InetSocketAddress(UDPConfig.url, UDPConfig.port);

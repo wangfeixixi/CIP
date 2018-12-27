@@ -19,8 +19,6 @@ import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.child.ChildContainer;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
-import wangfeixixi.cip.widget.udp.UDPUtils;
-import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
 import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
@@ -29,7 +27,7 @@ import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
-public class MapActivity extends BaseActivity implements IUDPResultListener {
+public class MapActivity extends BaseActivity {
     private RelativeLayout rl_father;
     private FrameLayout mapContainer;
     private GaodeMapService mLbs;
@@ -70,7 +68,7 @@ public class MapActivity extends BaseActivity implements IUDPResultListener {
     public long lastTime = 0;
 
     @Override
-    public void onResultListener(JsonRootBean bean) {
+    protected void onReceiveJsonBean(JsonRootBean bean) {
         long nowTime = System.currentTimeMillis();
         long timeTemp = nowTime - lastTime;
         int time = 2000;
@@ -191,18 +189,6 @@ public class MapActivity extends BaseActivity implements IUDPResultListener {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        UDPUtils.startServer(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        UDPUtils.stopServer();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         mLbs.onPause();
@@ -218,10 +204,5 @@ public class MapActivity extends BaseActivity implements IUDPResultListener {
     protected void onDestroy() {
         super.onDestroy();
         mLbs.onDestroy();
-    }
-
-    @Override
-    protected void onReceiveJsonBean(JsonRootBean bean) {
-
     }
 }
