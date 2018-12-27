@@ -85,7 +85,6 @@ public class ChildCar {
 
     public void addUpdateOtherCar(ViewGroup viewGroup, CarBean bean) {
         bean = CarUtils.getInstance().filterOver(bean);
-        LogUtils.d("转换过后的bean" + bean.toString());
 
         if (!isOtherCarInit) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

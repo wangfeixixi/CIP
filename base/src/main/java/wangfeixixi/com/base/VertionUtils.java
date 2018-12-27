@@ -11,8 +11,8 @@ public class VertionUtils {
     }
 
     //版本号
-    public static String getVersionCode() {
-        return getPackageInfo(UIUtils.getContext()).versionName;
+    public static int getVersionCode() {
+        return getPackageInfo(UIUtils.getContext()).versionCode;
     }
 
     private static PackageInfo getPackageInfo(Context context) {

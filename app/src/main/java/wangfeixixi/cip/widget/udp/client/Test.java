@@ -22,7 +22,6 @@ public class Test {
             "\t\t\"timestampMs\" : 0,\n" +
             "\t\t\"timestampSecond\" : 0,\n" +
             "\t\t\"x\" : 0.0,\n" +
-
             "\t\t\"y\" : 0.0\n" +
             "\t},\n" +
             "\t\"magic\" : 2857740885,\n" +
@@ -32,14 +31,14 @@ public class Test {
             "\t\t{\n" +
             "\t\t\t\"fcwAlarm\" : 1,\n" +
             "\t\t\t\"heading\" : 0,\n" +
-            "\t\t\t\"latitude\" : 30.329397,\n" +
-            "\t\t\t\"longitude\" : 121.315383,\n" +
+            "\t\t\t\"latitude\" : 30377028,\n" +
+            "\t\t\t\"longitude\" : 1212385010,\n" +
             "\t\t\t\"remoteId\" : 67239940,\n" +
             "\t\t\t\"speed\" : 30,\n" +
             "\t\t\t\"timestampMs\" : 850,\n" +
             "\t\t\t\"timestampSecond\" : 1544169563,\n" +
-            "\t\t\t\"x\" : 30,\n" +
-            "\t\t\t\"y\" : 30,\n" +
+            "\t\t\t\"x\" : 0,\n" +
+            "\t\t\t\"y\" : 1,\n" +
             "\t\t}\n" +
             "\t],\n" +
             "\t\"sn\" : 1\n" +

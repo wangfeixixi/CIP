@@ -64,7 +64,7 @@ public class UdpServerRunable implements Runnable {
         try {
             ds = new DatagramSocket(inetSocketAddress);
             LogUtils.d("UDP服务器已经启动");
-//            SetSoTime(10000);
+            SetSoTime(0);
             //设置超时，不需要可以删除
         } catch (SocketException e) {
             e.printStackTrace();

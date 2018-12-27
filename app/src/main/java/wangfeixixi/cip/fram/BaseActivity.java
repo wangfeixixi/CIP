@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import wangfeixixi.cip.beans.JsonRootBean;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -33,4 +37,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             EventBus.getDefault().unregister(this);
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveDatas(JsonRootBean bean) {
+        onReceiveJsonBean(bean);
+    }
+
+    protected abstract void onReceiveJsonBean(JsonRootBean bean);
 }

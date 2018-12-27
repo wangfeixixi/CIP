@@ -101,8 +101,8 @@ public class CarUtils {
     }
 
     public CarBean filterOver(CarBean carBean) {
-        float carLengthTemp = carLength - 3;
-        float carWidthTemp = carWidth - 12;
+        float carLengthTemp = carLength;
+        float carWidthTemp = carWidth;
         float diagonal = (float) Math.sqrt(carBean.x * carBean.x + carBean.y * carBean.y);
         if (carLengthTemp / carWidthTemp >= Math.abs(carBean.y / carBean.x)) {  //x方向
             float diagonalMix = Math.abs(carWidthTemp * diagonal / carBean.x);

@@ -66,20 +66,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/theme_all">
-        <!--<activity-->
-            <!--android:name=".ui.NewMapActivity"-->
-            <!--android:icon="@mipmap/icon"-->
-            <!--android:label="V2X"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/theme_launch">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".ui.NewMapActivity"
+            android:icon="@mipmap/icon"
+            android:label="V2X"
+            android:screenOrientation="portrait"
+            android:theme="@style/theme_launch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
-        <!--</activity>-->
+        </activity>
         <activity
             android:name=".ui.map.MapActivity"
             android:icon="@mipmap/icon"
@@ -92,6 +92,8 @@
             </intent-filter>
 
         </activity>
+
+        <service android:name=".widget.udp.sevice.UDPService" />
 
         <!--<activity-->
         <!--android:name=".ui.CarViewActivity"-->

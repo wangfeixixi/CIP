@@ -3,7 +3,6 @@ package wangfeixixi.cip.ui;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
 import wangfeixixi.cip.widget.carview.child.ChildCar;
@@ -21,17 +21,18 @@ import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
 import wangfeixixi.cip.widget.udp.UDPUtils;
 import wangfeixixi.cip.widget.udp.server.IUDPResultListener;
+import wangfeixixi.cip.widget.udp.sevice.UDPService;
 import wangfeixixi.com.base.ScreenUtils;
+import wangfeixixi.com.base.ServiceUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
 import wangfeixixi.com.base.mvvm.utils.ToastUtils;
-import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
-public class NewMapActivity extends AppCompatActivity implements IUDPResultListener {
+public class NewMapActivity extends BaseActivity implements IUDPResultListener {
 
     private RelativeLayout rl_carview;
     private RelativeLayout rl_father;
@@ -81,6 +82,16 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
 //        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
     }
 
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
     TextView tv_warning;
     public long lastTime = 0;
 
@@ -122,7 +133,7 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
             for (int i = 0; i < jsonRootBean.rvDatas.size(); i++) {
                 bean = jsonRootBean.rvDatas.get(i);
                 gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
-                local = new LocationInfo(String.valueOf(i), "carDiagonal", gps.getWgLat(), gps.getWgLon(), bean.heading);
+                local = new LocationInfo(String.valueOf(i), gps.getWgLat(), gps.getWgLon());
                 mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
 //                mLbs.moveCamera(local, 20);
             }
@@ -130,13 +141,13 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
 
     @Override
     public void onResultListener(final JsonRootBean bean) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                tv_warning.setText(bean.toString());
-                receiveCars(bean);
-            }
-        });
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                tv_warning.setText(bean.toString());
+//                receiveCars(bean);
+//            }
+//        });
     }
 
     @Override
@@ -148,13 +159,15 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
     @Override
     protected void onStart() {
         super.onStart();
-        UDPUtils.startServer(this);
+//        UDPUtils.startServer(this);
+        ServiceUtils.startService(UDPService.class);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        UDPUtils.stopServer();
+//        UDPUtils.stopServer();
+        ServiceUtils.stopService(UDPService.class);
     }
 
     @Override
@@ -167,6 +180,12 @@ public class NewMapActivity extends AppCompatActivity implements IUDPResultListe
     protected void onDestroy() {
         super.onDestroy();
         mLbs.onDestroy();
+    }
+
+    @Override
+    protected void onReceiveJsonBean(JsonRootBean bean) {
+        tv_warning.setText(bean.toString());
+        receiveCars(bean);
     }
 
     @Override

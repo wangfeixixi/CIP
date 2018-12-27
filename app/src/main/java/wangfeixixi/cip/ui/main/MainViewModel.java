@@ -45,7 +45,7 @@
 //                    }
 //                });
 //            } else {
-//                UDPUtils.stopServer();
+//                UDPUtils.stopUDP();
 //            }
 //            isStartUDP.set(!isStartUDP.get());
 //

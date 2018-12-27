@@ -21,7 +21,7 @@ public class ChildLog {
         tv_warning.setVisibility(View.GONE);
         tv_warning.setTextColor(Color.parseColor("#000000"));
 
-        RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        rllp.width = ScreenUtils.getScreenWidth();
 //        rllp.height = ScreenUtils.getScreenHeight();
         rl_father.addView(tv_warning, rllp);

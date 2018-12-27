@@ -219,4 +219,9 @@ public class MapActivity extends BaseActivity implements IUDPResultListener {
         super.onDestroy();
         mLbs.onDestroy();
     }
+
+    @Override
+    protected void onReceiveJsonBean(JsonRootBean bean) {
+
+    }
 }
