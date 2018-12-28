@@ -18,13 +18,12 @@ import wangfeixixi.cip.widget.carview.child.ChildContainer;
 import wangfeixixi.cip.widget.carview.child.ChildLog;
 import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
-import wangfeixixi.cip.widget.udp.sevice.UDPService;
 import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.ServiceUtils;
+import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
 import wangfeixixi.com.base.location.PositionUtil;
-import wangfeixixi.com.base.mvvm.utils.ToastUtils;
+import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
@@ -74,15 +73,22 @@ public class NewMapActivity extends BaseActivity {
             @Override
             public void onLocationChange(LocationInfo locationInfo) {
 //                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.carDiagonal));
-                mLbs.moveCamera(locationInfo, 14);
+                mLbs.moveCamera(locationInfo, scale);
             }
         });
 
-//        VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
+        ThreadUtils.runOnBackThread(new Runnable() {
+            @Override
+            public void run() {
+                VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
+            }
+        });
     }
 
     TextView tv_warning;
     public long lastTime = 0;
+
+    private int scale = 16;
 
     @Override
     protected void onReceiveJsonBean(JsonRootBean bean) {
@@ -94,9 +100,13 @@ public class NewMapActivity extends BaseActivity {
             ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
         }
 
-        if (bean.rvDatas != null && bean.rvDatas.size() > 0)
-            for (int i = 0; i < bean.rvDatas.size(); i++)
+        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
+            for (int i = 0; i < bean.rvDatas.size(); i++) {
                 ChildCar.getInstance().addUpdateOtherCar(rl_carview, bean.rvDatas.get(i));
+                scale = bean.rvDatas.get(i).fcwAlarm == 0 ? 16 : 20;
+            }
+        }
+
 
         if (timeTemp > time) {
             updateLbs(bean);//相当耗时
@@ -110,8 +120,8 @@ public class NewMapActivity extends BaseActivity {
             }
 
             lastTime = nowTime;
-//            if (bean.rvDatas != null && bean.rvDatas.size() > 0 && bean.rvDatas.get(0).fcwAlarm != 0)
-//                VoiceUtil.getInstance().speek("保持距离");
+            if (bean.rvDatas != null && bean.rvDatas.size() > 0 && bean.rvDatas.get(0).fcwAlarm != 0)
+                VoiceUtil.getInstance().speek("保持距离");
         }
     }
 
@@ -125,7 +135,7 @@ public class NewMapActivity extends BaseActivity {
                 bean = jsonRootBean.rvDatas.get(i);
                 gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
                 local = new LocationInfo(String.valueOf(i), gps.getWgLat(), gps.getWgLon());
-                mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
+                mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.dot), 0.1f));
 //                mLbs.moveCamera(local, 20);
             }
     }

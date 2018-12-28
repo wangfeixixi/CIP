@@ -1,7 +1,5 @@
 package wangfeixixi.cip.widget.carview;
 
-import wangfeixixi.com.base.ScreenUtils;
-
 /**
  * 车辆自身为原点坐标系
  */

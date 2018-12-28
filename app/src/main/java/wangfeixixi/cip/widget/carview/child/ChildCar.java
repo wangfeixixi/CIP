@@ -84,7 +84,7 @@ public class ChildCar {
     public boolean isOtherCarInit = false;
 
     public void addUpdateOtherCar(ViewGroup viewGroup, CarBean bean) {
-        bean = CarUtils.getInstance().filterOver(bean);
+//        bean = CarUtils.getInstance().filterOver(bean);
 
         if (!isOtherCarInit) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -103,7 +103,7 @@ public class ChildCar {
             iv_other.setLayoutParams(layoutParams1);
             BlinkAnim.blink(iv_other, bean.fcwAlarm != 0);
         }
-//        iv_other.setRotation(bean.heading - benHeading);
+        iv_other.setRotation(bean.heading - benHeading);
     }
 
 //    private boolean isAlarmViewInit = false;

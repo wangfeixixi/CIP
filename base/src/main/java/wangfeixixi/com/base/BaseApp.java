@@ -2,8 +2,8 @@ package wangfeixixi.com.base;
 
 import com.tencent.bugly.Bugly;
 
-import wangfeixixi.com.base.mvvm.base.BaseApplication;
 import wangfeixixi.com.base.crash.CrashHandler;
+import wangfeixixi.com.base.mvvm.base.BaseApplication;
 
 public class BaseApp extends BaseApplication {
 
@@ -15,5 +15,6 @@ public class BaseApp extends BaseApplication {
 
         }
         Bugly.init(UIUtils.getContext(), "7f4076eec5", false);
+
     }
 }
