@@ -1,5 +1,7 @@
 package wangfeixixi.com.base.location;
 
+import wangfeixixi.com.base.crash.LogUtils;
+
 /**
  * 各地图API坐标系统比较与转换;
  * WGS84坐标系：即地球坐标系，国际上通用的坐标系。设备一般包含GPS芯片或者北斗芯片获取的经纬度为WGS84地理坐标系,
@@ -26,6 +28,9 @@ public class PositionUtil {
 //        if (outOfChina(lat, lon)) {
 //            return null;
 //        }
+
+//        LogUtils.d("是否为中国坐标" + outOfChina(lat, lon));
+
         double dLat = transformLat(lon - 105.0, lat - 35.0);
         double dLon = transformLon(lon - 105.0, lat - 35.0);
         double radLat = lat / 180.0 * pi;

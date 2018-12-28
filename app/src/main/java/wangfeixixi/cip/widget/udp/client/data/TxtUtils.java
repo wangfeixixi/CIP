@@ -79,7 +79,9 @@ public class TxtUtils {
     }
 
     public static ArrayList<String> getJsonAraray() {
-        File file = new File("C:\\Users\\xuany\\Androidws\\workspace\\other\\AiyaEffectsAndroid\\CIP\\app\\src\\main\\java\\wangfeixixi\\cip\\widget\\udp\\client\\data\\v2xJsonLog.txt");
+        File file = new File(filePath);
         return txt2Strings(file);
     }
+
+    public static String filePath = "C:\\Users\\xuany\\Androidws\\workspace\\other\\AiyaEffectsAndroid\\CIP\\app\\src\\main\\java\\wangfeixixi\\cip\\widget\\udp\\client\\data\\v2xJsonLog.txt";
 }

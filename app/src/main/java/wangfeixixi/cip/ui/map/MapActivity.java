@@ -16,9 +16,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.child.ChildContainer;
-import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
+import wangfeixixi.cip.widget.map.MapMarkerUtils;
 import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.UIUtils;
 import wangfeixixi.com.base.location.Gps;
@@ -51,7 +50,7 @@ public class MapActivity extends BaseActivity {
             @Override
             public void onLocationChange(LocationInfo locationInfo) {
 //                mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.carDiagonal));
-                mLbs.moveCamera(locationInfo, scale);
+//                mLbs.moveCamera(locationInfo, scale);
             }
         });
 
@@ -91,36 +90,12 @@ public class MapActivity extends BaseActivity {
         }
     }
 
-    public void moveSelfCar(LocationInfo locationInfo) {
-        locationInfo.key = "自身坐标车";
-//        mLbs.addOrUpdateMarker(locationInfo, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.carDiagonal));
-        mLbs.moveCamera(locationInfo, 20);
-        mLbs.clearAllMarker();
-    }
-
     private void updateLbs(JsonRootBean jsonRootBean) {
-//        mLbs.clearAllMarker();
-//        mLbs.removeMarker("远车");
-        CarBean bean = null;
-        Gps gps = null;
-        LocationInfo local = null;
-        if (jsonRootBean.rvDatas != null && jsonRootBean.rvDatas.size() > 0) {
-            bean = jsonRootBean.rvDatas.get(0);
-            gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
-            local = new LocationInfo("远车", gps.getWgLat(), gps.getWgLon());
-            mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_other), 0.1f));
-        }
-
-
-//        for (int i = 0; i < jsonRootBean.rvDatas.size(); i++) {
-//            bean = jsonRootBean.rvDatas.get(i);
-//            gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
-//            local = new LocationInfo(String.valueOf(i), "carDiagonal", gps.getWgLat(), gps.getWgLon(), bean.heading);
-//            mLbs.addOrUpdateMarker(local, BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.drawable.car), 0.1f));
-////                mLbs.moveCamera(local, 20);
-//        }
+        if (jsonRootBean.hvDatas != null)
+            MapMarkerUtils.addBenMarker(mLbs, jsonRootBean.hvDatas);
+        if (jsonRootBean.rvDatas != null && jsonRootBean.rvDatas.get(0) != null)
+            MapMarkerUtils.addOtherMarker(mLbs, jsonRootBean.rvDatas.get(0));
     }
-
 
     /**
      * 获取巡航拥堵数据

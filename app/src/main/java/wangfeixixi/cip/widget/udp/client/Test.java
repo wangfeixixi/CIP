@@ -22,7 +22,6 @@ public class Test {
             }
             send(jsonAraray.get(i));
             System.out.println("send" + System.currentTimeMillis());
-
         }
     }
 
