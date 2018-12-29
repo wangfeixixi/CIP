@@ -73,7 +73,7 @@ public class MapActivity extends BaseActivity {
         RelativeLayout.LayoutParams btn_rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         btn_rllp.topMargin = ScreenUtils.getScreenHeight() - 280;
         btn_rllp.leftMargin = ScreenUtils.getScreenWidth() - 280;
-        btn_log.setText("日志");
+        btn_log.setText("点击/长按");
         btn_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +163,7 @@ public class MapActivity extends BaseActivity {
         sb.append("\n版本号：" + VertionUtils.getVersionCode());
         sb.append("\n版本名称：" + VertionUtils.getVersionName());
         float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        sb.append("\n高德地图距离：" + distance);
+        sb.append("\n高德距离：" + distance);
         double jvli = 0;
         float mixDiagonal = 0;
         if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
@@ -173,9 +173,9 @@ public class MapActivity extends BaseActivity {
             jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
         }
         if (jvli >= mixDiagonal) {
-            sb.append("\n修正距离:" + (jvli - mixDiagonal));
+            sb.append("\n嘻嘻距离:" + (jvli - mixDiagonal));
         } else {
-            sb.append("\n距离:" + 0);
+            sb.append("\n嘻嘻距离:" + 0);
         }
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         sb.append(bean.toString());
