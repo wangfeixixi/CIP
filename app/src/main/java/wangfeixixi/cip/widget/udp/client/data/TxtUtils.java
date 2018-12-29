@@ -10,6 +10,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import wangfeixixi.cip.beans.JsonRootBean;
+
 public class TxtUtils {
     /**
      * 读取txt文件的内容
@@ -73,7 +75,7 @@ public class TxtUtils {
         ArrayList<String> strings = getJsonAraray();
 
         for (int i = 0; i < strings.size(); i++) {
-            TestRootBean jsonRootBean = JSON.parseObject(strings.get(i), TestRootBean.class);
+            JsonRootBean jsonRootBean = JSON.parseObject(strings.get(i), JsonRootBean.class);
             System.out.println("打印的数据" + jsonRootBean.sn);
         }
     }

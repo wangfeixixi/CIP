@@ -119,8 +119,8 @@ public class NewMapActivity extends BaseActivity {
         sb.append("\nwifiName:" + wifiName);
         sb.append("\n版本号：" + VertionUtils.getVersionCode());
         sb.append("\n版本名称：" + VertionUtils.getVersionName());
-
-
+        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+        sb.append("\n高德地图距离：" + distance);
         double jvli = 0;
         float mixDiagonal = 0;
         if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
@@ -137,7 +137,7 @@ public class NewMapActivity extends BaseActivity {
         sb.append("\n高德经纬度求距离：" + String.valueOf(mLbs.calculateLineDistance(new LocationInfo(bean.hvDatas.latitude, bean.hvDatas.longitude), new LocationInfo(bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude))));
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
 
-
+        sb.append(bean.toString());
         tv_warning.setText(bean.toString());
     }
 

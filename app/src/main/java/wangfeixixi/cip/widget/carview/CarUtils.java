@@ -44,7 +44,6 @@ public class CarUtils {
 
         carDiagonal = (float) Math.sqrt(Math.abs(carWidth) * Math.abs(carWidth) + Math.abs(carLength) * Math.abs(carLength));
 
-        alarmWidth = 1.5f * carBitmapScale;
         roadWidth = 2 * carBitmapScale * scale;
         carViewHeight = ScreenUtils.getScreenHeight() / 3 * 2;
         carViewWidth = ScreenUtils.getScreenWidth();
@@ -72,10 +71,7 @@ public class CarUtils {
 
     public float carWidth;//车宽
     public float carLength;//车长
-    public float carOtherWidth;
-    public float carOtherLength;
     public float carDiagonal;//车对角线
-    public float alarmWidth;//警报图片宽
     public float roadWidth;//旁边道路的宽度
     public int x0;//原地x
     public int y0;//原点y
@@ -87,7 +83,7 @@ public class CarUtils {
      * @param width 车宽，单位m
      * @return x像素点，单位像素
      */
-    public int getLeftMargin(int x, int width) {
+    public int getLeftMargin(float x, float width) {
         return (int) (x0 + x * scale - width * scale / 2);
     }
 
@@ -96,7 +92,7 @@ public class CarUtils {
      * @param height 车长，单位m
      * @return y像素点，单位像素
      */
-    public int getTopMargin(int y, int height) {
+    public int getTopMargin(float y, float height) {
         return (int) (y0 - y * scale - height * scale / 2);
     }
 

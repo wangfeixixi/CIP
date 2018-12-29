@@ -69,34 +69,28 @@ public class MapActivity extends BaseActivity {
         btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                switchLogView();
             }
         });
         rl_father.addView(btn_1, btn_rllp);
 
-        tv_log = new TextView(this);
+
         switchCapionHeight(0);
-        switchLogView();
+
+        tv_log = new TextView(this);
+        tv_log.setVisibility(View.GONE);
+//        RelativeLayout.LayoutParams tv_rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        rl_father.addView(tv_log, tv_rllp);
+        rl_father.addView(tv_log);
     }
 
     private void switchLogView() {
-        if (tv_log.getVisibility() == View.VISIBLE) {
-
-        }
-
-        RelativeLayout.LayoutParams tv_rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        tv_rllp.width = ScreenUtils.getScreenWidth();
-        tv_rllp.height = ScreenUtils.getScreenHeight() / 3 * 2;
-        tv_rllp.leftMargin = 400;
-        tv_rllp.topMargin = ScreenUtils.getScreenHeight() - 280;
-        tv_log.setText("显示");
-        tv_log.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchCapionHeight(2);
-            }
-        });
-        rl_father.addView(tv_log, tv_rllp);
+        tv_log.setVisibility(tv_log.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+//        //使用Glide框架加载图片
+//        Glide.with(imageView.getContext())
+//                .load(url)
+//                .apply(new RequestOptions().placeholder(placeholderRes))
+//                .into(imageView);
     }
 
 
@@ -113,23 +107,20 @@ public class MapActivity extends BaseActivity {
             capion_rllp.height = 10;
         } else {
             map_rllp.width = ScreenUtils.getScreenWidth();
-            map_rllp.height = ScreenUtils.getScreenHeight() / 3 * 2;
-            map_rllp.topMargin = ScreenUtils.getScreenHeight() / 3;
-            mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 3);
+            map_rllp.height = ScreenUtils.getScreenHeight() / 3;
+            map_rllp.topMargin = ScreenUtils.getScreenHeight() / 3 * 2;
+            mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 6);
 
             capion_rllp.width = ScreenUtils.getScreenWidth();
-            capion_rllp.height = ScreenUtils.getScreenHeight() / 3;
+            capion_rllp.height = ScreenUtils.getScreenHeight() / 3 * 2;
         }
         rl_capion.setLayoutParams(capion_rllp);
         mapContainer.setLayoutParams(map_rllp);
     }
 
-    private int scale = 16;
-
     @Override
     protected void initData() {
     }
-
 
     public long lastTime = 0;
 
@@ -140,13 +131,6 @@ public class MapActivity extends BaseActivity {
         if (bean.hvDatas == null || bean.rvDatas == null) {
             return;
         }
-        //根据经纬度求距离，距离小于50m显示上帝界面
-        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        if (distance < 50) {
-            switchCapionHeight(1);
-        } else {
-            switchCapionHeight(0);
-        }
 
         long nowTime = System.currentTimeMillis();
         //更新地图位置
@@ -155,8 +139,12 @@ public class MapActivity extends BaseActivity {
             LBSUtils.addOtherMarker(mLbs, bean.rvDatas.get(i));
         if (nowTime - lastTime > 2000) {
             //语音提示
-            if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).fcwAlarm != 0)
-                VoiceUtil.getInstance().speek("保持距离");
+            if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).fcwAlarm != 0) {
+                switchCapionHeight(1);
+            } else {
+                switchCapionHeight(0);
+            }
+            VoiceUtil.getInstance().speek("保持距离");
             lastTime = nowTime;
         }
     }
@@ -167,8 +155,8 @@ public class MapActivity extends BaseActivity {
         sb.append("\nwifiName:" + wifiName);
         sb.append("\n版本号：" + VertionUtils.getVersionCode());
         sb.append("\n版本名称：" + VertionUtils.getVersionName());
-
-
+        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+        sb.append("\n高德地图距离：" + distance);
         double jvli = 0;
         float mixDiagonal = 0;
         if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
@@ -182,17 +170,9 @@ public class MapActivity extends BaseActivity {
         } else {
             sb.append("\n距离:" + 0);
         }
-        sb.append("\n高德经纬度求距离：" + String.valueOf(mLbs.calculateLineDistance(new LocationInfo(bean.hvDatas.latitude, bean.hvDatas.longitude), new LocationInfo(bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude))));
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-
-
-    }
-
-    private void updateLbs(JsonRootBean jsonRootBean) {
-        if (jsonRootBean.hvDatas != null)
-            LBSUtils.addBenMarker(mLbs, jsonRootBean.hvDatas);
-        if (jsonRootBean.rvDatas != null && jsonRootBean.rvDatas.get(0) != null)
-            LBSUtils.addOtherMarker(mLbs, jsonRootBean.rvDatas.get(0));
+        sb.append(bean.toString());
+        tv_log.setText(sb.toString());
     }
 
     /**
