@@ -38,7 +38,7 @@ dependencies {
 //    api project(path: ':mvvmhabit')
 
     api fileTree(include: ['*.jar'], dir: 'libs')
-    testApi 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
     //support
     api rootProject.ext.support.support_v4
     api rootProject.ext.support.appcompat_v7

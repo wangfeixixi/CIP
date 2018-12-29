@@ -1,5 +1,6 @@
 package wangfeixixi.cip.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,6 @@ import wangfeixixi.com.base.VertionUtils;
 import wangfeixixi.com.base.WifiUtils;
 import wangfeixixi.com.base.data.DateUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
-import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class MapActivity extends BaseActivity {
@@ -59,29 +59,36 @@ public class MapActivity extends BaseActivity {
         rllp.height = (int) (ScreenUtils.getScreenHeight() / 3);
         rl_capion.setBackgroundColor(Color.parseColor("#dddddd"));
         rl_father.addView(rl_capion, rllp);
-        //添加按钮1
-        Button btn_1 = new Button(this);
-        RelativeLayout.LayoutParams btn_rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        btn_rllp.width = 300;
-        btn_rllp.height = 180;
+        switchCapionHeight(0);
+        addLogView();
+    }
+
+    private void addLogView() {
+        //日志界面
+        tv_log = new TextView(this);
+        tv_log.setVisibility(View.GONE);
+        rl_father.addView(tv_log);
+        //日志按钮
+        Button btn_log = new Button(this);
+        RelativeLayout.LayoutParams btn_rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         btn_rllp.topMargin = ScreenUtils.getScreenHeight() - 280;
-        btn_1.setText("日志");
-        btn_1.setOnClickListener(new View.OnClickListener() {
+        btn_rllp.leftMargin = ScreenUtils.getScreenWidth() - 280;
+        btn_log.setText("日志");
+        btn_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchLogView();
             }
         });
-        rl_father.addView(btn_1, btn_rllp);
+        btn_log.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                startActivity(new Intent(mCtx, NewMapActivity.class));
+                return false;
+            }
+        });
+        rl_father.addView(btn_log, btn_rllp);
 
-
-        switchCapionHeight(0);
-
-        tv_log = new TextView(this);
-        tv_log.setVisibility(View.GONE);
-//        RelativeLayout.LayoutParams tv_rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        rl_father.addView(tv_log, tv_rllp);
-        rl_father.addView(tv_log);
     }
 
     private void switchLogView() {

@@ -85,5 +85,5 @@ public class TxtUtils {
         return txt2Strings(file);
     }
 
-    public static String filePath = "C:\\Users\\xuany\\Androidws\\workspace\\other\\AiyaEffectsAndroid\\CIP\\app\\src\\main\\java\\wangfeixixi\\cip\\widget\\udp\\client\\data\\v2xJsonLog.txt";
+    public static String filePath = "C:\\Users\\xuany\\temp\\v2xJsonLog.txt";
 }

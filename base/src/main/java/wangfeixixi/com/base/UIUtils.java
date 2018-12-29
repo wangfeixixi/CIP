@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
+import wangfeixixi.com.base.mvvm.base.BaseApplication;
+
 public class UIUtils {
     public UIUtils() {
     }
@@ -19,7 +21,7 @@ public class UIUtils {
     }
 
     public static Application getContext() {
-        return BaseApp.getInstance();
+        return BaseApplication.getInstance();
     }
 
     public static View inflate(int id) {

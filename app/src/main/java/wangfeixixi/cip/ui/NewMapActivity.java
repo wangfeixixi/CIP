@@ -55,15 +55,13 @@ public class NewMapActivity extends BaseActivity {
         //添加道路信息
         iv_left_floor = ChildOther.addLeftFloor(rl_carview);
         iv_right_floor = ChildOther.addRightFloor(rl_carview);
-
-        //添加日志
-        tv_warning = ChildLog.addLogView(rl_father);
-
         //添加地图
         mapContainer = ChildContainer.addMap(rl_father);
         mLbs = new GaodeMapService(this);
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
+        //添加日志
+        tv_warning = ChildLog.addLogView(rl_father);
     }
 
     @Override
