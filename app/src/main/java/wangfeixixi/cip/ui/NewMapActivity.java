@@ -7,20 +7,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
 import wangfeixixi.cip.widget.carview.child.ChildCar;
 import wangfeixixi.cip.widget.carview.child.ChildContainer;
 import wangfeixixi.cip.widget.carview.child.ChildLog;
 import wangfeixixi.cip.widget.carview.child.ChildOther;
-import wangfeixixi.cip.widget.map.MapMarkerUtils;
+import wangfeixixi.cip.widget.map.LBSUtils;
 import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.base.UIUtils;
+import wangfeixixi.com.base.VertionUtils;
+import wangfeixixi.com.base.WifiUtils;
+import wangfeixixi.com.base.data.DateUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.LocationInfo;
-import wangfeixixi.lbs.OnLocationListener;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class NewMapActivity extends BaseActivity {
@@ -76,7 +81,9 @@ public class NewMapActivity extends BaseActivity {
 
     @Override
     protected void onReceiveJsonBean(JsonRootBean bean) {
-        tv_warning.setText(bean.toString());
+        //显示log
+        addLog(bean);
+
         if (bean.hvDatas == null || bean.rvDatas == null) {
             return;
         }
@@ -87,9 +94,9 @@ public class NewMapActivity extends BaseActivity {
             ChildCar.getInstance().addUpdateOtherCar(rl_carview, bean.rvDatas.get(i));
 
         //更新地图位置
-        MapMarkerUtils.addBenMarker(mLbs, bean.hvDatas);
+        LBSUtils.addBenMarker(mLbs, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
-            MapMarkerUtils.addOtherMarker(mLbs, bean.rvDatas.get(i));
+            LBSUtils.addOtherMarker(mLbs, bean.rvDatas.get(i));
         if (nowTime - lastTime > 2000) {
 
             //语音提示
@@ -104,6 +111,34 @@ public class NewMapActivity extends BaseActivity {
             }
             lastTime = nowTime;
         }
+    }
+
+    private void addLog(JsonRootBean bean) {
+        StringBuffer sb = new StringBuffer();
+        String wifiName = WifiUtils.getWifiName();
+        sb.append("\nwifiName:" + wifiName);
+        sb.append("\n版本号：" + VertionUtils.getVersionCode());
+        sb.append("\n版本名称：" + VertionUtils.getVersionName());
+
+
+        double jvli = 0;
+        float mixDiagonal = 0;
+        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
+            mixDiagonal = CarUtils.getInstance().getMixDiagonal(bean.rvDatas.get(0).x, bean.rvDatas.get(0).y);
+            double sqrt = Math.sqrt(Math.abs(bean.rvDatas.get(0).x) * Math.abs(bean.rvDatas.get(0).x) + Math.abs(bean.rvDatas.get(0).y) * Math.abs(bean.rvDatas.get(0).y));
+//            sqrt -= mixDiagonal;
+            jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
+        }
+        if (jvli >= mixDiagonal) {
+            sb.append("\n修正距离:" + (jvli - mixDiagonal));
+        } else {
+            sb.append("\n距离:" + 0);
+        }
+        sb.append("\n高德经纬度求距离：" + String.valueOf(mLbs.calculateLineDistance(new LocationInfo(bean.hvDatas.latitude, bean.hvDatas.longitude), new LocationInfo(bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude))));
+        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
+
+
+        tv_warning.setText(bean.toString());
     }
 
     @Override

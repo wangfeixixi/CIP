@@ -6,7 +6,7 @@ ext {
             applicationId    : "wangfeixixi.cip",
             minSdkVersion    : 23,
             targetSdkVersion : 28,
-            versionCode      : 8,
+            versionCode      : 9,
             versionName      : "20181228",
     ]
     //version配置
@@ -75,7 +75,7 @@ ext {
             //百度语音
             "baiduVoice"                           : 'com.github.wangfeixixi:BaiduVoice:v0.0.3',
             //定位
-            "lbs"                                  : 'com.github.wangfeixixi:LBS:v0.2.0',
+            "lbs"                                  : 'com.github.wangfeixixi:LBS:v0.2.1',
             //各种自定义控件
             "widgets"                              : 'com.github.wangfeixixi:ShareWidget:v2.7.8',
     ]

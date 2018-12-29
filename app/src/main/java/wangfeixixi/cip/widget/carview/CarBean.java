@@ -35,9 +35,9 @@ public class CarBean {
 //        return (int) (CarUtils.getInstance().y0 - y * CarUtils.getInstance().scale - (remoteId.equals(0) ? CarUtils.getInstance().carLength : CarUtils.getInstance().carOtherLength));
 //    }
 
-    public int getOtherCarLeftMargin() {
-        return (int) (CarUtils.getInstance().x0 + x * CarUtils.getInstance().scale - width * CarUtils.getInstance().scale / 2);
-    }
+//    public int getOtherCarLeftMargin() {
+//        return (int) (CarUtils.getInstance().x0 + x * CarUtils.getInstance().scale - width * CarUtils.getInstance().scale / 2);
+//    }
 
 //    public int getAlarmLeftMargin() {
 //        float juli = 0;
@@ -116,6 +116,8 @@ public class CarBean {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("remoteId:" + remoteId);
+        sb.append("\ntimestampMs:" + timestampMs);
+        sb.append("\ntimestampSecond:" + timestampSecond);
         sb.append("\ndistance：" + distance);
         sb.append("\nfcwAlarm:" + fcwAlarm);
         sb.append("\nheading:" + heading);
@@ -124,16 +126,14 @@ public class CarBean {
         sb.append("\nlongitude:" + longitude);
         sb.append("\nx:" + x);
         sb.append("\ny:" + y);
-//        sb.append("\nleftMargin:" + getLeftMargin());
-//        sb.append("\ntopMargin:" + getTopMargin());
+        sb.append("\nleftMargin:" + getLeftMargin());
+        sb.append("\ntopMargin:" + getTopMargin());
 //        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));
 //        sb.append("\n原点x:" + (ScreenUtils.getScreenWidth() / 2));
 //        CarBean bean = CarUtils.getInstance().filterOver(this);
 //        sb.append("\n修正:" + bean.x + "  " + bean.y);
 
 
-//        sb.append("\ntimestampMs:" + timestampMs);
-//        sb.append("\ntimestampSecond:" + timestampSecond);
 //        sb.append("\nrotate:" + rotate);
 //        sb.append("\nwidth:" + width);
 //        sb.append("\nheight:" + height);
