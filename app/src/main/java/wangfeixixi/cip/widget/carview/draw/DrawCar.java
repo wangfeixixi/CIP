@@ -15,8 +15,8 @@ public class DrawCar {
     private DrawCar() {
 
         //车图标,放大车辆图标
-        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car), CarUtils.getInstance().carBitmapScale);
-        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_alert), CarUtils.getInstance().carBitmapScale);
+        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_self), CarUtils.getInstance().carBitmapScale);
+        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_other), CarUtils.getInstance().carBitmapScale);
 
         //自身车
         mPaintCar = new Paint();

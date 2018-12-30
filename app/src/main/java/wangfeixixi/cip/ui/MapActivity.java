@@ -20,12 +20,9 @@ import java.text.DecimalFormat;
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.map.LBSUtils;
 import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.VertionUtils;
-import wangfeixixi.com.base.WifiUtils;
-import wangfeixixi.com.base.data.DateUtils;
+import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -33,13 +30,15 @@ public class MapActivity extends BaseActivity {
     private FrameLayout mapContainer;
     private GaodeMapService mLbs;
     private LinearLayout ll_capion;
-    private TextView tv_log;
+    //    private TextView tv_log;
     private TextView tv_speed;
     private TextView tv_distance;
     private ImageView iv_left;
     private ImageView iv_up;
     private ImageView iv_down;
     private ImageView iv_right;
+    private ImageView iv_up_self;
+    private ImageView iv_down_self;
 
 
     @Override
@@ -61,61 +60,48 @@ public class MapActivity extends BaseActivity {
         iv_down = findViewById(R.id.iv_down);
         iv_right = findViewById(R.id.iv_right);
 
-//        addLogView();
-    }
-
-//    private void addLogView() {
-//        //日志界面
-//        tv_log = new TextView(this);
-//        tv_log.setVisibility(View.GONE);
-//        rl_father.addView(tv_log);
-//        //日志按钮
-//        Button btn_log = new Button(this);
-//        RelativeLayout.LayoutParams btn_rllp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        btn_rllp.topMargin = ScreenUtils.getScreenHeight() - 280;
-//        btn_rllp.leftMargin = ScreenUtils.getScreenWidth() - 280;
-//        btn_log.setText("点击/长按");
-//        btn_log.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                switchLogView();
-//            }
-//        });
-//        btn_log.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                startActivity(new Intent(mCtx, NewMapActivity.class));
-//                return false;
-//            }
-//        });
-//        rl_father.addView(btn_log, btn_rllp);
-//
-//    }
-
-    private void switchLogView() {
-        tv_log.setVisibility(tv_log.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-
+        iv_up_self = findViewById(R.id.iv_up_self);
+        iv_down_self = findViewById(R.id.iv_down_self);
     }
 
     private void switchCW(int cw) {
         switch (cw) {
-            case 0://预警消除
+            case 1://上
+                iv_up_self.setVisibility(View.GONE);
+                iv_down_self.setVisibility(View.VISIBLE);
+                iv_up.setVisibility(View.VISIBLE);
+                iv_down.setVisibility(View.GONE);
+                iv_left.setVisibility(View.GONE);
+                iv_right.setVisibility(View.GONE);
                 break;
-            case 1:
+            case 2://下
+                iv_up_self.setVisibility(View.VISIBLE);
+                iv_down_self.setVisibility(View.GONE);
+                iv_up.setVisibility(View.GONE);
+                iv_down.setVisibility(View.VISIBLE);
+                iv_left.setVisibility(View.GONE);
+                iv_right.setVisibility(View.GONE);
                 break;
-            case 2:
+            case 3://左
+                iv_up_self.setVisibility(View.GONE);
+                iv_down_self.setVisibility(View.VISIBLE);
+                iv_left.setVisibility(View.VISIBLE);
+                iv_down.setVisibility(View.GONE);
+                iv_up.setVisibility(View.GONE);
+                iv_right.setVisibility(View.GONE);
                 break;
-            case 3:
+            case 4://右
+                iv_up_self.setVisibility(View.GONE);
+                iv_down_self.setVisibility(View.VISIBLE);
+                iv_up.setVisibility(View.GONE);
+                iv_down.setVisibility(View.GONE);
+                iv_left.setVisibility(View.GONE);
+                iv_right.setVisibility(View.VISIBLE);
                 break;
             default:
+
                 break;
         }
-    }
-
-    private void loadImageView(ImageView imageView) {
-        Glide.with(imageView.getContext())
-                .load(R.mipmap.cw_back)
-                .into(imageView);
     }
 
     public void switchCapionHeight(int height) {
@@ -130,6 +116,15 @@ public class MapActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        switchCapionHeight(1);
+        switchCW(1);
+
+        test();
+
+        initGif();
+    }
+
+    private void initGif() {
         Glide.with(mCtx)
                 .load(R.mipmap.cw_front)
                 .into(iv_up);
@@ -139,10 +134,24 @@ public class MapActivity extends BaseActivity {
         Glide.with(mCtx)
                 .load(R.mipmap.cw_left)
                 .into(iv_left);
-
         Glide.with(mCtx)
                 .load(R.mipmap.cw_right)
                 .into(iv_right);
+    }
+
+    private int test = 0;
+
+    private void test() {
+
+        if (test == 5) test = 0;
+        switchCW(test++);
+
+        ThreadUtils.runOnUiThreadDelayed(new Runnable() {
+            @Override
+            public void run() {
+                test();
+            }
+        }, 3000);
     }
 
     public long lastTime = 0;
@@ -164,6 +173,7 @@ public class MapActivity extends BaseActivity {
             LBSUtils.addOtherMarker(mLbs, bean.rvDatas.get(i));
 
         switchCapionHeight(1);
+
         if (nowTime - lastTime > 2000) {
             //语音提示
 //            if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).fcwAlarm != 0) {
@@ -174,32 +184,6 @@ public class MapActivity extends BaseActivity {
             VoiceUtil.getInstance().speek("保持距离");
             lastTime = nowTime;
         }
-    }
-
-    private void addLog(JsonRootBean bean) {
-        StringBuffer sb = new StringBuffer();
-        String wifiName = WifiUtils.getWifiName();
-        sb.append("\nwifiName:" + wifiName);
-        sb.append("\n版本号：" + VertionUtils.getVersionCode());
-        sb.append("\n版本名称：" + VertionUtils.getVersionName());
-        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        sb.append("\n高德距离：" + distance);
-        double jvli = 0;
-        float mixDiagonal = 0;
-        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
-            mixDiagonal = CarUtils.getInstance().getMixDiagonal(bean.rvDatas.get(0).x, bean.rvDatas.get(0).y);
-            double sqrt = Math.sqrt(Math.abs(bean.rvDatas.get(0).x) * Math.abs(bean.rvDatas.get(0).x) + Math.abs(bean.rvDatas.get(0).y) * Math.abs(bean.rvDatas.get(0).y));
-//            sqrt -= mixDiagonal;
-            jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
-        }
-        if (jvli >= mixDiagonal) {
-            sb.append("\n嘻嘻距离:" + (jvli - mixDiagonal));
-        } else {
-            sb.append("\n嘻嘻距离:" + 0);
-        }
-        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-        sb.append(bean.toString());
-        tv_log.setText(sb.toString());
     }
 
     /**

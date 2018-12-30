@@ -14,9 +14,9 @@ public class ScreenUtils {
         return UIUtils.getResources().getDisplayMetrics().widthPixels;
     }
 
-    public static int dp2px(Context context, float dpVal) {
+    public static int dp2px(float dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal, context.getResources().getDisplayMetrics());
+                dpVal, UIUtils.getResources().getDisplayMetrics());
     }
 
     //获取屏幕的宽度

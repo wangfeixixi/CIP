@@ -2,9 +2,6 @@ package wangfeixixi.cip.widget.carview;
 
 import wangfeixixi.cip.widget.CarConfig;
 
-/**
- * 车辆自身为原点坐标系
- */
 public class CarBean {
     public int fcwAlarm = 0;
     public float heading = 0;
@@ -17,6 +14,7 @@ public class CarBean {
     public double distance;
     public float x = 0;
     public float y = 0;
+    public int direction;
 
     public float width = CarConfig.carWidth;//宽
     public float height = CarConfig.carLength;//长
