@@ -12,9 +12,10 @@ public class CarBean {
     public long timestampMs;
     public long timestampSecond;
     public double distance;
+    public int cw;
     public float x = 0;
     public float y = 0;
-    public int direction;
+    public int direction;//上下左右：1234
 
     public float width = CarConfig.carWidth;//宽
     public float height = CarConfig.carLength;//长
@@ -38,6 +39,9 @@ public class CarBean {
             sb.append("\ntimestampSecond:" + timestampSecond);
             sb.append("\nx:" + x);
             sb.append("\ny:" + y);
+        } else {
+            sb.append("\n\ncw:" + cw);
+            sb.append("\ndirection:" + direction);
         }
 
 //        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));

@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/ll_capion"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="360dp"
         android:background="#f7f6f3"
         android:orientation="vertical">
 
@@ -127,15 +127,15 @@
 
             <ImageView
                 android:id="@+id/iv_up_self"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_centerHorizontal="true"
                 android:background="@mipmap/car_self" />
 
             <ImageView
                 android:id="@+id/iv_down_self"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="@mipmap/car_self" />

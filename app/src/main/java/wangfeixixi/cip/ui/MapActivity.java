@@ -22,7 +22,6 @@ import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.map.LBSUtils;
 import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.ThreadUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -73,6 +72,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                VoiceUtil.getInstance().speek("前车预警");
                 break;
             case 2://下
                 iv_up_self.setVisibility(View.VISIBLE);
@@ -81,6 +81,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.VISIBLE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                VoiceUtil.getInstance().speek("后车预警");
                 break;
             case 3://左
                 iv_up_self.setVisibility(View.GONE);
@@ -89,6 +90,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_up.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                VoiceUtil.getInstance().speek("左车预警");
                 break;
             case 4://右
                 iv_up_self.setVisibility(View.GONE);
@@ -97,9 +99,16 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.VISIBLE);
+                VoiceUtil.getInstance().speek("右车预警");
                 break;
             default:
-
+                iv_up_self.setVisibility(View.GONE);
+                iv_down_self.setVisibility(View.GONE);
+                iv_up.setVisibility(View.GONE);
+                iv_down.setVisibility(View.GONE);
+                iv_left.setVisibility(View.GONE);
+                iv_right.setVisibility(View.GONE);
+                VoiceUtil.getInstance().speek("预警");
                 break;
         }
     }
@@ -116,12 +125,8 @@ public class MapActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        switchCapionHeight(1);
-        switchCW(1);
-
-        test();
-
         initGif();
+        switchCapionHeight(0);
     }
 
     private void initGif() {
@@ -137,21 +142,6 @@ public class MapActivity extends BaseActivity {
         Glide.with(mCtx)
                 .load(R.mipmap.cw_right)
                 .into(iv_right);
-    }
-
-    private int test = 0;
-
-    private void test() {
-
-        if (test == 5) test = 0;
-        switchCW(test++);
-
-        ThreadUtils.runOnUiThreadDelayed(new Runnable() {
-            @Override
-            public void run() {
-                test();
-            }
-        }, 3000);
     }
 
     public long lastTime = 0;
@@ -171,17 +161,14 @@ public class MapActivity extends BaseActivity {
         LBSUtils.addBenMarker(mLbs, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
             LBSUtils.addOtherMarker(mLbs, bean.rvDatas.get(i));
-
-        switchCapionHeight(1);
-
         if (nowTime - lastTime > 2000) {
             //语音提示
-//            if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).fcwAlarm != 0) {
-//                switchCapionHeight(1);
-//            } else {
-//                switchCapionHeight(0);
-//            }
-            VoiceUtil.getInstance().speek("保持距离");
+            if (bean.rvDatas.get(0) != null && bean.hvDatas.cw != 0) {
+                switchCapionHeight(1);
+                switchCW(bean.hvDatas.direction);
+            } else {
+                switchCapionHeight(0);
+            }
             lastTime = nowTime;
         }
     }
