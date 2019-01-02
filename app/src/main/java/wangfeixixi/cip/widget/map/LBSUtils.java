@@ -22,7 +22,7 @@ public class LBSUtils {
         Gps gps = PositionUtil.gps84_To_Gcj02(bean.latitude / 10000000, bean.longitude / 10000000);
         LocationInfo local = new LocationInfo("远车", gps.getWgLat(), gps.getWgLon());
 //        mLbs.removeMarker("远车");
-        mLbs.addOrUpdateMarker(local, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.dot_red));
+        mLbs.addOrUpdateMarker(local, BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.dot_gray));
     }
 
     public static float calculateLineDistance(GaodeMapService mLbs, double latStart, double lonStart, double latEnd, double lonEnd) {

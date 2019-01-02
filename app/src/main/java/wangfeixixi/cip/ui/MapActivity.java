@@ -176,8 +176,8 @@ public class MapActivity extends BaseActivity {
         if (bean.hvDatas == null || bean.rvDatas == null) {
             return;
         }
-        tv_speed.setText(String.valueOf(Double.parseDouble(new DecimalFormat("#.#").format(bean.hvDatas.speed * 3.6f))));
-        tv_distance.setText(String.valueOf(Double.parseDouble(new DecimalFormat("#.#").format(bean.rvDatas.get(0).distance))));
+        tv_speed.setText(NumberTransfer.double2String(bean.hvDatas.speed * 3.6f));
+        tv_distance.setText(NumberTransfer.double2String(bean.rvDatas.get(0).distance));
 
         long nowTime = System.currentTimeMillis();
         //更新地图位置
@@ -203,9 +203,9 @@ public class MapActivity extends BaseActivity {
         sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        sb.append("\nmap距离：" + distance+" m");
-        sb.append("\ndistance：" + bean.rvDatas.get(0).distance+" m");
-        sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance+" m"));
+        sb.append("\nmap距离：" + NumberTransfer.float2String(distance) + " m");
+        sb.append("\ndistance：" + NumberTransfer.float2String(bean.rvDatas.get(0).distance) + " m");
+        sb.append("\n距离差值：" + (NumberTransfer.float2String(distance - bean.rvDatas.get(0).distance) + " m"));
 //        double jvli = 0;
 //        float mixDiagonal = 0;
 //        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {

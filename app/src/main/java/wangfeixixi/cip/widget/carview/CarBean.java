@@ -1,5 +1,6 @@
 package wangfeixixi.cip.widget.carview;
 
+import wangfeixixi.cip.ui.NumberTransfer;
 import wangfeixixi.cip.widget.CarConfig;
 
 public class CarBean {
@@ -37,8 +38,7 @@ public class CarBean {
             sb.append("\n远车Id: " + remoteId);
 //            sb.append("\ntimestampMs: " + timestampMs);
 //            sb.append("\ntimestampSecond: " + timestampSecond);
-            sb.append("\ndistance：" + distance);
-            sb.append("\nfcwAlarm: " + fcwAlarm);
+            sb.append("\ndistance：" + NumberTransfer.float2String(distance));
             sb.append("\nx: " + x);
             sb.append("\ny: " + y);
             sb.append("\naveragex: " + averagex);
@@ -48,8 +48,9 @@ public class CarBean {
             sb.append("\ncw: " + cw);
             sb.append("\ndirection: " + direction);
         }
+        sb.append("\nfcwAlarm: " + fcwAlarm);
         sb.append("\nheading: " + heading + " °");
-        sb.append("\nspeed: " + speed * 3.6f + " km/h");
+        sb.append("\nspeed: " + NumberTransfer.double2String(speed * 3.6f) + " km/h");
 //        sb.append("\nlatitude:" + latitude);
 //        sb.append("\nlongitude:" + longitude);
 //        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));

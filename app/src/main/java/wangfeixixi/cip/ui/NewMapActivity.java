@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
 import wangfeixixi.cip.widget.carview.child.ChildCar;
 import wangfeixixi.cip.widget.carview.child.ChildContainer;
@@ -104,13 +103,13 @@ public class NewMapActivity extends BaseActivity {
     private void addLog(JsonRootBean bean) {
         StringBuffer sb = new StringBuffer();
         String wifiName = WifiUtils.getWifiName();
-        sb.append("\n网络:" + wifiName);
-        sb.append("\n版本号：" + VertionUtils.getVersionCode());
-        sb.append("\n版本名称：" + VertionUtils.getVersionName());
+        sb.append("\nwifiName:" + wifiName);
+        sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
+        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        sb.append("\n高德距离：" + distance);
-        sb.append("\ndistance：" + bean.rvDatas.get(0).distance);
-        sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance));
+        sb.append("\nmap距离：" + distance+" m");
+        sb.append("\ndistance：" + bean.rvDatas.get(0).distance+" m");
+        sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance+" m"));
 //        double jvli = 0;
 //        float mixDiagonal = 0;
 //        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
@@ -124,7 +123,7 @@ public class NewMapActivity extends BaseActivity {
 //        } else {
 //            sb.append("\n嘻嘻距离:" + 0);
 //        }
-        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
+//        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
 
         sb.append(bean.toString());
         tv_warning.setText(sb.toString());
