@@ -12,9 +12,14 @@ public class CarBean {
     public long timestampMs;
     public long timestampSecond;
     public double distance;
-    public int cw;
     public float x = 0;
     public float y = 0;
+    public float averagex;
+    public float averagey;
+
+
+    //本车预警
+    public int cw;
     public int direction;//上下左右：1234
 
     public float width = CarConfig.carWidth;//宽
@@ -27,23 +32,26 @@ public class CarBean {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("\ndistance：" + distance);
-        sb.append("\nfcwAlarm:" + fcwAlarm);
-        sb.append("\nheading:" + heading);
-        sb.append("\nspeed:" + speed * 3.6f);
-        sb.append("\nlatitude:" + latitude);
-        sb.append("\nlongitude:" + longitude);
+        sb.append("\n");
         if (!remoteId.equals("0")) {
-            sb.append("\n\nremoteId:" + remoteId);
-            sb.append("\ntimestampMs:" + timestampMs);
-            sb.append("\ntimestampSecond:" + timestampSecond);
-            sb.append("\nx:" + x);
-            sb.append("\ny:" + y);
+            sb.append("\n远车Id: " + remoteId);
+//            sb.append("\ntimestampMs: " + timestampMs);
+//            sb.append("\ntimestampSecond: " + timestampSecond);
+            sb.append("\ndistance：" + distance);
+            sb.append("\nfcwAlarm: " + fcwAlarm);
+            sb.append("\nx: " + x);
+            sb.append("\ny: " + y);
+            sb.append("\naveragex: " + averagex);
+            sb.append("\naveragey: " + averagey);
         } else {
-            sb.append("\n\ncw:" + cw);
-            sb.append("\ndirection:" + direction);
+            sb.append("\n本车Id: " + remoteId);
+            sb.append("\ncw: " + cw);
+            sb.append("\ndirection: " + direction);
         }
-
+        sb.append("\nheading: " + heading + " °");
+        sb.append("\nspeed: " + speed * 3.6f + " km/h");
+//        sb.append("\nlatitude:" + latitude);
+//        sb.append("\nlongitude:" + longitude);
 //        sb.append("\n原点y:" + (ScreenUtils.getScreenHeight() / 3 * 2));
 //        sb.append("\n原点x:" + (ScreenUtils.getScreenWidth() / 2));
 //        CarBean bean = CarUtils.getInstance().filterOver(this);

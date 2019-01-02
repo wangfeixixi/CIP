@@ -16,12 +16,10 @@ public class JsonRootBean {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("\nsn:" + sn);
-        sb.append("\ncmd:" + cmd);
-        sb.append("\nmagic:" + magic);
-        sb.append("\nnov:" + nov);
-        sb.append("\n\n本车数据：");
+//        sb.append("\ncmd:" + cmd);
+//        sb.append("\nmagic:" + magic);
+//        sb.append("\nnov:" + nov);
         sb.append(hvDatas.toString());
-        sb.append("\n\n远车数据:");
         if (rvDatas != null && rvDatas.size() > 0)
             for (int i = 0; i < rvDatas.size(); i++) {
                 sb.append(rvDatas.get(i).toString());

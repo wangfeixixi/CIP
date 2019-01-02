@@ -1,5 +1,6 @@
 package wangfeixixi.cip.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,8 +21,13 @@ import java.text.DecimalFormat;
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.map.LBSUtils;
 import wangfeixixi.com.base.ScreenUtils;
+import wangfeixixi.com.base.VertionUtils;
+import wangfeixixi.com.base.WifiUtils;
+import wangfeixixi.com.base.data.DateUtils;
+import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -38,6 +44,7 @@ public class MapActivity extends BaseActivity {
     private ImageView iv_right;
     private ImageView iv_up_self;
     private ImageView iv_down_self;
+    private TextView tv_log;
 
 
     @Override
@@ -61,6 +68,22 @@ public class MapActivity extends BaseActivity {
 
         iv_up_self = findViewById(R.id.iv_up_self);
         iv_down_self = findViewById(R.id.iv_down_self);
+        tv_log = findViewById(R.id.tv_log);
+
+        final View btn_jump = findViewById(R.id.btn_jump);
+        btn_jump.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_log.setVisibility(tv_log.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            }
+        });
+        btn_jump.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                startActivity(new Intent(mCtx, NewMapActivity.class));
+                return true;
+            }
+        });
     }
 
     private void switchCW(int cw) {
@@ -149,7 +172,7 @@ public class MapActivity extends BaseActivity {
     @Override
     protected void onReceiveJsonBean(JsonRootBean bean) {
         //显示log
-//        addLog(bean);
+        addLog(bean);
         if (bean.hvDatas == null || bean.rvDatas == null) {
             return;
         }
@@ -172,6 +195,35 @@ public class MapActivity extends BaseActivity {
             lastTime = nowTime;
         }
     }
+
+    private void addLog(JsonRootBean bean) {
+        StringBuffer sb = new StringBuffer();
+        String wifiName = WifiUtils.getWifiName();
+        sb.append("\nwifiName:" + wifiName);
+        sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
+        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
+        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+        sb.append("\nmap距离：" + distance+" m");
+        sb.append("\ndistance：" + bean.rvDatas.get(0).distance+" m");
+        sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance+" m"));
+//        double jvli = 0;
+//        float mixDiagonal = 0;
+//        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
+//            mixDiagonal = CarUtils.getInstance().getMixDiagonal(bean.rvDatas.get(0).x, bean.rvDatas.get(0).y);
+//            double sqrt = Math.sqrt(Math.abs(bean.rvDatas.get(0).x) * Math.abs(bean.rvDatas.get(0).x) + Math.abs(bean.rvDatas.get(0).y) * Math.abs(bean.rvDatas.get(0).y));
+//            sqrt -= mixDiagonal;
+//            jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
+//        }
+//        if (jvli >= mixDiagonal) {
+//            sb.append("\n微调距离:" + (jvli - mixDiagonal));
+//        } else {
+//            sb.append("\n微调距离:" + 0);
+//        }
+
+        sb.append(bean.toString());
+        tv_log.setText(sb.toString());
+    }
+
 
     /**
      * 获取巡航拥堵数据
@@ -255,5 +307,18 @@ public class MapActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLbs.onDestroy();
+    }
+
+    private long lastBackTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long nowBackTime = System.currentTimeMillis();
+        if (nowBackTime - lastBackTime < 300) {
+            super.onBackPressed();
+        } else {
+            ToastUtils.showShort("双击推出");
+            lastBackTime = nowBackTime;
+        }
     }
 }

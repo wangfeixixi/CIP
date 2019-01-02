@@ -36,7 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -57,19 +56,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStop();
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
-        }
-    }
-
-    private long lastBackTime = 0;
-
-    @Override
-    public void onBackPressed() {
-        long nowBackTime = System.currentTimeMillis();
-        if (nowBackTime - lastBackTime < 300) {
-            super.onBackPressed();
-        } else {
-            ToastUtils.showShort("双击推出");
-            lastBackTime = nowBackTime;
         }
     }
 }
