@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="wangfeixixi.cip">
 
     <!-- 允许程序打开网络套接字 -->
@@ -49,18 +50,28 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!--<uses-permission android:name="android.permission.WRITE_SETTINGS" />-->
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
-        android:name="wangfeixixi.com.base.BaseApp"
+        android:name=".fram.BaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/theme_all">
+
         <activity
-            android:name=".ui.map.MapActivity"
+            android:name=".ui.MapActivity"
             android:icon="@mipmap/icon"
-            android:label="地图">
+            android:label="V2X"
+            android:screenOrientation="portrait"
+            android:theme="@style/theme_launch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,52 +80,89 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.main.MainActivity">
-
-
-        </activity>
-
         <activity
-            android:name=".ui.CarViewActivity"
+            android:name=".ui.NewMapActivity"
             android:icon="@mipmap/icon"
-            android:label="cip">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="V2X"
+            android:screenOrientation="portrait"
+            android:theme="@style/theme_launch">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
 
-        <activity
-            android:name=".widget.udp.server.UDPServerTestActivity"
-            android:icon="@mipmap/icon"
-            android:label="UDPServer">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <service android:name=".widget.udp.sevice.UDPService" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <!--<activity-->
+        <!--android:name=".ui.CarViewActivity"-->
+        <!--android:icon="@mipmap/icon"-->
+        <!--android:label="cip">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
 
-        </activity>
-        <activity
-            android:name=".widget.udp.client.UDPClientTestActivity"
-            android:icon="@mipmap/icon"
-            android:label="UDPClient">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
+        <!--</intent-filter>-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            `1
-        </activity>
+        <!--</activity>-->
+
+        <!--<activity-->
+        <!--android:name=".widget.udp.server.UDPServerTestActivity"-->
+        <!--android:icon="@mipmap/icon"-->
+        <!--android:label="UDPServer">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+
+        <!--</activity>-->
+        <!--<activity-->
+        <!--android:name=".widget.udp.client.UDPClientTestActivity"-->
+        <!--android:icon="@mipmap/icon"-->
+        <!--android:label="UDPClient">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="73a9ad72e56bf4364b232e70b8203e55" />
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService" />
+
+
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <provider
+            android:name=".utils.BuglyFileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="name,authorities,exported,grantUriPermissions">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                tools:replace="name,resource" />
+        </provider>
 
     </application>
 

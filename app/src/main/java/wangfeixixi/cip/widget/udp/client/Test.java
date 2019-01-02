@@ -6,78 +6,26 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+
+import wangfeixixi.cip.widget.udp.client.data.TxtUtils;
 
 public class Test {
-
-    private static String msgSend = "{\n" +
-            "\t\"cmd\" : 0,\n" +
-            "\t\"hvDatas\" : \n" +
-            "\t{\n" +
-            "\t\t\"fcwAlarm\" : 0,\n" +
-            "\t\t\"heading\" : 280.0,\n" +
-            "\t\t\"latitude\" : 30.330416 ,\n" +
-            "\t\t\"longitude\" : 121.317497,\n" +
-            "\t\t\"remoteId\" : 0,\n" +
-            "\t\t\"speed\" : 50,\n" +
-            "\t\t\"timestampMs\" : 0,\n" +
-            "\t\t\"timestampSecond\" : 0,\n" +
-            "\t\t\"x\" : 0.0,\n" +
-            "\t\t\"y\" : 0.0\n" +
-            "\t},\n" +
-            "\t\"magic\" : 2857740885,\n" +
-            "\t\"nov\" : 1,\n" +
-            "\t\"rvDatas\" : \n" +
-            "\t[\n" +
-            "\t\t{\n" +
-            "\t\t\t\"fcwAlarm\" : 1,\n" +
-            "\t\t\t\"heading\" : 51.200000000000003,\n" +
-            "\t\t\t\"latitude\" : 30.329397,\n" +
-            "\t\t\t\"longitude\" : 121.315383,\n" +
-            "\t\t\t\"remoteId\" : 67239940,\n" +
-            "\t\t\t\"speed\" : 80,\n" +
-            "\t\t\t\"timestampMs\" : 850,\n" +
-            "\t\t\t\"timestampSecond\" : 1544169563,\n" +
-            "\t\t\t\"x\" : 10,\n" +
-            "\t\t\t\"y\" : 10,\n" +
-            "\t\t}\n" +
-            "\t],\n" +
-            "\t\"sn\" : 1\n" +
-            "}";
-
     public static void main(String[] args) {
-        while (true) {
+        ArrayList<String> jsonAraray = TxtUtils.getJsonAraray();
+
+        for (int i = 0; i < jsonAraray.size(); i++) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            send();
+            send(jsonAraray.get(i));
             System.out.println("send" + System.currentTimeMillis());
         }
     }
 
-    public static void testUDPSend() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                test();
-            }
-        }).start();
-    }
-
-    public static void test() {
-        while (true) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            send();
-            System.out.println("send" + System.currentTimeMillis());
-        }
-    }
-
-    public static void send() {
+    public static void send(String msg) {
         DatagramSocket socket = null;
         DatagramPacket packetSend, packetRcv;
 //        boolean udpLife = true; //udp生命线程
@@ -93,8 +41,9 @@ public class Test {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        packetSend = new DatagramPacket(msgSend.getBytes(), msgSend.getBytes().length, hostAddress, 9999);
 
+
+        packetSend = new DatagramPacket(msg.getBytes(), msg.getBytes().length, hostAddress, 9999);
         try {
             socket.send(packetSend);
         } catch (IOException e) {

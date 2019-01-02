@@ -3,9 +3,9 @@
 
     <data>
 
-        <variable
-            name="mainViewModel"
-            type="wangfeixixi.cip.ui.main.MainViewModel" />
+        <!--<variable-->
+        <!--name="mainViewModel"-->
+        <!--type="wangfeixixi.cip.ui.main.MainViewModel" />-->
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,86 +15,85 @@
         android:layout_height="match_parent">
 
 
-        <FrameLayout
-            android:id="@+id/fl_map_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--<FrameLayout-->
+        <!--android:id="@+id/fl_map_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{mainViewModel.containerVisibility}">
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="@{mainViewModel.containerVisibility}">-->
 
-            <wangfeixixi.cip.widget.carview.CarView
-                android:id="@+id/carview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                binding:carviewview="@{mainViewModel.carBeas}" />
+        <!--<wangfeixixi.cip.widget.carview.CarView-->
+        <!--android:id="@+id/carview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--binding:carviewview="@{mainViewModel.carBeas}" />-->
 
-            <wangfeixixi.share.circle.DialProgress
-                android:id="@+id/dial_progress_bar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
-                android:padding="@dimen/small"
-                app:animTime="1000"
-                app:arcColors="@array/gradient_arc_color"
-                app:arcWidth="@dimen/small"
-                app:dialIntervalDegree="3"
-                app:dialWidth="1dp"
-                app:hint="当前时速"
-                app:hintSize="6sp"
-                app:maxValue="300"
-                app:startAngle="135"
-                app:sweepAngle="270"
-                app:unit="km/h"
-                app:unitSize="8sp"
-                app:value="100"
-                app:valueSize="@dimen/text_size_16" />
+        <!--<wangfeixixi.share.circle.DialProgress-->
+        <!--android:id="@+id/dial_progress_bar"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:padding="@dimen/small"-->
+        <!--app:animTime="1000"-->
+        <!--app:arcColors="@array/gradient_arc_color"-->
+        <!--app:arcWidth="@dimen/small"-->
+        <!--app:dialIntervalDegree="3"-->
+        <!--app:dialWidth="1dp"-->
+        <!--app:hint="当前时速"-->
+        <!--app:hintSize="6sp"-->
+        <!--app:maxValue="300"-->
+        <!--app:startAngle="135"-->
+        <!--app:sweepAngle="270"-->
+        <!--app:unit="km/h"-->
+        <!--app:unitSize="8sp"-->
+        <!--app:value="100"-->
+        <!--app:valueSize="@dimen/text_size_16" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="@{mainViewModel.warningText}"
-                android:textColor="@color/yellow"
-                android:textSize="14sp" />
-        </RelativeLayout>
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="16dp"-->
+        <!--android:text="@{mainViewModel.warningText}"-->
+        <!--android:textColor="@color/yellow"-->
+        <!--android:textSize="14sp" />-->
+        <!--</RelativeLayout>-->
 
-        <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true">
+        <!--<RelativeLayout-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_alignParentRight="true">-->
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:contentDescription="@string/compass_dial"
-                android:src="@drawable/dial" />
+        <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:contentDescription="@string/compass_dial"-->
+        <!--android:src="@drawable/dial" />-->
 
-            <ImageView
-                android:id="@+id/arrowView"
-                android:layout_width="10dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="8dp"
-                android:contentDescription="@string/compass_hands"
-                android:scaleType="fitXY"
-                android:src="@drawable/hands" />
+        <!--<ImageView-->
+        <!--android:id="@+id/arrowView"-->
+        <!--android:layout_width="10dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:contentDescription="@string/compass_hands"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/hands" />-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:text="@{mainViewModel.isStartUDP? `stop`:`start`}"
-            binding:onClickCommand="@{mainViewModel.startUDPClick}"
-            binding:onLongClickCommand="@{mainViewModel.containerShowClick}" />
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="@{mainViewModel.isStartUDP? `stop`:`start`}"-->
+        <!--binding:onClickCommand="@{mainViewModel.startUDPClick}"-->
+        <!--binding:onLongClickCommand="@{mainViewModel.containerShowClick}" />-->
     </RelativeLayout>
 </layout>
