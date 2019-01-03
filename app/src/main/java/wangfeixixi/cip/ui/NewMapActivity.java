@@ -126,9 +126,9 @@ public class NewMapActivity extends BaseActivity {
 
         if (bean.hvDatas != null || bean.rvDatas != null) {
             float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-            sb.append("\nmap距离：" + distance + " m");
-            sb.append("\ndistance：" + bean.rvDatas.get(0).distance + " m");
-            sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance + " m"));
+            sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
+            sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
+            sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
             sb.append(bean.toString());
             tv_warning.setText(sb.toString());
             return;
