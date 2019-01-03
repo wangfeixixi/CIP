@@ -124,7 +124,7 @@ public class NewMapActivity extends BaseActivity {
         sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
 
-        if (bean.hvDatas == null || bean.rvDatas == null) {
+        if (bean.hvDatas != null || bean.rvDatas != null) {
             float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
             sb.append("\nmap距离：" + distance + " m");
             sb.append("\ndistance：" + bean.rvDatas.get(0).distance + " m");

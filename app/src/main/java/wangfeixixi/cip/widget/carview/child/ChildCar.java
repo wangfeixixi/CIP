@@ -76,6 +76,7 @@ public class ChildCar {
         layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
         layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
         viewGroup.addView(iv_other, layoutParams);
+        BlinkAnim.blink(iv_other, bean.cw != 0);
     }
 
     public boolean isOtherCarInit = false;

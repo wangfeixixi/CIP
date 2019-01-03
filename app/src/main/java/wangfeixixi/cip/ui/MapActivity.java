@@ -168,6 +168,8 @@ public class MapActivity extends BaseActivity {
 
     public long lastTime = 0;
 
+    private int lastHeading = 0;
+
     @Override
     protected void onReceiveJsonBean(JsonRootBean bean) {
         //显示log
@@ -180,7 +182,10 @@ public class MapActivity extends BaseActivity {
 
         long nowTime = System.currentTimeMillis();
 
-        mLbs.changeBearing(bean.hvDatas.heading);//旋转角度
+        if (++lastHeading == 5) {
+            mLbs.changeBearing(bean.hvDatas.heading);//旋转角度
+            lastHeading = 0;
+        }
         //更新地图位置
         LBSUtils.addBenMarker(mLbs, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
@@ -203,7 +208,7 @@ public class MapActivity extends BaseActivity {
         sb.append("\nwifiName:" + wifiName);
         sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-        if (bean.hvDatas == null || bean.rvDatas == null) {
+        if (bean.hvDatas != null || bean.rvDatas != null) {
             float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
             sb.append("\nmap距离：" + distance + " m");
             sb.append("\ndistance：" + bean.rvDatas.get(0).distance + " m");
