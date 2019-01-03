@@ -119,7 +119,7 @@
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:layout_centerHorizontal="true"
-                    android:background="@mipmap/cw_front" />
+                    android:background="@mipmap/cw_up" />
 
                 <ImageView
                     android:id="@+id/iv_down"
@@ -127,7 +127,7 @@
                     android:layout_height="140dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@mipmap/cw_back" />
+                    android:background="@mipmap/cw_down" />
 
                 <ImageView
                     android:id="@+id/iv_up_self"

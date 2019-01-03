@@ -15,10 +15,8 @@ public class BaseApp extends BaseApplication {
 
     public void onCreate() {
         super.onCreate();
-
         if (ConfigUtils.isApkInDebug()) {
             CrashHandler.getInstance().init();
-
         }
         ServiceUtils.startService(UDPService.class);
         Bugly.init(UIUtils.getContext(), "7f4076eec5", false);

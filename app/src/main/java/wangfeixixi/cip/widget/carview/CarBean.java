@@ -38,7 +38,7 @@ public class CarBean {
             sb.append("\n远车Id: " + remoteId);
 //            sb.append("\ntimestampMs: " + timestampMs);
 //            sb.append("\ntimestampSecond: " + timestampSecond);
-            sb.append("\ndistance：" + NumberTransfer.float2String(distance));
+            sb.append("\ndistance：" + NumberTransfer.double2String(distance));
             sb.append("\nx: " + x);
             sb.append("\ny: " + y);
             sb.append("\naveragex: " + averagex);

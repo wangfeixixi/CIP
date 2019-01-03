@@ -75,7 +75,7 @@ ext {
             //百度语音
             "baiduVoice"                           : 'com.github.wangfeixixi:BaiduVoice:v0.0.3',
             //定位
-            "lbs"                                  : 'com.github.wangfeixixi:LBS:v0.2.1',
+            "lbs"                                  : 'com.github.wangfeixixi:LBS:v0.2.4',
             //各种自定义控件
             "widgets"                              : 'com.github.wangfeixixi:ShareWidget:v2.7.8',
     ]

@@ -16,12 +16,9 @@ import com.bumptech.glide.Glide;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.DecimalFormat;
-
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
-import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.map.LBSUtils;
 import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.VertionUtils;
@@ -55,6 +52,7 @@ public class MapActivity extends BaseActivity {
         mLbs = new GaodeMapService(this);
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
+        mLbs.changeTilt(90);//倾斜角度
 
         tv_speed = findViewById(R.id.tv_speed);
         tv_distance = findViewById(R.id.tv_distance);
@@ -150,14 +148,15 @@ public class MapActivity extends BaseActivity {
     protected void initData() {
         initGif();
         switchCapionHeight(0);
+//        switchCW(3);
     }
 
     private void initGif() {
         Glide.with(mCtx)
-                .load(R.mipmap.cw_front)
+                .load(R.mipmap.cw_up)
                 .into(iv_up);
         Glide.with(mCtx)
-                .load(R.mipmap.cw_back)
+                .load(R.mipmap.cw_down)
                 .into(iv_down);
         Glide.with(mCtx)
                 .load(R.mipmap.cw_left)
@@ -180,6 +179,8 @@ public class MapActivity extends BaseActivity {
         tv_distance.setText(NumberTransfer.double2String(bean.rvDatas.get(0).distance));
 
         long nowTime = System.currentTimeMillis();
+
+        mLbs.changeBearing(bean.hvDatas.heading);//旋转角度
         //更新地图位置
         LBSUtils.addBenMarker(mLbs, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
@@ -204,8 +205,8 @@ public class MapActivity extends BaseActivity {
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
         sb.append("\nmap距离：" + NumberTransfer.float2String(distance) + " m");
-        sb.append("\ndistance：" + NumberTransfer.float2String(bean.rvDatas.get(0).distance) + " m");
-        sb.append("\n距离差值：" + (NumberTransfer.float2String(distance - bean.rvDatas.get(0).distance) + " m"));
+        sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
+        sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
 //        double jvli = 0;
 //        float mixDiagonal = 0;
 //        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
