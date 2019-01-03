@@ -3,10 +3,12 @@ package wangfeixixi.cip.widget.carview.child;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import wangfeixixi.cip.widget.carview.CarUtils;
+import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.UIUtils;
 
 public class ChildContainer {
@@ -66,5 +68,14 @@ public class ChildContainer {
         ivLP.height = lineHeight;
         ivLP.topMargin = CarUtils.getInstance().carViewHeight;
         rl_father.addView(line, ivLP);
+    }
+
+    public static Button addButton(RelativeLayout rl_father) {
+        Button button = new Button(UIUtils.getContext());
+        button.setBackgroundColor(Color.parseColor("#00ffffff"));
+        RelativeLayout.LayoutParams ivLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ivLP.topMargin = ScreenUtils.getScreenHeight() - 120;
+        rl_father.addView(button, ivLP);
+        return button;
     }
 }

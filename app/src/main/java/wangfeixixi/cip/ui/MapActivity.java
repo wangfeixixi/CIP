@@ -203,10 +203,15 @@ public class MapActivity extends BaseActivity {
         sb.append("\nwifiName:" + wifiName);
         sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        sb.append("\nmap距离：" + NumberTransfer.float2String(distance) + " m");
-        sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
-        sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
+        if (bean.hvDatas == null || bean.rvDatas == null) {
+            float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+            sb.append("\nmap距离：" + distance + " m");
+            sb.append("\ndistance：" + bean.rvDatas.get(0).distance + " m");
+            sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance + " m"));
+            sb.append(bean.toString());
+            tv_log.setText(sb.toString());
+            return;
+        }
 //        double jvli = 0;
 //        float mixDiagonal = 0;
 //        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {

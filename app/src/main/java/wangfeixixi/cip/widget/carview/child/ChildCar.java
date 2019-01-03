@@ -58,27 +58,25 @@ public class ChildCar {
         benHeading = bean.heading;
     }
 
-//    public void addBenCar(ViewGroup viewGroup, CarBean bean) {
-//        viewGroup.removeView(iv_ben);
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        layoutParams.leftMargin = bean.getLeftMargin();
-//        layoutParams.topMargin = bean.getTopMargin();
-//        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
-//        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
-//        viewGroup.addView(iv_ben, layoutParams);
-////        ViewGroup.LayoutParams layoutParams1 = iv_ben.getLayoutParams();
-//    }
+    public void addBenCar(ViewGroup viewGroup, CarBean bean) {
+        viewGroup.removeView(iv_ben);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.leftMargin = CarUtils.getInstance().getLeftMargin(bean.averagex, bean.width);
+        layoutParams.topMargin = CarUtils.getInstance().getTopMargin(bean.averagey, bean.height);
+        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
+        viewGroup.addView(iv_ben, layoutParams);
+    }
 
-//    public void addOtherCar(ViewGroup viewGroup, CarBean bean) {
-//        viewGroup.removeView(iv_other);
-//        iv_other.setBackgroundResource(R.mipmap.car_other);
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        layoutParams.leftMargin = bean.getLeftMargin();
-//        layoutParams.topMargin = bean.getTopMargin();
-//        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
-//        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
-//        viewGroup.addView(iv_other, layoutParams);
-//    }
+    public void addOtherCar(ViewGroup viewGroup, CarBean bean) {
+        viewGroup.removeView(iv_other);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.leftMargin = CarUtils.getInstance().getLeftMargin(bean.averagex, bean.width);
+        layoutParams.topMargin = CarUtils.getInstance().getTopMargin(bean.averagey, bean.height);
+        layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
+        layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
+        viewGroup.addView(iv_other, layoutParams);
+    }
 
     public boolean isOtherCarInit = false;
 

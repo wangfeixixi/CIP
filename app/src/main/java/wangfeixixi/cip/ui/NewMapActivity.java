@@ -1,7 +1,9 @@
 package wangfeixixi.cip.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -61,6 +63,21 @@ public class NewMapActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        //添加隐藏按钮
+        Button btn = ChildContainer.addButton(rl_father);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_warning.setVisibility(tv_warning.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            }
+        });
+        btn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                finish();
+                return true;
+            }
+        });
     }
 
     TextView tv_warning;
@@ -76,9 +93,9 @@ public class NewMapActivity extends BaseActivity {
         }
         long nowTime = System.currentTimeMillis();
         //更新俯视图位置
-        ChildCar.getInstance().addUpdateBenCar(rl_carview, bean.hvDatas);
+        ChildCar.getInstance().addBenCar(rl_carview, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
-            ChildCar.getInstance().addUpdateOtherCar(rl_carview, bean.rvDatas.get(i));
+            ChildCar.getInstance().addOtherCar(rl_carview, bean.rvDatas.get(i));
 
         //更新地图位置
         LBSUtils.addBenMarker(mLbs, bean.hvDatas);
@@ -106,10 +123,17 @@ public class NewMapActivity extends BaseActivity {
         sb.append("\nwifiName:" + wifiName);
         sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        sb.append("\nmap距离：" + distance+" m");
-        sb.append("\ndistance：" + bean.rvDatas.get(0).distance+" m");
-        sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance+" m"));
+
+        if (bean.hvDatas == null || bean.rvDatas == null) {
+            float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+            sb.append("\nmap距离：" + distance + " m");
+            sb.append("\ndistance：" + bean.rvDatas.get(0).distance + " m");
+            sb.append("\n距离差值：" + (distance - bean.rvDatas.get(0).distance + " m"));
+            sb.append(bean.toString());
+            tv_warning.setText(sb.toString());
+            return;
+        }
+
 //        double jvli = 0;
 //        float mixDiagonal = 0;
 //        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
@@ -145,6 +169,10 @@ public class NewMapActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLbs.onDestroy();
+        iv_right_floor.clearAnimation();
+        iv_left_floor.clearAnimation();
+        rl_carview.removeAllViews();
+        rl_father.removeAllViews();
     }
 
     @Override
