@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
@@ -42,6 +43,7 @@ public class MapActivity extends BaseActivity {
     private ImageView iv_up_self;
     private ImageView iv_down_self;
     private TextView tv_log;
+    private ImageView iv_car_center;
 
 
     @Override
@@ -56,6 +58,8 @@ public class MapActivity extends BaseActivity {
 
         tv_speed = findViewById(R.id.tv_speed);
         tv_distance = findViewById(R.id.tv_distance);
+
+        iv_car_center = findViewById(R.id.iv_car_center);
 
         ll_capion = findViewById(R.id.ll_capion);
 
@@ -93,6 +97,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("前车预警");
                 break;
             case 2://下
@@ -102,6 +107,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.VISIBLE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("后车预警");
                 break;
             case 3://左
@@ -111,6 +117,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_up.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("左车预警");
                 break;
             case 4://右
@@ -120,16 +127,18 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.VISIBLE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("右车预警");
                 break;
-            default:
+            case 5://对向预警
                 iv_up_self.setVisibility(View.GONE);
                 iv_down_self.setVisibility(View.GONE);
                 iv_up.setVisibility(View.GONE);
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
-                VoiceUtil.getInstance().speek("预警");
+                iv_car_center.setVisibility(View.VISIBLE);
+                VoiceUtil.getInstance().speek("对向预警");
                 break;
         }
     }
@@ -164,6 +173,9 @@ public class MapActivity extends BaseActivity {
         Glide.with(mCtx)
                 .load(R.mipmap.cw_right)
                 .into(iv_right);
+        Glide.with(mCtx)
+                .load(R.mipmap.cw_subtend_1)
+                .into(iv_car_center);
     }
 
     public long lastTime = 0;
