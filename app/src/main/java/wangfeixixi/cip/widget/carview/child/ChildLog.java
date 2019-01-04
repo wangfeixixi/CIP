@@ -14,7 +14,7 @@ import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 
 public class ChildLog {
 
-    public static long lastBackTime = 0;
+//    public static long lastBackTime = 0;
 
     public static TextView addLogView(RelativeLayout rl_father) {
         final TextView tv_warning = new TextView(UIUtils.getContext());
@@ -26,17 +26,17 @@ public class ChildLog {
 //        rllp.height = ScreenUtils.getScreenHeight();
         rl_father.addView(tv_warning, rllp);
 
-        rl_father.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long nowBackTime = System.currentTimeMillis();
-                if (nowBackTime - lastBackTime < 300) {
-                    tv_warning.setVisibility(tv_warning.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
-                } else {
-                    lastBackTime = nowBackTime;
-                }
-            }
-        });
+//        rl_father.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                long nowBackTime = System.currentTimeMillis();
+//                if (nowBackTime - lastBackTime < 300) {
+//                    tv_warning.setVisibility(tv_warning.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+//                } else {
+//                    lastBackTime = nowBackTime;
+//                }
+//            }
+//        });
         return tv_warning;
     }
 }

@@ -12,5 +12,4 @@ public class CarConfig {
     public int y0;//原点y
     public int carViewHeight;//车辆显示界面height
     public int carViewWidth;//车辆显示界面width
-
 }

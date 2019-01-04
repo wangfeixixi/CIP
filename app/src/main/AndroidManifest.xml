@@ -96,10 +96,20 @@
 
         <service android:name=".widget.udp.sevice.UDPService" />
 
-        <!--<activity-->
-        <!--android:name=".ui.CarViewActivity"-->
-        <!--android:icon="@mipmap/icon"-->
-        <!--android:label="cip">-->
+        <activity
+            android:name=".ui.mvvm.MainActivity"
+            android:icon="@mipmap/icon"
+            android:label="cip">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <!--<activity android:name=".ui.anko.AnkoTestActivity">-->
+
         <!--<intent-filter>-->
         <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -108,7 +118,6 @@
         <!--</intent-filter>-->
 
         <!--</activity>-->
-
         <!--<activity-->
         <!--android:name=".widget.udp.server.UDPServerTestActivity"-->
         <!--android:icon="@mipmap/icon"-->

@@ -1,10 +1,12 @@
 package wangfeixixi.cip.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
@@ -15,13 +17,15 @@ import com.bumptech.glide.Glide;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.DecimalFormat;
-
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.widget.map.LBSUtils;
 import wangfeixixi.com.base.ScreenUtils;
+import wangfeixixi.com.base.VertionUtils;
+import wangfeixixi.com.base.WifiUtils;
+import wangfeixixi.com.base.data.DateUtils;
+import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -38,6 +42,8 @@ public class MapActivity extends BaseActivity {
     private ImageView iv_right;
     private ImageView iv_up_self;
     private ImageView iv_down_self;
+    private TextView tv_log;
+    private ImageView iv_car_center;
 
 
     @Override
@@ -48,9 +54,12 @@ public class MapActivity extends BaseActivity {
         mLbs = new GaodeMapService(this);
         mapContainer.addView(mLbs.getMap());
         mLbs.onCreate(savedInstanceState);
+        mLbs.changeTilt(90);//倾斜角度
 
         tv_speed = findViewById(R.id.tv_speed);
         tv_distance = findViewById(R.id.tv_distance);
+
+        iv_car_center = findViewById(R.id.iv_car_center);
 
         ll_capion = findViewById(R.id.ll_capion);
 
@@ -61,6 +70,22 @@ public class MapActivity extends BaseActivity {
 
         iv_up_self = findViewById(R.id.iv_up_self);
         iv_down_self = findViewById(R.id.iv_down_self);
+        tv_log = findViewById(R.id.tv_log);
+
+        final View btn_jump = findViewById(R.id.btn_jump);
+        btn_jump.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_log.setVisibility(tv_log.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            }
+        });
+        btn_jump.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                startActivity(new Intent(mCtx, NewMapActivity.class));
+                return true;
+            }
+        });
     }
 
     private void switchCW(int cw) {
@@ -72,6 +97,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("前车预警");
                 break;
             case 2://下
@@ -81,6 +107,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.VISIBLE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("后车预警");
                 break;
             case 3://左
@@ -90,6 +117,7 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_up.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("左车预警");
                 break;
             case 4://右
@@ -99,16 +127,18 @@ public class MapActivity extends BaseActivity {
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.VISIBLE);
+                iv_car_center.setVisibility(View.GONE);
                 VoiceUtil.getInstance().speek("右车预警");
                 break;
-            default:
+            case 5://对向预警
                 iv_up_self.setVisibility(View.GONE);
                 iv_down_self.setVisibility(View.GONE);
                 iv_up.setVisibility(View.GONE);
                 iv_down.setVisibility(View.GONE);
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
-                VoiceUtil.getInstance().speek("预警");
+                iv_car_center.setVisibility(View.VISIBLE);
+                VoiceUtil.getInstance().speek("对向预警");
                 break;
         }
     }
@@ -127,14 +157,15 @@ public class MapActivity extends BaseActivity {
     protected void initData() {
         initGif();
         switchCapionHeight(0);
+//        switchCW(3);
     }
 
     private void initGif() {
         Glide.with(mCtx)
-                .load(R.mipmap.cw_front)
+                .load(R.mipmap.cw_up)
                 .into(iv_up);
         Glide.with(mCtx)
-                .load(R.mipmap.cw_back)
+                .load(R.mipmap.cw_down)
                 .into(iv_down);
         Glide.with(mCtx)
                 .load(R.mipmap.cw_left)
@@ -142,21 +173,31 @@ public class MapActivity extends BaseActivity {
         Glide.with(mCtx)
                 .load(R.mipmap.cw_right)
                 .into(iv_right);
+        Glide.with(mCtx)
+                .load(R.mipmap.cw_subtend_1)
+                .into(iv_car_center);
     }
 
     public long lastTime = 0;
 
+    private int lastHeading = 0;
+
     @Override
     protected void onReceiveJsonBean(JsonRootBean bean) {
         //显示log
-//        addLog(bean);
+        addLog(bean);
         if (bean.hvDatas == null || bean.rvDatas == null) {
             return;
         }
-        tv_speed.setText(String.valueOf(Double.parseDouble(new DecimalFormat("#.#").format(bean.hvDatas.speed * 3.6f))));
-        tv_distance.setText(String.valueOf(Double.parseDouble(new DecimalFormat("#.#").format(bean.rvDatas.get(0).distance))));
+        tv_speed.setText(NumberTransfer.double2String(bean.hvDatas.speed * 3.6f));
+        tv_distance.setText(NumberTransfer.double2String(bean.rvDatas.get(0).distance));
 
         long nowTime = System.currentTimeMillis();
+
+        if (++lastHeading == 5) {
+            mLbs.changeBearing(bean.hvDatas.heading);//旋转角度
+            lastHeading = 0;
+        }
         //更新地图位置
         LBSUtils.addBenMarker(mLbs, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
@@ -172,6 +213,40 @@ public class MapActivity extends BaseActivity {
             lastTime = nowTime;
         }
     }
+
+    private void addLog(JsonRootBean bean) {
+        StringBuffer sb = new StringBuffer();
+        String wifiName = WifiUtils.getWifiName();
+        sb.append("\nwifiName:" + wifiName);
+        sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
+        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
+        if (bean.hvDatas != null || bean.rvDatas != null) {
+            float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+            sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
+            sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
+            sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
+            sb.append(bean.toString());
+            tv_log.setText(sb.toString());
+            return;
+        }
+//        double jvli = 0;
+//        float mixDiagonal = 0;
+//        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
+//            mixDiagonal = CarUtils.getInstance().getMixDiagonal(bean.rvDatas.get(0).x, bean.rvDatas.get(0).y);
+//            double sqrt = Math.sqrt(Math.abs(bean.rvDatas.get(0).x) * Math.abs(bean.rvDatas.get(0).x) + Math.abs(bean.rvDatas.get(0).y) * Math.abs(bean.rvDatas.get(0).y));
+//            sqrt -= mixDiagonal;
+//            jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
+//        }
+//        if (jvli >= mixDiagonal) {
+//            sb.append("\n微调距离:" + (jvli - mixDiagonal));
+//        } else {
+//            sb.append("\n微调距离:" + 0);
+//        }
+
+        sb.append(bean.toString());
+        tv_log.setText(sb.toString());
+    }
+
 
     /**
      * 获取巡航拥堵数据
@@ -255,5 +330,18 @@ public class MapActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLbs.onDestroy();
+    }
+
+    private long lastBackTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long nowBackTime = System.currentTimeMillis();
+        if (nowBackTime - lastBackTime < 300) {
+            super.onBackPressed();
+        } else {
+            ToastUtils.showShort("双击推出");
+            lastBackTime = nowBackTime;
+        }
     }
 }

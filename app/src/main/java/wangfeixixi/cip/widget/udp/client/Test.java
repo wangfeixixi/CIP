@@ -16,7 +16,7 @@ public class Test {
 
         for (int i = 0; i < jsonAraray.size(); i++) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
