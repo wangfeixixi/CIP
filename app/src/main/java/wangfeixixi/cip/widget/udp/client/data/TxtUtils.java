@@ -86,5 +86,6 @@ public class TxtUtils {
     }
 
 //    public static String filePath = "C:\\Users\\xuany\\temp\\v2xJsonLog.txt";
-    public static String filePath = "C:\\Users\\xuany\\temp\\v2xJsonLog2-16-32-24-FCW.txt";
+//    public static String filePath = "C:\\Users\\xuany\\temp\\v2xJsonLog2-16-32-24-FCW.txt";
+    public static String filePath = "C:\\Users\\xuany\\temp\\v2xJsonLog0107.txt";
 }

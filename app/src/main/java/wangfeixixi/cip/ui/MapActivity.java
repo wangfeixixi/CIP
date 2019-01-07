@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
@@ -20,13 +19,14 @@ import org.greenrobot.eventbus.ThreadMode;
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.map.LBSUtils;
+import wangfeixixi.com.base.MediaUtils;
 import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.VertionUtils;
 import wangfeixixi.com.base.WifiUtils;
 import wangfeixixi.com.base.data.DateUtils;
 import wangfeixixi.com.base.mvvm.utils.ToastUtils;
-import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class MapActivity extends BaseActivity {
@@ -98,7 +98,7 @@ public class MapActivity extends BaseActivity {
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
                 iv_car_center.setVisibility(View.GONE);
-                VoiceUtil.getInstance().speek("前车预警");
+//                VoiceUtil.getInstance().speek("前车预警");
                 break;
             case 2://下
                 iv_up_self.setVisibility(View.VISIBLE);
@@ -108,7 +108,7 @@ public class MapActivity extends BaseActivity {
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
                 iv_car_center.setVisibility(View.GONE);
-                VoiceUtil.getInstance().speek("后车预警");
+//                VoiceUtil.getInstance().speek("后车预警");
                 break;
             case 3://左
                 iv_up_self.setVisibility(View.GONE);
@@ -118,7 +118,7 @@ public class MapActivity extends BaseActivity {
                 iv_up.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
                 iv_car_center.setVisibility(View.GONE);
-                VoiceUtil.getInstance().speek("左车预警");
+//                VoiceUtil.getInstance().speek("左车预警");
                 break;
             case 4://右
                 iv_up_self.setVisibility(View.GONE);
@@ -128,7 +128,7 @@ public class MapActivity extends BaseActivity {
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.VISIBLE);
                 iv_car_center.setVisibility(View.GONE);
-                VoiceUtil.getInstance().speek("右车预警");
+//                VoiceUtil.getInstance().speek("右车预警");
                 break;
             case 5://对向预警
                 iv_up_self.setVisibility(View.GONE);
@@ -138,26 +138,37 @@ public class MapActivity extends BaseActivity {
                 iv_left.setVisibility(View.GONE);
                 iv_right.setVisibility(View.GONE);
                 iv_car_center.setVisibility(View.VISIBLE);
-                VoiceUtil.getInstance().speek("对向预警");
+//                VoiceUtil.getInstance().speek("对向预警");
                 break;
         }
     }
 
-    public void switchCapionHeight(int height) {
-        if (height == 0) {
-            mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 2);
-            ll_capion.setVisibility(View.GONE);
-        } else {
+    public void switchCapionHeight(boolean isShow) {
+        if (isShow) {
+            MediaUtils.getInstance().start();
             mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 6);
             ll_capion.setVisibility(View.VISIBLE);
+        } else {
+            long nowTime = System.currentTimeMillis();
+            if (nowTime - lastTime > 4000) {
+                lastTime = nowTime;
+                ll_capion.setVisibility(View.GONE);
+                mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 2);
+                return;
+            }
         }
     }
 
     @Override
     protected void initData() {
         initGif();
-        switchCapionHeight(0);
-//        switchCW(3);
+        switchCapionHeight(false);
+        //init map
+        CarBean bean = new CarBean();
+        bean.heading = 0;
+        bean.longitude = 1212388181;
+        bean.latitude = 303377296;
+        LBSUtils.addBenMarker(mLbs, bean);
     }
 
     private void initGif() {
@@ -184,15 +195,15 @@ public class MapActivity extends BaseActivity {
 
     @Override
     protected void onReceiveJsonBean(JsonRootBean bean) {
-        //显示log
-        addLog(bean);
         if (bean.hvDatas == null || bean.rvDatas == null) {
+            tv_log.setText(bean.toString());
             return;
         }
+        //显示log
+        addLog(bean);
         tv_speed.setText(NumberTransfer.double2String(bean.hvDatas.speed * 3.6f));
         tv_distance.setText(NumberTransfer.double2String(bean.rvDatas.get(0).distance));
 
-        long nowTime = System.currentTimeMillis();
 
         if (++lastHeading == 5) {
             mLbs.changeBearing(bean.hvDatas.heading);//旋转角度
@@ -202,16 +213,11 @@ public class MapActivity extends BaseActivity {
         LBSUtils.addBenMarker(mLbs, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
             LBSUtils.addOtherMarker(mLbs, bean.rvDatas.get(i));
-        if (nowTime - lastTime > 2000) {
-            //语音提示
-            if (bean.rvDatas.get(0) != null && bean.hvDatas.cw != 0) {
-                switchCapionHeight(1);
-                switchCW(bean.hvDatas.direction);
-            } else {
-                switchCapionHeight(0);
-            }
-            lastTime = nowTime;
-        }
+
+        switchCapionHeight(bean.hvDatas.cw != 0);
+
+
+        switchCW(bean.hvDatas.direction);
     }
 
     private void addLog(JsonRootBean bean) {
@@ -220,15 +226,12 @@ public class MapActivity extends BaseActivity {
         sb.append("\nwifiName:" + wifiName);
         sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-        if (bean.hvDatas != null || bean.rvDatas != null) {
-            float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-            sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
-            sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
-            sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
-            sb.append(bean.toString());
-            tv_log.setText(sb.toString());
-            return;
-        }
+        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+        sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
+        sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
+        sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
+        sb.append(bean.toString());
+        tv_log.setText(sb.toString());
 //        double jvli = 0;
 //        float mixDiagonal = 0;
 //        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {

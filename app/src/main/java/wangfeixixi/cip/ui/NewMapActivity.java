@@ -11,17 +11,18 @@ import android.widget.TextView;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
 import wangfeixixi.cip.widget.carview.child.ChildCar;
 import wangfeixixi.cip.widget.carview.child.ChildContainer;
 import wangfeixixi.cip.widget.carview.child.ChildLog;
 import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.map.LBSUtils;
+import wangfeixixi.com.base.MediaUtils;
 import wangfeixixi.com.base.ScreenUtils;
 import wangfeixixi.com.base.VertionUtils;
 import wangfeixixi.com.base.WifiUtils;
 import wangfeixixi.com.base.data.DateUtils;
-import wangfeixixi.com.bdvoice.VoiceUtil;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class NewMapActivity extends BaseActivity {
@@ -78,6 +79,12 @@ public class NewMapActivity extends BaseActivity {
                 return true;
             }
         });
+        //init map
+        CarBean bean = new CarBean();
+        bean.heading = 0;
+        bean.longitude = 1212388181;
+        bean.latitude = 303377296;
+        LBSUtils.addBenMarker(mLbs, bean);
     }
 
     TextView tv_warning;
@@ -85,12 +92,12 @@ public class NewMapActivity extends BaseActivity {
 
     @Override
     protected void onReceiveJsonBean(JsonRootBean bean) {
-        //显示log
-        addLog(bean);
-
         if (bean.hvDatas == null || bean.rvDatas == null) {
+            tv_warning.setText(bean.toString());
             return;
         }
+        //显示log
+        addLog(bean);
         long nowTime = System.currentTimeMillis();
         //更新俯视图位置
         ChildCar.getInstance().addBenCar(rl_carview, bean.hvDatas);
@@ -101,19 +108,15 @@ public class NewMapActivity extends BaseActivity {
         LBSUtils.addBenMarker(mLbs, bean.hvDatas);
         for (int i = 0; i < bean.rvDatas.size(); i++)
             LBSUtils.addOtherMarker(mLbs, bean.rvDatas.get(i));
-        if (nowTime - lastTime > 2000) {
 
-            //语音提示
-            if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).fcwAlarm != 0)
-                VoiceUtil.getInstance().speek("保持距离");
-            //车道动画
-            if (bean.hvDatas.speed != 0) {
-                TranslateAnim.startTranslateAnim(iv_left_floor, iv_right_floor, 2000);
-            } else {
-                iv_left_floor.clearAnimation();
-                iv_right_floor.clearAnimation();
-            }
-            lastTime = nowTime;
+        if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).fcwAlarm != 0) {
+            MediaUtils.getInstance().start();
+        }
+        if (bean.hvDatas.speed != 0) {
+            TranslateAnim.startTranslateAnim(iv_left_floor, iv_right_floor, 2000);
+        } else {
+            iv_left_floor.clearAnimation();
+            iv_right_floor.clearAnimation();
         }
     }
 
@@ -123,16 +126,12 @@ public class NewMapActivity extends BaseActivity {
         sb.append("\nwifiName:" + wifiName);
         sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-
-        if (bean.hvDatas != null || bean.rvDatas != null) {
-            float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-            sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
-            sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
-            sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
-            sb.append(bean.toString());
-            tv_warning.setText(sb.toString());
-            return;
-        }
+        float distance = LBSUtils.calculateLineDistance(mLbs, bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
+        sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
+        sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
+        sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
+        sb.append(bean.toString());
+        tv_warning.setText(sb.toString());
 
 //        double jvli = 0;
 //        float mixDiagonal = 0;
