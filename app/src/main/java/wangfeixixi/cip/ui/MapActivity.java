@@ -144,17 +144,17 @@ public class MapActivity extends BaseActivity {
     }
 
     public void switchCapionHeight(boolean isShow) {
+        long nowTime = System.currentTimeMillis();
         if (isShow) {
+            lastTime = nowTime;
             MediaUtils.getInstance().start();
             mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 6);
             ll_capion.setVisibility(View.VISIBLE);
         } else {
-            long nowTime = System.currentTimeMillis();
             if (nowTime - lastTime > 4000) {
                 lastTime = nowTime;
                 ll_capion.setVisibility(View.GONE);
                 mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 2);
-                return;
             }
         }
     }
