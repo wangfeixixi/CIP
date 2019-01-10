@@ -67,7 +67,7 @@
         android:theme="@style/theme_all">
 
         <activity
-            android:name=".ui.MapActivity"
+            android:name=".ui.MapSimple.MapSimpleActivity"
             android:icon="@mipmap/icon"
             android:label="V2X"
             android:screenOrientation="portrait"
@@ -78,6 +78,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.bird.BirdActivity"
+            android:icon="@mipmap/icon"
+            android:label="V2X"
+            android:screenOrientation="portrait"
+            android:theme="@style/theme_launch">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
 
         </activity>
         <activity
@@ -95,18 +109,6 @@
         </activity>
 
         <service android:name=".widget.udp.sevice.UDPService" />
-
-        <activity
-            android:name=".ui.mvvm.MainActivity"
-            android:icon="@mipmap/icon"
-            android:label="cip">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        </activity>
 
         <!--<activity android:name=".ui.anko.AnkoTestActivity">-->
 

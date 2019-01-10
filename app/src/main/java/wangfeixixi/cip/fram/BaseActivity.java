@@ -1,39 +1,14 @@
 package wangfeixixi.cip.fram;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.fram.themvp.presenter.ActivityPresenter;
+import wangfeixixi.cip.fram.themvp.view.IDelegate;
 
-public abstract class BaseActivity extends AppCompatActivity {
-
-    public Activity mCtx;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mCtx = this;
-
-        initView(savedInstanceState);
-        initData();
-    }
-
-
-    protected abstract void initView(Bundle savedInstanceState);
-
-    protected abstract void initData();
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+public abstract class BaseActivity<T extends IDelegate> extends ActivityPresenter<T> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveDatas(JsonRootBean bean) {

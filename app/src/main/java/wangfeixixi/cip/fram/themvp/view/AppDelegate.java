@@ -87,6 +87,15 @@ public abstract class AppDelegate implements IDelegate {
         }
     }
 
+    public void setOnLongClickListener(View.OnLongClickListener listener, int... ids) {
+        if (ids == null) {
+            return;
+        }
+        for (int id : ids) {
+            get(id).setOnLongClickListener(listener);
+        }
+    }
+
     public void toast(CharSequence msg) {
         Toast.makeText(rootView.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
