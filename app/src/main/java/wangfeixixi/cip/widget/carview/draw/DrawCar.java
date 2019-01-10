@@ -6,10 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import wangfeixixi.cip.R;
+import wangfeixixi.cip.utils.UIUtils;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
-import wangfeixixi.com.base.UIUtils;
 
 public class DrawCar {
     private DrawCar() {

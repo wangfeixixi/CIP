@@ -5,8 +5,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import wangfeixixi.cip.R;
+import wangfeixixi.cip.utils.UIUtils;
 import wangfeixixi.cip.widget.carview.CarUtils;
-import wangfeixixi.com.base.UIUtils;
 
 public class ChildOther {
 

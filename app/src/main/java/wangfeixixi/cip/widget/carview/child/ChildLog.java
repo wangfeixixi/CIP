@@ -6,11 +6,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.UIUtils;
-import wangfeixixi.com.base.VertionUtils;
-import wangfeixixi.com.base.WifiUtils;
-import wangfeixixi.com.base.mvvm.utils.ToastUtils;
+import wangfeixixi.cip.utils.UIUtils;
+
 
 public class ChildLog {
 

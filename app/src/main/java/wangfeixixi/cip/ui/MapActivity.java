@@ -19,14 +19,14 @@ import org.greenrobot.eventbus.ThreadMode;
 import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.utils.MediaUtils;
+import wangfeixixi.cip.utils.ScreenUtils;
+import wangfeixixi.cip.utils.ToastUtils;
+import wangfeixixi.cip.utils.VertionUtils;
+import wangfeixixi.cip.utils.WifiUtils;
+import wangfeixixi.cip.utils.date.DateUtils;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.map.LBSUtils;
-import wangfeixixi.com.base.MediaUtils;
-import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.VertionUtils;
-import wangfeixixi.com.base.WifiUtils;
-import wangfeixixi.com.base.data.DateUtils;
-import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class MapActivity extends BaseActivity {
@@ -343,7 +343,7 @@ public class MapActivity extends BaseActivity {
         if (nowBackTime - lastBackTime < 300) {
             super.onBackPressed();
         } else {
-            ToastUtils.showShort("双击推出");
+            ToastUtils.showToast("双击推出");
             lastBackTime = nowBackTime;
         }
     }

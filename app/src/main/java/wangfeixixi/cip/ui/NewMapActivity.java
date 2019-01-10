@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
+import wangfeixixi.cip.utils.MediaUtils;
+import wangfeixixi.cip.utils.ScreenUtils;
+import wangfeixixi.cip.utils.VertionUtils;
+import wangfeixixi.cip.utils.WifiUtils;
+import wangfeixixi.cip.utils.date.DateUtils;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.anim.TranslateAnim;
 import wangfeixixi.cip.widget.carview.child.ChildCar;
@@ -18,11 +23,6 @@ import wangfeixixi.cip.widget.carview.child.ChildContainer;
 import wangfeixixi.cip.widget.carview.child.ChildLog;
 import wangfeixixi.cip.widget.carview.child.ChildOther;
 import wangfeixixi.cip.widget.map.LBSUtils;
-import wangfeixixi.com.base.MediaUtils;
-import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.VertionUtils;
-import wangfeixixi.com.base.WifiUtils;
-import wangfeixixi.com.base.data.DateUtils;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
 public class NewMapActivity extends BaseActivity {

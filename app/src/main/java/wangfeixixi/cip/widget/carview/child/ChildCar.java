@@ -6,10 +6,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import wangfeixixi.cip.R;
+import wangfeixixi.cip.utils.UIUtils;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarUtils;
 import wangfeixixi.cip.widget.carview.anim.BlinkAnim;
-import wangfeixixi.com.base.UIUtils;
 
 public class ChildCar {
     ImageView iv_ben;

@@ -13,9 +13,9 @@ import java.net.InetSocketAddress;
 import java.net.SocketException;
 
 import wangfeixixi.cip.beans.JsonRootBean;
+import wangfeixixi.cip.utils.ServiceUtils;
+import wangfeixixi.cip.utils.crash.LogUtils;
 import wangfeixixi.cip.widget.udp.UDPConfig;
-import wangfeixixi.com.base.ServiceUtils;
-import wangfeixixi.com.base.crash.LogUtils;
 
 public class UdpInnerServerRunable implements Runnable {
     private DatagramPacket dpRcv = null, dpSend = null;

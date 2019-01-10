@@ -10,9 +10,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import wangfeixixi.cip.beans.JsonRootBean;
-import wangfeixixi.cip.widget.udp.sevice.UDPService;
-import wangfeixixi.com.base.ServiceUtils;
-import wangfeixixi.com.base.mvvm.utils.ToastUtils;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
