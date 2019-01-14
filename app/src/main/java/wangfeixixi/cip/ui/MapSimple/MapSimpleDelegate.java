@@ -22,18 +22,10 @@ public class MapSimpleDelegate extends BaseDelegate {
     private FrameLayout mapContainer;
     private GaodeMapService mLbs;
     private LinearLayout ll_capion;
-    //    private TextView tv_log;
     private TextView tv_speed;
     private TextView tv_distance;
-    private ImageView iv_left;
-    private ImageView iv_up;
-    private ImageView iv_down;
-    private ImageView iv_right;
-    private ImageView iv_up_self;
-    private ImageView iv_down_self;
     private TextView tv_log;
     private ImageView iv_car_center;
-
 
     @Override
     public int getRootLayoutId() {
@@ -45,71 +37,23 @@ public class MapSimpleDelegate extends BaseDelegate {
         mapContainer = get(R.id.fl_map_container);
         tv_speed = get(R.id.tv_speed);
         tv_distance = get(R.id.tv_distance);
-        iv_car_center = get(R.id.iv_car_center);
         ll_capion = get(R.id.ll_capion);
-        iv_left = get(R.id.iv_left);
-        iv_up = get(R.id.iv_up);
-        iv_down = get(R.id.iv_down);
-        iv_right = get(R.id.iv_right);
-
-        iv_up_self = get(R.id.iv_up_self);
-        iv_down_self = get(R.id.iv_down_self);
         tv_log = get(R.id.tv_log);
+
+        iv_car_center = get(R.id.iv_car_center);
     }
 
     public void switchCW(int cw) {
+        int gifID = R.mipmap.cw_subtend_1;
         switch (cw) {
-            case 1://上
-                iv_up_self.setVisibility(View.GONE);
-                iv_down_self.setVisibility(View.VISIBLE);
-                iv_up.setVisibility(View.VISIBLE);
-                iv_down.setVisibility(View.GONE);
-                iv_left.setVisibility(View.GONE);
-                iv_right.setVisibility(View.GONE);
-                iv_car_center.setVisibility(View.GONE);
-//                VoiceUtil.getInstance().speek("前车预警");
-                break;
-            case 2://下
-                iv_up_self.setVisibility(View.VISIBLE);
-                iv_down_self.setVisibility(View.GONE);
-                iv_up.setVisibility(View.GONE);
-                iv_down.setVisibility(View.VISIBLE);
-                iv_left.setVisibility(View.GONE);
-                iv_right.setVisibility(View.GONE);
-                iv_car_center.setVisibility(View.GONE);
-//                VoiceUtil.getInstance().speek("后车预警");
-                break;
-            case 3://左
-                iv_up_self.setVisibility(View.GONE);
-                iv_down_self.setVisibility(View.VISIBLE);
-                iv_left.setVisibility(View.VISIBLE);
-                iv_down.setVisibility(View.GONE);
-                iv_up.setVisibility(View.GONE);
-                iv_right.setVisibility(View.GONE);
-                iv_car_center.setVisibility(View.GONE);
-//                VoiceUtil.getInstance().speek("左车预警");
-                break;
-            case 4://右
-                iv_up_self.setVisibility(View.GONE);
-                iv_down_self.setVisibility(View.VISIBLE);
-                iv_up.setVisibility(View.GONE);
-                iv_down.setVisibility(View.GONE);
-                iv_left.setVisibility(View.GONE);
-                iv_right.setVisibility(View.VISIBLE);
-                iv_car_center.setVisibility(View.GONE);
-//                VoiceUtil.getInstance().speek("右车预警");
-                break;
-            case 5://对向预警
-                iv_up_self.setVisibility(View.GONE);
-                iv_down_self.setVisibility(View.GONE);
-                iv_up.setVisibility(View.GONE);
-                iv_down.setVisibility(View.GONE);
-                iv_left.setVisibility(View.GONE);
-                iv_right.setVisibility(View.GONE);
-                iv_car_center.setVisibility(View.VISIBLE);
-//                VoiceUtil.getInstance().speek("对向预警");
-                break;
+            case 1:
+                gifID = R.mipmap.cw_subtend_1;
+            default:
+                gifID = R.mipmap.cw_subtend_2;
         }
+        Glide.with(UIUtils.getContext())
+                .load(gifID)
+                .into(iv_car_center);
     }
 
     public long lastTime = 0;
@@ -128,24 +72,6 @@ public class MapSimpleDelegate extends BaseDelegate {
                 mLbs.setPointToCenter(ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 2);
             }
         }
-    }
-
-    private void initGif() {
-        Glide.with(UIUtils.getContext())
-                .load(R.mipmap.cw_up)
-                .into(iv_up);
-        Glide.with(UIUtils.getContext())
-                .load(R.mipmap.cw_down)
-                .into(iv_down);
-        Glide.with(UIUtils.getContext())
-                .load(R.mipmap.cw_left)
-                .into(iv_left);
-        Glide.with(UIUtils.getContext())
-                .load(R.mipmap.cw_right)
-                .into(iv_right);
-        Glide.with(UIUtils.getContext())
-                .load(R.mipmap.cw_subtend_1)
-                .into(iv_car_center);
     }
 
     public void setLogText(String log) {
@@ -181,7 +107,6 @@ public class MapSimpleDelegate extends BaseDelegate {
 
     protected void onResume() {
         mLbs.onResume();
-        initGif();
         switchCapionHeight(false);
         //init map
         CarBean bean = new CarBean();

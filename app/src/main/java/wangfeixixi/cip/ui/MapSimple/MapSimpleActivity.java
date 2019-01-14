@@ -29,7 +29,6 @@ public class MapSimpleActivity extends BaseActivity<MapSimpleDelegate> implement
     protected void onResume() {
         super.onResume();
         viewDelegate.onResume();
-
         viewDelegate.setOnClickListener(this, R.id.btn_jump);
         viewDelegate.setOnLongClickListener(this, R.id.btn_jump);
     }

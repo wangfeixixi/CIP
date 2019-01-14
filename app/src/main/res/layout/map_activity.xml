@@ -108,60 +108,11 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/iv_car_center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <ImageView
-                    android:id="@+id/iv_up"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_centerHorizontal="true"
-                    android:background="@mipmap/cw_up" />
-
-                <ImageView
-                    android:id="@+id/iv_down"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@mipmap/cw_down" />
-
-                <ImageView
-                    android:id="@+id/iv_up_self"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_centerHorizontal="true"
-                    android:background="@mipmap/car_self" />
-
-                <ImageView
-                    android:id="@+id/iv_down_self"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@mipmap/car_self" />
-
-                <ImageView
-                    android:id="@+id/iv_left"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:background="@mipmap/cw_left" />
-
-                <ImageView
-                    android:id="@+id/iv_right"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@mipmap/cw_right" />
-
-                <ImageView
-                    android:id="@+id/iv_car_center"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
+                android:layout_margin="16dp" />
         </LinearLayout>
 
         <View
