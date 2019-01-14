@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import wangfeixixi.cip.fram.BaseApp;
 
 public class UIUtils {
-    public UIUtils() {
-    }
 
     public static String[] getStringArray(int id) {
         return getResources().getStringArray(id);

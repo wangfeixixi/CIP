@@ -46,7 +46,15 @@ public class MapSimpleDelegate extends BaseDelegate {
     public void switchCW(int cw) {
         int gifID = R.mipmap.cw_subtend_1;
         switch (cw) {
-            case 1:
+            case 1://前向碰撞预警
+                gifID = R.mipmap.cw_subtend_1;
+            case 2://后向碰撞预警
+                gifID = R.mipmap.cw_subtend_1;
+            case 3://左向碰撞
+                gifID = R.mipmap.cw_subtend_1;
+            case 4://右向碰撞
+                gifID = R.mipmap.cw_subtend_1;
+            case 6://逆向碰撞
                 gifID = R.mipmap.cw_subtend_1;
             default:
                 gifID = R.mipmap.cw_subtend_2;

@@ -9,7 +9,7 @@ import wangfeixixi.cip.R;
 import wangfeixixi.cip.utils.UIUtils;
 import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.carview.CarUtils;
-import wangfeixixi.cip.widget.carview.utils.BitmapUtils;
+import wangfeixixi.cip.utils.BitmapUtils;
 
 public class DrawCar {
     private DrawCar() {

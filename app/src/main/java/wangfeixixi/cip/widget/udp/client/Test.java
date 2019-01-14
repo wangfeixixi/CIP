@@ -13,19 +13,10 @@ import wangfeixixi.cip.widget.udp.client.data.TxtUtils;
 public class Test {
     public static void main(String[] args) {
         ArrayList<String> jsonAraray = TxtUtils.getJsonAraray();
-
-        for (int i = 0; i < jsonAraray.size(); i++) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            send(jsonAraray.get(i));
-            System.out.println("send" + System.currentTimeMillis());
-        }
+        send(jsonAraray);
     }
 
-    public static void send(String msg) {
+    public static void send(ArrayList<String> msg) {
         DatagramSocket socket = null;
         DatagramPacket packetSend, packetRcv;
 //        boolean udpLife = true; //udp生命线程
@@ -41,10 +32,19 @@ public class Test {
         } catch (SocketException e) {
             e.printStackTrace();
         }
-
-
-        packetSend = new DatagramPacket(msg.getBytes(), msg.getBytes().length, hostAddress, 9999);
         try {
+            packetSend = null;
+            for (int i = 0; i < msg.size(); i++) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//            send(jsonAraray.get(i));
+                packetSend = new DatagramPacket(msg.get(i).getBytes(), msg.get(i).getBytes().length, hostAddress, 9999);
+
+                System.out.println("send" + msg.get(i));
+            }
             socket.send(packetSend);
         } catch (IOException e) {
             e.printStackTrace();

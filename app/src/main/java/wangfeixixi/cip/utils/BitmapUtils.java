@@ -1,4 +1,4 @@
-package wangfeixixi.cip.widget.carview.utils;
+package wangfeixixi.cip.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;

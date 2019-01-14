@@ -7,8 +7,7 @@ import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.ui.NumberTransfer;
 import wangfeixixi.cip.utils.MediaUtils;
-import wangfeixixi.cip.utils.VertionUtils;
-import wangfeixixi.cip.utils.WifiUtils;
+import wangfeixixi.cip.utils.AppUtils;
 import wangfeixixi.cip.utils.date.DateUtils;
 
 public class BirdActivity extends BaseActivity<BirdDelegate> {
@@ -43,9 +42,9 @@ public class BirdActivity extends BaseActivity<BirdDelegate> {
 
     private void addLog(JsonRootBean bean) {
         StringBuffer sb = new StringBuffer();
-        String wifiName = WifiUtils.getWifiName();
+        String wifiName = AppUtils.getWifiName();
         sb.append("\nwifiName:" + wifiName);
-        sb.append("\n版本：" + VertionUtils.getVersionName() + "-" + VertionUtils.getVersionCode());
+        sb.append("\n版本：" + AppUtils.getVersionName() + "-" + AppUtils.getVersionCode());
         sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         float distance = viewDelegate.getLbsDistance(bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
         sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
