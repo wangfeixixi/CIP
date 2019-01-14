@@ -4,6 +4,9 @@ import java.util.List;
 
 import wangfeixixi.cip.widget.carview.CarBean;
 
+/**
+ * UDP根bean
+ */
 public class JsonRootBean {
     public int cmd;
     public CarBean hvDatas;
