@@ -44,20 +44,45 @@ public class MapSimpleDelegate extends BaseDelegate {
     }
 
     public void switchCW(int cw) {
-        int gifID = R.mipmap.cw_subtend_1;
+        int gifID = 0;
         switch (cw) {
             case 1://前向碰撞预警
-                gifID = R.mipmap.cw_subtend_1;
+                gifID = R.mipmap.cw_front;
+                break;
             case 2://后向碰撞预警
-                gifID = R.mipmap.cw_subtend_1;
+                gifID = R.mipmap.cw_back;
+                break;
             case 3://左向碰撞
-                gifID = R.mipmap.cw_subtend_1;
+                gifID = R.mipmap.cw_left;
+                break;
             case 4://右向碰撞
-                gifID = R.mipmap.cw_subtend_1;
-            case 6://逆向碰撞
-                gifID = R.mipmap.cw_subtend_1;
+                gifID = R.mipmap.cw_right;
+                break;
+            case 5://右逆向超车
+                gifID = R.mipmap.cw_reverse_right;
+                break;
+            case 6://左逆向超车
+                gifID = R.mipmap.cw_reverse_left;
+                break;
+            case 7://盲区左侧
+                gifID = R.mipmap.cw_dead_zone_left;
+                break;
+            case 8://盲区右侧
+                gifID = R.mipmap.cw_dead_zone_right;
+                break;
+            case 9://左转辅助
+                gifID = R.mipmap.cw_left_assist;
+                break;
+            case 10://逆向行驶
+                gifID = R.mipmap.cw_subtent;
+                break;
+            case 11://逆向直行
+                gifID = R.mipmap.cw_subtent;
+            case 12://逆向左侧
+                gifID = R.mipmap.cw_subtent_left;
+            case 255://异常车辆
             default:
-                gifID = R.mipmap.cw_subtend_2;
+                gifID = R.mipmap.cw_abnormal;
         }
         Glide.with(UIUtils.getContext())
                 .load(gifID)

@@ -94,48 +94,48 @@
             android:textColor="@color/yellow"
             android:textSize="18sp" />
 
-        <wangfeixixi.share.circle.DialProgress
-            android:id="@+id/dial_progress_rv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:padding="@dimen/small"
-            app:animTime="1000"
-            app:arcColors="@array/gradient_arc_color"
-            app:arcWidth="@dimen/small"
-            app:dialIntervalDegree="3"
-            app:dialWidth="1dp"
-            app:hint="远车"
-            app:hintSize="10sp"
-            app:maxValue="300"
-            app:startAngle="135"
-            app:sweepAngle="270"
-            app:unit="km/h"
-            app:unitSize="12sp"
-            app:value="0"
-            app:valueSize="18sp" />
+        <!--<wangfeixixi.share.circle.DialProgress-->
+            <!--android:id="@+id/dial_progress_rv"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_margin="8dp"-->
+            <!--android:padding="@dimen/small"-->
+            <!--app:animTime="1000"-->
+            <!--app:arcColors="@array/gradient_arc_color"-->
+            <!--app:arcWidth="@dimen/small"-->
+            <!--app:dialIntervalDegree="3"-->
+            <!--app:dialWidth="1dp"-->
+            <!--app:hint="远车"-->
+            <!--app:hintSize="10sp"-->
+            <!--app:maxValue="300"-->
+            <!--app:startAngle="135"-->
+            <!--app:sweepAngle="270"-->
+            <!--app:unit="km/h"-->
+            <!--app:unitSize="12sp"-->
+            <!--app:value="0"-->
+            <!--app:valueSize="18sp" />-->
 
-        <wangfeixixi.share.circle.DialProgress
-            android:id="@+id/dial_progress_hv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"
-            android:padding="@dimen/small"
-            app:animTime="1000"
-            app:arcColors="@array/gradient_arc_color"
-            app:arcWidth="@dimen/small"
-            app:dialIntervalDegree="3"
-            app:dialWidth="1dp"
-            app:hint="本车"
-            app:hintSize="10sp"
-            app:maxValue="300"
-            app:startAngle="135"
-            app:sweepAngle="270"
-            app:unit="km/h"
-            app:unitSize="12sp"
-            app:value="0"
-            app:valueSize="18sp" />
+        <!--<wangfeixixi.share.circle.DialProgress-->
+            <!--android:id="@+id/dial_progress_hv"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_margin="8dp"-->
+            <!--android:padding="@dimen/small"-->
+            <!--app:animTime="1000"-->
+            <!--app:arcColors="@array/gradient_arc_color"-->
+            <!--app:arcWidth="@dimen/small"-->
+            <!--app:dialIntervalDegree="3"-->
+            <!--app:dialWidth="1dp"-->
+            <!--app:hint="本车"-->
+            <!--app:hintSize="10sp"-->
+            <!--app:maxValue="300"-->
+            <!--app:startAngle="135"-->
+            <!--app:sweepAngle="270"-->
+            <!--app:unit="km/h"-->
+            <!--app:unitSize="12sp"-->
+            <!--app:value="0"-->
+            <!--app:valueSize="18sp" />-->
 
         <wangfeixixi.cip.widget.carview.CarView
             android:id="@+id/carview"

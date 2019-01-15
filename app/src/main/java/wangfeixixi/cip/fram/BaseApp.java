@@ -2,6 +2,7 @@ package wangfeixixi.cip.fram;
 
 import android.app.Application;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 
 import wangfeixixi.cip.utils.ConfigUtils;
@@ -19,8 +20,8 @@ public class BaseApp extends Application {
         instance = this;
         if (ConfigUtils.isApkInDebug()) {
             CrashHandler.getInstance().init();
+            LeakCanary.install(this);
         }
-        ServiceUtils.startService(UDPService.class);
         Bugly.init(UIUtils.getContext(), "7f4076eec5", false);
 //        ThreadUtils.runOnBackThread(new Runnable() {
 //            @Override
