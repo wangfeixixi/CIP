@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="远车航向角"
-            android:textColor="@color/color_blue"
             android:textSize="16sp" />
 
         <RelativeLayout
@@ -48,7 +47,6 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:text="本车航向角"
-            android:textColor="@color/color_blue"
             android:textSize="16sp" />
 
         <RelativeLayout
@@ -82,7 +80,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:textColor="@color/yellow"
             android:textSize="18sp"
             android:visibility="gone" />
 
@@ -91,7 +88,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/yellow"
             android:textSize="18sp" />
 
         <!--<wangfeixixi.share.circle.DialProgress-->

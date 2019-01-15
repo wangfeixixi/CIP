@@ -1,4 +1,4 @@
-package wangfeixixi.cip.ui.MapSimple;
+package wangfeixixi.cip.ui.map;
 
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +18,7 @@ import wangfeixixi.cip.widget.carview.CarBean;
 import wangfeixixi.cip.widget.map.LBSUtils;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
-public class MapSimpleDelegate extends BaseDelegate {
+public class MapDelegate extends BaseDelegate {
     private FrameLayout mapContainer;
     private GaodeMapService mLbs;
     private LinearLayout ll_capion;
@@ -46,10 +46,10 @@ public class MapSimpleDelegate extends BaseDelegate {
     public void switchCW(int cw) {
         int gifID = 0;
         switch (cw) {
-            case 1://前向碰撞预警
+            case 1://前向碰撞
                 gifID = R.mipmap.cw_front;
                 break;
-            case 2://后向碰撞预警
+            case 2://后向碰撞
                 gifID = R.mipmap.cw_back;
                 break;
             case 3://左向碰撞
@@ -58,29 +58,19 @@ public class MapSimpleDelegate extends BaseDelegate {
             case 4://右向碰撞
                 gifID = R.mipmap.cw_right;
                 break;
-            case 5://右逆向超车
-                gifID = R.mipmap.cw_reverse_right;
-                break;
-            case 6://左逆向超车
+            case 5://逆向超车
                 gifID = R.mipmap.cw_reverse_left;
                 break;
-            case 7://盲区左侧
+            case 6://盲区左侧
                 gifID = R.mipmap.cw_dead_zone_left;
                 break;
-            case 8://盲区右侧
+            case 7://盲区右侧
                 gifID = R.mipmap.cw_dead_zone_right;
                 break;
-            case 9://左转辅助
+            case 8://左转辅助
                 gifID = R.mipmap.cw_left_assist;
                 break;
-            case 10://逆向行驶
-                gifID = R.mipmap.cw_subtent;
-                break;
-            case 11://逆向直行
-                gifID = R.mipmap.cw_subtent;
-            case 12://逆向左侧
-                gifID = R.mipmap.cw_subtent_left;
-            case 255://异常车辆
+            case 9://异常车辆
             default:
                 gifID = R.mipmap.cw_abnormal;
         }

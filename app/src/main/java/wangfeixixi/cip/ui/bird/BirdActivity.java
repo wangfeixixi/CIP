@@ -3,6 +3,8 @@ package wangfeixixi.cip.ui.bird;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -10,16 +12,18 @@ import org.greenrobot.eventbus.ThreadMode;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.ui.NumberTransfer;
+import wangfeixixi.cip.ui.RouterUrlConstant;
 import wangfeixixi.cip.utils.AppUtils;
 import wangfeixixi.cip.utils.MediaUtils;
 import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.cip.utils.date.DateUtils;
 import wangfeixixi.cip.widget.udp.sevice.UDPService;
 
-public class BirdActivity extends BaseActivity<BirdDelegate> {
 
+@Route(path = RouterUrlConstant.BIRD)
+public class BirdActivity extends BaseActivity<BirdDelegate> {
     @Subscribe(threadMode = ThreadMode.MAIN)
-    protected void onReceiveJsonBean(JsonRootBean bean) {
+    public void onReceiveJsonBean(JsonRootBean bean) {
         if (bean.hvDatas == null || bean.rvDatas == null) {
             viewDelegate.setLogText(bean.toString());
             return;

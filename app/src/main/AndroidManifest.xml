@@ -67,7 +67,7 @@
         android:theme="@style/theme_all">
 
         <activity
-            android:name=".ui.MapSimple.MapSimpleActivity"
+            android:name=".ui.map.MapActivity"
             android:icon="@mipmap/icon"
             android:label="V2X"
             android:screenOrientation="portrait"

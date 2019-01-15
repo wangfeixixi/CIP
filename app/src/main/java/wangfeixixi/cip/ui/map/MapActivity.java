@@ -1,9 +1,11 @@
-package wangfeixixi.cip.ui.MapSimple;
+package wangfeixixi.cip.ui.map;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -13,16 +15,19 @@ import wangfeixixi.cip.R;
 import wangfeixixi.cip.beans.JsonRootBean;
 import wangfeixixi.cip.fram.BaseActivity;
 import wangfeixixi.cip.ui.NumberTransfer;
+import wangfeixixi.cip.ui.RouterUrlConstant;
 import wangfeixixi.cip.ui.bird.BirdActivity;
 import wangfeixixi.cip.utils.AppUtils;
 import wangfeixixi.cip.utils.ServiceUtils;
 import wangfeixixi.cip.utils.date.DateUtils;
 import wangfeixixi.cip.widget.udp.sevice.UDPService;
 
-public class MapSimpleActivity extends BaseActivity<MapSimpleDelegate> implements View.OnClickListener, View.OnLongClickListener {
+
+@Route(path = RouterUrlConstant.MAP)
+public class MapActivity extends BaseActivity<MapDelegate> implements View.OnClickListener, View.OnLongClickListener {
     @Override
-    protected Class<MapSimpleDelegate> getDelegateClass() {
-        return MapSimpleDelegate.class;
+    public Class<MapDelegate> getDelegateClass() {
+        return MapDelegate.class;
     }
 
     @Override
@@ -47,7 +52,7 @@ public class MapSimpleActivity extends BaseActivity<MapSimpleDelegate> implement
 
     @Override
     public boolean onLongClick(View v) {
-        startActivity(new Intent(this, BirdActivity.class));
+        ARouter.getInstance().build(RouterUrlConstant.BIRD).navigation();
         return true;
     }
 
@@ -73,7 +78,7 @@ public class MapSimpleActivity extends BaseActivity<MapSimpleDelegate> implement
     private int lastHeading = 0;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    protected void onReceiveJsonBean(JsonRootBean bean) {
+    public void onReceiveJsonBean(JsonRootBean bean) {
         if (bean.hvDatas == null || bean.rvDatas == null) {
             viewDelegate.setLogText(bean.toString());
             return;
