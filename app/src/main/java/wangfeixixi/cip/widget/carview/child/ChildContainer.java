@@ -7,9 +7,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import wangfeixixi.cip.utils.ScreenUtils;
+import wangfeixixi.cip.utils.UIUtils;
 import wangfeixixi.cip.widget.carview.CarUtils;
-import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.UIUtils;
 
 public class ChildContainer {
     public static RelativeLayout addFatherView(RelativeLayout rl_father) {

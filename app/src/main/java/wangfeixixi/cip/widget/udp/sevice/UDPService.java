@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import wangfeixixi.com.base.crash.LogUtils;
+import wangfeixixi.cip.utils.crash.LogUtils;
+
 
 public class UDPService extends Service {
     //    @androidx.annotation.Nullable

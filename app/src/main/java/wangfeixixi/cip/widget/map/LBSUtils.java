@@ -6,10 +6,10 @@ import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.ScaleAnimation;
 
 import wangfeixixi.cip.R;
+import wangfeixixi.cip.utils.UIUtils;
+import wangfeixixi.cip.utils.location.Gps;
+import wangfeixixi.cip.utils.location.PositionUtil;
 import wangfeixixi.cip.widget.carview.CarBean;
-import wangfeixixi.com.base.UIUtils;
-import wangfeixixi.com.base.location.Gps;
-import wangfeixixi.com.base.location.PositionUtil;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 

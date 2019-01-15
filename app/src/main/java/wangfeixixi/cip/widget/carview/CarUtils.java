@@ -1,17 +1,11 @@
 package wangfeixixi.cip.widget.carview;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Rect;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import wangfeixixi.cip.R;
-import wangfeixixi.com.base.ScreenUtils;
-import wangfeixixi.com.base.UIUtils;
+import wangfeixixi.cip.utils.ScreenUtils;
 
 /**
  * 转换坐标类，将接收到的信息转换成屏幕坐标点
