@@ -79,8 +79,10 @@ ext {
             //各种自定义控件
             "widgets"                              : 'com.github.wangfeixixi:ShareWidget:v2.7.8',
             //anko
-            "anko"                                 : 'org.jetbrains.anko:anko:0.10.8'
+            "anko"                                 : 'org.jetbrains.anko:anko:0.10.8',
+            //arouter
+            "arouter_api"                          : 'com.alibaba:arouter-api:1.4.1',
+            "arouter_compiler"                     : 'com.alibaba:arouter-compiler:1.2.2'
+
     ]
 }
-
-
