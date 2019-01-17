@@ -59,7 +59,7 @@
 
 
     <application
-        android:name="wangfeixixi.com.commen.fram.BaseApp"
+        android:name="debug.CWApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="module_cw"

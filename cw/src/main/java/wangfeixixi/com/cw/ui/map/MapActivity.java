@@ -10,15 +10,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.commen.utils.AppUtils;
-import wangfeixixi.com.commen.utils.ServiceUtils;
 import wangfeixixi.com.commen.utils.date.DateUtils;
 import wangfeixixi.com.cw.R;
 import wangfeixixi.com.cw.beans.JsonRootBean;
 import wangfeixixi.com.cw.ui.NumberTransfer;
-import wangfeixixi.com.commen.constant.ArouterUrlConstant;
-import wangfeixixi.com.cw.widget.udp.sevice.UDPService;
 
 
 @Route(path = ArouterUrlConstant.MAP)
@@ -40,7 +38,6 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
         viewDelegate.onResume();
         viewDelegate.setOnClickListener(this, R.id.btn_jump);
         viewDelegate.setOnLongClickListener(this, R.id.btn_jump);
-        ServiceUtils.startService(UDPService.class);
     }
 
     @Override
@@ -64,7 +61,6 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
     protected void onPause() {
         super.onPause();
         viewDelegate.onPause();
-        ServiceUtils.stopService(UDPService.class);
     }
 
     @Override

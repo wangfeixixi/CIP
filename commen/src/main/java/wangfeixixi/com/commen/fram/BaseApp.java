@@ -35,6 +35,7 @@ public class BaseApp extends Application {
 //                VoiceUtil.getInstance().initKey(UIUtils.getContext(), "14678940", "F7aZGFVk9cOQdb9X6nPw2Aog", "2wkI4xprZ8sMmxICY9iZYim704j1qy65");
 //            }
 //        });
+
     }
 
     public static Application getInstance() {
