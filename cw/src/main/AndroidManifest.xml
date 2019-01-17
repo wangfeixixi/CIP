@@ -1,0 +1,47 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="wangfeixixi.com.cw">
+
+    <application android:theme="@style/theme_all">
+
+        <activity android:name="wangfeixixi.com.cw.ui.map.MapActivity" />
+        <activity android:name=".ui.bird.BirdActivity" />
+
+        <service android:name=".widget.udp.sevice.UDPService" />
+
+        <!--<meta-data-->
+        <!--android:name="com.amap.api.v2.apikey"-->
+        <!--android:value="73a9ad72e56bf4364b232e70b8203e55" />-->
+        <!--&lt;!&ndash; 定位需要的服务 使用2.0的定位需要加上这个 &ndash;&gt;-->
+        <!--<service android:name="com.amap.api.location.APSService" />-->
+
+
+        <!--<activity-->
+        <!--android:name="com.tencent.bugly.beta.ui.BetaActivity"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize|locale"-->
+        <!--android:theme="@android:style/Theme.Translucent" />-->
+
+        <!--<provider-->
+        <!--android:name="android.support.v4.content.FileProvider"-->
+        <!--android:authorities="${applicationId}.fileProvider"-->
+        <!--android:exported="false"-->
+        <!--android:grantUriPermissions="true">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/provider_paths" />-->
+        <!--</provider>-->
+        <!--<provider-->
+        <!--android:name=".utils.BuglyFileProvider"-->
+        <!--android:authorities="${applicationId}.fileProvider"-->
+        <!--android:exported="false"-->
+        <!--android:grantUriPermissions="true"-->
+        <!--tools:replace="name,authorities,exported,grantUriPermissions">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/provider_paths"-->
+        <!--tools:replace="name,resource" />-->
+        <!--</provider>-->
+
+    </application>
+
+
+</manifest>
