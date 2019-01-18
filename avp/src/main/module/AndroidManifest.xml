@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="wangfeixixi.com.avp">
 
     <application
@@ -6,7 +7,8 @@
         android:icon="@mipmap/icon"
         android:label="module_avp"
         android:supportsRtl="true"
-        android:theme="@style/theme_all">
+        android:theme="@style/theme_all"
+        tools:replace="label,icon,theme">
 
         <activity android:name=".AVPTEstActivity">
             <intent-filter>

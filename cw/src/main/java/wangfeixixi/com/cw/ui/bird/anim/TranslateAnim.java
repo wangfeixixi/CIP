@@ -1,4 +1,4 @@
-package wangfeixixi.com.cw.widget.carview.anim;
+package wangfeixixi.com.cw.ui.bird.anim;
 
 import android.view.View;
 import android.view.animation.Animation;

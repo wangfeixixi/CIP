@@ -13,12 +13,12 @@ import android.widget.TextView;
 import wangfeixixi.com.commen.fram.BaseDelegate;
 import wangfeixixi.com.commen.utils.ScreenUtils;
 import wangfeixixi.com.commen.utils.UIUtils;
+import wangfeixixi.com.cw.ui.bird.child.ChildCar;
+import wangfeixixi.com.cw.ui.bird.child.ChildContainer;
+import wangfeixixi.com.cw.ui.bird.child.ChildLog;
+import wangfeixixi.com.cw.ui.bird.child.ChildOther;
 import wangfeixixi.com.cw.widget.carview.CarBean;
-import wangfeixixi.com.cw.widget.carview.anim.TranslateAnim;
-import wangfeixixi.com.cw.widget.carview.child.ChildCar;
-import wangfeixixi.com.cw.widget.carview.child.ChildContainer;
-import wangfeixixi.com.cw.widget.carview.child.ChildLog;
-import wangfeixixi.com.cw.widget.carview.child.ChildOther;
+import wangfeixixi.com.cw.ui.bird.anim.TranslateAnim;
 import wangfeixixi.com.cw.widget.map.LBSUtils;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -108,6 +108,9 @@ public class BirdDelegate extends BaseDelegate {
     protected void onDestroy() {
         if (mLbs != null)
             mLbs.onDestroy();
+        mapContainer.removeAllViews();
+        rl_carview.removeAllViews();
+        rl_father.removeAllViews();
     }
 
     public float getLbsDistance(float startLatitude, float startLongitude, float endLatitude, float endLongitude) {

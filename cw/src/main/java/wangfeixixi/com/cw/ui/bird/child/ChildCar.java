@@ -1,4 +1,4 @@
-package wangfeixixi.com.cw.widget.carview.child;
+package wangfeixixi.com.cw.ui.bird.child;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +7,9 @@ import android.widget.RelativeLayout;
 
 import wangfeixixi.com.commen.utils.UIUtils;
 import wangfeixixi.com.cw.R;
+import wangfeixixi.com.cw.ui.bird.anim.BlinkAnim;
 import wangfeixixi.com.cw.widget.carview.CarBean;
 import wangfeixixi.com.cw.widget.carview.CarUtils;
-import wangfeixixi.com.cw.widget.carview.anim.BlinkAnim;
 
 public class ChildCar {
     ImageView iv_ben;
@@ -66,6 +66,7 @@ public class ChildCar {
         layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
         layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
         viewGroup.addView(iv_ben, layoutParams);
+        benHeading = bean.heading;
     }
 
     public void addOtherCar(ViewGroup viewGroup, CarBean bean) {
@@ -76,6 +77,7 @@ public class ChildCar {
         layoutParams.width = (int) (bean.width * CarUtils.getInstance().scale);
         layoutParams.height = (int) (bean.height * CarUtils.getInstance().scale);
         viewGroup.addView(iv_other, layoutParams);
+        iv_other.setRotation(Math.abs(bean.heading - benHeading));
         BlinkAnim.blink(iv_other, bean.cw != 0);
     }
 

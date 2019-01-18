@@ -1,4 +1,4 @@
-package wangfeixixi.com.cw.widget.carview.child;
+package wangfeixixi.com.cw.ui.bird.child;
 
 import android.view.ViewGroup;
 import android.widget.ImageView;
