@@ -152,7 +152,7 @@ public class MapDelegate extends BaseDelegate {
     }
 
     public float getLbsDistance(float startLatitude, float startLongitude, float endLatitude, float endLongitude) {
-        return LBSUtils.calculateLineDistance(mLbs, startLatitude, startLongitude, endLatitude, endLongitude);
+        return LBSUtils.calculateLineDistance(startLatitude, startLongitude, endLatitude, endLongitude);
     }
 
     public void showLogView() {

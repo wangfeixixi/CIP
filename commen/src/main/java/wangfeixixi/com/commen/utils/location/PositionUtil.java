@@ -47,8 +47,8 @@ public class PositionUtil {
      */
     public static Gps gcj_To_Gps84(double lat, double lon) {
         Gps gps = transform(lat, lon);
-        double lontitude = lon * 2 - gps.getWgLon();
-        double latitude = lat * 2 - gps.getWgLat();
+        double lontitude = lon * 2 - gps.getLongitude();
+        double latitude = lat * 2 - gps.getLatitude();
         return new Gps(latitude, lontitude);
     }
 
@@ -90,8 +90,8 @@ public class PositionUtil {
     public static Gps bd09_To_Gps84(double bd_lat, double bd_lon) {
 
         Gps gcj02 = PositionUtil.bd09_To_Gcj02(bd_lat, bd_lon);
-        Gps map84 = PositionUtil.gcj_To_Gps84(gcj02.getWgLat(),
-                gcj02.getWgLon());
+        Gps map84 = PositionUtil.gcj_To_Gps84(gcj02.getLatitude(),
+                gcj02.getLongitude());
         return map84;
 
     }
@@ -145,13 +145,13 @@ public class PositionUtil {
         // 北斗芯片获取的经纬度为WGS84地理坐标 31.426896,119.496145
         Gps gps = new Gps(31.426896, 119.496145);
         System.out.println("gps :" + gps);
-        Gps gcj = gps84_To_Gcj02(gps.getWgLat(), gps.getWgLon());
+        Gps gcj = gps84_To_Gcj02(gps.getLatitude(), gps.getLongitude());
         System.out.println("gcj :" + gcj);
-        Gps star = gcj_To_Gps84(gcj.getWgLat(), gcj.getWgLon());
+        Gps star = gcj_To_Gps84(gcj.getLatitude(), gcj.getLongitude());
         System.out.println("star:" + star);
-        Gps bd = gcj02_To_Bd09(gcj.getWgLat(), gcj.getWgLon());
+        Gps bd = gcj02_To_Bd09(gcj.getLatitude(), gcj.getLongitude());
         System.out.println("bd  :" + bd);
-        Gps gcj2 = bd09_To_Gcj02(bd.getWgLat(), bd.getWgLon());
+        Gps gcj2 = bd09_To_Gcj02(bd.getLatitude(), bd.getLongitude());
         System.out.println("gcj :" + gcj2);
     }
 }

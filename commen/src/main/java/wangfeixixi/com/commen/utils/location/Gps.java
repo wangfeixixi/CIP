@@ -1,32 +1,32 @@
 package wangfeixixi.com.commen.utils.location;
 
 public class Gps {
-    private double wgLat;
-    private double wgLon;
+    public double latitude;
+    public double longitude;
 
     public Gps(double wgLat, double wgLon) {
-        setWgLat(wgLat);
-        setWgLon(wgLon);
+        setLatitude(wgLat);
+        setLongitude(wgLon);
     }
 
-    public double getWgLat() {
-        return wgLat;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setWgLat(double wgLat) {
-        this.wgLat = wgLat;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public double getWgLon() {
-        return wgLon;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setWgLon(double wgLon) {
-        this.wgLon = wgLon;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
     public String toString() {
-        return wgLat + "," + wgLon;
+        return latitude + "," + longitude;
     }
 }

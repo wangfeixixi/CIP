@@ -10,10 +10,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import debug.CarBeanLog;
 import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
 import wangfeixixi.com.commen.fram.BaseActivity;
-import wangfeixixi.com.commen.utils.AppUtils;
-import wangfeixixi.com.commen.utils.date.DateUtils;
 import wangfeixixi.com.cw.R;
 import wangfeixixi.com.cw.beans.JsonRootBean;
 import wangfeixixi.com.cw.ui.NumberTransfer;
@@ -73,12 +72,10 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveJsonBean(JsonRootBean bean) {
+        viewDelegate.setLogText(CarBeanLog.bean2log(bean));
         if (bean.hvDatas == null || bean.rvDatas == null) {
-            viewDelegate.setLogText(bean.toString());
             return;
         }
-        //显示log
-        addLog(bean);
         viewDelegate.setSpeed(NumberTransfer.double2String(bean.hvDatas.speed * 3.6f));
         viewDelegate.setDistance(NumberTransfer.double2String(bean.rvDatas.get(0).distance));
 
@@ -93,34 +90,6 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
             viewDelegate.lbsAddOtherMaker(bean.rvDatas.get(i));
         viewDelegate.switchCapionHeight(bean.hvDatas.cw != 0);
         viewDelegate.switchCW(bean.hvDatas.direction);
-    }
-
-    private void addLog(JsonRootBean bean) {
-        StringBuffer sb = new StringBuffer();
-        String wifiName = AppUtils.getWifiName();
-        sb.append("\nwifiName:" + wifiName);
-        sb.append("\n版本：" + AppUtils.getVersionName() + "-" + AppUtils.getVersionCode());
-        sb.append("\n日期：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
-        float distance = viewDelegate.getLbsDistance(bean.hvDatas.latitude, bean.hvDatas.longitude, bean.rvDatas.get(0).latitude, bean.rvDatas.get(0).longitude);
-        sb.append("\nmap距离：" + NumberTransfer.double2String(distance) + " m");
-        sb.append("\ndistance：" + NumberTransfer.double2String(bean.rvDatas.get(0).distance) + " m");
-        sb.append("\n距离差值：" + (NumberTransfer.double2String(distance - bean.rvDatas.get(0).distance) + " m"));
-//        double jvli = 0;
-//        float mixDiagonal = 0;
-//        if (bean.rvDatas != null && bean.rvDatas.size() > 0) {
-//            mixDiagonal = CarUtils.getInstance().getMixDiagonal(bean.rvDatas.get(0).x, bean.rvDatas.get(0).y);
-//            double sqrt = Math.sqrt(Math.abs(bean.rvDatas.get(0).x) * Math.abs(bean.rvDatas.get(0).x) + Math.abs(bean.rvDatas.get(0).y) * Math.abs(bean.rvDatas.get(0).y));
-//            sqrt -= mixDiagonal;
-//            jvli = Double.parseDouble(new DecimalFormat("#.##").format(sqrt));
-//        }
-//        if (jvli >= mixDiagonal) {
-//            sb.append("\n微调距离:" + (jvli - mixDiagonal));
-//        } else {
-//            sb.append("\n微调距离:" + 0);
-//        }
-
-        sb.append(bean.toString());
-        viewDelegate.setLogText(sb.toString());
     }
 
     @Override

@@ -10,12 +10,8 @@ public class JsonRootBean {
     public long magic;
     public int nov;
     public int sn;
-
-
     public CarBean hvDatas;
     public List<CarBean> rvDatas;
-
-
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
