@@ -48,7 +48,6 @@ public class BirdDelegate extends BaseDelegate {
         layoutParams.height = (int) (ScreenUtils.getScreenHeight());
 
         setRootView(rl_father);
-
     }
 
     @Override
@@ -68,11 +67,6 @@ public class BirdDelegate extends BaseDelegate {
 
         //添加隐藏按钮
         btn_jump = ChildContainer.addButton(rl_father);
-    }
-
-
-    public void jumpClick(View.OnClickListener listener) {
-        btn_jump.setOnClickListener(listener);
     }
 
     public void jumpLongClick(View.OnLongClickListener listener) {

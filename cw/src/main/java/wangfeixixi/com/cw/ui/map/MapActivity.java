@@ -10,12 +10,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DecimalFormat;
+
 import debug.CarBeanLog;
 import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.cw.R;
 import wangfeixixi.com.cw.beans.JsonRootBean;
-import wangfeixixi.com.cw.ui.NumberTransfer;
 
 
 @Route(path = ArouterUrlConstant.MAP)
@@ -23,6 +24,27 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
     @Override
     public Class<MapDelegate> getDelegateClass() {
         return MapDelegate.class;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveJsonBean(JsonRootBean bean) {
+        viewDelegate.setLogText(CarBeanLog.bean2log(bean));
+        if (bean.hvDatas == null || bean.rvDatas == null) {
+            return;
+        }
+        viewDelegate.setSpeed(String.valueOf(Double.parseDouble(new DecimalFormat("#.##").format(bean.hvDatas.speed * 3.6f))));
+        viewDelegate.setDistance(String.valueOf(Double.parseDouble(new DecimalFormat("#.##").format(bean.rvDatas.get(0).distance))));
+
+        if (++lastHeading == 5) {
+            viewDelegate.lbsChangeBearing(bean.hvDatas.heading);//旋转角度
+            lastHeading = 0;
+        }
+        //更新地图位置
+        viewDelegate.lbsAddBenMaker(bean.hvDatas);
+        for (int i = 0; i < bean.rvDatas.size(); i++)
+            viewDelegate.lbsAddOtherMaker(bean.rvDatas.get(i));
+        viewDelegate.switchCapionHeight(bean.hvDatas.cw != 0);
+        viewDelegate.switchCW(bean.hvDatas.direction);
     }
 
     @Override
@@ -70,27 +92,6 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
 
     private int lastHeading = 0;
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onReceiveJsonBean(JsonRootBean bean) {
-        viewDelegate.setLogText(CarBeanLog.bean2log(bean));
-        if (bean.hvDatas == null || bean.rvDatas == null) {
-            return;
-        }
-        viewDelegate.setSpeed(NumberTransfer.double2String(bean.hvDatas.speed * 3.6f));
-        viewDelegate.setDistance(NumberTransfer.double2String(bean.rvDatas.get(0).distance));
-
-
-        if (++lastHeading == 5) {
-            viewDelegate.lbsChangeBearing(bean.hvDatas.heading);//旋转角度
-            lastHeading = 0;
-        }
-        //更新地图位置
-        viewDelegate.lbsAddBenMaker(bean.hvDatas);
-        for (int i = 0; i < bean.rvDatas.size(); i++)
-            viewDelegate.lbsAddOtherMaker(bean.rvDatas.get(i));
-        viewDelegate.switchCapionHeight(bean.hvDatas.cw != 0);
-        viewDelegate.switchCW(bean.hvDatas.direction);
-    }
 
     @Override
     protected void onStart() {

@@ -13,6 +13,7 @@ import debug.CarBeanLog;
 import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.commen.utils.MediaUtils;
+import wangfeixixi.com.cw.R;
 import wangfeixixi.com.cw.beans.JsonRootBean;
 
 
@@ -59,12 +60,13 @@ public class BirdActivity extends BaseActivity<BirdDelegate> {
         super.onResume();
         viewDelegate.onResume();
 
-        viewDelegate.jumpClick(new View.OnClickListener() {
+        viewDelegate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewDelegate.LogViewShow();
             }
-        });
+        }, R.id.btn_jump);
+
         viewDelegate.jumpLongClick(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -73,7 +75,6 @@ public class BirdActivity extends BaseActivity<BirdDelegate> {
             }
         });
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -106,5 +107,4 @@ public class BirdActivity extends BaseActivity<BirdDelegate> {
         viewDelegate.onDestroy();
         super.onDestroy();
     }
-
 }
