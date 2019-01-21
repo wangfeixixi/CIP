@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="wangfeixixi.com.commen">
 
     <application>
@@ -24,17 +25,17 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        <!--<provider-->
-            <!--android:name=".utils.BuglyFileProvider"-->
-            <!--tools:replace="name,authorities,exported,grantUriPermissions"-->
-            <!--android:authorities="${applicationId}.fileProvider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--tools:replace="name,resource"-->
-                <!--android:resource="@xml/provider_paths" />-->
-        <!--</provider>-->
+        <provider
+            android:name="com.tencent.bugly.beta.utils.BuglyFileProvider"
+            tools:replace="name,authorities,exported,grantUriPermissions"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                tools:replace="name,resource"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
     </application>
 

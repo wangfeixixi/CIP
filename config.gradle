@@ -6,8 +6,8 @@ ext {
             applicationId    : "wangfeixixi.cip",
             minSdkVersion    : 23,
             targetSdkVersion : 28,
-            versionCode      : 13,
-            versionName      : "20190107",
+            versionCode      : 14,
+            versionName      : "20190121",
     ]
     //version配置
     versions = [

@@ -1,6 +1,7 @@
-package wangfeixixi.cip;
+package wangfeixixi.cip.main;
 
 
+import wangfeixixi.cip.R;
 import wangfeixixi.com.commen.fram.BaseDelegate;
 
 public class MainDelegate extends BaseDelegate {

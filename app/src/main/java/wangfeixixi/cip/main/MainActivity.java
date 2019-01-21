@@ -1,9 +1,10 @@
-package wangfeixixi.cip;
+package wangfeixixi.cip.main;
 
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
+import wangfeixixi.cip.R;
 import wangfeixixi.com.commen.arouter.ArouterAop;
 import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
 import wangfeixixi.com.commen.fram.BaseActivity;

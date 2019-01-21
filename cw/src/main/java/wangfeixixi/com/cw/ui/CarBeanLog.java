@@ -1,4 +1,4 @@
-package debug;
+package wangfeixixi.com.cw.ui;
 
 import java.text.DecimalFormat;
 
@@ -37,6 +37,7 @@ public class CarBeanLog {
                 sb.append("\naveragex:" + double2String(rvBean.averagex));
                 sb.append("\naveragey:" + double2String(rvBean.averagey));
                 sb.append("\nheading:" + rvBean.heading);
+                sb.append("\ncw:" + rvBean.cw);
                 sb.append("\nspeed:" + double2String(rvBean.speed));
 
                 sb.append("\ndistance：" + double2String(rvBean.distance) + " m");
@@ -45,7 +46,6 @@ public class CarBeanLog {
                     sb.append("\nmapDistance：" + double2String(LBSUtils.calculateLineDistance(bean.hvDatas.latitude, bean.hvDatas.longitude, rvBean.latitude, rvBean.longitude)) + " m");
                 }
             }
-
 
         return sb.toString();
     }

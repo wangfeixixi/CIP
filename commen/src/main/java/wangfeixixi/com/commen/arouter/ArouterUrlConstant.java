@@ -4,7 +4,7 @@ public class ArouterUrlConstant {
     /**
      * 简单地图见面
      */
-    public static final String MAIN = "/map/MainActivity";
+    public static final String MAIN = "/main/MainActivity";
     /**
      * 简单地图见面
      */
@@ -14,4 +14,8 @@ public class ArouterUrlConstant {
      */
     public static final String BIRD = "/bird/BirdActivity";
 
+    /**
+     * 闪屏界面
+     */
+    public static final String SPLASH = "splash/SplashActivity";
 }

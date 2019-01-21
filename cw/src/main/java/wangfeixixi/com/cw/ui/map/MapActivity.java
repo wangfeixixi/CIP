@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DecimalFormat;
 
-import debug.CarBeanLog;
+import wangfeixixi.com.cw.ui.CarBeanLog;
 import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.cw.R;
