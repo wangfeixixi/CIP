@@ -14,7 +14,7 @@ import wangfeixixi.com.commen.utils.MediaUtils;
 import wangfeixixi.com.commen.utils.ScreenUtils;
 import wangfeixixi.com.commen.utils.UIUtils;
 import wangfeixixi.com.cw.R;
-import wangfeixixi.com.cw.widget.carview.CarBean;
+import wangfeixixi.com.cw.beans.CarBean;
 import wangfeixixi.com.cw.widget.map.LBSUtils;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 

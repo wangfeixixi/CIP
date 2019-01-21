@@ -2,8 +2,6 @@ package wangfeixixi.com.cw.beans;
 
 import java.util.List;
 
-import wangfeixixi.com.cw.widget.carview.CarBean;
-
 
 public class JsonRootBean {
     public int cmd;

@@ -16,8 +16,8 @@ public class Test {
 //        send(jsonAraray);
 //        send(jsonAraray, 3100, 3300);//交叉碰撞预警
 //        send(jsonAraray, 1800, 2100);///直线
-
-        send(jsonAraray, 3900, 4200);//对撞
+//        send(jsonAraray, 3900, 4200);//对撞
+        send(jsonAraray, 1200, 6300);//对撞
     }
 
     public static void send(ArrayList<String> msg) {
@@ -71,7 +71,7 @@ public class Test {
         try {
             for (int i = start; i < end; i++) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

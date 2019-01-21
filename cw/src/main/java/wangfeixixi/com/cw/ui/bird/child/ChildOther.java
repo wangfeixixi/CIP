@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 
 import wangfeixixi.com.commen.utils.UIUtils;
 import wangfeixixi.com.cw.R;
-import wangfeixixi.com.cw.widget.carview.CarUtils;
+import wangfeixixi.com.cw.ui.bird.CarUtils;
 
 public class ChildOther {
 

@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 
 import wangfeixixi.com.commen.utils.ScreenUtils;
 import wangfeixixi.com.commen.utils.UIUtils;
-import wangfeixixi.com.cw.widget.carview.CarUtils;
+import wangfeixixi.com.cw.ui.bird.CarUtils;
 
 public class ChildContainer {
     public static RelativeLayout addFatherView(RelativeLayout rl_father) {

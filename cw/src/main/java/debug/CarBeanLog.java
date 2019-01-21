@@ -4,8 +4,9 @@ import java.text.DecimalFormat;
 
 import wangfeixixi.com.commen.utils.AppUtils;
 import wangfeixixi.com.commen.utils.date.DateUtils;
+import wangfeixixi.com.cw.beans.CarBean;
 import wangfeixixi.com.cw.beans.JsonRootBean;
-import wangfeixixi.com.cw.widget.carview.CarBean;
+import wangfeixixi.com.cw.ui.bird.CarUtils;
 import wangfeixixi.com.cw.widget.map.LBSUtils;
 
 public class CarBeanLog {
@@ -19,6 +20,7 @@ public class CarBeanLog {
         sb.append("\nversion：" + AppUtils.getVersionName() + "-" + AppUtils.getVersionCode());
         sb.append("\ndate：" + String.valueOf(DateUtils.getCurrentDate(DateUtils.dateFormatYMDHMS)));
         sb.append("\nsn：" + bean.sn);
+        sb.append("\nscale:" + CarUtils.getInstance().getScaleGrade());
 
         if (bean.hvDatas != null) {//本车
             sb.append("\n\nhvCar：" + bean.hvDatas.remoteId);

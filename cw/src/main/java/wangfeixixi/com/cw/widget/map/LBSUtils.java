@@ -10,7 +10,7 @@ import wangfeixixi.com.commen.utils.UIUtils;
 import wangfeixixi.com.commen.utils.location.Gps;
 import wangfeixixi.com.commen.utils.location.PositionUtil;
 import wangfeixixi.com.cw.R;
-import wangfeixixi.com.cw.widget.carview.CarBean;
+import wangfeixixi.com.cw.beans.CarBean;
 import wangfeixixi.lbs.LocationInfo;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 

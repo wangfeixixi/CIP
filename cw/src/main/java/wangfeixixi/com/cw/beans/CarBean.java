@@ -1,4 +1,4 @@
-package wangfeixixi.com.cw.widget.carview;
+package wangfeixixi.com.cw.beans;
 
 
 import wangfeixixi.com.cw.widget.CarConfig;

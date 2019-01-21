@@ -8,15 +8,15 @@ import android.graphics.Paint;
 import wangfeixixi.com.commen.utils.BitmapUtils;
 import wangfeixixi.com.commen.utils.UIUtils;
 import wangfeixixi.com.cw.R;
-import wangfeixixi.com.cw.widget.carview.CarBean;
-import wangfeixixi.com.cw.widget.carview.CarUtils;
+import wangfeixixi.com.cw.beans.CarBean;
+import wangfeixixi.com.cw.ui.bird.CarUtils;
 
 public class DrawCar {
     private DrawCar() {
 
         //车图标,放大车辆图标
-        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_self), CarUtils.getInstance().carBitmapScale);
-        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_other), CarUtils.getInstance().carBitmapScale);
+        car_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_self), CarUtils.getInstance().scaleCarBitmap);
+        car_alert_bitmap = BitmapUtils.scaleBitmap(BitmapFactory.decodeResource(UIUtils.getResources(), R.mipmap.car_other), CarUtils.getInstance().scaleCarBitmap);
 
         //自身车
         mPaintCar = new Paint();

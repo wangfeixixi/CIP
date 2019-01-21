@@ -5,7 +5,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
-import wangfeixixi.com.cw.widget.carview.CarUtils;
+import wangfeixixi.com.cw.ui.bird.CarUtils;
 
 public class TranslateAnim {
     public static TranslateAnimation getAnimation(float time) {

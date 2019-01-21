@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import wangfeixixi.com.cw.beans.CarBean;
 import wangfeixixi.com.cw.widget.carview.draw.DrawCar;
 import wangfeixixi.com.cw.widget.carview.draw.DrawLine;
 

@@ -13,12 +13,13 @@ import debug.CarBeanLog;
 import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.commen.utils.MediaUtils;
-import wangfeixixi.com.cw.R;
 import wangfeixixi.com.cw.beans.JsonRootBean;
 
 
 @Route(path = ArouterUrlConstant.BIRD)
 public class BirdActivity extends BaseActivity<BirdDelegate> {
+    private int lastHeading = 0;
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveJsonBean(JsonRootBean bean) {
         viewDelegate.setLogText(CarBeanLog.bean2log(bean));
@@ -31,6 +32,10 @@ public class BirdActivity extends BaseActivity<BirdDelegate> {
         for (int i = 0; i < bean.rvDatas.size(); i++)
             viewDelegate.carviewAddOtherCar(bean.rvDatas.get(i));
 
+        if (++lastHeading == 5) {
+            viewDelegate.lbsChangeBearing(bean.hvDatas.heading);//旋转角度
+            lastHeading = 0;
+        }
 
         //更新地图位置
         viewDelegate.lbsAddBenMaker(bean.hvDatas);
@@ -59,14 +64,12 @@ public class BirdActivity extends BaseActivity<BirdDelegate> {
     protected void onResume() {
         super.onResume();
         viewDelegate.onResume();
-
-        viewDelegate.setOnClickListener(new View.OnClickListener() {
+        viewDelegate.jumpClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewDelegate.LogViewShow();
             }
-        }, R.id.btn_jump);
-
+        });
         viewDelegate.jumpLongClick(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

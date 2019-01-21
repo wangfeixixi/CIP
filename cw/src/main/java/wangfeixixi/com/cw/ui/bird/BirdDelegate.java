@@ -13,12 +13,12 @@ import android.widget.TextView;
 import wangfeixixi.com.commen.fram.BaseDelegate;
 import wangfeixixi.com.commen.utils.ScreenUtils;
 import wangfeixixi.com.commen.utils.UIUtils;
+import wangfeixixi.com.cw.beans.CarBean;
 import wangfeixixi.com.cw.ui.bird.anim.TranslateAnim;
 import wangfeixixi.com.cw.ui.bird.child.ChildCar;
 import wangfeixixi.com.cw.ui.bird.child.ChildContainer;
 import wangfeixixi.com.cw.ui.bird.child.ChildLog;
 import wangfeixixi.com.cw.ui.bird.child.ChildOther;
-import wangfeixixi.com.cw.widget.carview.CarBean;
 import wangfeixixi.com.cw.widget.map.LBSUtils;
 import wangfeixixi.lbs.gaode.GaodeMapService;
 
@@ -146,5 +146,9 @@ public class BirdDelegate extends BaseDelegate {
 
     public void LogViewShow() {
         tv_warning.setVisibility(tv_warning.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+    }
+
+    public void jumpClick(View.OnClickListener listener) {
+        btn_jump.setOnClickListener(listener);
     }
 }
