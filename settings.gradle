@@ -1,1 +1,1 @@
-include ':app','avp','commen','cw'
+include ':app','avp_p','avp_v','commen','cw'

@@ -6,10 +6,10 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 
 import wangfeixixi.cip.R;
 import wangfeixixi.com.commen.arouter.ArouterAop;
-import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
+import wangfeixixi.com.commen.arouter.ArouterMainUrl;
 import wangfeixixi.com.commen.fram.BaseActivity;
 
-@Route(path = ArouterUrlConstant.MAIN)
+@Route(path = ArouterMainUrl.MAIN)
 public class MainActivity extends BaseActivity<MainDelegate> implements View.OnClickListener {
     @Override
     protected Class<MainDelegate> getDelegateClass() {
@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity<MainDelegate> implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_bird:
-                ArouterAop.gotoBird(this);
+                ArouterAop.gotoAvp(this);
                 break;
             case R.id.btn_map:
                 ArouterAop.gotoMap(this);

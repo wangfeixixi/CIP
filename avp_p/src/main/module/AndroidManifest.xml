@@ -1,16 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="wangfeixixi.com.avp">
+    package="wangfeixixi.com.avpp">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon"
-        android:label="module_avp"
+        android:label="avp_p"
         android:supportsRtl="true"
         android:theme="@style/theme_all"
         tools:replace="label,icon,theme">
 
-        <activity android:name=".AVPTEstActivity">
+        <activity android:name=".handle.HandleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

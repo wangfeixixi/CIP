@@ -12,7 +12,7 @@ public class ArouterAop {
      *
      */
     public static void gotoAppMainActivity(final Activity activity) {
-        ARouter.getInstance().build(ArouterUrlConstant.MAIN).navigation(activity, new NavigationCallback() {
+        ARouter.getInstance().build(ArouterMainUrl.MAIN).navigation(activity, new NavigationCallback() {
             @Override
             public void onFound(Postcard postcard) {
 
@@ -40,7 +40,7 @@ public class ArouterAop {
      *
      */
     public static void gotoMap(final Activity activity) {
-        ARouter.getInstance().build(ArouterUrlConstant.MAP).navigation(activity, new NavigationCallback() {
+        ARouter.getInstance().build(ArouterMainUrl.MAP).navigation(activity, new NavigationCallback() {
             @Override
             public void onFound(Postcard postcard) {
 
@@ -63,8 +63,8 @@ public class ArouterAop {
         });
     }
 
-    public static void gotoBird(final Activity activity) {
-        ARouter.getInstance().build(ArouterUrlConstant.BIRD).navigation(activity, new NavigationCallback() {
+    public static void gotoAvp(final Activity activity) {
+        ARouter.getInstance().build(ArouterMainUrl.BIRD).navigation(activity, new NavigationCallback() {
             @Override
             public void onFound(Postcard postcard) {
 

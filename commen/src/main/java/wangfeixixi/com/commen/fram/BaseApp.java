@@ -4,13 +4,12 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.Bugly;
 
+import wangfeixixi.com.commen.bugly.SampleApplication;
 import wangfeixixi.com.commen.utils.ConfigUtils;
-import wangfeixixi.com.commen.utils.UIUtils;
 import wangfeixixi.com.commen.utils.crash.CrashHandler;
 
-public class BaseApp extends Application {
+public class BaseApp extends SampleApplication {
 
     private static Application instance;
 
@@ -28,7 +27,6 @@ public class BaseApp extends Application {
 
         ARouter.init(instance);
 
-        Bugly.init(UIUtils.getContext(), "7f4076eec5", false);
 //        ThreadUtils.runOnBackThread(new Runnable() {
 //            @Override
 //            public void run() {

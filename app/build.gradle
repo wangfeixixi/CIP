@@ -1,7 +1,31 @@
 apply plugin: 'com.android.application'
 
-//apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
+// 依赖插件脚本
+apply from: 'tinker-support.gradle'
+
+//apply plugin: 'bugly'
+//bugly {
+//    appId = "xxxxxx"
+//    appKey = "xxxxxx"
+//}
+//
+//android.applicationVariants.all { variant ->
+//    def buglyAppId = null;
+//    def buglyAppKey = null;
+//    if (variant.flavorName.equals("channel1")) { // 渠道1：channel1
+//        buglyAppId = 'xxxxxx'
+//        buglyAppKey = 'xxxxxx'
+//    } else if (variant.flavorName.equals("channel2")) { // 渠道2：channel2
+//        buglyAppId = 'xxxxxx'
+//        buglyAppKey = 'xxxxxx'
+//    }
+//    if(buglyAppId != null) {
+//        variant.ext.buglyAppId = buglyAppId
+//    }
+//    if (buglyAppKey != null) {
+//        variant.ext.buglyAppKey = buglyAppKey
+//    }
+//}
 
 android {
     signingConfigs {
@@ -53,7 +77,8 @@ android {
 dependencies {
     implementation project(':commen')
     if (!isModule.toBoolean()) {
-        implementation project(':avp')
+        implementation project(':avp_v')
+        implementation project(':avp_p')
         implementation project(':cw')
     }
 

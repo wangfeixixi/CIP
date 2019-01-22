@@ -10,7 +10,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.3.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
@@ -21,6 +21,12 @@ buildscript {
 
         //arouter
         classpath "com.alibaba:arouter-register:1.0.2"
+
+        //bugly tinker
+        classpath "com.tencent.bugly:tinker-support:1.1.5"
+
+        //bugly 符号表
+//        classpath 'com.tencent.bugly:symtabfileuploader:2.1.0'
     }
 }
 

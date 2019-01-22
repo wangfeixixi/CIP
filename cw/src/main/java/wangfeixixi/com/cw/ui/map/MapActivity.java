@@ -12,14 +12,16 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DecimalFormat;
 
+import wangfeixixi.com.commen.utils.ServiceUtils;
 import wangfeixixi.com.cw.ui.CarBeanLog;
-import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
+import wangfeixixi.com.commen.arouter.ArouterMainUrl;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.cw.R;
 import wangfeixixi.com.cw.beans.JsonRootBean;
+import wangfeixixi.com.cw.widget.udp.sevice.UDPService;
 
 
-@Route(path = ArouterUrlConstant.MAP)
+@Route(path = ArouterMainUrl.MAP)
 public class MapActivity extends BaseActivity<MapDelegate> implements View.OnClickListener, View.OnLongClickListener {
     @Override
     public Class<MapDelegate> getDelegateClass() {
@@ -51,6 +53,8 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewDelegate.onCreate(savedInstanceState);
+
+        ServiceUtils.startService(UDPService.class);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
 
     @Override
     public boolean onLongClick(View v) {
-        ARouter.getInstance().build(ArouterUrlConstant.BIRD).navigation();
+        ARouter.getInstance().build(ArouterMainUrl.BIRD).navigation();
         return true;
     }
 

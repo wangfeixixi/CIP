@@ -10,13 +10,13 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import wangfeixixi.com.cw.ui.CarBeanLog;
-import wangfeixixi.com.commen.arouter.ArouterUrlConstant;
+import wangfeixixi.com.commen.arouter.ArouterMainUrl;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.commen.utils.MediaUtils;
 import wangfeixixi.com.cw.beans.JsonRootBean;
 
 
-@Route(path = ArouterUrlConstant.BIRD)
+@Route(path = ArouterMainUrl.BIRD)
 public class BirdActivity extends BaseActivity<BirdDelegate> {
     private int lastHeading = 0;
 
