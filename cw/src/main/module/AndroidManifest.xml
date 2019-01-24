@@ -62,7 +62,7 @@
         android:name="debug.CWApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
-        android:label="module_cw"
+        android:label="5GV2X_CW"
         android:supportsRtl="true"
         android:theme="@style/theme_all"
         tools:replace="label,icon,theme">

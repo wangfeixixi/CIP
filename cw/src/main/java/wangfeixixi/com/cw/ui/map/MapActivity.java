@@ -12,13 +12,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DecimalFormat;
 
-import wangfeixixi.com.commen.utils.ServiceUtils;
-import wangfeixixi.com.cw.ui.CarBeanLog;
 import wangfeixixi.com.commen.arouter.ArouterMainUrl;
 import wangfeixixi.com.commen.fram.BaseActivity;
 import wangfeixixi.com.cw.R;
 import wangfeixixi.com.cw.beans.JsonRootBean;
-import wangfeixixi.com.cw.widget.udp.sevice.UDPService;
+import wangfeixixi.com.cw.ui.CarBeanLog;
 
 
 @Route(path = ArouterMainUrl.MAP)
@@ -43,18 +41,19 @@ public class MapActivity extends BaseActivity<MapDelegate> implements View.OnCli
         }
         //更新地图位置
         viewDelegate.lbsAddBenMaker(bean.hvDatas);
-        for (int i = 0; i < bean.rvDatas.size(); i++)
+        for (int i = 0; i < bean.rvDatas.size(); i++) {
             viewDelegate.lbsAddOtherMaker(bean.rvDatas.get(i));
-        viewDelegate.switchCapionHeight(bean.hvDatas.cw != 0);
-        viewDelegate.switchCW(bean.hvDatas.direction);
+            if (i == 0) {
+                viewDelegate.switchCapionHeight(bean.rvDatas.get(0).cw != 0);
+                viewDelegate.switchCW(bean.rvDatas.get(0).cw);
+            }
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewDelegate.onCreate(savedInstanceState);
-
-        ServiceUtils.startService(UDPService.class);
     }
 
     @Override

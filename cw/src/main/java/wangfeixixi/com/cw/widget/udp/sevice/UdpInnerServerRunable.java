@@ -74,7 +74,7 @@ public class UdpInnerServerRunable implements Runnable {
                 ds.receive(dpRcv);
                 String string = new String(dpRcv.getData(), dpRcv.getOffset(), dpRcv.getLength());
                 EventBus.getDefault().post(JSON.parseObject(string, JsonRootBean.class));
-//                LogUtils.d(string);
+                LogUtils.d(string);
             } catch (IOException e) {
 //                e.printStackTrace();
                 LogUtils.d("UDP服务器IOException" + e.getMessage());

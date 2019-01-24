@@ -42,7 +42,7 @@ public class BirdActivity extends BaseActivity<BirdDelegate> {
         for (int i = 0; i < bean.rvDatas.size(); i++)
             viewDelegate.lbsAddOtherMaker(bean.rvDatas.get(i));
 
-        if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).fcwAlarm != 0) {
+        if (bean.rvDatas.get(0) != null && bean.rvDatas.get(0).cw != 0) {
             MediaUtils.getInstance().start();
         }
 

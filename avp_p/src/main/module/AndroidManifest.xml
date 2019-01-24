@@ -3,6 +3,7 @@
     package="wangfeixixi.com.avpp">
 
     <application
+        android:name="wangfeixixi.com.commen.fram.BaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="avp_p"

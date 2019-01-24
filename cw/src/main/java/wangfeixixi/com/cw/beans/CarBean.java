@@ -4,7 +4,6 @@ package wangfeixixi.com.cw.beans;
 import wangfeixixi.com.cw.widget.CarConfig;
 
 public class CarBean {
-    public int fcwAlarm = 0;
     public float heading = 0;
     public float speed = 0;
     public float latitude;
@@ -20,7 +19,6 @@ public class CarBean {
 
     //本车预警
     public int cw;
-    public int direction;//上下左右：1234
     public float width;//宽
     public float height;//长
 
@@ -40,8 +38,6 @@ public class CarBean {
         sb.append("\naveragex: " + averagex);
         sb.append("\naveragey: " + averagey);
         sb.append("\ncw: " + cw);
-        sb.append("\ndirection: " + direction);
-        sb.append("\nfcwAlarm: " + fcwAlarm);
         sb.append("\nheading: " + heading + " °");
         sb.append("\nspeed: " + speed);
         sb.append("\nwidth：" + width);
