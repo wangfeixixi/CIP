@@ -27,6 +27,7 @@ public class MapDelegate extends BaseDelegate {
     private TextView tv_distance;
     private TextView tv_log;
     private ImageView iv_car_center;
+    private TextView tv_cw;
 
     @Override
     public int getRootLayoutId() {
@@ -42,6 +43,7 @@ public class MapDelegate extends BaseDelegate {
         tv_log = get(R.id.tv_log);
 
         iv_car_center = get(R.id.iv_car_center);
+        tv_cw = get(R.id.tv_cw);
     }
 
     public void switchCW(int cw) {
@@ -49,32 +51,42 @@ public class MapDelegate extends BaseDelegate {
         switch (cw) {
             case 1://前向碰撞
                 gifID = R.mipmap.cw_front;
+                tv_cw.setText("前向碰撞预警");
                 break;
             case 2://后向碰撞
                 gifID = R.mipmap.cw_back;
+                tv_cw.setText("后向碰撞预警");
                 break;
             case 3://左向碰撞
                 gifID = R.mipmap.cw_left;
+                tv_cw.setText("左向碰撞预警");
                 break;
             case 4://右向碰撞
                 gifID = R.mipmap.cw_right;
+                tv_cw.setText("右向碰撞预警");
                 break;
             case 5://逆向超车
-                gifID = R.mipmap.cw_reverse_left;
+                gifID = R.mipmap.cw_subtend_3;
+                tv_cw.setText("逆向超车预警");
                 break;
             case 6://盲区左侧
                 gifID = R.mipmap.cw_dead_zone_left;
+                tv_cw.setText("盲区左侧预警");
                 break;
             case 7://盲区右侧
                 gifID = R.mipmap.cw_dead_zone_right;
+                tv_cw.setText("盲区右侧预警");
                 break;
             case 8://左转辅助
                 gifID = R.mipmap.cw_left_assist;
+                tv_cw.setText("左转辅助预警");
                 break;
             case 9://异常车辆
                 gifID = R.mipmap.cw_abnomal;
+                tv_cw.setText("异常车辆预警");
                 break;
             default:
+                tv_cw.setText("");
                 return;
         }
         Glide.with(UIUtils.getContext())
