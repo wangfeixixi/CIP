@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import wangfeixixi.com.commen.fram.BaseDelegate;
 import wangfeixixi.com.commen.utils.MediaUtils;
 import wangfeixixi.com.commen.utils.ScreenUtils;
@@ -71,8 +72,10 @@ public class MapDelegate extends BaseDelegate {
                 gifID = R.mipmap.cw_left_assist;
                 break;
             case 9://异常车辆
+                gifID = R.mipmap.cw_abnomal;
+                break;
             default:
-                gifID = R.mipmap.cw_abnormal;
+                return;
         }
         Glide.with(UIUtils.getContext())
                 .load(gifID)
@@ -158,4 +161,23 @@ public class MapDelegate extends BaseDelegate {
     public void showLogView() {
         tv_log.setVisibility(tv_log.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
     }
+
+    private SweetAlertDialog sweetAlertDialog;
+
+    public void showAlert(String msg) {
+        if (sweetAlertDialog == null)
+            sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
+
+        sweetAlertDialog
+                .setTitleText(msg)
+                .show();
+    }
+
+    public void dismissAlert() {
+        if (sweetAlertDialog != null) {
+            sweetAlertDialog.cancel();
+            sweetAlertDialog.dismiss();
+        }
+    }
+
 }

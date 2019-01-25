@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import wangfeixixi.com.commen.fram.BaseDelegate;
 import wangfeixixi.com.commen.utils.ScreenUtils;
 import wangfeixixi.com.commen.utils.UIUtils;
@@ -151,4 +152,24 @@ public class BirdDelegate extends BaseDelegate {
     public void jumpClick(View.OnClickListener listener) {
         btn_jump.setOnClickListener(listener);
     }
+
+
+    private SweetAlertDialog sweetAlertDialog;
+
+    public void showAlert(String msg) {
+        if (sweetAlertDialog == null)
+            sweetAlertDialog = new SweetAlertDialog(getActivity());
+
+        sweetAlertDialog
+                .setTitleText(msg)
+                .show();
+    }
+
+    public void dismissAlert() {
+        if (sweetAlertDialog != null) {
+            sweetAlertDialog.cancel();
+            sweetAlertDialog.dismiss();
+        }
+    }
+
 }
